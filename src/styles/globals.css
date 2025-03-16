@@ -1,26 +1,202 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@font-face {
+	font-family: "Apothem Caps MD";
+	src: url("/fonts/ApothemCapsMD.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Define global variables for the color scheme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	--bg-dark: #0f1118;
+	--bg-darker: #080a12;
+	--accent-primary: #6e56cf;
+	--accent-secondary: #4cc9f0;
+	--text-primary: #f0f0f0;
+	--text-secondary: #a0a0a0;
+	--card-bg: rgba(30, 30, 45, 0.7);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+	body {
+		@apply text-white;
+		background: var(--bg-dark);
+		background-image: radial-gradient(circle at top right, rgba(76, 29, 149, 0.7), rgba(30, 41, 59, 0.9));
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-bold text-white;
+	}
+
+	.uppercase {
+		font-family: "Apothem Caps MD", sans-serif;
+		letter-spacing: 0.05em;
+	}
+
+	/* Custom scrollbar */
+	::-webkit-scrollbar {
+		@apply w-2;
+	}
+
+	::-webkit-scrollbar-track {
+		@apply bg-gray-100;
+	}
+
+	::-webkit-scrollbar-thumb {
+		@apply bg-gray-300 rounded-full hover:bg-gray-400;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@layer components {
+	.btn {
+		@apply px-4 py-2 font-medium rounded-lg transition-colors duration-300;
+	}
+
+	.btn-primary {
+		@apply bg-purple-600 text-white hover:bg-purple-700;
+	}
+
+	.btn-secondary {
+		@apply bg-gray-800 text-white hover:bg-gray-700;
+	}
+
+	.btn-outline {
+		@apply border border-purple-600 text-purple-600 hover:bg-purple-50;
+	}
+
+	.card {
+		@apply p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+	}
+
+	.input {
+		@apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent;
+	}
+
+	.badge {
+		@apply px-2 py-1 text-xs font-medium rounded-full;
+	}
+
+	.badge-primary {
+		@apply bg-purple-100 text-purple-700;
+	}
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Add responsive styles for typography */
+@media (max-width: 640px) {
+	h1 {
+		@apply text-3xl;
+	}
+	h2 {
+		@apply text-2xl;
+	}
+}
+
+/* Add prism.js styles for code highlighting */
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+	tab-size: 4;
+	hyphens: none;
+}
+
+pre[class*="language-"] {
+	padding: 1em;
+	margin: 0.5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+:not(pre) > code[class*="language-"] {
+	padding: 0.1em;
+	border-radius: 0.3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
 }
