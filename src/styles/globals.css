@@ -106,6 +106,26 @@
 	animation: fadeIn 0.5s ease-out forwards;
 }
 
+/* Add scroll-in animation for sections */
+@keyframes scrollFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.scroll-animate {
+	opacity: 0;
+}
+
+.scroll-animate.active {
+	animation: scrollFadeIn 0.8s ease-out forwards;
+}
+
 /* Add responsive styles for typography */
 @media (max-width: 640px) {
 	h1 {
