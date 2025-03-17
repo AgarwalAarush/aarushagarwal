@@ -11,14 +11,28 @@ export default function Navbar() {
   const router = useRouter();
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'Resume', href: '/documents/Resume - Aarush Agarwal.pdf' },
+    { name: 'Home', href: '/', isSection: false },
+    { name: 'Projects', href: '#projects', isSection: true },
+    { name: 'Blog', href: '#blog', isSection: true },
+    { name: 'Contact', href: '/contact', isSection: false },
+    { name: 'Resume', href: '/documents/Resume - Aarush Agarwal.pdf', isSection: false },
   ];
 
-  const isActive = (path) => router.pathname === path;
+  // Disable the active highlighting for all navbar items
+  const isActive = (path) => false;
+
+  const handleNavClick = (e, item) => {
+    if (item.isSection && router.pathname === '/') {
+      e.preventDefault();
+      const sectionId = item.href.substring(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile menu if open
+        setIsMenuOpen(false);
+      }
+    }
+  };
 
   if (!mounted) {
     return (
@@ -54,6 +68,7 @@ export default function Navbar() {
                       ? 'text-[#4cc9f0] bg-[rgba(76,201,240,0.1)] border border-[rgba(76,201,240,0.2)]'
                       : 'text-[#a0a0a0] hover:text-[#4cc9f0] hover:bg-[rgba(76,201,240,0.05)]'
                   }`}
+                  onClick={(e) => handleNavClick(e, item)}
                 >
                   {item.name}
                 </Link>
@@ -103,7 +118,10 @@ export default function Navbar() {
                   ? 'text-[#4cc9f0] bg-[rgba(76,201,240,0.1)] border border-[rgba(76,201,240,0.2)]'
                   : 'text-[#a0a0a0] hover:text-[#4cc9f0] hover:bg-[rgba(76,201,240,0.05)]'
               }`}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                handleNavClick(e, item);
+                if (!item.isSection) setIsMenuOpen(false);
+              }}
             >
               {item.name}
             </Link>
