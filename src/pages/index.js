@@ -45,21 +45,13 @@ export default function Home({ projects, posts }) {
 		if (!isMounted) return;
 		const handleScroll = () => {
 			const scrollPosition = window.scrollY;
-			const fadeStart = 0;
-			const fadeEnd = 300;
-			const fadeRange = fadeEnd - fadeStart;
-			let newOpacity = 1;
-			if (scrollPosition <= fadeStart) {
-				newOpacity = 1;
-			} else if (scrollPosition >= fadeEnd) {
-				newOpacity = 0;
-			} else {
-				newOpacity = 1 - (scrollPosition - fadeStart) / fadeRange;
-			}
+			// Calculate opacity based directly on scroll position
+			// The higher the scroll position, the lower the opacity
+			const maxScrollForFade = 300; // Point at which opacity will be 0
+			let newOpacity = Math.max(0, 1 - (scrollPosition / maxScrollForFade));
+			console.log(newOpacity);
+			
 			setScrollOpacity(newOpacity);
-			if (exploreTextRef.current) {
-				exploreTextRef.current.style.opacity = newOpacity;
-			}
 		};
 		handleScroll();
 		window.addEventListener("scroll", handleScroll, { passive: true });
@@ -67,6 +59,13 @@ export default function Home({ projects, posts }) {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, [isMounted]);
+
+	const scrollToProjects = () => {
+		const projectsSection = document.getElementById('projects');
+		if (projectsSection) {
+			projectsSection.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
 
 	const heroContent = (
 		<>
@@ -181,11 +180,9 @@ export default function Home({ projects, posts }) {
 					</div>
 					<motion.div
 						ref={exploreTextRef}
-						className="absolute bottom-24 left-0 right-0 text-center z-30"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5, delay: 1 }}
+						className="absolute bottom-24 left-0 right-0 text-center z-30 cursor-pointer"
 						style={{ opacity: scrollOpacity }}
+						onClick={scrollToProjects}
 					>
 						<p className="text-[#f0f0f0] text-base uppercase tracking-widest">
 							Continue Exploring
