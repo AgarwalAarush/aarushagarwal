@@ -86,7 +86,7 @@ export default function Home({ projects, posts }) {
 					name="description"
 					content="Personal website showcasing projects and blog posts"
 				/>
-				<link rel="icon" href="/favicon.ico" />
+				<link rel="icon" href="/icon.png" />
 			</Head>
 			<main>
 				{/* Hero Section */}
