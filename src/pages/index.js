@@ -319,7 +319,7 @@ export default function Home({ projects, posts }) {
 				</section>
 
 				{/* Blog Section */}
-				<section className="py-16 section-bg relative">
+				<section id="blog" className="py-16 section-bg relative">
 					{/* Grid background */}
 					<div className="absolute inset-0 z-0 opacity-30">
 						<svg
