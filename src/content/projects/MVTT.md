@@ -1,7 +1,7 @@
 ---
 title: 'MV Test Tracker'
 description: 'An optimization tool to help students manage time and teachers schedule tests more efficiently.'
-image: '/images/project7.png'
+image: '/images/mvtt.png'
 github: 'https://github.com/mvtime/mvtime.github.io'
 demo: 'https://mvtt.app/'
 technologies: ['React', 'Firebase', 'Optimization Algorithm', 'JavaScript']
