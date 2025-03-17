@@ -72,22 +72,32 @@ export default function ProjectCard({ project }) {
   return (
     <Link href={`/projects/${project.id}`} legacyBehavior>
       <a className="block">
-        <div className="overflow-hidden rounded-lg shadow-lg cursor-pointer">
-          <div className="p-6 bg-[#0a0c14] border border-[#1e1e2d] rounded-lg hover:border-[#4cc9f0] transition-all duration-300 h-full flex flex-col">
-            <ClientOnly fallback={cardContent}>
-              {() => (
-                <motion.div
-                  initial={false}
-                  whileHover={{ y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="h-full w-full"
-                >
-                  {cardContent}
-                </motion.div>
-              )}
-            </ClientOnly>
+        <ClientOnly fallback={
+          <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
+            <div className="p-6 section-bg rounded-lg border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 h-full flex flex-col relative group">
+              {/* <div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf20] to-[#9d7bff20] rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> */}
+              <div className="relative z-10 h-full flex flex-col">
+                {cardContent}
+              </div>
+            </div>
           </div>
-        </div>
+        }>
+          {() => (
+            <motion.div
+              whileHover={{ y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
+                <div className="p-6 section-bg rounded-lg border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 h-full flex flex-col relative group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf20] to-[#9d7bff20] rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10 h-full flex flex-col">
+                    {cardContent}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </ClientOnly>
       </a>
     </Link>
   );
