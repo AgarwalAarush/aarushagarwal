@@ -9,11 +9,12 @@ import { useState, useEffect, useRef } from "react";
 import ClientOnly from "../components/ClientOnly";
 import Particles from "../components/Particles";
 
-import { initMacbookAnimation } from "@/lib/macanimation";
+import { initMacbookAnimation } from "@/lib/macanimationgl";
+import { initAIAnimation } from "@/lib/aianimationgl";
 
 export default function Home({ projects, posts }) {
 	const [isMounted, setIsMounted] = useState(false);
-	const [scrollOpacity, setScrollOpacity] = useState(1); 
+	const [scrollOpacity, setScrollOpacity] = useState(1);
 	const exploreTextRef = useRef(null);
 
 	useEffect(() => {
@@ -22,20 +23,16 @@ export default function Home({ projects, posts }) {
 
 	useEffect(() => {
 		if (!isMounted) return;
-
 		const container = document.getElementById("computer-container");
 		let cleanup = null;
-
 		const loadAnimation = async () => {
 			try {
-				cleanup = await initMacbookAnimation(container);
+				cleanup = await initAIAnimation(container);
 			} catch (error) {
-				console.error("Error initializing Macbook animation:", error);
+				console.error("Error initializing AI animation:", error);
 			}
 		};
-
 		loadAnimation();
-
 		return () => {
 			if (cleanup) {
 				cleanup();
@@ -46,45 +43,31 @@ export default function Home({ projects, posts }) {
 	// Add scroll listener for fade effect
 	useEffect(() => {
 		if (!isMounted) return;
-
-		// Run once on mount to set initial state
 		const handleScroll = () => {
 			const scrollPosition = window.scrollY;
-			
-			// Start fading immediately on scroll (0px), completely fade by 300px
 			const fadeStart = 0;
 			const fadeEnd = 300;
 			const fadeRange = fadeEnd - fadeStart;
-			
 			let newOpacity = 1;
 			if (scrollPosition <= fadeStart) {
 				newOpacity = 1;
 			} else if (scrollPosition >= fadeEnd) {
 				newOpacity = 0;
 			} else {
-				// Linear fade from full opacity to zero
-				newOpacity = 1 - ((scrollPosition - fadeStart) / fadeRange);
+				newOpacity = 1 - (scrollPosition - fadeStart) / fadeRange;
 			}
-			
 			setScrollOpacity(newOpacity);
-			
-			// Apply directly to element as a fallback
 			if (exploreTextRef.current) {
 				exploreTextRef.current.style.opacity = newOpacity;
 			}
 		};
-
-		// Call once on initial mount to ensure correct state
 		handleScroll();
-
 		window.addEventListener("scroll", handleScroll, { passive: true });
-		
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, [isMounted]);
 
-	// Hero section animations with fallbacks
 	const heroContent = (
 		<>
 			<h1 className="mb-6 text-5xl font-bold text-[#f0f0f0] uppercase tracking-wider">
@@ -97,7 +80,7 @@ export default function Home({ projects, posts }) {
 	);
 
 	return (
-		<div className="min-h-screen bg-[#0f1118]">
+		<div className="min-h-screen section-bg">
 			<Head>
 				<title>Aarush Agarwal - Personal Website</title>
 				<meta
@@ -106,17 +89,13 @@ export default function Home({ projects, posts }) {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
 			<main>
 				{/* Hero Section */}
-				<section className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden bg-[#080a12]">
-					{/* Three.js Computer Container - Positioned behind the text */}
+				<section className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden section-bg">
 					<div
 						className="absolute inset-0 z-10"
 						id="computer-container"
 					></div>
-
-					{/* Particle effect overlay */}
 					<div className="absolute inset-0 z-20 opacity-30">
 						<svg
 							width="100%"
@@ -149,8 +128,6 @@ export default function Home({ projects, posts }) {
 								height="100%"
 								fill="url(#grid-gradient)"
 							/>
-
-							{/* Grid lines */}
 							<g opacity="0.2">
 								{[...Array(20)].map((_, i) => (
 									<line
@@ -175,16 +152,12 @@ export default function Home({ projects, posts }) {
 									/>
 								))}
 							</g>
-
-							{/* Random dots as "particles" - Client-side only */}
 							<ClientOnly>
 								<Particles count={50} color="#4cc9f0" />
 							</ClientOnly>
 						</svg>
 					</div>
-
 					<div className="container relative z-30 px-4 mx-auto text-center">
-						{/* Server-side rendering fallback & client-side animations */}
 						<ClientOnly fallback={<div>{heroContent}</div>}>
 							<div>
 								<motion.h1
@@ -206,9 +179,7 @@ export default function Home({ projects, posts }) {
 							</div>
 						</ClientOnly>
 					</div>
-					
-					{/* Continue Exploring text at bottom */}
-					<motion.div 
+					<motion.div
 						ref={exploreTextRef}
 						className="absolute bottom-24 left-0 right-0 text-center z-30"
 						initial={{ opacity: 0 }}
@@ -219,30 +190,28 @@ export default function Home({ projects, posts }) {
 						<p className="text-[#f0f0f0] text-base uppercase tracking-widest">
 							Continue Exploring
 						</p>
-						<motion.div 
+						<motion.div
 							className="mt-1"
-							animate={{ 
-								y: [0, 10, 0],
-							}}
+							animate={{ y: [0, 10, 0] }}
 							transition={{
 								duration: 1.5,
 								repeat: Infinity,
-								repeatType: "loop"
+								repeatType: "loop",
 							}}
 						>
-							<svg 
-								width="24" 
-								height="24" 
-								viewBox="0 0 24 24" 
-								fill="none" 
+							<svg
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
 								xmlns="http://www.w3.org/2000/svg"
 								className="mx-auto"
 							>
-								<path 
-									d="M7 10L12 15L17 10" 
-									stroke="#f0f0f0" 
-									strokeWidth="2" 
-									strokeLinecap="round" 
+								<path
+									d="M7 10L12 15L17 10"
+									stroke="#f0f0f0"
+									strokeWidth="2"
+									strokeLinecap="round"
 									strokeLinejoin="round"
 								/>
 							</svg>
@@ -251,14 +220,25 @@ export default function Home({ projects, posts }) {
 				</section>
 
 				{/* Projects Section */}
-				<section id="projects" className="py-16 bg-[#080a12] relative">
-					{/* Grid background - extended throughout the section */}
+				<section id="projects" className="py-16 section-bg relative">
+					{/* Grid background */}
 					<div className="absolute inset-0 z-0 opacity-30">
 						<svg
 							width="100%"
 							height="100%"
 							xmlns="http://www.w3.org/2000/svg"
 						>
+							{/* <defs>
+								<radialGradient id="projects-grid-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+									<stop offset="0%" stopColor="#6e56cf" stopOpacity="0.3" />
+									<stop offset="100%" stopColor="#080a12" stopOpacity="0" />
+								</radialGradient>
+							</defs> */}
+							<rect
+								width="100%"
+								height="100%"
+								fill="url(#projects-grid-gradient)"
+							/>
 							<g opacity="0.2">
 								{[...Array(20)].map((_, i) => (
 									<line
@@ -283,16 +263,12 @@ export default function Home({ projects, posts }) {
 									/>
 								))}
 							</g>
-
-							{/* Random dots as "particles" - Client-side only */}
 							<ClientOnly>
 								<Particles count={30} color="#4cc9f0" />
 							</ClientOnly>
 						</svg>
 					</div>
-
 					<div className="container relative z-10 px-4 mx-auto">
-						{/* Centered Projects title */}
 						<ClientOnly
 							fallback={
 								<div className="mb-12 text-center">
@@ -314,8 +290,6 @@ export default function Home({ projects, posts }) {
 								</h2>
 							</motion.div>
 						</ClientOnly>
-
-						{/* Projects grid with consistent structure */}
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 							{projects &&
 								projects.map((project) => (
@@ -347,15 +321,26 @@ export default function Home({ projects, posts }) {
 					</div>
 				</section>
 
-				{/* Blog Section - Changed background to match the rest of the site */}
-				<section className="py-16 bg-[#080a12] relative">
-					{/* Grid background - extended throughout the section */}
+				{/* Blog Section */}
+				<section className="py-16 section-bg relative">
+					{/* Grid background */}
 					<div className="absolute inset-0 z-0 opacity-30">
 						<svg
 							width="100%"
 							height="100%"
 							xmlns="http://www.w3.org/2000/svg"
 						>
+							{/* <defs>
+								<radialGradient id="blog-grid-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+									<stop offset="0%" stopColor="#6e56cf" stopOpacity="0.3" />
+									<stop offset="100%" stopColor="#080a12" stopOpacity="0" />
+								</radialGradient>
+							</defs> */}
+							<rect
+								width="100%"
+								height="100%"
+								fill="url(#blog-grid-gradient)"
+							/>
 							<g opacity="0.2">
 								{[...Array(20)].map((_, i) => (
 									<line
@@ -364,7 +349,7 @@ export default function Home({ projects, posts }) {
 										y1={i * 30}
 										x2="100%"
 										y2={i * 30}
-										stroke="#6e56cf"
+										stroke="#4cc9f0"
 										strokeWidth="0.5"
 									/>
 								))}
@@ -375,21 +360,17 @@ export default function Home({ projects, posts }) {
 										y1="0"
 										x2={i * 30}
 										y2="100%"
-										stroke="#6e56cf"
+										stroke="#4cc9f0"
 										strokeWidth="0.5"
 									/>
 								))}
 							</g>
-
-							{/* Random dots as "particles" - Client-side only */}
 							<ClientOnly>
-								<Particles count={30} color="#6e56cf" />
+								<Particles count={50} color="#4cc9f0" />
 							</ClientOnly>
 						</svg>
 					</div>
-
 					<div className="container relative z-10 px-4 mx-auto">
-						{/* Blog header with fallback */}
 						<ClientOnly
 							fallback={
 								<div className="flex items-center justify-between mb-12">
@@ -423,8 +404,6 @@ export default function Home({ projects, posts }) {
 								</Link>
 							</motion.div>
 						</ClientOnly>
-
-						{/* Blog posts with fallback */}
 						<ClientOnly
 							fallback={
 								<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -434,7 +413,7 @@ export default function Home({ projects, posts }) {
 												<Link
 													href={`/blog/${post.slug}`}
 												>
-													<div className="p-6 overflow-hidden bg-[#0a0c14] rounded-lg shadow-md border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 relative group">
+													<div className="p-6 overflow-hidden section-bg rounded-lg shadow-md border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 relative group">
 														<div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf20] to-[#9d7bff20] rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 														<div className="relative z-10">
 															<h3 className="mb-3 text-xl font-semibold text-[#f0f0f0]">
@@ -498,7 +477,7 @@ export default function Home({ projects, posts }) {
 												<Link
 													href={`/blog/${post.slug}`}
 												>
-													<div className="p-6 overflow-hidden bg-[#0a0c14] rounded-lg shadow-md border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 relative group">
+													<div className="p-6 overflow-hidden section-bg rounded-lg shadow-md border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 relative group">
 														<div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf20] to-[#9d7bff20] rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 														<div className="relative z-10">
 															<h3 className="mb-3 text-xl font-semibold text-[#f0f0f0]">
@@ -544,26 +523,16 @@ export default function Home({ projects, posts }) {
 }
 
 export async function getStaticProps() {
-	// Get files from the projects directory
 	const projectFiles = fs.readdirSync(
 		path.join(process.cwd(), "src/content/projects")
 	);
-
-	// Get slug and frontmatter from markdown files
 	const projects = projectFiles.map((filename) => {
-		// Create id from filename
 		const id = filename.replace(".md", "");
-
-		// Read markdown file as string
 		const markdownWithMeta = fs.readFileSync(
 			path.join(process.cwd(), "src/content/projects", filename),
 			"utf-8"
 		);
-
-		// Parse markdown frontmatter
 		const { data: frontmatter } = matter(markdownWithMeta);
-
-		// Return id and data
 		return {
 			id,
 			title: frontmatter.title,
@@ -591,6 +560,6 @@ export async function getStaticProps() {
 			projects,
 			posts,
 		},
-		revalidate: 60, // Revalidate at most once per minute
+		revalidate: 60,
 	};
 }
