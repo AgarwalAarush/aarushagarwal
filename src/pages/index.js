@@ -5,7 +5,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ProjectCard from "../components/ProjectCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ClientOnly from "../components/ClientOnly";
 import Particles from "../components/Particles";
 
@@ -13,6 +13,8 @@ import { initMacbookAnimation } from "@/lib/macanimation";
 
 export default function Home({ projects, posts }) {
 	const [isMounted, setIsMounted] = useState(false);
+	const [scrollOpacity, setScrollOpacity] = useState(1); 
+	const exploreTextRef = useRef(null);
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -41,6 +43,47 @@ export default function Home({ projects, posts }) {
 		};
 	}, [isMounted]);
 
+	// Add scroll listener for fade effect
+	useEffect(() => {
+		if (!isMounted) return;
+
+		// Run once on mount to set initial state
+		const handleScroll = () => {
+			const scrollPosition = window.scrollY;
+			
+			// Start fading immediately on scroll (0px), completely fade by 300px
+			const fadeStart = 0;
+			const fadeEnd = 300;
+			const fadeRange = fadeEnd - fadeStart;
+			
+			let newOpacity = 1;
+			if (scrollPosition <= fadeStart) {
+				newOpacity = 1;
+			} else if (scrollPosition >= fadeEnd) {
+				newOpacity = 0;
+			} else {
+				// Linear fade from full opacity to zero
+				newOpacity = 1 - ((scrollPosition - fadeStart) / fadeRange);
+			}
+			
+			setScrollOpacity(newOpacity);
+			
+			// Apply directly to element as a fallback
+			if (exploreTextRef.current) {
+				exploreTextRef.current.style.opacity = newOpacity;
+			}
+		};
+
+		// Call once on initial mount to ensure correct state
+		handleScroll();
+
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, [isMounted]);
+
 	// Hero section animations with fallbacks
 	const heroContent = (
 		<>
@@ -50,14 +93,6 @@ export default function Home({ projects, posts }) {
 			<p className="max-w-lg mx-auto mb-10 text-xl text-[#a0a0a0] uppercase">
 				Software Engineer & Problem Solver
 			</p>
-			<div>
-				<a
-					href="#projects"
-					className="px-6 py-3 mt-6 text-[#080a12] bg-[#4cc9f0] rounded-lg hover:bg-[#6e56cf] transition-colors duration-300 inline-block font-medium"
-				>
-					View My Work
-				</a>
-			</div>
 		</>
 	);
 
@@ -168,21 +203,51 @@ export default function Home({ projects, posts }) {
 								>
 									Software Engineer & Problem Solver
 								</motion.p>
-								<motion.div
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5, delay: 0.4 }}
-								>
-									<a
-										href="#projects"
-										className="px-6 py-3 mt-6 text-[#080a12] bg-[#4cc9f0] rounded-lg hover:bg-[#6e56cf] transition-colors duration-300 inline-block font-medium"
-									>
-										View My Work
-									</a>
-								</motion.div>
 							</div>
 						</ClientOnly>
 					</div>
+					
+					{/* Continue Exploring text at bottom */}
+					<motion.div 
+						ref={exploreTextRef}
+						className="absolute bottom-24 left-0 right-0 text-center z-30"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.5, delay: 1 }}
+						style={{ opacity: scrollOpacity }}
+					>
+						<p className="text-[#f0f0f0] text-base uppercase tracking-widest">
+							Continue Exploring
+						</p>
+						<motion.div 
+							className="mt-1"
+							animate={{ 
+								y: [0, 10, 0],
+							}}
+							transition={{
+								duration: 1.5,
+								repeat: Infinity,
+								repeatType: "loop"
+							}}
+						>
+							<svg 
+								width="24" 
+								height="24" 
+								viewBox="0 0 24 24" 
+								fill="none" 
+								xmlns="http://www.w3.org/2000/svg"
+								className="mx-auto"
+							>
+								<path 
+									d="M7 10L12 15L17 10" 
+									stroke="#f0f0f0" 
+									strokeWidth="2" 
+									strokeLinecap="round" 
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</motion.div>
+					</motion.div>
 				</section>
 
 				{/* Projects Section */}

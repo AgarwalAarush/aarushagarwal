@@ -7,6 +7,8 @@ import matter from 'gray-matter';
 import { motion } from 'framer-motion';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export default function ProjectPage({ project }) {
   const router = useRouter();
@@ -14,6 +16,31 @@ export default function ProjectPage({ project }) {
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
+  // Custom components for ReactMarkdown
+  const components = {
+    // Custom renderer for code blocks
+    code({ node, inline, className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || '');
+      
+      return !inline && match ? (
+        <SyntaxHighlighter
+          style={oneDark}
+          language={match[1]}
+          PreTag="div"
+          className="rounded-md my-4 bg-[#24292e]"
+          showLineNumbers={true}
+          {...props}
+        >
+          {String(children).replace(/\n$/, '')}
+        </SyntaxHighlighter>
+      ) : (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      );
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0f1118]">
@@ -127,8 +154,8 @@ export default function ProjectPage({ project }) {
             </div>
             
             {/* Project content */}
-            <article className="prose prose-invert prose-lg max-w-none p-6 bg-[#0a0c14] border border-[#1e1e2d] rounded-lg">
-              <ReactMarkdown>{project.content}</ReactMarkdown>
+            <article className="prose prose-invert prose-lg max-w-none p-6 bg-[#0a0c14] border border-[#1e1e2d] rounded-lg markdown-github">
+              <ReactMarkdown components={components}>{project.content}</ReactMarkdown>
             </article>
           </motion.div>
         </div>

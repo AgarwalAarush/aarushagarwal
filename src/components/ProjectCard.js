@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import ClientOnly from "../components/ClientOnly";
 
 export default function ProjectCard({ project }) {
-  // Card content that's shared between server and client render
+  // Card content that's used both on the server and on the client:
   const cardContent = (
     <>
       {/* Conditional image rendering */}
@@ -48,7 +48,7 @@ export default function ProjectCard({ project }) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-[#6e56cf] hover:text-[#9d7bff] transition-colors duration-300"
-            onClick={(e) => e.stopPropagation()} // Prevent the Link from triggering
+            onClick={(e) => e.stopPropagation()}
           >
             GitHub
           </a>
@@ -60,7 +60,7 @@ export default function ProjectCard({ project }) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-[#6e56cf] hover:text-[#9d7bff] transition-colors duration-300"
-            onClick={(e) => e.stopPropagation()} // Prevent the Link from triggering
+            onClick={(e) => e.stopPropagation()}
           >
             Live Demo
           </a>
@@ -71,12 +71,10 @@ export default function ProjectCard({ project }) {
 
   return (
     <Link href={`/projects/${project.id}`} legacyBehavior>
-      <a className="block" suppressHydrationWarning={true}>
+      <a className="block">
         <div className="overflow-hidden rounded-lg shadow-lg cursor-pointer">
           <div className="p-6 bg-[#0a0c14] border border-[#1e1e2d] rounded-lg hover:border-[#4cc9f0] transition-all duration-300 h-full flex flex-col">
-            <ClientOnly
-              fallback={cardContent}
-            >
+            <ClientOnly fallback={cardContent}>
               {() => (
                 <motion.div
                   initial={false}
