@@ -4,8 +4,6 @@ import { useRouter } from 'next/router';
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
-  
-  // Only show the component after it's mounted on the client
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -21,27 +19,34 @@ export default function Navbar() {
 
   const isActive = (path) => router.pathname === path;
 
-  // Only render the navbar when mounted on the client side
   if (!mounted) {
-    return <nav className="bg-[#080a12] border-b border-[#1e1e2d]"><div className="container px-4 mx-auto"><div className="h-16"></div></div></nav>;
+    return (
+      <nav className="section-bg border-b border-[#1e1e2d]">
+        <div className="container px-4 mx-auto">
+          <div className="h-16"></div>
+        </div>
+      </nav>
+    );
   }
 
   return (
-    <nav className="bg-[#080a12] border-b border-[#1e1e2d]">
+    <nav className="section-bg border-b border-[#1e1e2d]">
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link href="/" className="text-xl font-bold text-[#f0f0f0] uppercase">
-                <span className="bg-gradient-to-r from-[#6e56cf] to-[#4cc9f0] bg-clip-text text-transparent">AARUSH AGARWAL</span>
+                <span className="bg-gradient-to-r from-[#6e56cf] to-[#4cc9f0] bg-clip-text text-transparent">
+                  AARUSH AGARWAL
+                </span>
               </Link>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="flex items-center ml-4 space-x-4">
               {navigation.map((item) => (
-                <Link 
-                  key={item.name} 
+                <Link
+                  key={item.name}
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium rounded-md uppercase transition-colors duration-300 ${
                     isActive(item.href)
@@ -85,8 +90,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu, toggle based on menu state */}
-      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-[#0f1118]`}>
+      {/* Mobile menu */}
+      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden section-bg`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {navigation.map((item) => (
             <Link
