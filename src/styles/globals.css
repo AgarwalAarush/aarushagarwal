@@ -4,7 +4,7 @@
 
 @font-face {
 	font-family: "Apothem Caps MD";
-	src: url("/fonts/ApothemCapsMD.ttf") format("truetype");
+	src: url("/fonts/ApothemCapsMD.woff2") format("woff2"), url("/fonts/ApothemCapsMD.woff") format("woff");
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
