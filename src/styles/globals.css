@@ -90,6 +90,108 @@
 	}
 }
 
+/* GitHub-style Markdown Styling */
+.markdown-github {
+  /* GitHub's font stack for markdown text */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.markdown-github h1,
+.markdown-github h2,
+.markdown-github h3,
+.markdown-github h4,
+.markdown-github h5,
+.markdown-github h6 {
+  @apply text-white font-semibold mt-6 mb-4;
+  line-height: 1.25;
+}
+
+.markdown-github h1 {
+  @apply text-3xl pb-3 border-b border-gray-700;
+}
+
+.markdown-github h2 {
+  @apply text-2xl pb-3 border-b border-gray-700;
+}
+
+.markdown-github h3 {
+  @apply text-xl;
+}
+
+.markdown-github h4 {
+  @apply text-lg;
+}
+
+.markdown-github h5 {
+  @apply text-base;
+}
+
+.markdown-github h6 {
+  @apply text-sm;
+}
+
+.markdown-github a {
+  @apply text-blue-400 no-underline hover:underline;
+}
+
+.markdown-github p,
+.markdown-github ul,
+.markdown-github ol,
+.markdown-github blockquote,
+.markdown-github pre,
+.markdown-github table {
+  @apply my-4 text-white;
+}
+
+.markdown-github ul,
+.markdown-github ol {
+  @apply pl-8;
+}
+
+.markdown-github ul {
+  @apply list-disc;
+}
+
+.markdown-github ol {
+  @apply list-decimal;
+}
+
+.markdown-github blockquote {
+  @apply pl-4 border-l-4 border-gray-600 text-gray-300;
+}
+
+.markdown-github table {
+  @apply border-collapse w-full;
+}
+
+.markdown-github table th,
+.markdown-github table td {
+  @apply border border-gray-700 px-4 py-2;
+}
+
+.markdown-github table th {
+  @apply bg-gray-800;
+}
+
+.markdown-github img {
+  @apply max-w-full;
+}
+
+/* GitHub-style code fonts for inline code */
+.markdown-github code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  @apply text-white bg-gray-800 rounded px-1 py-0.5 text-sm;
+}
+
+/* Override for code blocks styled by SyntaxHighlighter */
+.markdown-github pre {
+  @apply p-0 bg-transparent;
+}
+
+.markdown-github pre code {
+  @apply bg-transparent p-0;
+}
+
 /* Animations */
 @keyframes fadeIn {
 	from {
@@ -136,12 +238,15 @@
 	}
 }
 
-/* Add prism.js styles for code highlighting */
+/* 
+  Keep existing Prism styles for fallback, but they'll mostly
+  be overridden by react-syntax-highlighter
+*/
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #f8f8f2;
 	background: none;
-	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+	font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
@@ -161,62 +266,11 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #2d2d2d;
+	background: #24292e; /* GitHub-like code background */
 }
 
 :not(pre) > code[class*="language-"] {
 	padding: 0.1em;
 	border-radius: 0.3em;
 	white-space: normal;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: #8292a2;
-}
-
-.token.punctuation {
-	color: #f8f8f2;
-}
-
-.token.namespace {
-	opacity: 0.7;
-}
-
-.token.property,
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: #f92672;
-}
-
-.token.boolean,
-.token.number {
-	color: #ae81ff;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: #a6e22e;
-}
-
-.token.boolean,
-.token.number {
-	color: #ae81ff;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: #a6e22e;
 }

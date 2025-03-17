@@ -2,16 +2,16 @@
 import { useEffect, useState } from 'react';
 
 export default function ClientOnly({ children, fallback = null }) {
-  const [hasMounted, setHasMounted] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setHasMounted(true);
+    // this forces a rerender
+    setHydrated(true);
   }, []);
 
-  // Important: Return null on first render to avoid hydration mismatch
-  // This means the component will ONLY render on the client
-  if (!hasMounted) {
-    return fallback;
+  if (!hydrated) {
+    // this returns null on first render, so the client and server match
+    return null;
   }
 
   return typeof children === 'function' ? children() : children;
