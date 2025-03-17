@@ -13,19 +13,26 @@
 /* Define global variables for the color scheme */
 :root {
 	--bg-dark: #0f1118;
-	--bg-darker: #080a12;
+	--bg-darker: #000000;
+	/* This is the hero section's background - use for all sections */
+	--bg-hero: #000000;
 	--accent-primary: #6e56cf;
 	--accent-secondary: #4cc9f0;
 	--text-primary: #f0f0f0;
 	--text-secondary: #a0a0a0;
 	--card-bg: rgba(30, 30, 45, 0.7);
-}
+  }
+  
+  /* Add this utility class for consistent section backgrounds */
+  .section-bg {
+	background-color: var(--bg-hero);
+  }
 
 @layer base {
 	body {
 		@apply text-white;
-		background: var(--bg-dark);
-		background-image: radial-gradient(circle at top right, rgba(76, 29, 149, 0.7), rgba(30, 41, 59, 0.9));
+		background: var(--bg-hero);
+		/* Removed gradient to match hero section */
 	}
 
 	h1,
