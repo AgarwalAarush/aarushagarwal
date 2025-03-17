@@ -20,10 +20,6 @@ A comprehensive test scheduling platform designed to solve the problem of uneven
 - Automated notification system for upcoming tests
 - School-wide assessment calendar
 
-```python
-print("Hello World")
-```
-
 ## Technical Details
 ### Frontend
 Built with React to provide a responsive and intuitive interface for both students and teachers. The design prioritizes clarity and ease of use, making test scheduling and viewing straightforward for all users.

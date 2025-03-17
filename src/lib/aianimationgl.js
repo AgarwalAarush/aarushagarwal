@@ -534,9 +534,27 @@ export function initAIAnimation(container) {
 	const animationId = requestAnimationFrame(render);
 
 	function handleResize() {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		// Store previous dimensions
+		const prevWidth = canvas.width;
+		const prevHeight = canvas.height;
+		
+		// Get new dimensions
+		const newWidth = window.innerWidth;
+		const newHeight = window.innerHeight;
+		
+		// Only update if dimensions changed significantly (prevents resize during mobile scroll)
+		// The 5% threshold ignores minor changes that happen during mobile scrolling
+		const widthDiff = Math.abs(newWidth - prevWidth) / prevWidth;
+		const heightDiff = Math.abs(newHeight - prevHeight) / prevHeight;
+		
+		if (widthDiff > 0.05 || heightDiff > 0.05) {
+			canvas.width = newWidth;
+			canvas.height = newHeight;
+		}
 	}
+	
+	// Use orientationchange for major layout changes instead of resize for minor scroll adjustments
+	window.addEventListener("orientationchange", handleResize);
 	window.addEventListener("resize", handleResize);
 
 	return function cleanup() {
