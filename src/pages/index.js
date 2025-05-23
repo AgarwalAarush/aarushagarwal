@@ -7,79 +7,16 @@ import { motion } from "framer-motion";
 import ProjectCard from "../components/ProjectCard";
 import { useState, useEffect, useRef } from "react";
 import ClientOnly from "../components/ClientOnly";
-import Particles from "../components/Particles";
-
-import { initMacbookAnimation } from "@/lib/macanimationgl";
-import { initAIAnimation } from "@/lib/aianimationgl";
 
 export default function Home({ projects, posts }) {
 	const [isMounted, setIsMounted] = useState(false);
-	const [scrollOpacity, setScrollOpacity] = useState(1);
-	const exploreTextRef = useRef(null);
 
 	useEffect(() => {
 		setIsMounted(true);
 	}, []);
 
-	useEffect(() => {
-		if (!isMounted) return;
-		const container = document.getElementById("computer-container");
-		let cleanup = null;
-		const loadAnimation = async () => {
-			try {
-				cleanup = await initAIAnimation(container);
-			} catch (error) {
-				console.error("Error initializing AI animation:", error);
-			}
-		};
-		loadAnimation();
-		return () => {
-			if (cleanup) {
-				cleanup();
-			}
-		};
-	}, [isMounted]);
-
-	// Add scroll listener for fade effect
-	useEffect(() => {
-		if (!isMounted) return;
-		const handleScroll = () => {
-			const scrollPosition = window.scrollY;
-			// Calculate opacity based directly on scroll position
-			// The higher the scroll position, the lower the opacity
-			const maxScrollForFade = 300; // Point at which opacity will be 0
-			let newOpacity = Math.max(0, 1 - (scrollPosition / maxScrollForFade));
-			console.log(newOpacity);
-			
-			setScrollOpacity(newOpacity);
-		};
-		handleScroll();
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, [isMounted]);
-
-	const scrollToProjects = () => {
-		const projectsSection = document.getElementById('projects');
-		if (projectsSection) {
-			projectsSection.scrollIntoView({ behavior: 'smooth' });
-		}
-	};
-
-	const heroContent = (
-		<>
-			<h1 className="mb-6 text-5xl font-bold text-[#f0f0f0] uppercase tracking-wider">
-				AARUSH AGARWAL
-			</h1>
-			<p className="max-w-lg mx-auto mb-10 text-xl text-[#a0a0a0] uppercase">
-				Software Engineer & Problem Solver
-			</p>
-		</>
-	);
-
 	return (
-		<div className="min-h-screen section-bg">
+		<div className="min-h-screen bg-[#1D1E21]">
 			<Head>
 				<title>Aarush Agarwal - Personal Website</title>
 				<meta
@@ -88,432 +25,77 @@ export default function Home({ projects, posts }) {
 				/>
 				<link rel="icon" href="/icon.png" />
 			</Head>
-			<main>
+			<main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Hero Section */}
-				<section className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden section-bg">
-					<div
-						className="absolute inset-0 z-10"
-						id="computer-container"
-					></div>
-					<div className="absolute inset-0 z-20 opacity-30">
-						<svg
-							width="100%"
-							height="100%"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<defs>
-								<radialGradient
-									id="grid-gradient"
-									cx="50%"
-									cy="50%"
-									r="50%"
-									fx="50%"
-									fy="50%"
-								>
-									<stop
-										offset="0%"
-										stopColor="#6e56cf"
-										stopOpacity="0.3"
-									/>
-									<stop
-										offset="100%"
-										stopColor="#080a12"
-										stopOpacity="0"
-									/>
-								</radialGradient>
-							</defs>
-							<rect
-								width="100%"
-								height="100%"
-								fill="url(#grid-gradient)"
-							/>
-							<g opacity="0.2">
-								{[...Array(20)].map((_, i) => (
-									<line
-										key={`h-${i}`}
-										x1="0"
-										y1={i * 30}
-										x2="100%"
-										y2={i * 30}
-										stroke="#4cc9f0"
-										strokeWidth="0.5"
-									/>
-								))}
-								{[...Array(30)].map((_, i) => (
-									<line
-										key={`v-${i}`}
-										x1={i * 30}
-										y1="0"
-										x2={i * 30}
-										y2="100%"
-										stroke="#4cc9f0"
-										strokeWidth="0.5"
-									/>
-								))}
-							</g>
-							<ClientOnly>
-								<Particles count={50} color="#4cc9f0" />
-							</ClientOnly>
-						</svg>
-					</div>
-					<div className="container relative z-30 px-4 mx-auto text-center">
-						<ClientOnly fallback={<div>{heroContent}</div>}>
-							<div>
-								<motion.h1
-									className="mb-6 text-5xl font-bold text-[#f0f0f0] uppercase tracking-wider"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5 }}
-								>
-									AARUSH AGARWAL
-								</motion.h1>
-								<motion.p
-									className="max-w-lg mx-auto mb-10 text-xl text-[#a0a0a0] uppercase"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5, delay: 0.2 }}
-								>
-									Software Engineer & Problem Solver
-								</motion.p>
-							</div>
-						</ClientOnly>
-					</div>
-					<motion.div
-						ref={exploreTextRef}
-						className="absolute bottom-24 left-0 right-0 text-center z-30 cursor-pointer"
-						style={{ opacity: scrollOpacity }}
-						onClick={scrollToProjects}
-					>
-						<p className="text-[#f0f0f0] text-base uppercase tracking-widest">
-							Continue Exploring
+				<section className="mb-16">
+					<div className="max-w-2xl">
+						<h1 className="text-4xl font-bold text-white mb-6">
+							Hey, I'm Aarush.
+						</h1>
+						<p className="text-xl text-white mb-4">
+							I build <span className="text-gray-400">software</span> and specialise in{" "}
+							<span className="text-gray-400">AI strategies</span>.
 						</p>
-						<motion.div
-							className="mt-1"
-							animate={{ y: [0, 10, 0] }}
-							transition={{
-								duration: 1.5,
-								repeat: Infinity,
-								repeatType: "loop",
-							}}
-						>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-								className="mx-auto"
-							>
-								<path
-									d="M7 10L12 15L17 10"
-									stroke="#f0f0f0"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-							</svg>
-						</motion.div>
-					</motion.div>
-				</section>
-
-				{/* Projects Section */}
-				<section id="projects" className="py-16 section-bg relative">
-					{/* Grid background */}
-					<div className="absolute inset-0 z-0 opacity-30">
-						<svg
-							width="100%"
-							height="100%"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							{/* <defs>
-								<radialGradient id="projects-grid-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-									<stop offset="0%" stopColor="#6e56cf" stopOpacity="0.3" />
-									<stop offset="100%" stopColor="#080a12" stopOpacity="0" />
-								</radialGradient>
-							</defs> */}
-							<rect
-								width="100%"
-								height="100%"
-								fill="url(#projects-grid-gradient)"
-							/>
-							<g opacity="0.2">
-								{[...Array(20)].map((_, i) => (
-									<line
-										key={`ph-${i}`}
-										x1="0"
-										y1={i * 30}
-										x2="100%"
-										y2={i * 30}
-										stroke="#4cc9f0"
-										strokeWidth="0.5"
-									/>
-								))}
-								{[...Array(30)].map((_, i) => (
-									<line
-										key={`pv-${i}`}
-										x1={i * 30}
-										y1="0"
-										x2={i * 30}
-										y2="100%"
-										stroke="#4cc9f0"
-										strokeWidth="0.5"
-									/>
-								))}
-							</g>
-							<ClientOnly>
-								<Particles count={30} color="#4cc9f0" />
-							</ClientOnly>
-						</svg>
-					</div>
-					<div className="container relative z-10 px-4 mx-auto">
-						<ClientOnly
-							fallback={
-								<div className="mb-12 text-center">
-									<h2 className="text-3xl font-bold text-[#f0f0f0] uppercase">
-										Projects
-									</h2>
-								</div>
-							}
-						>
-							<motion.div
-								className="mb-12 text-center"
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5 }}
-								viewport={{ once: true, amount: 0.2 }}
-							>
-								<h2 className="text-3xl font-bold text-[#f0f0f0] uppercase">
-									Projects
-								</h2>
-							</motion.div>
-						</ClientOnly>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-							{projects &&
-								projects.map((project) => (
-									<div key={project.id}>
-										<ClientOnly
-											fallback={
-												<ProjectCard
-													project={project}
-												/>
-											}
-										>
-											<motion.div
-												initial={{ opacity: 0, y: 20 }}
-												whileInView={{
-													opacity: 1,
-													y: 0,
-												}}
-												transition={{ duration: 0.5 }}
-												viewport={{ once: true }}
-											>
-												<ProjectCard
-													project={project}
-												/>
-											</motion.div>
-										</ClientOnly>
-									</div>
-								))}
+						<p className="text-gray-400 mb-8 leading-relaxed">
+							A software engineer, AI enthusiast and entrepreneur based in the Bay Area,
+							specialising in the world of artificial intelligence and software development.
+						</p>
+						<div className="flex gap-4">
+							<Link href="/about" className="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-colors duration-200">
+								About
+							</Link>
 						</div>
 					</div>
 				</section>
 
-				{/* Blog Section */}
-				<section id="blog" className="py-16 section-bg relative">
-					{/* Grid background */}
-					<div className="absolute inset-0 z-0 opacity-30">
-						<svg
-							width="100%"
-							height="100%"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							{/* <defs>
-								<radialGradient id="blog-grid-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-									<stop offset="0%" stopColor="#6e56cf" stopOpacity="0.3" />
-									<stop offset="100%" stopColor="#080a12" stopOpacity="0" />
-								</radialGradient>
-							</defs> */}
-							<rect
-								width="100%"
-								height="100%"
-								fill="url(#blog-grid-gradient)"
-							/>
-							<g opacity="0.2">
-								{[...Array(20)].map((_, i) => (
-									<line
-										key={`bh-${i}`}
-										x1="0"
-										y1={i * 30}
-										x2="100%"
-										y2={i * 30}
-										stroke="#4cc9f0"
-										strokeWidth="0.5"
-									/>
-								))}
-								{[...Array(30)].map((_, i) => (
-									<line
-										key={`bv-${i}`}
-										x1={i * 30}
-										y1="0"
-										x2={i * 30}
-										y2="100%"
-										stroke="#4cc9f0"
-										strokeWidth="0.5"
-									/>
-								))}
-							</g>
-							<ClientOnly>
-								<Particles count={50} color="#4cc9f0" />
-							</ClientOnly>
-						</svg>
+				{/* Thoughts Section */}
+				<section id="blog" className="mb-16">
+					<div className="flex items-center gap-3 mb-6">
+						<div className="w-1 h-1 bg-white rounded-full"></div>
+						<h2 className="text-2xl font-bold text-white">Thoughts</h2>
 					</div>
-					<div className="container relative z-10 px-4 mx-auto">
-						<ClientOnly
-							fallback={
-								<div className="flex items-center justify-between mb-12">
-									<h2 className="text-3xl font-bold text-[#f0f0f0]">
-										Latest Posts
-									</h2>
-									<Link
-										href="/blog"
-										className="px-4 py-2 text-[#6e56cf] transition-colors duration-300 border border-[#6e56cf] rounded-lg hover:bg-[#6e56cf] hover:text-[#f0f0f0]"
-									>
-										View All
-									</Link>
-								</div>
-							}
-						>
-							<motion.div
-								className="flex items-center justify-between mb-12"
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5 }}
-								viewport={{ once: true, amount: 0.2 }}
-							>
-								<h2 className="text-3xl font-bold text-[#f0f0f0]">
-									Latest Posts
-								</h2>
-								<Link
-									href="/blog"
-									className="px-4 py-2 text-[#6e56cf] transition-colors duration-300 border border-[#6e56cf] rounded-lg hover:bg-[#6e56cf] hover:text-[#f0f0f0]"
-								>
-									View All
+					<p className="text-gray-400 mb-8">
+						Sharing experiences, knowledge and views on tech.
+					</p>
+					
+					<div className="space-y-4">
+						{posts && posts.slice(0, 3).map((post) => (
+							<div key={post.slug} className="group">
+								<Link href={`/blog/${post.slug}`}>
+									<div className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-800/50 transition-colors duration-200">
+										<div className="text-gray-500">+</div>
+										<div className="flex-1">
+											<h3 className="text-white group-hover:text-gray-300 transition-colors duration-200">
+												{post.title}
+											</h3>
+											<p className="text-sm text-gray-500">Article</p>
+										</div>
+									</div>
 								</Link>
-							</motion.div>
-						</ClientOnly>
-						<ClientOnly
-							fallback={
-								<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-									{posts &&
-										posts.slice(0, 2).map((post) => (
-											<div key={post.slug}>
-												<Link
-													href={`/blog/${post.slug}`}
-												>
-													<div className="p-6 overflow-hidden section-bg rounded-lg shadow-md border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 relative group">
-														<div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf20] to-[#9d7bff20] rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-														<div className="relative z-10">
-															<h3 className="mb-3 text-xl font-semibold text-[#f0f0f0]">
-																{post.title}
-															</h3>
-															<p className="mb-4 text-[#a0a0a0]">
-																{post.excerpt}
-															</p>
-															<div className="flex items-center text-sm text-[#a0a0a0]">
-																<span>
-																	{new Date(
-																		post.date
-																	).toLocaleDateString()}
-																</span>
-																<span className="mx-2">
-																	•
-																</span>
-																<span>
-																	{
-																		post.readingTime
-																	}{" "}
-																	min read
-																</span>
-															</div>
-															<div className="mt-4">
-																<span className="text-sm text-[#6e56cf] hover:text-[#9d7bff] transition-colors duration-300">
-																	Read More →
-																</span>
-															</div>
-														</div>
-													</div>
-												</Link>
-											</div>
-										))}
-								</div>
-							}
-						>
-							<motion.div
-								className="grid grid-cols-1 gap-8 md:grid-cols-2"
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								transition={{
-									duration: 0.5,
-									staggerChildren: 0.1,
-								}}
-								viewport={{ once: true, amount: 0.1 }}
-							>
-								{posts &&
-									posts.slice(0, 2).map((post) => (
-										<motion.div
-											key={post.slug}
-											initial={{ opacity: 0, y: 20 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											transition={{ duration: 0.5 }}
-											viewport={{ once: true }}
-										>
-											<motion.div
-												whileHover={{ y: -10 }}
-												transition={{ duration: 0.3 }}
-											>
-												<Link
-													href={`/blog/${post.slug}`}
-												>
-													<div className="p-6 overflow-hidden section-bg rounded-lg shadow-md border border-[#1e1e2d] hover:border-[#9d7bff] hover:shadow-[0_10px_30px_rgba(157,123,255,0.15)] transition-all duration-300 relative group">
-														<div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf20] to-[#9d7bff20] rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-														<div className="relative z-10">
-															<h3 className="mb-3 text-xl font-semibold text-[#f0f0f0]">
-																{post.title}
-															</h3>
-															<p className="mb-4 text-[#a0a0a0]">
-																{post.excerpt}
-															</p>
-															<div className="flex items-center text-sm text-[#a0a0a0]">
-																<span>
-																	{new Date(
-																		post.date
-																	).toLocaleDateString()}
-																</span>
-																<span className="mx-2">
-																	•
-																</span>
-																<span>
-																	{
-																		post.readingTime
-																	}{" "}
-																	min read
-																</span>
-															</div>
-															<div className="mt-4">
-																<span className="text-sm text-[#6e56cf] hover:text-[#9d7bff] transition-colors duration-300">
-																	Read More →
-																</span>
-															</div>
-														</div>
-													</div>
-												</Link>
-											</motion.div>
-										</motion.div>
-									))}
-							</motion.div>
-						</ClientOnly>
+							</div>
+						))}
 					</div>
 				</section>
+
+				{/* Projects Section */}
+				<div className="w-full" id="projects">
+					<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
+						<div className="flex items-center gap-3 mb-4">
+							<div className="p-2 bg-gray-700 rounded-md">
+								<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+								</svg>
+							</div>
+							<h3 className="text-xl font-bold text-white">Projects</h3>
+						</div>
+						<p className="text-gray-400 mb-6">
+							Explore my range of AI and software projects.
+						</p>
+						<Link href="/projects" className="inline-block px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors duration-200">
+							View Projects
+						</Link>
+					</div>
+				</div>
 			</main>
 		</div>
 	);
@@ -544,12 +126,25 @@ export async function getStaticProps() {
 	const posts = [
 		{
 			slug: "first-post",
-			title: "My First Blog Post",
-			excerpt: "This is a summary of my first blog post.",
+			title: "Getting Started with Machine Learning",
+			excerpt: "A comprehensive guide to understanding ML fundamentals.",
 			date: "2023-01-01",
 			readingTime: 4,
 		},
-		// Add more posts
+		{
+			slug: "second-post", 
+			title: "Building Scalable Web Applications",
+			excerpt: "Best practices for developing robust web systems.",
+			date: "2023-02-01",
+			readingTime: 6,
+		},
+		{
+			slug: "third-post",
+			title: "The Future of AI Development",
+			excerpt: "Exploring emerging trends in artificial intelligence.",
+			date: "2023-03-01", 
+			readingTime: 5,
+		},
 	];
 
 	return {
