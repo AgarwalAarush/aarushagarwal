@@ -54,7 +54,8 @@ ${formData.message}`;
 					name="description"
 					content="Get in touch with Aarush Agarwal - Let's discuss AI, machine learning, or potential collaborations"
 				/>
-				<link rel="icon" href="/icon.png" />
+				<link rel="icon" href="/images/profile-pic.png" />
+				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
 			</Head>
 
 			<main className="max-w-2xl mx-auto px-6 py-16">

@@ -22,7 +22,8 @@ export default function ProjectsPage({ projects }) {
 					name="description"
 					content="A collection of my AI and software development projects"
 				/>
-				<link rel="icon" href="/icon.png" />
+				<link rel="icon" href="/images/profile-pic.png" />
+				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
 			</Head>
 			<main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Header Section */}
