@@ -35,7 +35,7 @@ export default function Home({ projects, posts }) {
 						</h1>
 						<p className="text-xl text-white mb-4">
 							I build <span className="text-gray-400">software</span> and specialise in{" "}
-							<span className="text-gray-400">AI strategies</span>.
+							<span className="text-gray-400">AI</span>.
 						</p>
 						<p className="text-gray-400 mb-8 leading-relaxed">
 							A software engineer, AI enthusiast and entrepreneur based in the Bay Area,
