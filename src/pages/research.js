@@ -19,17 +19,15 @@ export default function Research() {
 			lab: "Physics Cosmology Laboratory",
 			description: "Conducting cutting-edge research in high-performance computing optimization for machine learning applications in particle physics. Focus on developing novel algorithms for particle collision detection using graph neural networks.",
 			achievements: [
-				"Optimizing object condensation loss functions for graph neural networks designed to detect particle collisions in CERN experimental data",
 				"Developing high-performance CUDA extensions by transitioning critical Python code to optimized C++ implementations",
 				"Achieving up to 40x speed improvements over FAISS in low-dimensional vector spaces through novel K-Nearest Neighbors algorithm optimization",
 				"Conducting comprehensive performance benchmarking against industry-standard libraries including FAISS, Annoy, and HNSW",
-				"Implementing advanced spatial partitioning techniques for large-scale data processing in particle physics research"
 			],
 			publications: [
 				{
 					title: "Optimizing K-Nearest Neighbors Algorithm Using Spatial Partitioning in Low-Dimensional Spaces",
 					status: "In Progress (Authoring Phase)",
-					description: "Research paper detailing novel optimization techniques for KNN algorithms with significant performance improvements over industry standards"
+					description: "Research paper detailing novel optimization techniques for KNN algorithms with significant performance improvements over industry standards in low-dimensional spaces"
 				}
 			],
 			technologies: [
@@ -53,7 +51,7 @@ export default function Research() {
 			description: "Creating novel approaches to improve performance of fundamental algorithms like K-Nearest Neighbors"
 		},
 		{
-			area: "Scientific Machine Learning",
+			area: "Machine Learning",
 			description: "Applying ML techniques to solve complex problems in physics, particularly particle collision detection"
 		}
 	];
@@ -76,7 +74,7 @@ export default function Research() {
 					<h1 className="text-4xl font-bold text-white mb-4">
 						Research
 					</h1>
-					<p className="text-xl text-gray-300 mb-8">
+					<p className="text-lg text-gray-300 mb-8">
 						Advancing the frontiers of high-performance computing and machine learning for scientific applications.
 					</p>
 					<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
@@ -110,7 +108,7 @@ export default function Research() {
 									<span className="text-sm text-gray-400 whitespace-nowrap ml-4">{item.year}</span>
 								</div>
 
-								<p className="text-gray-300 mb-6 leading-relaxed">{item.description}</p>
+								<p className="text-gray-300 text-sm mb-6 leading-relaxed">{item.description}</p>
 
 								{/* Key Achievements */}
 								<div className="mb-6">
