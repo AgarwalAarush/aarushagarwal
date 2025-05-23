@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -202,14 +203,14 @@ export default function Research() {
 					<h2 className="text-2xl font-bold text-white mb-6">Research Collaboration</h2>
 					<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
 						<p className="text-gray-300 mb-4 leading-relaxed">
-							I'm always interested in collaborating on research projects that push the boundaries of high-performance 
+							I&apos;m always interested in collaborating on research projects that push the boundaries of high-performance 
 							computing and machine learning. My current work focuses on practical applications of optimization techniques 
-							for scientific computing, but I'm open to exploring new domains and applications.
+							for scientific computing, but I&apos;m open to exploring new domains and applications.
 						</p>
 						<div className="flex flex-col sm:flex-row gap-4">
-							<a href="/contact" className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 text-center">
+							<Link href="/contact" className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 text-center">
 								Discuss Research
-							</a>
+							</Link>
 							<a href="https://www.linkedin.com/in/aarush-agarwal-2751a61b1/" target="_blank" rel="noopener noreferrer" className="px-6 py-2 border border-gray-500 text-gray-300 hover:text-white hover:border-gray-400 rounded-md transition-colors duration-200 text-center">
 								Connect on LinkedIn
 							</a>

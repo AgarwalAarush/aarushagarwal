@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -101,16 +102,13 @@ export default function About() {
 				<section className="mb-16">
 					<div className="flex items-start gap-8 mb-8">
 						<div className="w-32 h-32 rounded-full bg-gray-600 overflow-hidden flex-shrink-0">
-							<img 
+							<Image 
 								src="/images/profile-pic.png" 
 								alt="Aarush Agarwal"
+								width={128}
+								height={128}
 								className="w-full h-full object-cover"
-								onError={(e) => {
-									e.target.style.display = 'none';
-									e.target.nextSibling.style.display = 'block';
-								}}
 							/>
-							<div className="w-full h-full bg-gradient-to-br from-[#6e56cf] to-[#4cc9f0]" style={{display: 'none'}}></div>
 						</div>
 						<div className="flex-1">
 							<h1 className="text-4xl font-bold text-white mb-4">
@@ -145,7 +143,7 @@ export default function About() {
 							high-energy physics, achieving up to 40x speed improvements over industry-standard libraries.
 						</p>
 						<p className="text-gray-300 text-sm leading-relaxed">
-							From co-founding educational technology startups to conducting cutting-edge research in particle physics, I'm always excited 
+							From co-founding educational technology startups to conducting cutting-edge research in particle physics, I&apos;m always excited 
 							to tackle complex problems that make technology more accessible and impactful. I blend entrepreneurial experience with deep 
 							technical expertise to create meaningful solutions.
 						</p>
@@ -226,10 +224,10 @@ export default function About() {
 
 				{/* Contact Section */}
 				<section>
-					<h2 className="text-2xl font-bold text-white mb-6">Let's Connect</h2>
+					<h2 className="text-2xl font-bold text-white mb-6">Let&apos;s Connect</h2>
 					<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
 						<p className="text-gray-300 mb-6">
-							I'm always interested in discussing new opportunities, collaborative projects, or innovative ideas in AI and software development.
+							I&apos;m always interested in discussing new opportunities, collaborative projects, or innovative ideas in AI and software development.
 						</p>
 						<div className="flex flex-col sm:flex-row gap-4">
 							<a href="mailto:aarushaga@gmail.com" className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200">
