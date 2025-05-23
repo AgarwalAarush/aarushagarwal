@@ -190,7 +190,7 @@ ${formData.message}`;
 						<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
 							<h3 className="text-lg font-semibold text-white mb-3">Industry Projects</h3>
 							<p className="text-gray-300 text-sm">
-								ML engineering, AI infrastructure, optimization problems, and practical AI applications.
+								ML engineering, AI infra, optimization problems, and practical AI applications.
 							</p>
 						</div>
 						<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
