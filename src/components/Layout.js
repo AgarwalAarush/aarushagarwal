@@ -1,98 +1,69 @@
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Layout({ children }) {
+	const [currentTime, setCurrentTime] = useState("");
+
+	useEffect(() => {
+		const updateTime = () => {
+			const now = new Date();
+			const easternTime = now.toLocaleTimeString("en-US", {
+				timeZone: "America/New_York",
+				hour: "2-digit",
+				minute: "2-digit",
+				hour12: false
+			});
+			setCurrentTime(easternTime);
+		};
+
+		// Update immediately
+		updateTime();
+		
+		// Update every minute
+		const interval = setInterval(updateTime, 60000);
+
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
-		<div className="flex flex-col min-h-screen section-bg">
+		<div className="flex min-h-screen bg-[#1D1E21]">
 			<Navbar />
-			<main className="flex-grow">{children}</main>
-			<footer className="py-8 text-center section-bg relative">
-				{/* Grid background */}
-				<div className="absolute inset-0 z-0 opacity-30">
-					<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-						<defs>
-							<radialGradient id="footer-grid-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-								<stop offset="0%" stopColor="#6e56cf" stopOpacity="0.3" />
-								<stop offset="100%" stopColor="#080a12" stopOpacity="0" />
-							</radialGradient>
-						</defs>
-						<rect width="100%" height="100%" fill="url(#footer-grid-gradient)" />
-						<g opacity="0.2">
-							{[...Array(10)].map((_, i) => (
-								<line
-									key={`fh-${i}`}
-									x1="0"
-									y1={i * 30}
-									x2="100%"
-									y2={i * 30}
-									stroke="#4cc9f0"
-									strokeWidth="0.5"
-								/>
-							))}
-							{[...Array(30)].map((_, i) => (
-								<line
-									key={`fv-${i}`}
-									x1={i * 30}
-									y1="0"
-									x2={i * 30}
-									y2="100%"
-									stroke="#4cc9f0"
-									strokeWidth="0.5"
-								/>
-							))}
-						</g>
-						{[...Array(20)].map((_, i) => (
-							<circle
-								key={`fp-${i}`}
-								cx={Math.random() * 100 + "%"}
-								cy={Math.random() * 100 + "%"}
-								r={Math.random() * 2 + 1}
-								fill="#4cc9f0"
-								opacity={Math.random() * 0.5 + 0.2}
-							/>
-						))}
-					</svg>
-				</div>
-				<motion.div
-					className="container relative z-10 px-4 mx-auto"
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
-					viewport={{ once: true }}
-				>
-					<p suppressHydrationWarning={true} className="text-[#a0a0a0] font-medium">
-						© {new Date().getFullYear()} Aarush Agarwal. All rights reserved.
-					</p>
-					<div className="flex justify-center mt-6 space-x-8">
-						<motion.a
-							href="https://github.com/agarwalaarush"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="relative group"
-							whileHover={{ scale: 1.05 }}
-							transition={{ duration: 0.2 }}
-						>
-							<div className="absolute inset-0 bg-gradient-to-r from-[#6e56cf] to-[#4cc9f0] rounded-lg blur opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-							<div className="relative px-6 py-2 text-[#f0f0f0] font-medium uppercase tracking-wider border border-[#6e56cf] rounded-lg group-hover:border-[#4cc9f0] transition-colors duration-300">
-								GitHub
+			{/* Main content area with left margin for desktop sidebar */}
+			<div className="flex-1 md:ml-64 min-h-screen bg-[#1D1E21]">
+				{/* Add top padding for mobile header */}
+				<main className="flex-grow pt-16 md:pt-0">{children}</main>
+				<footer className="py-8 bg-[#1D1E21] relative">
+					<motion.div
+						className="max-w-4xl mx-auto px-6 relative z-10"
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5 }}
+						viewport={{ once: true }}
+					>
+						<div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+							<div className="text-left">
+								<p className="text-white font-semibold">Currently working</p>
+								<div className="flex items-center gap-2 mt-1">
+									<Link href="/contact" className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+										Reach out →
+									</Link>
+								</div>
 							</div>
-						</motion.a>
-						<motion.a
-							href="https://www.linkedin.com/in/aarush-agarwal-2751a61b1/"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="relative group"
-							whileHover={{ scale: 1.05 }}
-							transition={{ duration: 0.2 }}
-						>
-							<div className="absolute inset-0 bg-gradient-to-r from-[#4cc9f0] to-[#6e56cf] rounded-lg blur opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-							<div className="relative px-6 py-2 text-[#f0f0f0] font-medium uppercase tracking-wider border border-[#4cc9f0] rounded-lg group-hover:border-[#6e56cf] transition-colors duration-300">
-								LinkedIn
+							
+							<div className="text-right">
+								<p suppressHydrationWarning={true} className="text-white text-3xl font-bold">
+									{currentTime}
+								</p>
+								<p className="text-gray-400">
+									New York City, USA
+								</p>
 							</div>
-						</motion.a>
-					</div>
-				</motion.div>
-			</footer>
+						</div>
+					</motion.div>
+				</footer>
+			</div>
 		</div>
 	);
 }
