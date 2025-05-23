@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
+import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -70,9 +71,11 @@ export default function ProjectPage({ project }) {
             <div className="mb-8 p-6 bg-[#1D1E21] border border-[#1e1e2d] rounded-lg">
               {project.image && (
                 <div className="mb-6 overflow-hidden rounded-lg">
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
+                    width={800}
+                    height={400}
                     className="w-full h-auto object-cover"
                   />
                 </div>
