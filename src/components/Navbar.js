@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
@@ -63,9 +64,11 @@ export default function Navbar() {
           <div className="mb-8">
             <div className="mb-4">
               <div className="w-12 h-12 rounded-full bg-gray-600 overflow-hidden">
-                <img 
+                <Image 
                   src="/images/profile-pic.png" 
                   alt="Aarush Agarwal"
+                  width={48}
+                  height={48}
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -64,7 +64,7 @@ ${formData.message}`;
 						Get In Touch
 					</h1>
 					<p className="text-xl text-gray-300 mb-8">
-						Let's discuss AI, machine learning, research opportunities, or potential collaborations.
+						Let&apos;s discuss AI, machine learning, research opportunities, or potential collaborations.
 					</p>
 				</section>
 
@@ -178,7 +178,7 @@ ${formData.message}`;
 
 				{/* What I'm Looking For Section */}
 				<section className="mt-16">
-					<h2 className="text-2xl font-bold text-white mb-6">What I'm Interested In</h2>
+					<h2 className="text-2xl font-bold text-white mb-6">What I&apos;m Interested In</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						<div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50">
 							<h3 className="text-lg font-semibold text-white mb-3">Research Collaborations</h3>
