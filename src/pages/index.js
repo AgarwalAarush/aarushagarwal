@@ -23,7 +23,8 @@ export default function Home({ projects, posts }) {
 					name="description"
 					content="Personal website showcasing projects and blog posts"
 				/>
-				<link rel="icon" href="/icon.png" />
+				<link rel="icon" href="/images/profile-pic.png" />
+				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
 			</Head>
 			<main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Hero Section */}
