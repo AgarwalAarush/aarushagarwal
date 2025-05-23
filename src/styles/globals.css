@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @font-face {
 	font-family: "Apothem Caps MD";
 	src: url("/fonts/ApothemCapsMD.woff2") format("woff2"), url("/fonts/ApothemCapsMD.woff") format("woff");
@@ -12,14 +14,13 @@
 
 /* Define global variables for the color scheme */
 :root {
-	--bg-dark: #0f1118;
-	--bg-darker: #000000;
-	/* This is the hero section's background - use for all sections */
-	--bg-hero: #000000;
+	--bg-dark: #1D1E21;
+	--bg-darker: #1D1E21;
+	--bg-hero: #1D1E21;
 	--accent-primary: #6e56cf;
 	--accent-secondary: #4cc9f0;
-	--text-primary: #f0f0f0;
-	--text-secondary: #a0a0a0;
+	--text-primary: #ffffff;
+	--text-secondary: #ffffff;
 	--card-bg: rgba(30, 30, 45, 0.7);
   }
   
@@ -32,7 +33,7 @@
 	body {
 		@apply text-white;
 		background: var(--bg-hero);
-		/* Removed gradient to match hero section */
+		font-family: 'JetBrains Mono', monospace;
 	}
 
 	h1,
@@ -42,10 +43,11 @@
 	h5,
 	h6 {
 		@apply font-bold text-white;
+		font-family: 'JetBrains Mono', monospace;
 	}
 
 	.uppercase {
-		font-family: "Apothem Caps MD", sans-serif;
+		font-family: 'JetBrains Mono', monospace;
 		letter-spacing: 0.05em;
 	}
 
@@ -64,6 +66,13 @@
 }
 
 @layer components {
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
 	.btn {
 		@apply px-4 py-2 font-medium rounded-lg transition-colors duration-300;
 	}
@@ -99,8 +108,7 @@
 
 /* GitHub-style Markdown Styling */
 .markdown-github {
-  /* GitHub's font stack for markdown text */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .markdown-github h1,
@@ -138,7 +146,7 @@
 }
 
 .markdown-github a {
-  @apply text-blue-400 no-underline hover:underline;
+  @apply text-white no-underline hover:underline;
 }
 
 .markdown-github p,
@@ -186,7 +194,7 @@
 
 /* GitHub-style code fonts for inline code */
 .markdown-github code {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: 'JetBrains Mono', monospace;
   @apply text-white bg-gray-800 rounded px-1 py-0.5 text-sm;
 }
 
@@ -253,7 +261,7 @@ code[class*="language-"],
 pre[class*="language-"] {
 	color: #f8f8f2;
 	background: none;
-	font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+	font-family: 'JetBrains Mono', monospace;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
