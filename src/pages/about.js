@@ -95,7 +95,8 @@ export default function About() {
 					name="description"
 					content="Learn more about Aarush Agarwal - AI researcher, software engineer, and innovation enthusiast"
 				/>
-				<link rel="icon" href="/icon.png" />
+				<link rel="icon" href="/images/profile-pic.png" />
+				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
 			</Head>
 			<main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Header Section */}

@@ -66,7 +66,8 @@ export default function Research() {
 					name="description"
 					content="Research work by Aarush Agarwal in high-performance computing, CUDA optimization, and machine learning for particle physics"
 				/>
-				<link rel="icon" href="/icon.png" />
+				<link rel="icon" href="/images/profile-pic.png" />
+				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
 			</Head>
 
 			<main className="max-w-4xl mx-auto px-6 py-16">
