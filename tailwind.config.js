@@ -34,6 +34,7 @@ module.exports = {
         },
         fontFamily: {
           sans: ['Apothem Caps MD', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
         },
         typography: (theme) => ({
           DEFAULT: {
