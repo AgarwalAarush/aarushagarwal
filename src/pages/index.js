@@ -62,7 +62,7 @@ export default function Home({ projects, posts }) {
 					<div className="space-y-4">
 						{posts && posts.slice(0, 3).map((post) => (
 							<div key={post.slug} className="group">
-								<Link href={`/blog/${post.slug}`}>
+								<Link href={`/thoughts/${post.slug}`}>
 									<div className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-800/50 transition-colors duration-200">
 										<div className="text-gray-500">+</div>
 										<div className="flex-1">
@@ -124,29 +124,32 @@ export async function getStaticProps() {
 		};
 	});
 
-	const posts = [
-		{
-			slug: "first-post",
-			title: "Getting Started with Machine Learning",
-			excerpt: "A comprehensive guide to understanding ML fundamentals.",
-			date: "2023-01-01",
-			readingTime: 4,
-		},
-		{
-			slug: "second-post", 
-			title: "Building Scalable Web Applications",
-			excerpt: "Best practices for developing robust web systems.",
-			date: "2023-02-01",
-			readingTime: 6,
-		},
-		{
-			slug: "third-post",
-			title: "The Future of AI Development",
-			excerpt: "Exploring emerging trends in artificial intelligence.",
-			date: "2023-03-01", 
-			readingTime: 5,
-		},
-	];
+	// Load blog posts from markdown files
+	const blogDir = path.join(process.cwd(), "src/content/thoughts");
+	let posts = [];
+	
+	if (fs.existsSync(blogDir)) {
+		const filenames = fs.readdirSync(blogDir);
+		posts = filenames
+			.filter(name => name.endsWith('.md'))
+			.map((filename) => {
+				const slug = filename.replace('.md', '');
+				const fullPath = path.join(blogDir, filename);
+				const fileContents = fs.readFileSync(fullPath, 'utf8');
+				const { data: frontmatter } = matter(fileContents);
+
+				return {
+					slug,
+					title: frontmatter.title,
+					excerpt: frontmatter.excerpt,
+					date: frontmatter.date,
+					readingTime: frontmatter.readingTime || 5,
+					published: frontmatter.published !== false,
+				};
+			})
+			.filter(post => post.published) // Only show published posts
+			.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date, newest first
+	}
 
 	return {
 		props: {
