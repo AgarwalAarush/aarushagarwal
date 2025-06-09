@@ -20,8 +20,7 @@ export default function Navbar() {
   ];
 
   const resourcesNavigation = [
-    { name: 'Thoughts', href: '#blog', isSection: true },
-    { name: 'Uses', href: '/uses', isSection: false },
+    { name: 'Thoughts', href: '/thoughts', isSection: false },
   ];
 
   const socialsNavigation = [

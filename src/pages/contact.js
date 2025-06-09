@@ -10,6 +10,7 @@ export default function Contact() {
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitStatus, setSubmitStatus] = useState(null);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleChange = (e) => {
 		setFormData({
@@ -21,26 +22,33 @@ export default function Contact() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setIsSubmitting(true);
+		setSubmitStatus(null);
+		setErrorMessage("");
 		
 		try {
-			// Create email body
-			const emailBody = `Name: ${formData.name}
-Email: ${formData.email}
-Subject: ${formData.subject}
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
 
-Message:
-${formData.message}`;
+			const data = await response.json();
 
-			// Create mailto link
-			const mailtoLink = `mailto:aarushaga@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
-			
-			// Open default email client
-			window.location.href = mailtoLink;
-			
-			setSubmitStatus("success");
-			setFormData({ name: "", email: "", subject: "", message: "" });
+			if (response.ok) {
+				setSubmitStatus("success");
+				setErrorMessage("");
+				setFormData({ name: "", email: "", subject: "", message: "" });
+			} else {
+				setSubmitStatus("error");
+				setErrorMessage(data.error || "Failed to send email");
+				console.error('Failed to send email:', data.error);
+			}
 		} catch (error) {
 			setSubmitStatus("error");
+			setErrorMessage("Network error. Please check your connection and try again.");
+			console.error('Error submitting form:', error);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -147,7 +155,7 @@ ${formData.message}`;
 										<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
 										<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 									</svg>
-									Opening Email Client...
+									Sending...
 								</>
 							) : (
 								<>
@@ -162,7 +170,7 @@ ${formData.message}`;
 						{submitStatus === "success" && (
 							<div className="p-4 bg-green-800/30 border border-green-600 rounded-md">
 								<p className="text-green-400 text-sm">
-									Email client opened! Please send the message from your email application.
+									✓ Message sent successfully! I'll get back to you soon.
 								</p>
 							</div>
 						)}
@@ -170,7 +178,7 @@ ${formData.message}`;
 						{submitStatus === "error" && (
 							<div className="p-4 bg-red-800/30 border border-red-600 rounded-md">
 								<p className="text-red-400 text-sm">
-									Something went wrong. You can email me directly at aarushaga@gmail.com
+									{errorMessage || "Failed to send message. Please try again or email me directly at aarushaga@gmail.com"}
 								</p>
 							</div>
 						)}

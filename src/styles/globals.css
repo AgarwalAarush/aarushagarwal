@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import highlight.js theme for syntax highlighting */
+@import 'highlight.js/styles/github-dark.css';
+
 /* Local JetBrains Mono font declarations */
 @font-face {
 	font-family: "JetBrains Mono";
@@ -116,15 +119,21 @@
 
 	/* Custom scrollbar */
 	::-webkit-scrollbar {
-		@apply w-2;
+		width: 8px;
+		height: 8px;
 	}
 
 	::-webkit-scrollbar-track {
-		@apply bg-gray-100;
+		background: #1f2937;
 	}
 
 	::-webkit-scrollbar-thumb {
-		@apply bg-gray-300 rounded-full hover:bg-gray-400;
+		background: #4b5563;
+		border-radius: 4px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #6b7280;
 	}
 }
 
@@ -351,4 +360,126 @@ pre[class*="language-"] {
 	padding: 0.1em;
 	border-radius: 0.3em;
 	white-space: normal;
+}
+
+/* Override highlight.js styles to match dark theme */
+.hljs {
+  background: #111827 !important;
+  color: #e5e7eb !important;
+  border: 1px solid #374151 !important;
+}
+
+/* Ensure code blocks are properly styled */
+pre code.hljs {
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  background-color: #374151 !important;
+  color: #e5e7eb !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.875rem !important;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+}
+
+/* Prose styling for blog content */
+.prose {
+  max-width: none !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.prose p {
+  color: #d1d5db !important;
+  line-height: 1.75 !important;
+}
+
+.prose ul,
+.prose ol {
+  color: #d1d5db !important;
+}
+
+.prose li {
+  color: #d1d5db !important;
+}
+
+.prose strong {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.prose em {
+  color: #e5e7eb !important;
+}
+
+.prose blockquote {
+  border-left: 4px solid #3b82f6 !important;
+  background-color: rgba(31, 41, 55, 0.3) !important;
+  color: #d1d5db !important;
+  font-style: italic !important;
+  margin: 1rem 0 !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.prose a {
+  color: #60a5fa !important;
+  text-decoration: underline !important;
+  transition: color 0.2s ease !important;
+}
+
+.prose a:hover {
+  color: #93c5fd !important;
+}
+
+/* Table styling for blog content */
+.prose table {
+  border-collapse: collapse !important;
+  margin: 1.5rem 0 !important;
+  width: 100% !important;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid #374151 !important;
+  padding: 0.75rem !important;
+  text-align: left !important;
+}
+
+.prose th {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.prose td {
+  color: #d1d5db !important;
+}
+
+/* Image styling for blog content */
+.prose img {
+  border-radius: 0.5rem !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  margin: 1.5rem auto !important;
+}
+
+/* Make sure list bullets are visible */
+.prose ul > li::marker {
+  color: #9ca3af !important;
+}
+
+.prose ol > li::marker {
+  color: #9ca3af !important;
 }
