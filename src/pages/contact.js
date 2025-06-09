@@ -60,7 +60,7 @@ export default function Contact() {
 				<title>Contact | Aarush Agarwal</title>
 				<meta
 					name="description"
-					content="Get in touch with Aarush Agarwal - Let's discuss AI, machine learning, or potential collaborations"
+					content="Get in touch with Aarush Agarwal - Let&apos;s discuss AI, machine learning, or potential collaborations"
 				/>
 				<link rel="icon" href="/images/profile-pic.png" />
 				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
@@ -124,7 +124,7 @@ export default function Contact() {
 								value={formData.subject}
 								onChange={handleChange}
 								className="w-full px-4 py-2 text-sm bg-gray-800/50 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-								placeholder="What's this about?"
+								placeholder="What&apos;s this about?"
 							/>
 						</div>
 
@@ -170,7 +170,7 @@ export default function Contact() {
 						{submitStatus === "success" && (
 							<div className="p-4 bg-green-800/30 border border-green-600 rounded-md">
 								<p className="text-green-400 text-sm">
-									✓ Message sent successfully! I'll get back to you soon.
+									✓ Message sent successfully! I&apos;ll get back to you soon.
 								</p>
 							</div>
 						)}
