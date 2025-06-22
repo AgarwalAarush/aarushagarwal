@@ -26,6 +26,20 @@ export default function About() {
 			type: "work"
 		},
 		{
+			year: "August 2024 - Present",
+			title: "Bachelor's Degree in Artificial Intelligence",
+			company: "Carnegie Mellon University",
+			description: "Currently pursuing AI degree with focus on machine learning, high-performance computing, and practical applications. Active in research and competitive programming.",
+			type: "education"
+		},
+		{
+			year: "August 2020 - June 2024",
+			title: "High School Diploma",
+			company: "Mountain View High School",
+			description: "Graduated with strong foundation in computer science and mathematics. Led multiple clubs and participated in competitive programming competitions.",
+			type: "education"
+		},
+		{
 			year: "October 2022 - January 2024",
 			title: "Co-Founder & Product Lead",
 			company: "MV Test Tracker (MVTT)",
@@ -45,20 +59,6 @@ export default function About() {
 			company: "Artificial Intelligence Club",
 			description: "Transformed theoretical organization into practical learning environment. Led two teams to semifinalist positions in Mathematics and Technology for Computer Science (MtFC) competition in 2022.",
 			type: "work"
-		},
-		{
-			year: "August 2024 - May 2028",
-			title: "Bachelor's Degree in Artificial Intelligence",
-			company: "Carnegie Mellon University",
-			description: "Currently pursuing AI degree with focus on machine learning, high-performance computing, and practical applications. Active in research and competitive programming.",
-			type: "education"
-		},
-		{
-			year: "August 2020 - June 2024",
-			title: "High School Diploma",
-			company: "Mountain View High School",
-			description: "Graduated with strong foundation in computer science and mathematics. Led multiple clubs and participated in competitive programming competitions.",
-			type: "education"
 		}
 	];
 
