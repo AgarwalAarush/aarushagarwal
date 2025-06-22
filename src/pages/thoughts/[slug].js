@@ -123,7 +123,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-12"
+          className="mb-8"
         >
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
             {post.title}
@@ -169,6 +169,23 @@ export default function ThoughtsPost({ post, mdxSource }) {
                   {tag}
                 </span>
               ))}
+            </div>
+          )}
+
+          {/* Medium Link */}
+          {post.mediumLink && (
+            <div className="mt-6">
+              <a
+                href={post.mediumLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 text-sm font-medium"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                </svg>
+                Read on Medium
+              </a>
             </div>
           )}
         </motion.header>
@@ -287,7 +304,8 @@ export async function getStaticProps({ params }) {
     excerpt: frontmatter.excerpt,
     tags: frontmatter.tags || [],
     readingTime: frontmatter.readingTime || 5,
-    author: frontmatter.author || 'Aarush Agarwal'
+    author: frontmatter.author || 'Aarush Agarwal',
+    mediumLink: frontmatter.mediumLink || null
   };
 
   return {
