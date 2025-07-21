@@ -7,13 +7,21 @@ export default function ProjectCard({ project }) {
   // Card content that's used both on the server and on the client:
   const cardContent = (
     <>
-      {/* Folder icon */}
+      {/* Project icon */}
       <div className="flex items-center mr-4">
-        <div className="p-3 bg-gray-700 rounded-lg">
-          <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-5L12 5H5a2 2 0 00-2 2z" />
-          </svg>
-        </div>
+        {project.icon ? (
+          <img 
+            src={project.icon} 
+            alt={`${project.title} icon`}
+            className="w-12 h-12 object-contain rounded-lg"
+          />
+        ) : (
+          <div className="p-3 bg-gray-700 rounded-lg">
+            <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-5L12 5H5a2 2 0 00-2 2z" />
+            </svg>
+          </div>
+        )}
       </div>
 
       {/* Content */}

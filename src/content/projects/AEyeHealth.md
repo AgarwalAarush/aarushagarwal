@@ -4,11 +4,10 @@ title: 'AEye Health'
 description: 'A computer vision solution to address digital eye strain by monitoring blink patterns and promoting healthy screen habits.'
 image: '/images/aeye-health.png'
 github: 'https://github.com/AEYEHealth/AEYEHealth'
+icon: '/images/aeye-health-icon.png'
 demo: ''
 technologies: ['OpenCV', 'Haar Cascades', 'dlib', 'Python', 'Machine Learning']
 ---
-
-# AEye Health
 
 ## Overview
 An innovative application leveraging computer vision technology to monitor and improve eye health during extended screen usage. AEye Health uses machine learning algorithms to analyze blink frequency and patterns, providing personalized recommendations to reduce digital eye strain and promote healthier screen habits.

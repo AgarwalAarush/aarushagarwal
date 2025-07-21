@@ -5,9 +5,9 @@ description: 'An optimization tool to help students manage time and teachers sch
 image: '/images/mvtt.png'
 github: 'https://github.com/mvtime/mvtime.github.io'
 demo: 'https://mvtt.app/'
+icon: '/images/mvtt-icon.png'
 technologies: ['React', 'Firebase', 'Optimization Algorithm', 'JavaScript']
 ---
-# MV Test Tracker
 ## Overview
 A comprehensive test scheduling platform designed to solve the problem of uneven test distribution throughout the academic calendar. The application helps students manage their study time more effectively while enabling teachers to schedule assessments in a more balanced and efficient manner.
 
