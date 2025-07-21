@@ -1,4 +1,5 @@
 ---
+ranking: 2
 title: 'AEye Health'
 description: 'A computer vision solution to address digital eye strain by monitoring blink patterns and promoting healthy screen habits.'
 image: '/images/aeye-health.png'
