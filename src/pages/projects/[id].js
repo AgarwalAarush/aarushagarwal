@@ -43,16 +43,10 @@ export default function ProjectPage({ project }) {
     },
     // Custom renderer for h1 to handle projects with icons
     h1({ node, children, ...props }) {
-      // Check if this project has an icon and if this is likely the main title heading
-      const isMainTitle = typeof children === 'string' && 
-                         (children.includes('Technical Overview') || 
-                          children.includes('Overview') || 
-                          children === project.title ||
-                          children.toLowerCase().includes(project.title.toLowerCase()));
-      
-      if (project.icon && isMainTitle) {
+      // For the very first h1 in projects with icons, show the icon
+      if (project.icon) {
         return (
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center justify-start gap-4 mb-8 not-prose w-fit">
             <Image
               src={project.icon}
               alt={`${project.title} Icon`}
@@ -60,14 +54,14 @@ export default function ProjectPage({ project }) {
               height={64}
               className="rounded-lg flex-shrink-0"
             />
-            <h1 className="text-2xl font-bold text-white m-0" {...props}>
+            <h1 className="text-2xl font-bold text-white m-0 text-left flex-shrink-0 no-underline" style={{borderBottom: 'none', textDecoration: 'none'}} {...props}>
               {children}
             </h1>
           </div>
         );
       }
-      // Default h1 rendering for other cases
-      return <h1 className="text-2xl font-bold text-white mb-6 mt-8" {...props}>{children}</h1>;
+      // Default h1 rendering for projects without icons
+      return <h1 className="text-2xl font-bold text-white mb-6 mt-8 text-left no-underline" style={{borderBottom: 'none', textDecoration: 'none'}} {...props}>{children}</h1>;
     }
   };
 
@@ -88,7 +82,7 @@ export default function ProjectPage({ project }) {
             className="max-w-3xl mx-auto"
           >
             {/* Back button */}
-            <Link href="/#projects" className="inline-flex items-center mb-8 text-white hover:underline transition-all duration-300">
+            <Link href="/projects" className="inline-flex items-center mb-8 text-white hover:underline transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
@@ -96,7 +90,7 @@ export default function ProjectPage({ project }) {
             </Link>
             
             {/* Project header */}
-            <div className="mb-8 p-6 bg-[#1D1E21] border border-[#1e1e2d] rounded-lg">
+            <div className="mb-8 p-6 bg-[#1D1E21] border-2 border-[#181818] rounded-lg">
               {project.image && (
                 <div className="mb-6 overflow-hidden rounded-lg">
                   <Image
@@ -109,7 +103,20 @@ export default function ProjectPage({ project }) {
                 </div>
               )}
               
-              <h1 className="mb-4 text-2xl font-bold text-white">{project.title}</h1>
+              {project.icon ? (
+                <div className="flex items-center gap-4 mb-4">
+                  <Image
+                    src={project.icon}
+                    alt={`${project.title} Icon`}
+                    width={48}
+                    height={48}
+                    className="rounded-lg flex-shrink-0"
+                  />
+                  <h1 className="text-2xl font-bold text-white m-0">{project.title}</h1>
+                </div>
+              ) : (
+                <h1 className="mb-4 text-2xl font-bold text-white">{project.title}</h1>
+              )}
               
               <p className="mb-6 text-lg text-white">{project.description}</p>
               
@@ -160,7 +167,7 @@ export default function ProjectPage({ project }) {
             </div>
             
             {/* Project content */}
-            <article className="prose prose-invert prose-sm max-w-none p-6 bg-[#1D1E21] border border-[#1e1e2d] rounded-lg markdown-github">
+            <article className="prose prose-invert prose-sm max-w-none p-6 bg-[#1D1E21] border-2 border-[#181818] rounded-lg markdown-github">
               <ReactMarkdown components={components}>{project.content}</ReactMarkdown>
             </article>
           </motion.div>
