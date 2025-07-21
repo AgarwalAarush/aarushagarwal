@@ -105,11 +105,14 @@ export async function getStaticProps() {
 					title: frontmatter.title || 'Untitled Project',
 					description: frontmatter.description || 'No description available',
 					image: frontmatter.image || null,
+					icon: frontmatter.icon || null,
 					github: frontmatter.github || null,
 					demo: frontmatter.demo || null,
 					technologies: frontmatter.technologies || [],
+					ranking: frontmatter.ranking || 999, // Default high number for items without ranking
 				};
-			});
+			})
+			.sort((a, b) => a.ranking - b.ranking); // Sort by ranking, lowest numbers first
 
 		return {
 			props: {

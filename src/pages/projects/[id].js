@@ -40,6 +40,34 @@ export default function ProjectPage({ project }) {
           {children}
         </code>
       );
+    },
+    // Custom renderer for h1 to handle projects with icons
+    h1({ node, children, ...props }) {
+      // Check if this project has an icon and if this is likely the main title heading
+      const isMainTitle = typeof children === 'string' && 
+                         (children.includes('Technical Overview') || 
+                          children.includes('Overview') || 
+                          children === project.title ||
+                          children.toLowerCase().includes(project.title.toLowerCase()));
+      
+      if (project.icon && isMainTitle) {
+        return (
+          <div className="flex items-center gap-4 mb-8">
+            <Image
+              src={project.icon}
+              alt={`${project.title} Icon`}
+              width={64}
+              height={64}
+              className="rounded-lg flex-shrink-0"
+            />
+            <h1 className="text-2xl font-bold text-white m-0" {...props}>
+              {children}
+            </h1>
+          </div>
+        );
+      }
+      // Default h1 rendering for other cases
+      return <h1 className="text-2xl font-bold text-white mb-6 mt-8" {...props}>{children}</h1>;
     }
   };
 
@@ -174,6 +202,7 @@ export async function getStaticProps({ params }) {
         title: frontmatter.title,
         description: frontmatter.description,
         image: frontmatter.image,
+        icon: frontmatter.icon || null,
         github: frontmatter.github,
         demo: frontmatter.demo,
         technologies: frontmatter.technologies,

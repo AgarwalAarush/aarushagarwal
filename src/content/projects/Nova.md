@@ -1,25 +1,18 @@
 ---
+ranking: 1
 title: 'Nova'
 description: 'The Next-Generation Local-First AI Assistant for macOS - Combining cutting-edge AI with comprehensive system automation in a privacy-first, offline-capable architecture'
 image: '/images/nova.png'
 github: 'https://github.com/AgarwalAarush/Nova/'
+icon: '/images/nova-icon.png'
 demo: 'https://youtu.be/O1oNlkuyIBg'
-technologies: ['Swift', 'SwiftUI', 'Core ML', 'Whisper', 'AI Integration', 'Voice Recognition', 'System Automation', 'ONNX', 'Local AI']
+technologies: ['System Automation', 'Local AI', 'Swift', 'SwiftUI', 'Core ML', 'Whisper', 'AI Integration', 'Ollama', 'Accessibility API', 'Voice Recognition', 'ONNX']
 ---
-
 # Nova AI Assistant: Technical Overview
-
-<div align="center">
-
-<img src="/images/nova.png" alt="Nova App Icon" width="128" height="128">
 
 **The Next-Generation Local-First AI Assistant for macOS**
 
 *Combining cutting-edge AI with comprehensive system automation in a privacy-first, offline-capable architecture*
-
-</div>
-
----
 
 ## 🚀 Overview
 
@@ -31,8 +24,6 @@ Nova is a **local-first AI assistant** that delivers enterprise-grade capabiliti
 - **Deep System Integration**: Comprehensive macOS automation via accessibility APIs
 - **Privacy by Design**: All processing can occur entirely on-device
 - **Production-Ready**: Sophisticated error handling and security architecture
-
----
 
 ## ✨ Key Features
 
@@ -65,7 +56,6 @@ Nova is a **local-first AI assistant** that delivers enterprise-grade capabiliti
 - **Device-Specific Encryption**: Proper access controls and data protection
 - **Multi-Provider Security**: Secure API key management across all services
 
----
 
 ## 🏗 Technical Architecture
 
@@ -99,7 +89,6 @@ Neural Classification → Temporal Filtering → Confidence Output
 - **Permission Management**: Comprehensive accessibility, screen recording, system events
 - **Multi-Domain Support**: Display, application, window, and system operations
 
----
 
 ## 🧩 Development Challenges Overcome
 
@@ -127,7 +116,6 @@ Neural Classification → Temporal Filtering → Confidence Output
 - Seamless upgrade path from development to production security
 - Comprehensive security review and vulnerability assessment
 
----
 
 ## 🌟 The Local-First Advantage
 
@@ -152,7 +140,6 @@ Works in previously impossible scenarios: air travel, secure environments, remot
 - Predictable costs without per-usage fees
 - Complete control over models and behavior
 
----
 
 ## 🛣 Future Roadmap
 
@@ -179,7 +166,6 @@ Works in previously impossible scenarios: air travel, secure environments, remot
 - Lower resource consumption and battery usage
 - Enhanced multi-core utilization and predictive caching
 
----
 
 ## 🏆 Technical Excellence
 
