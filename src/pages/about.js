@@ -15,21 +15,21 @@ export default function About() {
 			year: "May 2025 - Present",
 			title: "Machine Learning Engineer Intern",
 			company: "Shopify",
-			description: "Working on the buyer risk pre-auth model that stops fraudsters from transactions. Developing ML infrastructure and fraud detection systems to protect e-commerce transactions and improve platform security.",
+			description: "Developing a more robust machine learning model to detect buyer fraud on Shopify. Used to prevent fraudsters from making transactions and improve platform security.",
 			type: "work"
 		},
 		{
 			year: "August 2024 - Present",
 			title: "ML & CUDA Researcher",
 			company: "Carnegie Mellon University Cosmology Lab",
-			description: "Conducting cutting-edge research under Professor Mateo Cremonesi. Optimizing object condensation loss functions for graph neural networks to detect particle collisions in CERN data. Developing high-performance CUDA extensions and achieving up to 40x speed improvements over FAISS.",
+			description: "Conducting research under Professor Mateo Cremonesi. Co-authoring research on optimizing the K-Nearest Neighbors algorithm using advanced spatial partitioning, achieving up to 40x speed improvements over FAISS in low-dimensional spaces. Accelerated KNN runtime by 10% by migrating Python autograd operations to high-performance C++ and CUDA extensions integrated with PyTorch JIT.",
 			type: "work"
 		},
 		{
 			year: "August 2024 - Present",
 			title: "Bachelor's Degree in Artificial Intelligence",
 			company: "Carnegie Mellon University",
-			description: "Currently pursuing AI degree with focus on machine learning, high-performance computing, and practical applications. Active in research and competitive programming.",
+			description: "Currently pursuing AI degree with focus on machine learning its and practical applications (e.g. robotics). Active in research and competitive programming.",
 			type: "education"
 		},
 		{
