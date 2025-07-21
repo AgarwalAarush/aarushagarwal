@@ -8,7 +8,6 @@ icon: '/images/nova-icon.png'
 demo: 'https://youtu.be/O1oNlkuyIBg'
 technologies: ['System Automation', 'Local AI', 'Swift', 'SwiftUI', 'Core ML', 'Whisper', 'AI Integration', 'Ollama', 'Accessibility API', 'Voice Recognition', 'ONNX']
 ---
-# Nova AI Assistant: Technical Overview
 
 **The Next-Generation Local-First AI Assistant for macOS**
 
