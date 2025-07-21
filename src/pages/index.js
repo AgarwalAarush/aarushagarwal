@@ -118,6 +118,7 @@ export async function getStaticProps() {
 			title: frontmatter.title,
 			description: frontmatter.description,
 			image: frontmatter.image,
+			icon: frontmatter.icon || null,
 			github: frontmatter.github,
 			demo: frontmatter.demo,
 			technologies: frontmatter.technologies,
