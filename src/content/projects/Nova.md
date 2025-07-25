@@ -20,29 +20,27 @@ Nova is a **local-first AI assistant** that delivers enterprise-grade capabiliti
 **Core Advantages:**
 - **Complete Offline Functionality**: Operates entirely using local AI models
 - **Multi-Provider Intelligence**: Seamlessly integrates Ollama, OpenAI, Claude, and Mistral with automatic fallback
-- **Deep System Integration**: Comprehensive macOS automation via accessibility APIs
+- **Deep System Integration**: Comprehensive macOS automation via [MacOS-Use](https://www.aarushagarwal.dev/projects/MacOS-Use) and fallback MacOS Accessibility APIs
 - **Privacy by Design**: All processing can occur entirely on-device
-- **Production-Ready**: Sophisticated error handling and security architecture
 
 ## ✨ Key Features
 
 ### 🧠 **Multi-Provider AI Ecosystem**
-- Four AI providers with intelligent routing based on task complexity
+- AI providers with intelligent tool calling for automation
 - Automatic fallback between providers for reliability
 - Complete local processing via Ollama integration
 - Streaming architecture for real-time responses across all providers
+
+### 🛠 **System Automation Suite**
+- **50+ Default Tools** across 7 categories: display, application, window, system, screenshot, clipboard, memory
+- **MacOS-Use**: Uses custom library to interact with the Mac
+- **Context Sharing**: Data persistence between tool calls for complex workflows
 
 ### 🎤 **Advanced Speech System**
 - **Whisper Integration**: Multi-model support (tiny.en through large) with local transcription
 - **Wake Word Detection**: ONNX-based neural pipeline with <15ms processing latency
 - **Audio Pipeline**: Professional-grade capture, preprocessing, and format optimization
 - **Real-Time Processing**: 80ms audio chunks with advanced VAD and temporal filtering
-
-### 🛠 **System Automation Suite**
-- **50+ Tools** across 7 categories: display, application, window, system, screenshot, clipboard, memory
-- **AI Tool Calling**: Natural language requests converted to structured automation
-- **Accessibility API Framework**: Converts natural language tasks into UI interactions
-- **Context Sharing**: Data persistence between tool calls for complex workflows
 
 ### 🖥 **Adaptive Interface**
 - **Dual Modes**: Full ChatView and minimal CompactVoiceView
@@ -57,6 +55,13 @@ Nova is a **local-first AI assistant** that delivers enterprise-grade capabiliti
 
 
 ## 🏗 Technical Architecture
+
+### **Intelligent macOS Automation Engine**: [MacOS-Use](https://www.aarushagarwal.dev/projects/MacOS-Use)
+- **Progressive Refinement Architecture**: Coarse-to-fine localization through iterative quadrant analysis
+- **LLM Visual Reasoning**: Semantic understanding of UI elements, resilient to design changes
+- **Context-Aware Processing**: Boundary-intelligent cropping with contextual padding strategies
+- **Cost Optimization**: 60-80% reduction in computational costs vs. full-resolution analysis
+- **Coordinate Precision**: Sub-pixel accuracy with seamless screen-to-image coordinate mapping
 
 ### **Wake Word Detection Pipeline**
 ```
@@ -81,13 +86,6 @@ Neural Classification → Temporal Filtering → Confidence Output
 - **Background Loading**: Asynchronous initialization with progress tracking
 - **Format Pipeline**: AVAudioEngine → PCM → Model inference → Text output
 - **Performance Scaling**: Configurable model sizes for accuracy/speed balance
-
-### **macOS Automation System**
-- **Tool Schema**: JSON-defined specifications with type safety
-- **Execution Orchestration**: Context-aware calling with error recovery
-- **Permission Management**: Comprehensive accessibility, screen recording, system events
-- **Multi-Domain Support**: Display, application, window, and system operations
-
 
 ## 🧩 Development Challenges Overcome
 
