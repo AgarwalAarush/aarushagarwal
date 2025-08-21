@@ -216,17 +216,6 @@ npm run lint
 - **CMS Integration**: Headless CMS for content management
 - **Internationalization**: Multi-language support
 
-## 🚀 Contributing
-
-This is a personal website project, but suggestions and feedback are welcome! Feel free to:
-- Report bugs or issues
-- Suggest improvements
-- Provide feedback on design and functionality
-
 ## 📄 License
 
 [MIT License](LICENSE) - feel free to use this project as inspiration for your own personal website.
-
----
-
-**Note**: This website represents the work and projects of Aarush Agarwal. For questions or collaboration opportunities, please use the contact form or reach out directly at aarushaga@gmail.com.
