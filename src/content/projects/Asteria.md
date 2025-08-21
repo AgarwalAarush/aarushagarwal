@@ -4,7 +4,6 @@ title: 'Asteria'
 description: 'An AI-Powered Mind-Mapping Platform for Startup Ideation — transforming brainstorming into structured, intelligent graphs with automated insights and collaboration'
 github: 'https://github.com/AgarwalAarush/Asteria/'
 icon: '/images/asteria-icon.png'
-demo: 'https://youtu.be/your-demo-link'
 technologies: ['Next.js', 'React Flow', 'TypeScript', 'TailwindCSS', 'Supabase', 'Prisma', 'Zustand', 'AI Integration', 'Zod', 'shadcn/ui', 'Postgres']
 ---
 
