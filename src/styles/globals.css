@@ -80,37 +80,48 @@
 
 /* Define global variables for the color scheme */
 :root {
-	--bg-dark: #1D1E21;
-	--bg-darker: #1D1E21;
-	--bg-hero: #1D1E21;
-	--accent-primary: #6e56cf;
-	--accent-secondary: #4cc9f0;
-	--text-primary: #ffffff;
-	--text-secondary: #ffffff;
-	--card-bg: rgba(30, 30, 45, 0.7);
-  }
+    --bg-dark: #ffffff;
+    --bg-darker: #f9fafb;
+    --bg-hero: #ffffff;
+    --accent-primary: #6e56cf;
+    --accent-secondary: #4cc9f0;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --card-bg: #ffffff;
+}
+
+.dark {
+    --bg-dark: #1D1E21;
+    --bg-darker: #1D1E21;
+    --bg-hero: #1D1E21;
+    --accent-primary: #6e56cf;
+    --accent-secondary: #4cc9f0;
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --card-bg: rgba(30, 30, 45, 0.7);
+}
   
-  /* Add this utility class for consistent section backgrounds */
-  .section-bg {
-	background-color: var(--bg-hero);
-  }
+/* Add this utility class for consistent section backgrounds */
+.section-bg {
+    background-color: var(--bg-hero);
+}
 
 @layer base {
-	body {
-		@apply text-white;
-		background: var(--bg-hero);
-		font-family: 'JetBrains Mono', monospace;
-	}
+    body {
+        @apply text-gray-900 dark:text-white;
+        background: var(--bg-hero);
+        font-family: 'JetBrains Mono', monospace;
+    }
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		@apply font-bold text-white;
-		font-family: 'JetBrains Mono', monospace;
-	}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold text-gray-900 dark:text-white;
+        font-family: 'JetBrains Mono', monospace;
+    }
 
 	.uppercase {
 		font-family: 'JetBrains Mono', monospace;
