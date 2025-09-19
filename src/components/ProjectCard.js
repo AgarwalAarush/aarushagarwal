@@ -6,23 +6,17 @@ import ClientOnly from "../components/ClientOnly";
 export default function ProjectCard({ project, showTechnologies = true }) {
   // Card content that's used both on the server and on the client:
   const cardContent = (
-    <>
-      {/* Project icon */}
-      <div className="flex items-center mr-4">
-        {project.icon ? (
+    <div className="w-full h-full flex flex-col">
+      {/* Project image */}
+      {project.image && (
+        <div className="w-full h-48 mb-4 overflow-hidden rounded-lg">
           <img 
-            src={project.icon} 
-            alt={`${project.title} icon`}
-            className="w-12 h-12 object-contain rounded-lg"
+            src={project.image} 
+            alt={`${project.title}`}
+            className="w-full h-full object-cover"
           />
-        ) : (
-          <div className="p-3 bg-gray-700 rounded-lg">
-            <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-5L12 5H5a2 2 0 00-2 2z" />
-            </svg>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="flex-1 flex flex-col justify-center">
@@ -30,9 +24,12 @@ export default function ProjectCard({ project, showTechnologies = true }) {
           {project.title}
         </h3>
 
-        <p className="mb-3 text-sm text-gray-700 dark:text-white">
-          {project.description}
-        </p>
+        <div 
+          className="mb-3 text-sm text-gray-700 dark:text-white"
+          dangerouslySetInnerHTML={{
+            __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          }}
+        />
 
         {/* Technologies */}
         {showTechnologies && project.technologies && (
@@ -48,7 +45,7 @@ export default function ProjectCard({ project, showTechnologies = true }) {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 
   return (
@@ -56,8 +53,8 @@ export default function ProjectCard({ project, showTechnologies = true }) {
       <a className="block">
         <ClientOnly fallback={
           <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
-            <div className="p-6 bg-white dark:bg-[#1D1E21] rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-56 flex relative group">
-              <div className="relative z-10 h-full flex w-full">
+            <div className="p-6 bg-gray-100 dark:bg-gray-800/30 rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-96 flex relative group">
+              <div className="relative z-10 h-full w-full">
                 {cardContent}
               </div>
             </div>
@@ -65,8 +62,8 @@ export default function ProjectCard({ project, showTechnologies = true }) {
         }>
           {() => (
             <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
-              <div className="p-6 bg-white dark:bg-[#1D1E21] rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-56 flex relative group">
-                <div className="relative z-10 h-full flex w-full">
+              <div className="p-6 bg-gray-100 dark:bg-gray-800/30 rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-96 flex relative group">
+                <div className="relative z-10 h-full w-full">
                   {cardContent}
                 </div>
               </div>
