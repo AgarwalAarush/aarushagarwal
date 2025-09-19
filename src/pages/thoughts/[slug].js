@@ -70,10 +70,10 @@ const components = {
 export default function ThoughtsPost({ post, mdxSource }) {
   if (!post) {
     return (
-      <div className="min-h-screen bg-[#1D1E21] flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-[#1D1E21] flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Post Not Found</h1>
-          <Link href="/thoughts" className="text-blue-400 hover:text-blue-300">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Post Not Found</h1>
+          <Link href="/thoughts" className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
             ← Back to Thoughts
           </Link>
         </div>
@@ -82,7 +82,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#1D1E21]">
+    <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
       <Head>
         <title>{post.title} | Aarush Agarwal</title>
         <meta name="description" content={post.excerpt} />
@@ -125,11 +125,11 @@ export default function ThoughtsPost({ post, mdxSource }) {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-8"
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
             {post.title}
           </h1>
           
-          <div className="flex flex-wrap items-center gap-4 text-gray-400 mb-6">
+          <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -164,7 +164,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm text-blue-400 bg-blue-400/10 rounded-full border border-blue-400/20"
+                  className="px-3 py-1 text-sm text-blue-700 bg-blue-100 rounded-full border border-blue-200 dark:text-blue-400 dark:bg-blue-400/10 dark:border-blue-400/20"
                 >
                   {tag}
                 </span>
@@ -197,7 +197,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="prose max-w-none"
         >
-          <div className="text-gray-300 leading-relaxed">
+          <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
             <MDXRemote {...mdxSource} components={components} />
           </div>
         </motion.div>
@@ -211,8 +211,8 @@ export default function ThoughtsPost({ post, mdxSource }) {
         >
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <p className="text-gray-300 font-medium">Written by {post.author}</p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-700 dark:text-gray-300 font-medium">Written by {post.author}</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Published on {new Date(post.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -224,16 +224,16 @@ export default function ThoughtsPost({ post, mdxSource }) {
             <div className="flex gap-4">
               <Link 
                 href="/thoughts" 
-                className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-colors duration-200"
+                className="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 More Posts
               </Link>
-              <Link 
-                href="/contact" 
+              <a 
+                href="mailto:aarushaga@gmail.com" 
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
               >
                 Get in Touch
-              </Link>
+              </a>
             </div>
           </div>
         </motion.footer>

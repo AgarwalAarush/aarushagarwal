@@ -3,7 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import ClientOnly from "../components/ClientOnly";
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, showTechnologies = true }) {
   // Card content that's used both on the server and on the client:
   const cardContent = (
     <>
@@ -26,21 +26,21 @@ export default function ProjectCard({ project }) {
 
       {/* Content */}
       <div className="flex-1 flex flex-col justify-center">
-        <h3 className="mb-2 text-lg font-bold text-white">
+        <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
           {project.title}
         </h3>
 
-        <p className="mb-3 text-sm text-white">
+        <p className="mb-3 text-sm text-gray-700 dark:text-white">
           {project.description}
         </p>
 
         {/* Technologies */}
-        {project.technologies && (
+        {showTechnologies && project.technologies && (
           <div className="flex flex-wrap gap-2">
             {project.technologies.slice(0, 3).map((tech, index) => (
               <span
                 key={index}
-                className="px-2 py-1 text-xs font-medium rounded-sm bg-[#181818] text-white"
+                className="px-2 py-1 text-xs font-medium rounded-sm bg-gray-100 text-gray-700 dark:bg-[#181818] dark:text-white border border-gray-200 dark:border-transparent"
               >
                 {tech}
               </span>
@@ -56,7 +56,7 @@ export default function ProjectCard({ project }) {
       <a className="block">
         <ClientOnly fallback={
           <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
-            <div className="p-6 bg-[#1D1E21] rounded-lg border border-[#1e1e2d] hover:border-[#9d7bff] transition-colors duration-300 h-40 flex relative group">
+            <div className="p-6 bg-white dark:bg-[#1D1E21] rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-56 flex relative group">
               <div className="relative z-10 h-full flex w-full">
                 {cardContent}
               </div>
@@ -65,7 +65,7 @@ export default function ProjectCard({ project }) {
         }>
           {() => (
             <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
-              <div className="p-6 bg-[#1D1E21] rounded-lg border border-[#1e1e2d] hover:border-[#9d7bff] transition-colors duration-300 h-40 flex relative group">
+              <div className="p-6 bg-white dark:bg-[#1D1E21] rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-56 flex relative group">
                 <div className="relative z-10 h-full flex w-full">
                   {cardContent}
                 </div>
