@@ -84,7 +84,7 @@ export default function Home({ projects, posts }) {
                         </div>
                         <div className="flex flex-col items-center">
                             <div className="w-40 h-40 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
-                                <Image src="/aarush.jpeg" alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
+                                <Image src="/images/profile-pic.jpeg" alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
                             </div>
                             <div className="mt-4 flex items-center gap-3">
                                 <a
