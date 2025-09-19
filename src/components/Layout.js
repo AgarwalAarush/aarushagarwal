@@ -39,7 +39,7 @@ export default function Layout({ children }) {
                 </div>
 				{/* Add top padding for mobile header */}
 				<main className="flex-grow pt-16 md:pt-0">{children}</main>
-                <footer className="py-8 bg-white dark:bg-[#1D1E21] relative">
+                <footer className="py-8 bg-gray-100 dark:bg-[#1D1E21] relative">
 					<motion.div
 						className="max-w-4xl mx-auto px-6 relative z-10"
 						initial={{ opacity: 0, y: 20 }}
