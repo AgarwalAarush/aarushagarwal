@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 export default function Thoughts({ posts }) {
   return (
-    <div className="min-h-screen bg-[#1D1E21]">
+    <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
       <Head>
         <title>Thoughts | Aarush Agarwal</title>
         <meta name="description" content="Thoughts on AI, software development, and technology" />
@@ -21,10 +21,10 @@ export default function Thoughts({ posts }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl font-bold text-white mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Thoughts
           </h1>
-          <p className="text-xl text-gray-300 mb-12">
+          <p className="text-xl text-gray-700 dark:text-gray-300 mb-12">
             Thoughts on AI, software development, and the future of technology.
           </p>
         </motion.div>
@@ -39,12 +39,12 @@ export default function Thoughts({ posts }) {
               className="group"
             >
               <Link href={`/thoughts/${post.slug}`}>
-                <div className="bg-gray-800/30 rounded-lg p-6 border border-gray-700/50 hover:bg-gray-800/50 transition-all duration-200 hover:border-gray-600/50">
+                <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50 hover:bg-gray-200 dark:hover:bg-gray-800/50 transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600/50">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
-                    <h2 className="text-2xl font-bold text-white group-hover:text-gray-200 transition-colors duration-200">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-200">
                       {post.title}
                     </h2>
-                    <div className="flex items-center text-sm text-gray-500 mt-2 sm:mt-0">
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-500 mt-2 sm:mt-0">
                       <span>{new Date(post.date).toLocaleDateString('en-US', { 
                         year: 'numeric', 
                         month: 'long', 
@@ -55,7 +55,7 @@ export default function Thoughts({ posts }) {
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 mb-4 leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                     {post.excerpt}
                   </p>
                   
@@ -63,7 +63,7 @@ export default function Thoughts({ posts }) {
                     {post.tags && post.tags.map((tag) => (
                       <span 
                         key={tag} 
-                        className="px-3 py-1 text-xs text-blue-400 bg-blue-400/10 rounded-full border border-blue-400/20"
+                        className="px-3 py-1 text-xs text-blue-700 bg-blue-100 rounded-full border border-blue-200 dark:text-blue-400 dark:bg-blue-400/10 dark:border-blue-400/20"
                       >
                         {tag}
                       </span>
@@ -77,7 +77,7 @@ export default function Thoughts({ posts }) {
 
         {posts.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-700 dark:text-gray-400 text-lg">
               No thoughts yet. Check back soon!
             </p>
           </div>
