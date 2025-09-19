@@ -24,41 +24,6 @@ export default function About() {
 			company: "Carnegie Mellon University Cosmology Lab",
 			description: "Conducting research under Professor Mateo Cremonesi. Co-authoring research on optimizing the K-Nearest Neighbors algorithm using advanced spatial partitioning, achieving up to 40x speed improvements over FAISS in low-dimensional spaces. Accelerated KNN runtime by 10% by migrating Python autograd operations to high-performance C++ and CUDA extensions integrated with PyTorch JIT.",
 			type: "work"
-		},
-		{
-			year: "August 2024 - Present",
-			title: "Bachelor's Degree in Artificial Intelligence",
-			company: "Carnegie Mellon University",
-			description: "Currently pursuing AI degree with focus on machine learning its and practical applications (e.g. robotics). Active in research and competitive programming.",
-			type: "education"
-		},
-		{
-			year: "August 2020 - June 2024",
-			title: "High School Diploma",
-			company: "Mountain View High School",
-			description: "Graduated with strong foundation in computer science and mathematics. Led multiple clubs and participated in competitive programming competitions.",
-			type: "education"
-		},
-		{
-			year: "October 2022 - January 2024",
-			title: "Co-Founder & Product Lead",
-			company: "MV Test Tracker (MVTT)",
-			description: "Co-founded educational technology platform to optimize academic scheduling and reduce student stress. Developed sophisticated optimization algorithms and collaborated with Mountain View High School to create a responsive online portal.",
-			type: "work"
-		},
-		{
-			year: "August 2022 - May 2023",
-			title: "Founder & President",
-			company: "Algorithmic Programming Club",
-			description: "Founded and led club to introduce students to advanced CS concepts. Developed comprehensive curriculum covering algorithms and data structures, organized programming competitions.",
-			type: "work"
-		},
-		{
-			year: "August 2021 - May 2023",
-			title: "Vice President",
-			company: "Artificial Intelligence Club",
-			description: "Transformed theoretical organization into practical learning environment. Led two teams to semifinalist positions in Mathematics and Technology for Computer Science (MtFC) competition in 2022.",
-			type: "work"
 		}
 	];
 

@@ -54,14 +54,14 @@ export default function ProjectPage({ project }) {
               height={64}
               className="rounded-lg flex-shrink-0"
             />
-            <h1 className="text-2xl font-bold text-white m-0 text-left flex-shrink-0 no-underline" style={{borderBottom: 'none', textDecoration: 'none'}} {...props}>
+            <h1 className="text-2xl font-bold text-black dark:text-white m-0 text-left flex-shrink-0 no-underline" style={{borderBottom: 'none', textDecoration: 'none'}} {...props}>
               {children}
             </h1>
           </div>
         );
       }
       // Default h1 rendering for projects without icons
-      return <h1 className="text-2xl font-bold text-white mb-6 mt-8 text-left no-underline" style={{borderBottom: 'none', textDecoration: 'none'}} {...props}>{children}</h1>;
+      return <h1 className="text-2xl font-bold text-black dark:text-white mb-6 mt-8 text-left no-underline" style={{borderBottom: 'none', textDecoration: 'none'}} {...props}>{children}</h1>;
     }
   };
 
@@ -82,7 +82,7 @@ export default function ProjectPage({ project }) {
             className="max-w-3xl mx-auto"
           >
             {/* Back button */}
-            <Link href="/projects" className="inline-flex items-center mb-8 text-gray-900 dark:text-white hover:underline transition-all duration-300">
+            <Link href="/" className="inline-flex items-center mb-8 text-gray-900 dark:text-white hover:underline transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
@@ -90,7 +90,7 @@ export default function ProjectPage({ project }) {
             </Link>
             
             {/* Project header */}
-            <div className="mb-8 p-6 bg-white dark:bg-[#1D1E21] border-2 border-gray-200 dark:border-[#181818] rounded-lg">
+            <div className="mb-8 p-6 bg-gray-100 dark:bg-[#1D1E21] border-2 border-gray-200 dark:border-[#181818] rounded-lg">
               {project.image && (
                 <div className="mb-6 overflow-hidden rounded-lg">
                   <Image
@@ -167,8 +167,10 @@ export default function ProjectPage({ project }) {
             </div>
             
             {/* Project content */}
-            <article className="prose prose-sm max-w-none p-6 bg-white dark:bg-[#1D1E21] border-2 border-gray-200 dark:border-[#181818] rounded-lg markdown-github">
-              <ReactMarkdown components={components}>{project.content}</ReactMarkdown>
+            <article className="prose prose-sm max-w-none p-6 bg-gray-100 dark:bg-[#1D1E21] border-2 border-gray-200 dark:border-[#181818] rounded-lg markdown-github">
+              <div className="text-black dark:text-gray-300">
+                <ReactMarkdown components={components}>{project.content}</ReactMarkdown>
+              </div>
             </article>
           </motion.div>
         </div>
