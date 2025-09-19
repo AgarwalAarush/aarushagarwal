@@ -7,8 +7,8 @@ export default function ProjectCard({ project, showTechnologies = true }) {
   // Card content that's used both on the server and on the client:
   const cardContent = (
     <div className="w-full h-full flex flex-col">
-      {/* Project image */}
-      {project.image && (
+      {/* Project image or icon */}
+      {project.image ? (
         <div className="w-full h-48 mb-4 overflow-hidden rounded-lg">
           <img 
             src={project.image} 
@@ -16,7 +16,15 @@ export default function ProjectCard({ project, showTechnologies = true }) {
             className="w-full h-full object-cover"
           />
         </div>
-      )}
+      ) : project.icon ? (
+        <div className="w-full h-48 mb-4 overflow-hidden rounded-lg flex items-center justify-center bg-gray-50 dark:bg-gray-800">
+          <img 
+            src={project.icon} 
+            alt={`${project.title} Icon`}
+            className="w-24 h-24 object-contain"
+          />
+        </div>
+      ) : null}
 
       {/* Content */}
       <div className="flex-1 flex flex-col justify-center">
