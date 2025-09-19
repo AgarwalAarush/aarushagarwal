@@ -144,7 +144,33 @@ export default function Home({ projects, posts }) {
                                 <span className="font-semibold text-gray-900 dark:text-white">Fraud Detection:</span> Developed a more robust buyer‑fraud detection system by implementing machine learning models with VertexAI and optimizing data pipelines with BigQuery and Dataflow. Improvements to data freshness and analysis increased predictive accuracy, while targeted feature selection significantly reduced training iteration time.
                             </p>
                             <p className="text-gray-700 dark:text-gray-300">
-                                <span className="font-semibold text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output.
+                                <span className="font-semibold text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output. <span className="font-bold text-gray-900 dark:text-white">Patent filed.</span>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Research Summary Card */}
+                <section id="research" className="mb-16">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Research</h2>
+                    </div>
+                    <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
+                        <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                                ML & CUDA Researcher — Carnegie Mellon University
+                            </h3>
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Aug 2024 – Present</span>
+                        </div>
+                        <p className="text-blue-700 dark:text-blue-400 font-medium text-sm mb-1">Physics Cosmology Laboratory</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Supervisor: Professor Mateo Cremonesi</p>
+                        <div className="space-y-3 text-sm">
+                            <p className="text-gray-700 dark:text-gray-300">
+                                Co-authored paper focused on spatial-partitioning a parallelized K-Nearest Neighbors algorithm, achieving up to a 200x speedup over FAISS (Facebook AI Similarity), Annoy (Spotify), and SCANN (Google) in low-dimensional (2-5) spaces.
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-300">
+                                Transitioned Python autograd and gradient functions to C++ and CUDA extension implementations and integrated with PyTorch JIT serialization, achieving a 10% decrease in KNN runtime.
                             </p>
                         </div>
                     </div>
@@ -166,27 +192,6 @@ export default function Home({ projects, posts }) {
                     <button onClick={() => setShowAllProjects(!showAllProjects)} className="inline-block px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700">
                         {showAllProjects ? 'Minimize' : 'View more'}
                     </button>
-                </section>
-
-                {/* Research Summary Card above Thoughts */}
-                <section id="research" className="mb-16">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Research</h2>
-                    </div>
-                    <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">CUDA Optimization for Particle Physics ML</h3>
-                        <p className="text-blue-700 dark:text-blue-400 font-medium">Carnegie Mellon University</p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Physics Cosmology Laboratory • Supervisor: Professor Mateo Cremonesi • Aug 2024 - Present</p>
-                        <div className="space-y-3 text-sm">
-                            <p className="text-gray-700 dark:text-gray-300">
-                                Co-authored paper focused on spatial-partitioning a parallelized K-Nearest Neighbors algorithm, achieving up to a 200x speedup over FAISS (Facebook AI Similarity), Annoy (Spotify), and SCANN (Google) in low-dimensional (2-5) spaces.
-                            </p>
-                            <p className="text-gray-700 dark:text-gray-300">
-                                Transitioned Python autograd and gradient functions to C++ and CUDA extension implementations and integrated with PyTorch JIT serialization, achieving a 10% decrease in KNN runtime.
-                            </p>
-                        </div>
-                    </div>
                 </section>
 
                 {/* Thoughts Section at bottom */}

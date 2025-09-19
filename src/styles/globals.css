@@ -200,7 +200,7 @@
 .markdown-github h4,
 .markdown-github h5,
 .markdown-github h6 {
-  @apply text-white font-semibold mt-8 mb-6;
+  @apply text-gray-900 dark:text-white font-semibold mt-8 mb-6;
   line-height: 1.25;
 }
 
@@ -229,7 +229,7 @@
 }
 
 .markdown-github a {
-  @apply text-white no-underline hover:underline;
+  @apply text-gray-900 dark:text-white no-underline hover:underline;
 }
 
 .markdown-github p,
@@ -238,7 +238,7 @@
 .markdown-github blockquote,
 .markdown-github pre,
 .markdown-github table {
-  @apply my-4 text-white;
+  @apply my-4 text-gray-900 dark:text-white;
 }
 
 .markdown-github ul,
@@ -278,7 +278,7 @@
 /* GitHub-style code fonts for inline code */
 .markdown-github code {
   font-family: 'JetBrains Mono', monospace;
-  @apply text-white bg-gray-800 rounded px-1 py-0.5 text-sm;
+  @apply text-gray-900 dark:text-white bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 text-sm;
 }
 
 /* Override for code blocks styled by SyntaxHighlighter */
@@ -409,50 +409,49 @@ pre code.hljs {
 .prose h4,
 .prose h5,
 .prose h6 {
-  color: #ffffff !important;
+  @apply text-gray-900 dark:text-white !important;
   font-weight: 700 !important;
 }
 
 .prose p {
-  color: #d1d5db !important;
+  @apply text-gray-700 dark:text-gray-300 !important;
   line-height: 1.75 !important;
 }
 
 .prose ul,
 .prose ol {
-  color: #d1d5db !important;
+  @apply text-gray-700 dark:text-gray-300 !important;
 }
 
 .prose li {
-  color: #d1d5db !important;
+  @apply text-gray-700 dark:text-gray-300 !important;
 }
 
 .prose strong {
-  color: #ffffff !important;
+  @apply text-gray-900 dark:text-white !important;
   font-weight: 600 !important;
 }
 
 .prose em {
-  color: #e5e7eb !important;
+  @apply text-gray-600 dark:text-gray-400 !important;
 }
 
 .prose blockquote {
   border-left: 4px solid #3b82f6 !important;
-  background-color: rgba(31, 41, 55, 0.3) !important;
-  color: #d1d5db !important;
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 !important;
   font-style: italic !important;
   margin: 1rem 0 !important;
   padding: 0.5rem 1rem !important;
 }
 
 .prose a {
-  color: #60a5fa !important;
+  @apply text-blue-600 dark:text-blue-400 !important;
   text-decoration: underline !important;
   transition: color 0.2s ease !important;
 }
 
 .prose a:hover {
-  color: #93c5fd !important;
+  @apply text-blue-500 dark:text-blue-300 !important;
 }
 
 /* Table styling for blog content */
@@ -470,13 +469,12 @@ pre code.hljs {
 }
 
 .prose th {
-  background-color: #374151 !important;
-  color: #ffffff !important;
+  @apply bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white !important;
   font-weight: 600 !important;
 }
 
 .prose td {
-  color: #d1d5db !important;
+  @apply text-gray-700 dark:text-gray-300 !important;
 }
 
 /* Image styling for blog content */
