@@ -206,13 +206,13 @@ export async function getStaticProps({ params }) {
     props: {
       project: {
         id,
-        title: frontmatter.title,
-        description: frontmatter.description,
+        title: frontmatter.title || 'Untitled Project',
+        description: frontmatter.description || 'No description available',
         image: frontmatter.image || null,
         icon: frontmatter.icon || null,
-        github: frontmatter.github,
-        demo: frontmatter.demo,
-        technologies: frontmatter.technologies,
+        github: frontmatter.github || null,
+        demo: frontmatter.demo || null,
+        technologies: frontmatter.technologies || [],
         content
       }
     }

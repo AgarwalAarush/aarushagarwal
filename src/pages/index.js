@@ -115,13 +115,13 @@ export async function getStaticProps() {
 		const { data: frontmatter } = matter(markdownWithMeta);
 		return {
 			id,
-			title: frontmatter.title,
-			description: frontmatter.description,
+			title: frontmatter.title || "Untitled Project",
+			description: frontmatter.description || "No description available",
 			image: frontmatter.image || null,
 			icon: frontmatter.icon || null,
-			github: frontmatter.github,
-			demo: frontmatter.demo,
-			technologies: frontmatter.technologies,
+			github: frontmatter.github || null,
+			demo: frontmatter.demo || null,
+			technologies: frontmatter.technologies || [],
 		};
 	});
 
@@ -141,10 +141,10 @@ export async function getStaticProps() {
 
 				return {
 					slug,
-					title: frontmatter.title,
-					excerpt: frontmatter.excerpt,
-					date: frontmatter.date,
-					readingTime: frontmatter.readingTime || 5,
+					title: frontmatter.title || "Untitled",
+					excerpt: frontmatter.excerpt || "",
+					date: frontmatter.date || null,
+					readingTime: frontmatter.readingTime ?? 5,
 					published: frontmatter.published !== false,
 				};
 			})
