@@ -137,7 +137,7 @@ export default function Home({ projects, posts }) {
                                 </span>
                                 MLE Intern — Shopify
                             </h3>
-                            <span className="text-sm text-gray-600 dark:text-gray-400">May 2025 – Present</span>
+                            <span className="text-sm text-gray-600 dark:text-gray-400">May 2025 – Aug 2025</span>
                         </div>
                         <div className="space-y-4 text-sm">
                             <p className="text-gray-700 dark:text-gray-300">
@@ -161,7 +161,7 @@ export default function Home({ projects, posts }) {
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                 ML & CUDA Researcher — Carnegie Mellon University
                             </h3>
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Aug 2024 – Present</span>
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Aug 2024 – Aug 2025</span>
                         </div>
                         <p className="text-blue-700 dark:text-blue-400 font-medium text-sm mb-1">Physics Cosmology Laboratory</p>
                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Supervisor: Professor Mateo Cremonesi</p>
