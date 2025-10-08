@@ -1,5 +1,5 @@
 ---
-ranking: 1
+ranking: 3
 title: 'Nova'
 description: 'The Next-Generation Local-First AI Assistant for macOS - Combining cutting-edge AI with comprehensive system automation in a privacy-first, offline-capable architecture'
 image: '/images/nova.png'

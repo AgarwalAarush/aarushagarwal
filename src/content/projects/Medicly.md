@@ -5,15 +5,12 @@ github: "https://github.com/scrappydevs/medicly"
 demo: "https://www.medicly.dev/"
 image: "/images/medicly/demo.jpeg"
 icon: "/images/medicly/medicly-icon.png"
-ranking: 1
+ranking: 2
 technologies:
-  - Next.js
-  - TypeScript
   - MediaPipe
-  - Claude AI
-  - Supabase
   - BioDigital Human
-  - Python
+  - Claude API
+  - Supabase
   - Postgres
 ---
 
