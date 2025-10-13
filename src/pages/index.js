@@ -8,6 +8,7 @@ import ProjectCard from "../components/ProjectCard";
 import { useState, useEffect, useRef } from "react";
 import ClientOnly from "../components/ClientOnly";
 import Image from "next/image";
+import Banner from "../components/Banner";
 
 export default function Home({ projects, posts }) {
     const [isMounted, setIsMounted] = useState(false);
@@ -21,6 +22,20 @@ export default function Home({ projects, posts }) {
     const [roleIndex, setRoleIndex] = useState(0);
     const [charIndex, setCharIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
+
+    // Banner announcements
+    const banners = [
+        {
+            id: 'hackcmu-2024',
+            type: 'award',
+            title: '1st place at HackCMU'
+        },
+        {
+            id: 'hackharvard-2024',
+            type: 'award',
+            title: '3rd place at HackHarvard'
+        }
+    ];
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -65,6 +80,9 @@ export default function Home({ projects, posts }) {
 				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
 			</Head>
             <main className="max-w-4xl mx-auto px-6 py-16">
+                {/* Banner Section */}
+                <Banner banners={banners} />
+
 				{/* Hero Section */}
                 <section className="mb-16">
                     <div className="max-w-4xl flex flex-col md:flex-row items-center justify-between gap-6">
