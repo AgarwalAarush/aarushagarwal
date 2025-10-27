@@ -24,18 +24,21 @@ export default function Home({ projects, posts }) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     // Banner announcements
-    const banners = [
-        {
-            id: 'hackcmu-2024',
-            type: 'award',
-            title: '1st place at HackCMU'
-        },
-        {
-            id: 'hackharvard-2024',
-            type: 'award',
-            title: '3rd place at HackHarvard'
-        }
-    ];
+    const bannerData = {
+        topLine: [
+            {
+                id: 'hackcmu-2024',
+                type: 'award',
+                title: '1st place at HackCMU'
+            },
+            {
+                id: 'hackharvard-2024',
+                type: 'award',
+                title: '3rd place at HackHarvard'
+            }
+        ],
+        bottomLine: 'Won 1st Place in YC, Fetch.AI Tracks and Best Startup Award at CalHacks 12.0'
+    };
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -81,7 +84,7 @@ export default function Home({ projects, posts }) {
 			</Head>
             <main className="max-w-4xl mx-auto px-6 py-16">
                 {/* Banner Section */}
-                <Banner banners={banners} />
+                <Banner bannerData={bannerData} />
 
 				{/* Hero Section */}
                 <section className="mb-16">
