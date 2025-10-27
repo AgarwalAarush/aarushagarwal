@@ -5,7 +5,7 @@ github: "https://github.com/scrappydevs/yumi"
 demo: "https://lnkd.in/gdTvg3eP"
 image: "/images/yumi-ios.jpeg"
 icon: "/images/yumi-hero.jpeg"
-ranking: 1
+ranking: 2
 technologies:
   - Gemini Flash
   - Supabase (Postgres + PostGIS)
@@ -29,6 +29,7 @@ Thrilled to share that we placed **3rd at HackHarvard 2025** out of over 150 tea
 
 ### The Problem
 When we arrived in Boston for HackHarvard, we wanted to explore the city’s food culture but ended up defaulting to a chain restaurant.  
+
 Existing apps reduce restaurants to ratings and tags, failing to capture the nuanced preferences people actually have — texture, spice, ambiance, or cultural authenticity. Group decisions devolve into indecision and generic picks. We wanted to build something that truly understands taste and coordinates intelligently.
 
 ---
@@ -38,7 +39,7 @@ Yumi is an AI-powered coordination platform that:
 - Learns each user’s taste from natural language reviews, interactions, and search behavior.
 - Lets users type or speak preferences to get personalized restaurant suggestions.
 - Builds a taste graph that visualizes friends’ preferences and similarity.
-- Merges multiple users’ profiles when friends are tagged with `@mentions`, balancing preferences across the group.
+- Merges multiple users’ profiles when friends are tagged with @mentions, balancing preferences across the group.
 - Uses a real-time spatial restaurant database powered by Google Places and PostGIS.
 - Handles voice-driven restaurant reservations via Twilio and ElevenLabs.
 
