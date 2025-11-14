@@ -180,18 +180,30 @@ export default function Home({ projects, posts }) {
                     <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
                         <div className="flex items-center justify-between mb-2">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                                ML & CUDA Researcher — Carnegie Mellon University
+                                CUDA Researcher
                             </h3>
                             <span className="text-sm text-gray-600 dark:text-gray-400">Aug 2024 – Aug 2025</span>
                         </div>
-                        <p className="text-blue-700 dark:text-blue-400 font-medium text-sm mb-1">Physics Cosmology Laboratory</p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Supervisor: Professor Mateo Cremonesi</p>
+                        <p className="text-blue-700 dark:text-blue-400 font-medium text-sm mb-4">CMU Cosmology Laboratory & CERN</p>
+
+                        <div className="mb-3">
+                            <p className="text-gray-900 dark:text-white font-semibold text-sm mb-1">Paper:</p>
+                            <a
+                                href="https://arxiv.org/abs/2511.10442"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-700 dark:text-blue-400 hover:underline text-sm"
+                            >
+                                FastGraph: Optimized GPU-Enabled Algorithms for Fast Graph Building and Message Passing
+                            </a>
+                        </div>
+
                         <div className="space-y-3 text-sm">
                             <p className="text-gray-700 dark:text-gray-300">
-                                Co-authored paper focused on spatial-partitioning a parallelized K-Nearest Neighbors algorithm, achieving up to a 200x speedup over FAISS (Facebook AI Similarity), Annoy (Spotify), and SCANN (Google) in low-dimensional (2-5) spaces.
+                                Co-authored FastGraph, a GPU-optimized k-nearest neighbor algorithm that accelerates graph construction in low-dimensional spaces (2–10D) using a bin-partitioned, fully GPU-resident architecture with full gradient-flow support. FastGraph achieves a 20–40× speedup over FAISS, ANNOY, and SCANN with virtually no memory overhead, improving GNN workloads including particle clustering, visual tracking, and large-scale graph clustering.
                             </p>
                             <p className="text-gray-700 dark:text-gray-300">
-                                Transitioned Python autograd and gradient functions to C++ and CUDA extension implementations and integrated with PyTorch JIT serialization, achieving a 10% decrease in KNN runtime.
+                                Engineered PyTorch autograd and gradient operations in C++/CUDA and integrated JIT serialization, reducing KNN runtime by an additional 10% and enabling end-to-end differentiability inside GPU training pipelines.
                             </p>
                         </div>
                     </div>
