@@ -36,7 +36,7 @@ Hospitals are drowning in data, yet nurses spend up to **50% of their time on do
 Haven is an AI-powered coordination platform that provides three integrated layers of intelligence:
 
 -   **Intelligent Voice Intake**: Patients communicate naturally with a voice agent that asks structured follow-up questions, accesses validated EHR data, and generates concise, nurse-ready summaries and action items.
--   **Autonomous Monitoring**: A network of Fetch.ai agents continuously tracks patient vitals, coordinates to detect concerning clinical trends, and triggers intelligent alerts before issues escalate.
+-   **Autonomous Monitoring**: A coordinated network of Fetch.ai agents continuously analyzes patient status using a computer-vision pipeline built with OpenCV pose-estimation and a custom remote photoplethysmography (rPPG) model. The system adapts thresholds dynamically to balance false positives and reliably detect early clinical deterioration, triggering intelligent alerts before issues escalate.
 -   **Spatial Intelligence Hub**: A live 3D hospital map, powered by a Claude agent, provides a real-time spatial overview of the entire floor. Nurses can use natural language to query patient status, manage resources, and visualize alerts.
 
 ---
