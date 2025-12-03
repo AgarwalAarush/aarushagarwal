@@ -18,6 +18,20 @@ export default function ProjectPage({ project }) {
     return <div>Loading...</div>;
   }
 
+  // Function to parse bold markdown syntax in description
+  const parseBoldText = (text) => {
+    if (!text) return text;
+
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const boldText = part.slice(2, -2);
+        return <strong key={index} className="font-bold">{boldText}</strong>;
+      }
+      return part;
+    });
+  };
+
   // Custom components for ReactMarkdown
   const components = {
     // Custom renderer for code blocks
@@ -118,7 +132,7 @@ export default function ProjectPage({ project }) {
                 <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{project.title}</h1>
               )}
               
-              <p className="mb-6 text-lg text-gray-700 dark:text-white">{project.description}</p>
+              <p className="mb-6 text-gray-700 dark:text-white">{parseBoldText(project.description)}</p>
               
               {/* Technologies */}
               {project.technologies && (
