@@ -144,29 +144,47 @@ export default function Home({ projects, posts }) {
                         
 				</section>
 
-                {/* Internships Section */}
-                <section id="internships" className="mb-16">
+                {/* Experiences Section */}
+                <section id="experiences" className="mb-16">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Internships</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Experiences</h2>
                     </div>
-                    <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
-                        <div className="flex items-center justify-between mb-2">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700 overflow-hidden">
-                                    <Image src="/images/shopify.png" alt="Shopify" width={24} height={24} className="w-6 h-6 object-contain" />
-                                </span>
-                                MLE Intern — Shopify
-                            </h3>
-                            <span className="text-sm text-gray-600 dark:text-gray-400">May 2025 – Aug 2025</span>
+                    <div className="space-y-4">
+                        <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
+                            <div className="flex items-center justify-between mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700 overflow-hidden">
+                                        <Image src="/images/felicis.png" alt="Felicis" width={24} height={24} className="w-6 h-6 object-contain" />
+                                    </span>
+                                    Venture Fellow — Felicis
+                                </h3>
+                                <span className="text-sm text-gray-600 dark:text-gray-400">January 2026 - Present</span>
+                            </div>
+                            <div className="space-y-4 text-sm">
+                                <p className="text-gray-700 dark:text-gray-300">
+                                    Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact; partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
+                                </p>
+                            </div>
                         </div>
-                        <div className="space-y-4 text-sm">
-                            <p className="text-gray-700 dark:text-gray-300">
-                                <span className="font-semibold text-gray-900 dark:text-white">Fraud Detection:</span> Developed a more robust buyer‑fraud detection system by implementing machine learning models with VertexAI and optimizing data pipelines with BigQuery and Dataflow. Improvements to data freshness and analysis increased predictive accuracy, while targeted feature selection significantly reduced training iteration time.
-                            </p>
-                            <p className="text-gray-700 dark:text-gray-300">
-                                <span className="font-semibold text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output. <span className="font-bold text-gray-900 dark:text-white">Patent filed.</span>
-                            </p>
+                        <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
+                            <div className="flex items-center justify-between mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700 overflow-hidden">
+                                        <Image src="/images/shopify.png" alt="Shopify" width={24} height={24} className="w-6 h-6 object-contain" />
+                                    </span>
+                                    MLE Intern — Shopify
+                                </h3>
+                                <span className="text-sm text-gray-600 dark:text-gray-400">May 2025 – Aug 2025</span>
+                            </div>
+                            <div className="space-y-4 text-sm">
+                                <p className="text-gray-700 dark:text-gray-300">
+                                    <span className="font-semibold text-gray-900 dark:text-white">Fraud Detection:</span> Developed a more robust buyer‑fraud detection system by implementing machine learning models with VertexAI and optimizing data pipelines with BigQuery and Dataflow. Improvements to data freshness and analysis increased predictive accuracy, while targeted feature selection significantly reduced training iteration time.
+                                </p>
+                                <p className="text-gray-700 dark:text-gray-300">
+                                    <span className="font-semibold text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output. <span className="font-bold text-gray-900 dark:text-white">Patent filed.</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </section>
