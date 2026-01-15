@@ -62,7 +62,7 @@ export default function Layout({ children }) {
 									{currentTime}
 								</p>
                                 <p className="text-gray-600 dark:text-gray-400">
-									New York City, USA
+									Pittsburgh, Pennsylvania
 								</p>
 							</div>
 						</div>
