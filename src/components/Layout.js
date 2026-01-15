@@ -31,8 +31,8 @@ export default function Layout({ children }) {
     return (
         <div className="flex min-h-screen bg-white dark:bg-[#1D1E21]">
 			<Navbar />
-			{/* Main content area with left margin for desktop sidebar */}
-            <div className="flex-1 md:ml-64 min-h-screen bg-white dark:bg-[#1D1E21]">
+			{/* Main content area */}
+            <div className="flex-1 min-h-screen bg-white dark:bg-[#1D1E21]">
                 {/* Theme toggle fixed at top-right */}
                 <div className="hidden md:block fixed top-4 right-4 z-50">
                     <ThemeToggle />
