@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
@@ -19,12 +18,6 @@ export default function Navbar() {
 
   const resourcesNavigation = [
     { name: 'Thoughts', href: '/thoughts', isSection: false },
-  ];
-
-  const socialsNavigation = [
-    { name: 'Instagram', href: 'https://www.instagram.com/aarush_agarwal_43/', isSection: false },
-    { name: 'Github', href: 'https://github.com/agarwalaarush', isSection: false },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/aarush-agarwal-2751a61b1/', isSection: false },
   ];
 
   const handleNavClick = (e, item) => {
@@ -54,82 +47,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <nav className="hidden md:block fixed left-0 top-0 h-full w-64 bg-gray-100 dark:bg-[#181818] z-50">
-        <div className="p-6 h-full flex flex-col">
-          {/* Profile Section */}
-          <div className="mb-8">
-            <div className="mb-4">
-              <div className="w-12 h-12 rounded-full bg-gray-600 overflow-hidden">
-                <Image 
-                  src="/images/profile-pic.png" 
-                  alt="Aarush Agarwal"
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <h1 className="text-lg font-medium text-gray-900 dark:text-white mb-1">Aarush Agarwal</h1>
-          </div>
-          
-          {/* Main Navigation */}
-          <div className="mb-8">
-            <div className="space-y-1">
-              {mainNavigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md transition-colors duration-200"
-                  onClick={(e) => handleNavClick(e, item)}
-                >
-                  <span className="mr-3 text-gray-500">#</span>
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Resources Section */}
-          <div className="mb-8">
-            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Resources</h3>
-            <div className="space-y-1">
-              {resourcesNavigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md transition-colors duration-200"
-                  onClick={(e) => handleNavClick(e, item)}
-                >
-                  <span className="mr-3 text-gray-500">⚡</span>
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Socials Section */}
-          <div className="mt-auto">
-            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Socials</h3>
-            <div className="space-y-1">
-              {socialsNavigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md transition-colors duration-200"
-                >
-                  <span className="mr-3 text-gray-500">✖</span>
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-            {/* Theme toggle is placed globally in Layout */}
-          </div>
-        </div>
-      </nav>
-
       {/* Mobile Header */}
       <nav className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-[#1D1E21] border-b border-gray-200 dark:border-gray-800 z-50">
         <div className="px-4">
