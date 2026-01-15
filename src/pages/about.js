@@ -12,6 +12,13 @@ export default function About() {
 
 	const timeline = [
 		{
+			year: "January 2026 - Present",
+			title: "Venture Fellow",
+			company: "Felicis",
+			description: "Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact; partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.",
+			type: "work"
+		},
+		{
 			year: "May 2025 - Present",
 			title: "Machine Learning Engineer Intern",
 			company: "Shopify",
