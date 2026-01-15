@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import ProjectCard from "../components/ProjectCard";
 import { useState, useEffect, useRef } from "react";
@@ -10,7 +9,7 @@ import ClientOnly from "../components/ClientOnly";
 import Image from "next/image";
 import Banner from "../components/Banner";
 
-export default function Home({ projects, posts }) {
+export default function Home({ projects }) {
     const [isMounted, setIsMounted] = useState(false);
     const roles = [
         "Ex MLE Intern @ Shopify",
@@ -98,21 +97,11 @@ export default function Home({ projects, posts }) {
                                 <span className="ml-1 inline-block w-3 bg-gray-900 dark:bg-white animate-pulse" style={{height: '1.1em'}}></span>
                             </p>
                             <div className="flex gap-4">
-                                <Link href="/about" className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                    About
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div className="w-40 h-40 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
-                                <Image src="/images/profile-pic.jpeg" alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
-                            </div>
-                            <div className="mt-4 flex items-center gap-3">
                                 <a
                                     href="/documents/Resume%20-%20Aarush%20Agarwal.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                    className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700"
                                 >
                                     Resume
                                 </a>
@@ -138,6 +127,11 @@ export default function Home({ projects, posts }) {
                                         <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.96 0-1.73-.79-1.73-1.73s.77-1.73 1.73-1.73 1.73.79 1.73 1.73-.77 1.73-1.73 1.73zm13.5 11.27h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.88 0-2.17 1.46-2.17 2.97v5.7h-3v-10h2.88v1.37h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.6v5.57z"/>
                                     </svg>
                                 </a>
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <div className="w-40 h-40 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
+                                <Image src="/images/profile-pic.jpeg" alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
                             </div>
                         </div>
                     </div>
@@ -243,35 +237,6 @@ export default function Home({ projects, posts }) {
                     <button onClick={() => setShowAllProjects(!showAllProjects)} className="inline-block px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700">
                         {showAllProjects ? 'Minimize' : 'View more'}
                     </button>
-                </section>
-
-                {/* Thoughts Section at bottom */}
-                <section id="blog" className="mb-16">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Thoughts</h2>
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-400 mb-8">
-                        Sharing experiences, knowledge and views on tech.
-                    </p>
-                    
-                    <div className="space-y-4">
-                        {posts && posts.slice(0, 3).map((post) => (
-                            <div key={post.slug} className="group">
-                                <Link href={`/thoughts/${post.slug}`}>
-                                    <div className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors duration-200">
-                                        <div className="text-gray-500">+</div>
-                                        <div className="flex-1">
-                                            <h3 className="text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-200">
-                                                {post.title}
-                                            </h3>
-                                            <p className="text-sm text-gray-600 dark:text-gray-500">Article</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
                 </section>
 
                 {/* Bottom space */}
