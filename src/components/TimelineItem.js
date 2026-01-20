@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function TimelineItem({ 
@@ -11,14 +10,8 @@ export default function TimelineItem({
     description,
     isLast = false 
 }) {
-    const [isHovered, setIsHovered] = useState(false);
-
     return (
-        <div 
-            className="relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className="relative">
             <div className="flex gap-4">
                 {/* Icon with vertical line */}
                 <div className="relative flex-shrink-0">
@@ -53,22 +46,17 @@ export default function TimelineItem({
                         </p>
                     </div>
 
-                    {/* Expandable description */}
-                    <AnimatePresence>
-                        {isHovered && description && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2, ease: 'easeInOut' }}
-                                className="overflow-hidden"
-                            >
-                                <div className="pt-3 text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                                    {description}
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {/* Description */}
+                    {description && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.2, ease: 'easeOut' }}
+                            className="pt-3 text-sm text-gray-700 dark:text-gray-300 space-y-2"
+                        >
+                            {description}
+                        </motion.div>
+                    )}
                 </div>
             </div>
         </div>

@@ -154,6 +154,4 @@ The system understands natural language instructions:
 
 MIT License - Feel free to build upon this automation architecture.
 
----
-
 *Improving computer interaction through AI-powered automation.*

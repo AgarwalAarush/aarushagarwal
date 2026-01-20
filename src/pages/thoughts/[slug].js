@@ -8,6 +8,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
+import MarkdownOutline from "../../components/MarkdownOutline";
+import { extractHeadings } from "../../lib/markdownOutline";
 
 // Custom components for MDX
 const components = {
@@ -67,7 +69,7 @@ const components = {
   ),
 };
 
-export default function ThoughtsPost({ post, mdxSource }) {
+export default function ThoughtsPost({ post, mdxSource, headings }) {
   if (!post) {
     return (
       <div className="min-h-screen bg-white dark:bg-[#1D1E21] flex items-center justify-center">
@@ -80,6 +82,8 @@ export default function ThoughtsPost({ post, mdxSource }) {
       </div>
     );
   }
+
+  const outlineHeadings = headings || [];
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
@@ -99,144 +103,151 @@ export default function ThoughtsPost({ post, mdxSource }) {
         <link rel="apple-touch-icon" href="/images/profile-pic.png" />
       </Head>
 
-      <article className="max-w-4xl mx-auto px-6 py-16">
-        {/* Back to thoughts link */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <Link 
-            href="/thoughts" 
-            className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-200"
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Thoughts
-          </Link>
-        </motion.div>
-
-        {/* Article Header */}
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8"
-        >
-          <h1 className="text-3xl md:text-4xl  text-gray-900 dark:text-white mb-6 leading-tight">
-            {post.title}
-          </h1>
-          
-          <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <time dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </time>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>{post.readingTime} min read</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              <span>{post.author}</span>
-            </div>
-          </div>
-
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 text-sm text-blue-700 bg-blue-100 rounded-full border border-blue-200 dark:text-blue-400 dark:bg-blue-400/10 dark:border-blue-400/20"
+      <article className="max-w-6xl mx-auto px-6 py-16">
+        <div className="flex flex-col lg:flex-row gap-12">
+          <aside className="lg:w-60 flex-shrink-0">
+            <div className="lg:sticky lg:top-24 space-y-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Link 
+                  href="/thoughts" 
+                  className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-200"
                 >
-                  {tag}
-                </span>
-              ))}
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Thoughts
+                </Link>
+              </motion.div>
+              <MarkdownOutline headings={outlineHeadings} />
             </div>
-          )}
+          </aside>
 
-          {/* Medium Link */}
-          {post.mediumLink && (
-            <div className="mt-6">
-              <a
-                href={post.mediumLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 text-sm "
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                </svg>
-                Read on Medium
-              </a>
-            </div>
-          )}
-        </motion.header>
+          <div className="flex-1 min-w-0">
+            {/* Article Header */}
+            <motion.header
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mb-8"
+            >
+              <h1 className="text-3xl md:text-4xl  text-gray-900 dark:text-white mb-6 leading-tight">
+                {post.title}
+              </h1>
+              
+              <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <time dateTime={post.date}>
+                    {new Date(post.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{post.readingTime} min read</span>
+                </div>
 
-        {/* Article Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="prose max-w-none"
-        >
-          <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            <MDXRemote {...mdxSource} components={components} />
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span>{post.author}</span>
+                </div>
+              </div>
+
+              {/* Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-sm text-blue-700 bg-blue-100 rounded-full border border-blue-200 dark:text-blue-400 dark:bg-blue-400/10 dark:border-blue-400/20"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Medium Link */}
+              {post.mediumLink && (
+                <div className="mt-6">
+                  <a
+                    href={post.mediumLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 text-sm "
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                    </svg>
+                    Read on Medium
+                  </a>
+                </div>
+              )}
+            </motion.header>
+
+            {/* Article Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="prose max-w-none"
+            >
+              <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <MDXRemote {...mdxSource} components={components} />
+              </div>
+            </motion.div>
+
+            {/* Article Footer */}
+            <motion.footer
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-20 pt-8"
+            >
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <p className="text-gray-700 dark:text-gray-300 ">Written by {post.author}</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    Published on {new Date(post.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
+                </div>
+                
+                <div className="flex gap-4">
+                  <Link 
+                    href="/thoughts" 
+                    className="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                  >
+                    More Posts
+                  </Link>
+                  <a 
+                    href="mailto:aarushaga@gmail.com" 
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
+                  >
+                    Get in Touch
+                  </a>
+                </div>
+              </div>
+            </motion.footer>
           </div>
-        </motion.div>
-
-        {/* Article Footer */}
-        <motion.footer
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-20 pt-8"
-        >
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-              <p className="text-gray-700 dark:text-gray-300 ">Written by {post.author}</p>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Published on {new Date(post.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </p>
-            </div>
-            
-            <div className="flex gap-4">
-              <Link 
-                href="/thoughts" 
-                className="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                More Posts
-              </Link>
-              <a 
-                href="mailto:aarushaga@gmail.com" 
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
-              >
-                Get in Touch
-              </a>
-            </div>
-          </div>
-        </motion.footer>
+        </div>
       </article>
     </div>
   );
@@ -296,6 +307,7 @@ export async function getStaticProps({ params }) {
       rehypePlugins: [rehypeHighlight, rehypeSlug],
     },
   });
+  const headings = extractHeadings(content);
 
   const post = {
     slug,
@@ -312,6 +324,7 @@ export async function getStaticProps({ params }) {
     props: {
       post,
       mdxSource,
+      headings,
     },
     revalidate: 60, // Revalidate every minute in production
   };
