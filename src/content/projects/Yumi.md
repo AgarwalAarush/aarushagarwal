@@ -5,7 +5,7 @@ github: "https://github.com/scrappydevs/yumi"
 demo: "https://lnkd.in/gdTvg3eP"
 image: "/images/yumi-ios.jpeg"
 icon: "/images/yumi-hero.jpeg"
-ranking: 2
+ranking: 3
 technologies:
   - Gemini Flash
   - Supabase (Postgres + PostGIS)
