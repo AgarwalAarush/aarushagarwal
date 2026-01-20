@@ -21,7 +21,7 @@ export default function Thoughts({ posts }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl  text-gray-900 dark:text-white mb-4">
             Thoughts
           </h1>
           <p className="text-xl text-gray-700 dark:text-gray-300 mb-12">
@@ -41,7 +41,7 @@ export default function Thoughts({ posts }) {
               <Link href={`/thoughts/${post.slug}`}>
                 <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50 hover:bg-gray-200 dark:hover:bg-gray-800/50 transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600/50">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-200">
+                    <h2 className="text-2xl  text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-200">
                       {post.title}
                     </h2>
                     <div className="flex items-center text-sm text-gray-600 dark:text-gray-500 mt-2 sm:mt-0">

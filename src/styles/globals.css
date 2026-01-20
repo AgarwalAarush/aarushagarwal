@@ -5,79 +5,6 @@
 /* Import highlight.js theme for syntax highlighting */
 @import 'highlight.js/styles/github-dark.css';
 
-/* Local JetBrains Mono font declarations */
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-Italic.woff2") format("woff2");
-	font-weight: 400;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-MediumItalic.woff2") format("woff2");
-	font-weight: 500;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-SemiBold.woff2") format("woff2");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-SemiBoldItalic.woff2") format("woff2");
-	font-weight: 600;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-Bold.woff2") format("woff2");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains Mono";
-	src: url("/fonts/JetBrains Mono/JetBrainsMono-BoldItalic.woff2") format("woff2");
-	font-weight: 700;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Apothem Caps MD";
-	src: url("/fonts/ApothemCapsMD.woff2") format("woff2"), url("/fonts/ApothemCapsMD.woff") format("woff");
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
 /* Define global variables for the color scheme */
 :root {
     --bg-dark: #ffffff;
@@ -107,10 +34,11 @@
 }
 
 @layer base {
+    html,
     body {
         @apply text-gray-900 dark:text-white;
         background: var(--bg-hero);
-        font-family: 'JetBrains Mono', monospace;
+        font-weight: 400;
     }
 
     h1,
@@ -119,12 +47,12 @@
     h4,
     h5,
     h6 {
-        @apply font-bold text-gray-900 dark:text-white;
-        font-family: 'JetBrains Mono', monospace;
+        @apply text-gray-900 dark:text-white;
+        font-weight: 400;
     }
 
 	.uppercase {
-		font-family: 'JetBrains Mono', monospace;
+		font-weight: 400;
 		letter-spacing: 0.05em;
 	}
 
@@ -157,7 +85,7 @@
 	}
 
 	.btn {
-		@apply px-4 py-2 font-medium rounded-lg transition-colors duration-300;
+		@apply px-4 py-2 rounded-lg transition-colors duration-300;
 	}
 
 	.btn-primary {
@@ -181,7 +109,7 @@
 	}
 
 	.badge {
-		@apply px-2 py-1 text-xs font-medium rounded-full;
+		@apply px-2 py-1 text-xs rounded-full;
 	}
 
 	.badge-primary {
@@ -191,7 +119,7 @@
 
 /* GitHub-style Markdown Styling */
 .markdown-github {
-  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
 }
 
 .markdown-github h1,
@@ -200,7 +128,8 @@
 .markdown-github h4,
 .markdown-github h5,
 .markdown-github h6 {
-  @apply text-gray-900 dark:text-white font-semibold mt-8 mb-6;
+  @apply text-gray-900 dark:text-white mt-8 mb-6;
+  font-weight: 400;
   line-height: 1.25;
 }
 
@@ -277,7 +206,7 @@
 
 /* GitHub-style code fonts for inline code */
 .markdown-github code {
-  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
   @apply text-gray-900 dark:text-white bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 text-sm;
 }
 
@@ -344,7 +273,7 @@ code[class*="language-"],
 pre[class*="language-"] {
 	color: #f8f8f2;
 	background: none;
-	font-family: 'JetBrains Mono', monospace;
+	font-weight: 400;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
@@ -395,7 +324,7 @@ pre code.hljs {
   padding: 0.125rem 0.25rem !important;
   border-radius: 0.25rem !important;
   font-size: 0.875rem !important;
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-weight: 400 !important;
 }
 
 /* Prose styling for blog content */
@@ -410,26 +339,29 @@ pre code.hljs {
 .prose h5,
 .prose h6 {
   @apply text-gray-900 dark:text-white !important;
-  font-weight: 700 !important;
+  font-weight: 400 !important;
 }
 
 .prose p {
   @apply text-gray-700 dark:text-gray-300 !important;
+  font-weight: 400 !important;
   line-height: 1.75 !important;
 }
 
 .prose ul,
 .prose ol {
   @apply text-gray-700 dark:text-gray-300 !important;
+  font-weight: 400 !important;
 }
 
 .prose li {
   @apply text-gray-700 dark:text-gray-300 !important;
+  font-weight: 400 !important;
 }
 
 .prose strong {
   @apply text-gray-900 dark:text-white !important;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
 }
 
 .prose em {
@@ -470,7 +402,7 @@ pre code.hljs {
 
 .prose th {
   @apply bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white !important;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
 }
 
 .prose td {

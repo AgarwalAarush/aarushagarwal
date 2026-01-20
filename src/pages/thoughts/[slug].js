@@ -12,16 +12,16 @@ import rehypeSlug from "rehype-slug";
 // Custom components for MDX
 const components = {
   h1: (props) => (
-    <h1 className="text-3xl font-bold text-white mb-6 mt-8" {...props} />
+    <h1 className="text-3xl  text-white mb-6 mt-8" {...props} />
   ),
   h2: (props) => (
-    <h2 className="text-2xl font-bold text-white mb-4 mt-8" {...props} />
+    <h2 className="text-2xl  text-white mb-4 mt-8" {...props} />
   ),
   h3: (props) => (
-    <h3 className="text-xl font-bold text-white mb-3 mt-6" {...props} />
+    <h3 className="text-xl  text-white mb-3 mt-6" {...props} />
   ),
   h4: (props) => (
-    <h4 className="text-lg font-bold text-white mb-2 mt-4" {...props} />
+    <h4 className="text-lg  text-white mb-2 mt-4" {...props} />
   ),
   p: (props) => (
     <p className="text-gray-300 mb-4 leading-relaxed text-sm" {...props} />
@@ -60,7 +60,7 @@ const components = {
     />
   ),
   strong: (props) => (
-    <strong className="text-white font-semibold" {...props} />
+    <strong className="text-white " {...props} />
   ),
   em: (props) => (
     <em className="text-gray-200 italic" {...props} />
@@ -72,7 +72,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
     return (
       <div className="min-h-screen bg-white dark:bg-[#1D1E21] flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Post Not Found</h1>
+          <h1 className="text-2xl  text-gray-900 dark:text-white mb-4">Post Not Found</h1>
           <Link href="/thoughts" className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
             ← Back to Thoughts
           </Link>
@@ -125,7 +125,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-8"
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-4xl  text-gray-900 dark:text-white mb-6 leading-tight">
             {post.title}
           </h1>
           
@@ -179,7 +179,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
                 href={post.mediumLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 text-sm font-medium"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 text-sm "
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
@@ -211,7 +211,7 @@ export default function ThoughtsPost({ post, mdxSource }) {
         >
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <p className="text-gray-700 dark:text-gray-300 font-medium">Written by {post.author}</p>
+              <p className="text-gray-700 dark:text-gray-300 ">Written by {post.author}</p>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Published on {new Date(post.date).toLocaleDateString('en-US', {
                   year: 'numeric',

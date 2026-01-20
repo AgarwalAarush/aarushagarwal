@@ -84,7 +84,7 @@ export default function About() {
 							/>
 						</div>
 						<div className="flex-1">
-						<h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+						<h1 className="text-4xl  text-gray-900 dark:text-white mb-4">
 								Aarush Agarwal
 							</h1>
 						<p className="text-xl text-gray-700 dark:text-gray-300 mb-4">
@@ -104,7 +104,7 @@ export default function About() {
 
 				{/* About Summary */}
 			<section className="mb-16">
-				<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">About</h2>
+				<h2 className="text-2xl  text-gray-900 dark:text-white mb-6">About</h2>
 				<div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
 					<p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
 							Machine Learning Engineer and AI researcher with hands-on experience in high-performance computing optimization and practical AI applications. 
@@ -125,7 +125,7 @@ export default function About() {
 
 				{/* Experience & Education Timeline */}
 			<section className="mb-16">
-				<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Experience & Education</h2>
+				<h2 className="text-2xl  text-gray-900 dark:text-white mb-6">Experience & Education</h2>
 					<div className="space-y-6">
 						{timeline.map((item, index) => (
 							<motion.div
@@ -147,10 +147,10 @@ export default function About() {
 							<div className="flex-1 pb-8">
 								<div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
 									<div className="flex justify-between items-start mb-2">
-										<h3 className="text-lg font-bold text-gray-900 dark:text-white">{item.title}</h3>
+										<h3 className="text-lg  text-gray-900 dark:text-white">{item.title}</h3>
 										<span className="text-sm text-gray-600 dark:text-gray-400">{item.year}</span>
 									</div>
-									<p className="text-blue-600 dark:text-blue-400 font-medium mb-3">{item.company}</p>
+									<p className="text-blue-600 dark:text-blue-400  mb-3">{item.company}</p>
 									<p className="text-gray-700 dark:text-gray-300 text-sm">{item.description}</p>
 								</div>
 							</div>
@@ -161,7 +161,7 @@ export default function About() {
 
 				{/* Key Achievements */}
 			<section className="mb-16">
-				<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Key Achievements</h2>
+				<h2 className="text-2xl  text-gray-900 dark:text-white mb-6">Key Achievements</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						{achievements.map((achievement, index) => (
 							<motion.div
@@ -171,7 +171,7 @@ export default function About() {
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5, delay: index * 0.1 }}
 							>
-							<h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">{achievement.title}</h3>
+							<h3 className="text-lg  text-gray-900 dark:text-white mb-3">{achievement.title}</h3>
 							<p className="text-gray-700 dark:text-gray-300 text-sm">{achievement.description}</p>
 							</motion.div>
 						))}
@@ -180,13 +180,13 @@ export default function About() {
 
 				{/* Skills */}
 			<section className="mb-16">
-				<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Skills & Technologies</h2>
+				<h2 className="text-2xl  text-gray-900 dark:text-white mb-6">Skills & Technologies</h2>
 				<div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
 						<div className="flex flex-wrap gap-3">
 							{skills.map((skill, index) => (
 								<span
 									key={index}
-								className="px-3 py-2 bg-gray-200 text-gray-800 dark:bg-[#181818] dark:text-white rounded-sm text-sm font-medium border border-gray-300 dark:border-transparent"
+								className="px-3 py-2 bg-gray-200 text-gray-800 dark:bg-[#181818] dark:text-white rounded-sm text-sm  border border-gray-300 dark:border-transparent"
 								>
 									{skill}
 								</span>
@@ -197,7 +197,7 @@ export default function About() {
 
 			{/* Contact Section */}
 			<section>
-				<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Let&apos;s Connect</h2>
+				<h2 className="text-2xl  text-gray-900 dark:text-white mb-6">Let&apos;s Connect</h2>
 				<div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
 					<p className="text-gray-700 dark:text-gray-300 mb-6">
 							I&apos;m always interested in discussing new opportunities, collaborative projects, or innovative ideas in AI and software development.

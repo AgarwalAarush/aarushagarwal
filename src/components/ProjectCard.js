@@ -28,7 +28,7 @@ export default function ProjectCard({ project, showTechnologies = true }) {
 
       {/* Content */}
       <div className="flex-1 flex flex-col justify-center">
-        <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
+        <h3 className="mb-2 text-lg text-gray-900 dark:text-white">
           {project.title}
         </h3>
 
@@ -45,7 +45,7 @@ export default function ProjectCard({ project, showTechnologies = true }) {
             {project.technologies.slice(0, 3).map((tech, index) => (
               <span
                 key={index}
-                className="px-2 py-1 text-xs font-medium rounded-sm bg-gray-100 text-gray-700 dark:bg-[#181818] dark:text-white border border-gray-200 dark:border-transparent"
+                className="px-2 py-1 text-xs rounded-sm bg-gray-100 text-gray-700 dark:bg-[#181818] dark:text-white border border-gray-200 dark:border-transparent"
               >
                 {tech}
               </span>

@@ -52,7 +52,7 @@ export default function Navbar() {
         <div className="px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-lg font-medium text-gray-900 dark:text-white">
+              <Link href="/" className="text-lg  text-gray-900 dark:text-white">
                 Aarush Agarwal
               </Link>
             </div>
@@ -93,7 +93,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-base  text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors duration-200"
                 onClick={(e) => {
                   handleNavClick(e, item);
                   if (!item.isSection) setIsMenuOpen(false);
