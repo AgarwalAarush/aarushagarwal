@@ -1,11 +1,11 @@
 ---
 title: "Haven"
 description: "**Won 1st Place in YC, Fetch.AI Tracks and Best Startup Award at CalHacks 12.0** A multi-agent hospital intelligence platform that coordinates autonomous AI agents for patient monitoring and clinical decision support."
-github: "#"
+github: ""
 demo: ""
 image: "/images/haven-dashboard.png"
 # icon: "/images/haven-icon.png"
-ranking: 1
+ranking: 2
 technologies:
   - Fetch.ai
   - Anthropic Claude
