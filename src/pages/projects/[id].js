@@ -58,6 +58,28 @@ export default function ProjectPage({ project }) {
         </code>
       );
     },
+    img({ node, src, alt, title, ...props }) {
+      if (!src) return null;
+      const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('/') || src.startsWith('data:');
+      const resolvedSrc = isAbsolute ? src : `/images/projects/${project.id}/${src}`;
+
+      return (
+        <span className="block my-6">
+          <img
+            src={resolvedSrc}
+            alt={alt || ''}
+            loading="lazy"
+            className="w-full h-auto rounded-lg border border-gray-200 dark:border-[#2a2a2a]"
+            {...props}
+          />
+          {title && (
+            <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
+              {title}
+            </span>
+          )}
+        </span>
+      );
+    },
     // Custom renderer for h1 to handle projects with icons
     h1({ node, children, ...props }) {
       // For the very first h1 in projects with icons, show the icon
