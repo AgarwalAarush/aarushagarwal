@@ -81,7 +81,7 @@ export default function Home({ projects }) {
                                     href="/documents/Resume%20-%20Aarush%20Agarwal.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors duration-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                                 >
                                     Resume
                                 </a>
@@ -210,7 +210,7 @@ export default function Home({ projects }) {
                                 <ProjectCard key={project.id} project={project} showTechnologies={false} />
                             ))}
                     </div>
-                    <button onClick={() => setShowAllProjects(!showAllProjects)} className="inline-block px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md transition-colors duration-200 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <button onClick={() => setShowAllProjects(!showAllProjects)} className="inline-block px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors duration-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
                         {showAllProjects ? 'Minimize' : 'View more'}
                     </button>
                 </section>
