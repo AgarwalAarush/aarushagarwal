@@ -7,6 +7,7 @@ import ProjectCard from "../components/ProjectCard";
 import { useState, useEffect, useRef } from "react";
 import ClientOnly from "../components/ClientOnly";
 import Image from "next/image";
+import TimelineItem from "../components/TimelineItem";
 
 export default function Home({ projects }) {
     const [isMounted, setIsMounted] = useState(false);
@@ -118,85 +119,81 @@ export default function Home({ projects }) {
 				</section>
 
                 {/* Experiences Section */}
-                <section id="experiences" className="mb-16">
+                <section id="experiences" className="mb-8">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-2xl text-gray-900 dark:text-white">Experiences</h2>
                     </div>
-                    <div className="space-y-4">
-                        <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-xl text-gray-900 dark:text-white flex items-center gap-2">
-                                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700 overflow-hidden">
-                                        <Image src="/images/felicis.png" alt="Felicis" width={24} height={24} className="w-6 h-6 object-contain" />
-                                    </span>
-                                    Venture Fellow — Felicis
-                                </h3>
-                                <span className="text-sm text-gray-600 dark:text-gray-400">January 2026 - Present</span>
-                            </div>
-                            <div className="space-y-4 text-sm">
-                                <p className="text-gray-700 dark:text-gray-300">
+                    <div>
+                        <TimelineItem
+                            icon="/images/felicis.png"
+                            iconAlt="Felicis"
+                            company="Felicis"
+                            role="Venture Fellow"
+                            period="January 2026 - Present"
+                            description={
+                                <p>
                                     Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact; partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
                                 </p>
-                            </div>
-                        </div>
-                        <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-xl text-gray-900 dark:text-white flex items-center gap-2">
-                                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700 overflow-hidden">
-                                        <Image src="/images/shopify.png" alt="Shopify" width={24} height={24} className="w-6 h-6 object-contain" />
-                                    </span>
-                                    MLE Intern — Shopify
-                                </h3>
-                                <span className="text-sm text-gray-600 dark:text-gray-400">May 2025 – Aug 2025</span>
-                            </div>
-                            <div className="space-y-4 text-sm">
-                                <p className="text-gray-700 dark:text-gray-300">
-                                    <span className="text-gray-900 dark:text-white">Fraud Detection:</span> Developed a more robust buyer‑fraud detection system by implementing machine learning models with VertexAI and optimizing data pipelines with BigQuery and Dataflow. Improvements to data freshness and analysis increased predictive accuracy, while targeted feature selection significantly reduced training iteration time.
-                                </p>
-                                <p className="text-gray-700 dark:text-gray-300">
-                                    <span className="text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output. <span className="text-gray-900 dark:text-white">Patent filed.</span>
-                                </p>
-                            </div>
-                        </div>
+                            }
+                        />
+                        <TimelineItem
+                            icon="/images/shopify.png"
+                            iconAlt="Shopify"
+                            company="Shopify"
+                            role="MLE Intern"
+                            period="May 2025 – Aug 2025"
+                            description={
+                                <>
+                                    <p>
+                                        <span className="text-gray-900 dark:text-white">Fraud Detection:</span> Developed a more robust buyer‑fraud detection system by implementing machine learning models with VertexAI and optimizing data pipelines with BigQuery and Dataflow. Improvements to data freshness and analysis increased predictive accuracy, while targeted feature selection significantly reduced training iteration time.
+                                    </p>
+                                    <p>
+                                        <span className="text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output. <span className="text-gray-900 dark:text-white">Patent filed.</span>
+                                    </p>
+                                </>
+                            }
+                            isLast={true}
+                        />
                     </div>
                 </section>
 
-                {/* Research Summary Card */}
-                <section id="research" className="mb-16">
+                {/* Research Section */}
+                <section id="research" className="mb-8">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-2xl text-gray-900 dark:text-white">Research</h2>
                     </div>
-                    <div className="bg-gray-100 dark:bg-gray-800/30 rounded-lg p-6 border border-gray-200 dark:border-gray-700/50">
-                        <div className="flex items-center justify-between mb-2">
-                            <h3 className="text-xl text-gray-900 dark:text-white">
-                                CUDA Researcher
-                            </h3>
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Aug 2024 – Aug 2025</span>
-                        </div>
-                        <p className="text-blue-700 dark:text-blue-400 text-sm mb-4">CMU Cosmology Laboratory & CERN</p>
-
-                        <div className="mb-3">
-                            <p className="text-gray-900 dark:text-white text-sm mb-1">Paper:</p>
-                            <a
-                                href="https://arxiv.org/abs/2511.10442"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-700 dark:text-blue-400 hover:underline text-sm"
-                            >
-                                FastGraph: Optimized GPU-Enabled Algorithms for Fast Graph Building and Message Passing
-                            </a>
-                        </div>
-
-                        <div className="space-y-3 text-sm">
-                            <p className="text-gray-700 dark:text-gray-300">
-                                Co-authored FastGraph, a GPU-optimized k-nearest neighbor algorithm that accelerates graph construction in low-dimensional spaces (2–10D) using a bin-partitioned, fully GPU-resident architecture with full gradient-flow support. FastGraph achieves a 20–40× speedup over FAISS, ANNOY, and SCANN with virtually no memory overhead, improving GNN workloads including particle clustering, visual tracking, and large-scale graph clustering.
-                            </p>
-                            <p className="text-gray-700 dark:text-gray-300">
-                                Engineered PyTorch autograd and gradient operations in C++/CUDA and integrated JIT serialization, reducing KNN runtime by an additional 10% and enabling end-to-end differentiability inside GPU training pipelines.
-                            </p>
-                        </div>
+                    <div>
+                        <TimelineItem
+                            icon="/images/cern.png"
+                            iconAlt="CERN"
+                            company="CMU Cosmology Laboratory & CERN"
+                            role="CUDA Researcher"
+                            period="Aug 2024 – Aug 2025"
+                            description={
+                                <>
+                                    <div className="mb-3">
+                                        <p className="text-gray-900 dark:text-white mb-1">Paper:</p>
+                                        <a
+                                            href="https://arxiv.org/abs/2511.10442"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-700 dark:text-blue-400 hover:underline"
+                                        >
+                                            FastGraph: Optimized GPU-Enabled Algorithms for Fast Graph Building and Message Passing
+                                        </a>
+                                    </div>
+                                    <p>
+                                        Co-authored FastGraph, a GPU-optimized k-nearest neighbor algorithm that accelerates graph construction in low-dimensional spaces (2–10D) using a bin-partitioned, fully GPU-resident architecture with full gradient-flow support. FastGraph achieves a 20–40× speedup over FAISS, ANNOY, and SCANN with virtually no memory overhead, improving GNN workloads including particle clustering, visual tracking, and large-scale graph clustering.
+                                    </p>
+                                    <p>
+                                        Engineered PyTorch autograd and gradient operations in C++/CUDA and integrated JIT serialization, reducing KNN runtime by an additional 10% and enabling end-to-end differentiability inside GPU training pipelines.
+                                    </p>
+                                </>
+                            }
+                            isLast={true}
+                        />
                     </div>
                 </section>
 
