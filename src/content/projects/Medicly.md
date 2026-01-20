@@ -5,7 +5,7 @@ github: "https://github.com/scrappydevs/medicly"
 demo: "https://www.medicly.dev/"
 image: "/images/medicly/demo.jpeg"
 icon: "/images/medicly/medicly-icon.png"
-ranking: 3
+ranking: 4
 technologies:
   - MediaPipe
   - BioDigital Human

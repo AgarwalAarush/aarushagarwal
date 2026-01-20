@@ -133,7 +133,7 @@ export default function Home({ projects }) {
                             period="January 2026 - Present"
                             description={
                                 <p>
-                                    Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact; partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
+                                    Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact. Partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
                                 </p>
                             }
                         />
