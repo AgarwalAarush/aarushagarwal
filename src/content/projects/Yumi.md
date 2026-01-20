@@ -2,67 +2,113 @@
 title: "Yumi"
 description: "**3rd Place (Top 3 / 150+ teams) at HackHarvard 2025.** Agentic social food network that learns food profiles to eliminate dining friction."
 github: "https://github.com/scrappydevs/yumi"
-demo: "https://lnkd.in/gdTvg3eP"
-image: "/images/yumi-ios.jpeg"
-icon: "/images/yumi-hero.jpeg"
+demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
+image: "/images/yumi/yumi-hero.jpeg"
+icon: "/images/yumi/yumi-hero.jpeg"
 ranking: 3
 technologies:
   - Gemini Flash
-  - Supabase (Postgres + PostGIS)
-  - SwiftUI
-  - Next.js
-  - Render
   - Netlify
   - Twilio Voice API
   - Google Places API
   - ElevenLabs
   - Sentence Transformers
-  - TypeScript
-  - TailwindCSS
-  - Hugging Face
+  - Spatial Search
+  - AI Agents
 ---
 
-Thrilled to share that we placed **3rd at HackHarvard 2025** out of over 150 teams.  
-**Julian Ng-Thow-Hing, David Chung, Dheeraj Vislawath, and I** built **Yumi**, an agentic social food network that learns user taste and merges group preferences to help friends agree on where to eat.
-### The Problem
-When we arrived in Boston for HackHarvard, we wanted to explore the city’s food culture but ended up defaulting to a chain restaurant.  
+**Yumi** is an agentic social food network designed to solve the group dining problem. It learns what people actually care about—flavor, atmosphere, price sensitivity, cultural context—from natural language, then coordinates preferences across friends to surface restaurants that work for everyone.
 
-Existing apps reduce restaurants to ratings and tags, failing to capture the nuanced preferences people actually have — texture, spice, ambiance, or cultural authenticity. Group decisions devolve into indecision and generic picks. We wanted to build something that truly understands taste and coordinates intelligently.
-### What Yumi Does
-Yumi is an AI-powered coordination platform that:
-- Learns each user’s taste from natural language reviews, interactions, and search behavior.
-- Lets users type or speak preferences to get personalized restaurant suggestions.
-- Builds a taste graph that visualizes friends’ preferences and similarity.
-- Merges multiple users’ profiles when friends are tagged with @mentions, balancing preferences across the group.
-- Uses a real-time spatial restaurant database powered by Google Places and PostGIS.
-- Handles voice-driven restaurant reservations via Twilio and ElevenLabs.
-### My Contributions (Backend Development)
-Led the development of Yumi’s data and AI pipeline:
-- Built a backend pipeline that **scraped thousands of Boston restaurants** via the Google Maps API, using spatial grid partitioning for coverage.
-- Designed and implemented a **data enrichment workflow** that:
-  - Passed each restaurant through the **Gemini API** to generate concise, descriptive summaries.
-  - Used a **classification model** (trained on Hugging Face) to detect whether uploaded photos contained food or irrelevant content.
-  - Employed Gemini again to identify **cuisine types** and **dish-level context** for food images.
-- Structured and stored all restaurant data in **Supabase Postgres with PostGIS** for efficient geospatial queries and distance-based ranking.
-- Collaborated on **Gemini function-calling integration**, allowing the AI to intelligently retrieve restaurants and merge taste profiles.
+### The Problem
+
+Food discovery today is fundamentally **misaligned with how humans choose together**.
+
+Search engines and review platforms optimize for popularity and keywords, not personal taste. Group decisions degrade into compromises: the loudest voice wins, niche preferences get ignored, and people fall back to “safe” options. When traveling or exploring new cities, this leads to missing out on authentic local food culture entirely.
+
+The core failure isn’t lack of data — it’s lack of **coordination**.
+
+Yumi was built to fix that.
+
 ### Tech Stack
-**Frontend:** SwiftUI (iOS) + Next.js Web Dashboard (React, TailwindCSS)  
-**Backend & AI:** Gemini Flash, Google Places API, Supabase/PostGIS, Sentence Transformers, Hugging Face models, ElevenLabs, Twilio Voice API  
-**Deployment:** Render (API) + Netlify (Web) + Supabase (Database/Auth)
-### Challenges
-Merging taste preferences across multiple users was nontrivial. Conflicting attributes like spice tolerance and price sensitivity required a dynamic weighting scheme and structured prompt design for Gemini.  
-Integrating real-world restaurant data with AI-labeled context demanded a reliable scraping and enrichment pipeline that could operate within hackathon constraints.
+![Yumi Tech Stack](/images/yumi/tech-stack.png)
+
+### What Yumi Does
+
+Yumi makes group dining **personal, social, and coordinated** by combining natural language understanding, agent orchestration, and spatial search.
+
+- **Natural Language Taste Learning**: Users write reviews like they’re texting a friend. An LLM extracts real preferences—flavor profiles, vibe, price tolerance—without forms or filters.
+- **Personal Taste Profiles**: Over time, Yumi builds a structured taste representation for each user, continuously refined from free-form input.
+- **Group Coordination**: Users mention friends with `@` mentions and Yumi intelligently merges everyone’s preferences instead of optimizing for the average.
+- **Agentic Search**: When asked for recommendations (text or voice), AI agents retrieve preferences, call tools, and rank restaurants that satisfy *group-level constraints*.
+- **Local Discovery**: Results emphasize culturally relevant, local spots—not algorithmically popular chains.
+
+![Yumi Demo](/images/yumi/yumi-ios.jpeg)
+
+### How It Works
+
+Yumi is built around the idea that **taste is best expressed in language, but decisions require structure**.
+
+#### **Natural Language → Structured Taste**
+
+Instead of forcing users into predefined filters:
+- Reviews are stored as natural language
+- LLMs extract high-level preference summaries
+- These summaries are cached and reused to avoid repeated inference
+- Taste evolves as users write more
+
+This approach proved far more robust than brittle JSON extraction pipelines.
+
+#### **Agent-Orchestrated Search**
+
+Yumi uses **LLM function calling** to coordinate the entire recommendation flow.
+- Custom tools include:
+  - `get_user_preferences`
+  - `get_nearby_restaurants`
+  - `merge_group_preferences`
+- The LLM decides *when* to invoke tools rather than guessing
+- Results are grounded in real data, not hallucinated lists
+
+#### **Spatial Intelligence**
+
+To support real-world search:
+- We scraped **thousands of Boston restaurants**
+- Stored them in **PostgreSQL with PostGIS**
+- Used spatial queries to efficiently rank nearby options
+- Enabled fast geographic filtering without client-side hacks
+
+#### **End-to-End System**
+
+- **iOS App (SwiftUI)** for reviews, photos, and voice queries
+- **FastAPI backend** for orchestration and inference
+- **Next.js dashboard** for social interactions
+- **Supabase** for auth, storage, and real-time updates
+- Deployed to production within 36 hours
+
+### Challenges & Solutions
+
+- **Latency**: Early searches took 15–20 seconds. We reduced this by switching to Gemini Flash, using function calling, and caching taste profiles.
+- **Preference Conflicts**: Averaging tastes fails. We implemented a union-first strategy and explicitly guided the LLM to find solutions that work for *everyone*.
+- **Extraction Robustness**: Structured parsing broke on edge cases. Natural language summaries proved more resilient and expressive.
+- **Cross-Platform Sync**: Coordinating iOS, web, and backend required optimistic UI updates and background processing.
+
 ### Outcome
-We shipped a working multi-agent system that:
-- Automatically builds and updates user taste profiles.
-- Accurately labels and categorizes real restaurant data.
-- Suggests restaurants that satisfy all members of a group.
-- Demonstrates how AI agents can coordinate, learn, and make decisions across multiple users in a real-world setting.
+
+Yumi demonstrates how AI agents can move beyond chat interfaces into **real coordination systems**.
+
+It shows that agents can:
+- Learn over time
+- Coordinate across multiple users
+- Invoke tools intelligently
+- Make decisions grounded in real-world constraints
+
+In 36 hours, we shipped a fully functional agentic system spanning mobile, web, backend, and spatial databases—and proved that social AI can do real work.
+
 ### What’s Next
-We’re extending Yumi to:
-- Suggest meetups automatically based on overlapping preferences.
-- Handle reservations via AI voice calls.
-- Learn from real dining feedback to refine profiles.
-- Expand beyond Boston to new cities with dynamic scraping and labeling.
-### Tagline
-**You, Me, and Food — Together we make Yumi.**
+
+- **Proactive Meetup Suggestions**: Agents suggest plans based on overlapping tastes.
+- **Voice-Based Reservations**: Automatically call restaurants using voice AI.
+- **Reputation-Weighted Preferences**: Learn which friends’ tastes align most closely with yours.
+- **City Expansion**: Scale beyond Boston to help people experience local food culture anywhere.
+
+The vision is simple:  
+**AI agents handle coordination, so humans can focus on shared experiences.**
