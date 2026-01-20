@@ -134,11 +134,11 @@
 }
 
 .markdown-github h1 {
-  @apply text-3xl pb-4 mb-8 border-b border-gray-700;
+  @apply text-3xl mb-6;
 }
 
 .markdown-github h2 {
-  @apply text-2xl pb-3 mb-6 border-b border-gray-700;
+  @apply text-2xl mb-5;
 }
 
 .markdown-github h3 {

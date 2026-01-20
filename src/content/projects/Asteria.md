@@ -123,7 +123,4 @@ Asteria is an **AI-driven mind-mapping platform** designed to help founders and 
 Asteria demonstrates innovation in **structured ideation, graph-based knowledge management, and AI augmentation**. By merging brainstorming, evaluation, and collaboration, it redefines how founders move from scattered ideas to validated opportunities.  
 
 It represents the **next step in intelligent productivity tools**: structured, collaborative, and AI-native.
-
----
-
 *Asteria: Where brainstorming evolves into structured intelligence.*  
