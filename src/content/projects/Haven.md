@@ -23,13 +23,9 @@ technologies:
 
 **Haven** is a multi-agent hospital command center designed to augment clinical staff by creating a cohesive intelligence layer that automates monitoring, streamlines communication, and provides instant access to critical patient information.
 
----
-
 ### The Problem
 
 Hospitals are drowning in data, yet nurses spend up to **50% of their time on documentation** instead of direct patient care. Information is fragmented across disconnected systems, leading to delays and communication gaps. This was inspired by a personal experience where a family member, hospitalized and needing assistance, often faced long waits for a nurse who then had to piece together information from multiple sources before they could help. The data was available, but it wasn't accessible when and where it was needed most. We envisioned a system where intelligent agents could act as the hospital's central nervous system, flagging critical patterns and preparing context-rich summaries for clinical staff instantly.
-
----
 
 ### What Haven Does
 
@@ -38,8 +34,6 @@ Haven is an AI-powered coordination platform that provides three integrated laye
 -   **Intelligent Voice Intake**: Patients communicate naturally with a voice agent that asks structured follow-up questions, accesses validated EHR data, and generates concise, nurse-ready summaries and action items.
 -   **Autonomous Monitoring**: A coordinated network of Fetch.ai agents continuously analyzes patient status using a computer-vision pipeline built with OpenCV pose-estimation and a custom remote photoplethysmography (rPPG) model. The system adapts thresholds dynamically to balance false positives and reliably detect early clinical deterioration, triggering intelligent alerts before issues escalate.
 -   **Spatial Intelligence Hub**: A live 3D hospital map, powered by a Claude agent, provides a real-time spatial overview of the entire floor. Nurses can use natural language to query patient status, manage resources, and visualize alerts.
-
----
 
 ### How It Works: A Multi-Agent Architecture
 
@@ -65,8 +59,6 @@ The 3D hospital map provides nurses with at-a-glance situational awareness.
 -   **Autonomous Tool Execution**: The agent autonomously executes the query by calling multiple tools: one to query the Fetch.ai network for active alerts and another to retrieve conversation summaries from the **Supabase** database.
 -   **Real-Time Visualization**: The map, rendered with **Three.js**, is updated instantly as the agent's tools return data. Room states are synchronized across all clients via **Supabase WebSockets**, ensuring the entire clinical team shares the same real-time view.
 
----
-
 ### Tech Stack
 
 -   **AI & Agents**: Fetch.ai, Anthropic Claude, OpenAI (Whisper, TTS), Groq, Silero VAD
@@ -75,21 +67,15 @@ The 3D hospital map provides nurses with at-a-glance situational awareness.
 -   **Real-Time Communication**: LiveKit (WebRTC)
 -   **Computer Vision**: OpenCV, FastICA
 
----
-
 ### Challenges & Solutions
 
 -   **Multi-Stream Synchronization**: Coordinating concurrent WebSocket streams from LiveKit, Fetch.ai, and Claude while running the CV pipeline was a major challenge. We solved this by processing the computer vision pipeline in a background thread and implementing optimized synchronization protocols to maintain data consistency without blocking the UI.
 -   **Natural Voice Interaction**: Achieving a human-like conversation flow required extensive tuning of our voice activity detection parameters and building comprehensive exception handling to manage connection drops and overlapping speech.
 -   **LLM Context Management**: Long patient conversations quickly exceeded model context limits. Our solution was to develop an intelligent summarization pipeline that recursively compresses the conversation history, preserving only the most clinically relevant information.
 
----
-
 ### Outcome
 
 We successfully built a cohesive multi-agent ecosystem where AI agents from different providers (Fetch.ai, Claude, OpenAI) autonomously coordinate to deliver critical insights. The system demonstrates a powerful new paradigm for clinical decision support by integrating real-time voice interaction, non-invasive biometric monitoring, and spatial intelligence into a single, intuitive command center.
-
----
 
 ### What’s Next
 
@@ -104,8 +90,6 @@ We plan to expand Haven's capabilities by introducing new specialized agents and
 -   **Reinforcement Learning from Clinical Feedback (RLCF)**: Allow nurses to rate agent suggestions, enabling the system to learn hospital-specific workflows and improve its accuracy over time.
 -   **Multi-modal Patient Monitoring**: Integrate computer vision to detect fall risk, patient movement patterns, and other behavioral changes that complement vital sign monitoring.
 -   **Federated Learning**: Enable Haven deployments across different hospitals to learn from each other while maintaining strict patient privacy, creating a collective intelligence that improves with every installation.
-
----
 
 ### Tagline
 
