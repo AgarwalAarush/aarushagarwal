@@ -3,7 +3,7 @@ title: "Healthier"
 description: "**Won 2nd Place in Healthcare at NexHacks** An AI-powered care layer that makes senior care observable through multimodal sensing, real-time feedback, and clinician-facing risk insights."
 github: "https://github.com/scrappydevs/healthier"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
-image: "/images/healthier.png"
+image: "/images/healthier/healthier.png"
 ranking: 1
 technologies:
   - YOLOv8
@@ -26,6 +26,9 @@ Clinicians set care plans in clinics and hospitals, but once patients return hom
 The result is a massive observability gap: care is prescribed with intent, but executed without feedback.
 
 Healthier was built to close that gap.
+
+### Tech Stack
+![Healthier Tech Stack](/images/healthier/tech-stack.jpeg)
 
 ### What Healthier Does
 
@@ -60,14 +63,6 @@ Raw multimodal signals are transformed into high-level insights.
 - **Adherence & Risk Scoring**: Healthier tracks deviations from care plans and surfaces early warnings before issues escalate.
 - **Spatial Context**: A live **2D/3D view** (built with **Three.js**) gives caregivers intuitive situational awareness across rooms or facilities.
 - **Real-Time Sync**: Data is synchronized via **Supabase** with WebSocket updates, ensuring caregivers always see the latest state.
-
-### Tech Stack
-
-- **AI & ML**: OpenAI Whisper, Gemini Nano Banana Pro, Claude Sonnet 4.5, YOLOv8, Pose Estimation
-- **Edge Computing**: CoreML (on-device inference)
-- **Real-Time Systems**: LiveKit (WebRTC), WebSockets
-- **Backend**: Supabase (Postgres)
-- **Frontend & Visualization**: iOS, Three.js
 
 ### Challenges & Solutions
 

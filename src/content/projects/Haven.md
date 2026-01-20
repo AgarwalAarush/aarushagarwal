@@ -3,7 +3,7 @@ title: "Haven"
 description: "**Won 1st Place in YC, Fetch.AI Tracks and Best Startup Award at CalHacks 12.0** A multi-agent hospital intelligence platform that coordinates autonomous AI agents for patient monitoring and clinical decision support."
 github: ""
 demo: ""
-image: "/images/haven-dashboard.png"
+image: "/images/haven/haven.png"
 # icon: "/images/haven-icon.png"
 ranking: 2
 technologies:
@@ -26,6 +26,9 @@ technologies:
 ### The Problem
 
 Hospitals are drowning in data, yet nurses spend up to **50% of their time on documentation** instead of direct patient care. Information is fragmented across disconnected systems, leading to delays and communication gaps. This was inspired by a personal experience where a family member, hospitalized and needing assistance, often faced long waits for a nurse who then had to piece together information from multiple sources before they could help. The data was available, but it wasn't accessible when and where it was needed most. We envisioned a system where intelligent agents could act as the hospital's central nervous system, flagging critical patterns and preparing context-rich summaries for clinical staff instantly.
+
+### Tech Stack
+![Haven Tech Stack](/images/haven/tech-stack.png)
 
 ### What Haven Does
 
@@ -58,14 +61,6 @@ The 3D hospital map provides nurses with at-a-glance situational awareness.
 -   **Natural Language Control**: The map is controlled by an **Anthropic Claude** agent with **multi-tool calling** capabilities. A nurse can ask, *"Show me which rooms have active alerts and summarize Dheeraj's questions from the last 6 hours."*
 -   **Autonomous Tool Execution**: The agent autonomously executes the query by calling multiple tools: one to query the Fetch.ai network for active alerts and another to retrieve conversation summaries from the **Supabase** database.
 -   **Real-Time Visualization**: The map, rendered with **Three.js**, is updated instantly as the agent's tools return data. Room states are synchronized across all clients via **Supabase WebSockets**, ensuring the entire clinical team shares the same real-time view.
-
-### Tech Stack
-
--   **AI & Agents**: Fetch.ai, Anthropic Claude, OpenAI (Whisper, TTS), Groq, Silero VAD
--   **Backend & Data**: Supabase (Postgres), WebSockets
--   **Frontend & Visualization**: Next.js, Three.js
--   **Real-Time Communication**: LiveKit (WebRTC)
--   **Computer Vision**: OpenCV, FastICA
 
 ### Challenges & Solutions
 
