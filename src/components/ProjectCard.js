@@ -61,7 +61,7 @@ export default function ProjectCard({ project, showTechnologies = true }) {
       <a className="block">
         <ClientOnly fallback={
           <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
-            <div className="p-6 bg-gray-100 dark:bg-gray-800/30 rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-96 flex relative group">
+            <div className="p-6 bg-transparent rounded-lg border border-gray-200 dark:border-[#1e1e2d] transition-colors duration-300 h-96 flex relative group hover:bg-gray-100 dark:hover:bg-gray-800/30">
               <div className="relative z-10 h-full w-full">
                 {cardContent}
               </div>
@@ -70,7 +70,7 @@ export default function ProjectCard({ project, showTechnologies = true }) {
         }>
           {() => (
             <div className="overflow-hidden rounded-lg shadow-md cursor-pointer">
-              <div className="p-6 bg-gray-100 dark:bg-gray-800/30 rounded-lg border border-gray-200 dark:border-[#1e1e2d] hover:border-purple-400 dark:hover:border-[#9d7bff] transition-colors duration-300 h-96 flex relative group">
+              <div className="p-6 bg-transparent rounded-lg border border-gray-200 dark:border-[#1e1e2d] transition-colors duration-300 h-96 flex relative group hover:bg-gray-100 dark:hover:bg-gray-800/30">
                 <div className="relative z-10 h-full w-full">
                   {cardContent}
                 </div>
