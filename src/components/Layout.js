@@ -36,7 +36,7 @@ export default function Layout({ children }) {
 								</svg>
 							</a>
 							<a
-								href="https://linkedin.com/in/agarwalaarush"
+								href="https://www.linkedin.com/in/aarush-agarwal-2751a61b1/"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
@@ -47,7 +47,7 @@ export default function Layout({ children }) {
 								</svg>
 							</a>
 							<a
-								href="https://instagram.com/aarushagarwal_"
+								href="https://www.instagram.com/aarush_agarwal_43/"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
