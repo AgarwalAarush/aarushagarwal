@@ -10,6 +10,8 @@ export default function TimelineItem({
     description,
     isLast = false 
 }) {
+    const hasRole = Boolean(role);
+
     return (
         <div className="relative">
             <div className="flex gap-4">
@@ -42,7 +44,7 @@ export default function TimelineItem({
                             {company}
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
-                            {role} • {period}
+                            {hasRole ? `${role} • ${period}` : period}
                         </p>
                     </div>
 

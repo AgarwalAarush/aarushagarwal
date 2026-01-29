@@ -166,6 +166,18 @@ export default function Home({ projects }) {
                     </div>
                     <div>
                         <TimelineItem
+                            icon="/images/moe-research/lti-logo.png"
+                            iconAlt="CMU Language Technologies Institute"
+                            company="CMU Language Technologies Institute"
+                            role=""
+                            period="Jan 2026 – Present"
+                            description={
+                                <p>
+                                    Working under Chenyan Xiong, I research dynamic Mixture-of-Experts (MoE) architectures that enable large language models to incorporate new, private-domain knowledge without degrading existing public capabilities. Building on memorization sinks and expert specialization methods, my work explores mid-training expert duplication, selective retraining, and adaptive routing mechanisms that allow models to autonomously expand expert capacity when existing experts fail to represent novel data. The goal is to balance strong knowledge isolation with positive transfer, bridging decentralized training frameworks (e.g., FlexOlmo) with scalable MoE systems for continual learning.
+                                </p>
+                            }
+                        />
+                        <TimelineItem
                             icon="/images/cern.png"
                             iconAlt="CERN"
                             company="CMU Cosmology Laboratory & CERN"
