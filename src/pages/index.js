@@ -173,7 +173,7 @@ export default function Home({ projects }) {
                             period="Jan 2026 – Present"
                             description={
                                 <p>
-                                    Working under Chenyan Xiong, I research dynamic Mixture-of-Experts (MoE) architectures that enable large language models to incorporate new, private-domain knowledge without degrading existing public capabilities. Building on memorization sinks and expert specialization methods, my work explores mid-training expert duplication, selective retraining, and adaptive routing mechanisms that allow models to autonomously expand expert capacity when existing experts fail to represent novel data. The goal is to balance strong knowledge isolation with positive transfer, bridging decentralized training frameworks (e.g., FlexOlmo) with scalable MoE systems for continual learning.
+                                    Researching dynamic Mixture-of-Experts (MoE) architectures under Chenyan Xiong, designed to seamlessly integrate private-domain knowledge into Large Language Models while preserving public capabilities. Leveraging memorization sinks and expert specialization, the work employs adaptive routing and mid-training expert duplication to autonomously expand model capacity when novel data arises. This strategy unifies decentralized training environments, such as FlexOlmo, with scalable MoE systems to drive continual learning, effectively balancing strong knowledge isolation with positive transfer.
                                 </p>
                             }
                         />
