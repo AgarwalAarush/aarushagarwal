@@ -44,14 +44,6 @@ const notesContent = `
 
 [Paper: FlexAttention (PyTorch Blog)](https://pytorch.org/blog/flexattention/)
 
-### OLMo
-- AI2's fully open language model: training code, data (Dolma), weights, and evaluation all released
-- Standard dense transformer architecture but with complete reproducibility as the goal
-- Trained on Dolma corpus (~3T tokens) with careful documentation of all preprocessing decisions
-- Enables research on training dynamics, data curation effects, and scaling behaviors with full transparency
-
-[Paper: OLMo: Accelerating the Science of Language Models](https://arxiv.org/abs/2402.00838)
-
 ### OLMoE
 - Mixture-of-Experts variant of OLMo using top-k routing (typically k=2 or k=8 active experts)
 - Each token routed to subset of experts—1B active params from 7B total, for example
