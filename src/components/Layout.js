@@ -23,7 +23,13 @@ export default function Layout({ children }) {
 						transition={{ duration: 0.5 }}
 						viewport={{ once: true }}
 					>
-						<div className="flex justify-center items-center gap-6">
+						<div className="flex justify-center items-center gap-6 relative">
+							<a
+								href="/ai-notes"
+								className="absolute right-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 text-sm"
+							>
+								AI Notes
+							</a>
 							<a
 								href="https://github.com/AgarwalAarush"
 								target="_blank"
