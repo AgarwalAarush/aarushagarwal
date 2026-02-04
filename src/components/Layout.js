@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
@@ -24,12 +25,12 @@ export default function Layout({ children }) {
 						viewport={{ once: true }}
 					>
 						<div className="flex justify-center items-center gap-6 relative">
-							<a
+							<Link
 								href="/ai-notes"
 								className="absolute right-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 text-sm"
 							>
 								AI Notes
-							</a>
+							</Link>
 							<a
 								href="https://github.com/AgarwalAarush"
 								target="_blank"
