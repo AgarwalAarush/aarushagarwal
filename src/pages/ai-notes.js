@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import rehypeSlug from 'rehype-slug';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import MarkdownOutline from '../components/MarkdownOutline';
 import { extractHeadings } from '../lib/markdownOutline';
 
@@ -11,38 +14,40 @@ const notesContent = `
 ## Transformer Efficiency Techniques
 
 ### Flash Attention
-- Computes attention in tiles/blocks rather than materializing the full N×N attention matrix
+- Computes attention in tiles/blocks rather than materializing the full $N \\times N$ attention matrix
 - Uses online softmax to compute attention incrementally, recomputing values during backward pass instead of storing them
-- Reduces memory from O(N²) to O(N) while maintaining exact attention (not an approximation)
+- Reduces memory from $O(N^2)$ to $O(N)$ while maintaining exact attention (not an approximation)
 - Key insight: memory I/O is the bottleneck, not FLOPs—trading compute for memory access is a net win on modern GPUs
 
 ### KV Cache
-- During autoregressive generation, keys and values for previous tokens don't change—cache them instead of recomputing
-- Each new token only needs to compute its own K/V and attend to the cached history
-- Reduces per-token inference from O(N) to O(1) attention computation
-- Trade-off: memory grows linearly with sequence length, which is why techniques like sliding window attention help for long contexts
+- During autoregressive generation, keys $K$ and values $V$ for previous tokens don't change—cache them instead of recomputing
+- Each new token only needs to compute its own $K/V$ and attend to the cached history
+- Reduces per-token inference from $O(N)$ to $O(1)$ attention computation
+- Trade-off: memory grows linearly with sequence length $L$, which is why techniques like sliding window attention help for long contexts
 
 ### Grouped Query Attention (GQA)
-- Instead of separate K/V heads per query head (MHA) or one K/V for all queries (MQA), use groups
-- Multiple query heads share the same K/V heads within a group (e.g., 8 query heads, 2 KV heads = 4 queries per KV)
-- Reduces KV cache size proportionally while retaining most of MHA's expressiveness
+- Instead of separate K/V heads per query head (MHA) or one K/V for all queries (MQA), use $G$ groups
+- Multiple query heads share the same K/V heads within a group (e.g., $H_q = 8$ query heads, $H_{kv} = 2$ KV heads = 4 queries per KV)
+- Reduces KV cache size by factor of $H_q / H_{kv}$ while retaining most of MHA's expressiveness
 - Sweet spot between MQA's efficiency and MHA's quality—used in Llama 2 70B, Mistral, etc.
 
 ### Rotary Embeddings (RoPE)
-- Encodes position by rotating query and key vectors in 2D subspaces based on position index
-- Relative position naturally emerges: q_m · k_n depends on (m - n) due to rotation properties
+- Encodes position by rotating query and key vectors in 2D subspaces based on position index $m$
+- Relative position naturally emerges: $q_m \\cdot k_n$ depends on $(m - n)$ due to rotation properties
+- The rotation matrix $R_\\theta^m$ applied to position $m$ uses angles $\\theta_i = 10000^{-2i/d}$
 - No learned position embeddings—positions are encoded through geometric rotation
 - Enables length extrapolation (with modifications like NTK-aware scaling or YaRN) beyond training context
 
 ## Notable LLM Architectures & Papers
 
-### Flex Attention
-- PyTorch's flexible API for implementing custom attention patterns without writing CUDA kernels
-- Specify attention via a score_mod function that modifies attention scores (e.g., causal mask, sliding window, ALiBi)
-- Leverages torch.compile to generate efficient fused kernels automatically
-- Enables rapid prototyping of attention variants—document masking, prefix LM, etc.—with near-optimal performance
+### Flash Attention
+- Tri Dao's IO-aware algorithm that avoids materializing the $N \\\\times N$ attention matrix to HBM
+- Tiles computation into blocks that fit in SRAM, computing softmax incrementally via online normalization trick
+- Recomputes attention in backward pass rather than storing activations—trades $O(N)$ extra FLOPs for $O(N^2)$ → $O(N)$ memory
+- Flash Attention 2 adds better work partitioning across warps and reduces non-matmul FLOPs for ~2x speedup
+- Flash Attention 3 uses tensor cores for softmax, warp specialization, and FP8 support for Hopper GPUs
 
-[Paper: FlexAttention (PyTorch Blog)](https://pytorch.org/blog/flexattention/)
+[Paper: FlashAttention: Fast and Memory-Efficient Exact Attention](https://arxiv.org/abs/2205.14135)
 
 ### OLMoE
 - Mixture-of-Experts variant of OLMo using top-k routing (typically k=2 or k=8 active experts)
@@ -53,12 +58,12 @@ const notesContent = `
 [Paper: OLMoE: Open Mixture-of-Experts Language Models](https://arxiv.org/abs/2409.02060)
 
 ### Montessori Instruct
-- Curriculum learning for instruction tuning: order training examples by difficulty
-- "Learn to walk before you run"—model sees simpler instructions first, complex ones later
-- Difficulty measured by perplexity under a reference model or instruction complexity metrics
-- Shows faster convergence and better final performance than random ordering of instruction data
+- Optimizes the teacher LLM to generate synthetic training data tailored to the student's learning preferences
+- Uses influence functions to measure how each synthetic data point affects student's reference loss—positive influence = helpful, negative = harmful
+- Constructs preference pairs from high/low influence data and trains teacher with DPO to favor generating influential examples
+- Key insight: a weaker teacher optimized for the student outperforms a stronger teacher (GPT-4o) using standard synthesis
 
-[Paper: From Montessori to Roboschool: Teaching LLMs Step-by-Step](https://arxiv.org/abs/2402.14978)
+[Paper: Montessori-Instruct: Generate Influential Training Data Tailored for Student Learning](https://arxiv.org/abs/2410.14208)
 `.trim();
 
 // Extract headings for the outline
@@ -106,7 +111,7 @@ export default function AINotes() {
 
                 <article className="prose prose-sm max-w-none markdown-github">
                   <div className="text-black dark:text-gray-300">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeSlug, rehypeKatex]}>
                       {notesContent}
                     </ReactMarkdown>
                   </div>
