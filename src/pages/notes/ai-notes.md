@@ -151,7 +151,15 @@
 
 [Paper](https://arxiv.org/abs/2306.05406)
 
-https://arxiv.org/abs/2306.05406
+### Mitigating Forgetting in Continuously Pre-training MoE-LLMs by Adding and Chilling Experts
+- Add new experts, reduce the learning rate of the old experts
+
+[Paper](https://openreview.net/pdf?id=O9XdvMbnXC)
+
+### Med-MoE: Mixture of Domain-Specific Experts for Lightweight Medical Vision-Language Models
+
+[Github](https://github.com/jiangsongtao/Med-MoE)
+[Paper](https://arxiv.org/pdf/2404.10237)
 
 ## Miscelanneous Papers
 
