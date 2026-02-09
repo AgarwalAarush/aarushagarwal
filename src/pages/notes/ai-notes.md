@@ -113,11 +113,45 @@
 [Github](https://github.com/haotian-liu/LLaVA)
 [Paper: Visual Instruction Tuning](https://arxiv.org/abs/2304.08485)
 
-### MoExtend
-- 
+### MoExtend: Tuning New Experts for Modality and Task Extension
+- 1. Alignment stage tunes an MLP to bridge the vision encoder and the LLM. Use image-caption pairs to train the MLP.
+- 2. Extension stage identifies which MoE layers require new experts by evaluating distribution shifts in expert selection when exposed to new modality data. Partially tunes a model, detects which layers have the highest deviation in expert selection patterns (most sensitive to the new modality), and extends those layers with new experts.
+- 3. Fine tuning stage trains only the newly added experts and their gate parameters along with a calibration module to prevent interference with existing knowledge; calibration modules are used to adjust gate wieghts and ensure model output remains consistent for previously learned tasks.
 
 [Paper: MoExtend Tuning New Experts for Modality and Task Extension](https://arxiv.org/abs/2408.03511)
 [Github](https://github.com/zhongshsh/MoExtend)
+
+### MoE-LLAVA: Mixture of Experts for Large Vision-Langauge Models
+- Vision Encoder, Projection Layer, MoE-Enhanced Language Model
+- 1. Visual token adaptation. 2. General multi-modal understanding pre-empowerment. 3. MoE Layer Training and Sparsification (transition dense model to moe architecture)
+
+[Github](https://github.com/PKU-YuanGroup/MoE-LLaVA)
+[Paper: MoE-LLAVA: Mixture of Experts for Large Vision-Langauge Models](https://arxiv.org/abs/2401.15947)
+
+### MoVA: Adapting Mixture of Vision Experts to Multimodal Context
+- Leverages multiple specialized vision encoders based on the specific requirements of each multimodal task: main learning — a single vision encoder is not sufficient for multiple specicialized visual contexts sucha s medical images, charts, or fine-grained text-recognition tasks
+- Notable: BiomedCLIP (medical images)
+- Further research: Qwen-VL, SPHINX, DINOv2, MoV-Adapter
+
+[Github](https://github.com/TempleX98/MoVA)
+[Paper: MoVA: Adapting Mixture of Vision Experts to Multimodal Context](https://arxiv.org/abs/2404.13046v1)
+
+### MoME: Mixture of Multimodal Experts for Generalist Multimodal Large Language Models
+![MoME](/images/notes/MoME.png)
+- Mixture of Vision Experts: uses Adaptive Deformable Transformation (MDT) to combine features producted by various vision encoders
+- Mixture of Language Experts: to avoid duplication of expesnive FFNs, the paper implements LoRA instead
+
+[Github](https://github.com/JiuTian-VL/MoME)
+[Paper: MoME: Mixture of Multimodal Experts for Generalist Multimodal Large Language Models](https://www.alphaxiv.org/abs/2407.12709)
+
+#### Mixture-of-Domain-Adapters: Decoupling and Injecting Domain Knwoeldge to Pre-trained Language Models Memories
+- Targets the problem of where knowledge is stored by directly targeting the FFN. Decouples the FFN into an original "old-domain" FFN and a parallel "new-domain" adapter to prevent forgetting. Mixture-of-Adapters (MoA) gate acts as a router, deciding how much knowledge to pull from original FFN and the adapter.
+- Two stage training: 1. Domain knowledge injection (training domain adapters while keeping the original LLM/FFN frozen) 2. Task adaptation
+- Look into: L2 sampling loss
+
+[Paper](https://arxiv.org/abs/2306.05406)
+
+https://arxiv.org/abs/2306.05406
 
 ## Miscelanneous Papers
 
