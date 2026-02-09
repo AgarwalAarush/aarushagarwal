@@ -50,9 +50,17 @@
 - GRPO: Group Relative Policy Optimization — samples multiple responses per prompt, ranks them by reward, and optimizes using relative advantages within each group rather than requiring a separate critic model
 - RLHF: Reinforcement Learning from Human Feedback — trains a reward model on human preference data, then uses PPO to optimize the policy against that reward while constraining KL divergence from a reference model to prevent reward hacking 
 
-### Forward vs Reverse KL Divergence:
+### Forward vs Reverse KL Divergence
 - Forward KL: $\sum_x p(x) \log \frac{p(x)}{q(x)}$ — penalizes regions where $q$ has low probability but $p$ has high probability; encourages $q$ to cover the entire support of $p$
 - Reverse KL: $\sum_x q(x) \log \frac{q(x)}{p(x)}$ — penalizes regions where $p$ has low probability but $q$ has high probability; encourages $q$ to match $p$ where $p$ is non-zero
+
+### Limitations for MoE
+- Expensive and inflexible as it typically needs gradient access to all experts and substantial additional end-to-end training. Usually requires expert models to have similar structure
+- Potential Solution: dynamic expert creation and topology
+
+### Main Methods for Visual Modalities:
+- Adding a visual encoder and projection layer to the LLM
+- Cross-modal attention
 
 ## Notable LLM Architectures & Papers
 
@@ -87,7 +95,7 @@
 - Dual path architecture: Base experts and Specialist Experts
 - Minimal reasoning degradation
 - Insights: decoupling knwoledge via gradient isolation (dual path), concentrating expert capcity in the top one-third of transformer blocks was optimal
-- Limitation: static export topology and predefined expert capacity; look into dynamic expert construction
+- Limitation: static expert topology and predefined expert capacity; look into dynamic expert construction
 
 [Paper: Towards Specialized Generalists: A Multi-Task MoE-LoRA Framework for Domain-Specific LLM Adaptation](https://arxiv.org/abs/2601.07935)
 
@@ -98,10 +106,18 @@
 [Github](https://github.com/idanshen/Self-Distillation)
 [Paper: Self-Distillation Enables Continual Learning](https://arxiv.org/abs/2601.19897)
 
-### Token-Level LLM Collaboration via FusionRoute
+### Visual Instruction Tuning
+- Attaches a vision transformer (CLIP ViT-L/14) to a pre-trained LLM along with a projection layer that connects the vision and language modalities
+- Trained on a multimodal instruction-following dataset through a GPT-4 based data generation pipeline using images with captions and bounding boxes
 
-[Github]()
-[Paper: Token-Level LLM Collaboration via FusionRoute](https://arxiv.org/abs/2601.05106)
+[Github](https://github.com/haotian-liu/LLaVA)
+[Paper: Visual Instruction Tuning](https://arxiv.org/abs/2304.08485)
+
+### MoExtend
+- 
+
+[Paper: MoExtend Tuning New Experts for Modality and Task Extension](https://arxiv.org/abs/2408.03511)
+[Github](https://github.com/zhongshsh/MoExtend)
 
 ## Miscelanneous Papers
 
@@ -111,3 +127,9 @@
 
 [Github](https://github.com/NoviScl/Automated-AI-Researcher)
 [Paper: Towards Execution-Grounded Automated AI Research](https://arxiv.org/abs/2601.14525)
+
+### Token-Level LLM Collaboration via FusionRoute
+- Complementary Routing Mechanism: token level collaboration between LLM that combines expert selection with a corrective mechanism. First, a lightweight router identifies the best expert for the current token based on conversation hidden states. Second, a complementary logit from the router is added to the expert's predictions.
+
+[Github]() - To be released in the next month
+[Paper: Token-Level LLM Collaboration via FusionRoute](https://arxiv.org/abs/2601.05106)
