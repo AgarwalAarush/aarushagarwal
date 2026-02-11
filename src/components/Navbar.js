@@ -25,7 +25,17 @@ export default function Navbar() {
         <div className="px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-lg  text-gray-900 dark:text-white">
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center p-2 mr-2 rounded-md bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                aria-label="Home"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5" />
+                  <path d="M5 9.5V21h14V9.5" />
+                </svg>
+              </Link>
+              <Link href="/" className="text-lg text-gray-900 dark:text-white">
                 Aarush Agarwal
               </Link>
             </div>
