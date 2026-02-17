@@ -1,5 +1,5 @@
 ---
-ranking: 6
+ranking: 7
 title: 'Intelligent macOS Automation Engine'
 description: 'A Modern Computer Use Architecture (Built for Nova) - Cost-efficient, scalable automation using LLM visual reasoning and progressive refinement algorithms'
 icon: '/images/macos-automation-icon.png'

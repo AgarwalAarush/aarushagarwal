@@ -1,5 +1,5 @@
 ---
-ranking: 8
+ranking: 10
 title: 'MV Test Tracker'
 description: 'An optimization tool to help students manage time and teachers schedule tests more efficiently.'
 image: '/images/mvtt.png'

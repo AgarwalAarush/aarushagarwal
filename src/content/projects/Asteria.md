@@ -1,5 +1,5 @@
 ---
-ranking: 6
+ranking: 8
 title: 'Asteria'
 description: 'An AI-Powered Mind-Mapping Platform for Startup Ideation — transforming brainstorming into structured, intelligent graphs with automated insights and collaboration'
 github: 'https://github.com/AgarwalAarush/Asteria/'
