@@ -1,5 +1,7 @@
 # Modality Extension Deep Dive
 
+### Intuition: use LLaVA as a starting point, experiment with Q-Former for vision modality. When shifting over to MoE, may need to incorporate aspects of MoExtend-Calibration, etc
+
 ### Goal: add a new modality (e.g. vision) to a base MoE architecture
 
 ### Status Update:
@@ -23,7 +25,7 @@ Issues: catastrophic forgetting, large fine-tuning cost
 Note: LLaVA successor
 ![MoExtend](/images/notes/MoExtend.png)
 1. Alignment: add a trainable MLP for vision encoder, tune using image-caption pairs for modal alignment
-2. Extension Stage: dtermine whihc MoE layers need extension using an Extender
+2. Extension Stage: dtermine which MoE layers need extension using an Extender
 3. Fine-tuning stage: fine tuning the added extension given an Instruction dataset while keeping other parameteres frozen
 
 Extension Stage: Extender
@@ -57,6 +59,25 @@ Ablation Studies:
 Code: https://github.com/PKU-YuanGroup/MoE-LLaVA
 
 Paper: https://arxiv.org/abs/2401.15947 
+
+### Med-MoE
+![Med-MoE](/images/notes/Med-MoE.png)
+1. Multimodal Medical Alignment: train the project layer to align modalities
+2. Instruction Tuning and Routing: enhance model ability to follow complex medical instructions and train a router for the next phase (Important: this is unique). The router learns modality e.g. CT, MRI, Pathology, X-Ray
+3. Domain-Specific MoE Tuning: duplicate the FFN as init weights for the new experts, only train MoE domain experts and the meta expert
+
+Code: https://github.com/jiangsongtao/Med-MoE
+
+Paper: https://www.arxiv.org/abs/2404.10237
+
+### Blip-2: Bootstrapping Language-Image Pre-training
+![Blip-2](/images/notes/Blip-2.png)
+1. Representation Learning:
+2. Generative Learning: 
+
+Code: https://github.com/facebookresearch/blip2
+
+Paper: https://arxiv.org/abs/2201.12597
 
 ### FlexOlmo:
 ![FlexOlmo](/images/notes/FlexOlmo.png)
