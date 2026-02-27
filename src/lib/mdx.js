@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeSlug from 'rehype-slug';
 
 // Path to our MDX files
 const POSTS_PATH = path.join(process.cwd(), 'content/posts');
@@ -23,20 +20,9 @@ export async function getPost(filename) {
   // Use gray-matter to parse the post metadata and content
   const { content, data } = matter(source);
 
-  // Use next-mdx-remote to serialize the content
-  const mdxSource = await serialize(content, {
-    // Parse the MDX with these options
-    mdxOptions: {
-      rehypePlugins: [
-        rehypeSlug,
-        [rehypeHighlight, { ignoreMissing: true }],
-      ],
-    },
-    scope: data,
-  });
-
   return {
-    content: mdxSource,
+    // Return raw content; render pipeline is handled where content is consumed.
+    content,
     frontMatter: {
       ...data,
       slug: filename.replace(/\.mdx?$/, ''),

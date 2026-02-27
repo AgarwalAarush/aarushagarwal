@@ -55,7 +55,6 @@ A modern, responsive personal website built with Next.js, showcasing projects, r
 ### Content & Markdown
 - **gray-matter** - YAML frontmatter parsing
 - **react-markdown** - Markdown rendering
-- **next-mdx-remote** - MDX content support
 - **rehype-highlight** - Syntax highlighting for code blocks
 - **rehype-slug** - Automatic heading IDs
 
