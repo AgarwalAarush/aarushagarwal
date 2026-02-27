@@ -61,7 +61,7 @@ export default function ProjectPage({ project }) {
     },
     img({ src, alt, title }) {
       if (!src) return null;
-      const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('data:');
+      const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('/') || src.startsWith('data:');
       const resolvedSrc = isAbsolute
         ? src
         : `/images/projects/${project.id}/${src}`;

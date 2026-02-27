@@ -87,6 +87,7 @@ export default function NotePage({ note }) {
                                   alt={alt || ''}
                                   width={800}
                                   height={450}
+                                  unoptimized
                                   className="w-full h-auto rounded-lg border border-gray-200 dark:border-[#2a2a2a]"
                                 />
                                 {title && (
