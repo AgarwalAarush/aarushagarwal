@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
 ranking: 10
-=======
-ranking: 8
->>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
 title: 'MV Test Tracker'
 description: 'An optimization tool to help students manage time and teachers schedule tests more efficiently.'
 image: '/images/mvtt.png'

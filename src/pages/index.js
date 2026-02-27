@@ -9,13 +9,14 @@ import ClientOnly from "../components/ClientOnly";
 import Image from "next/image";
 import TimelineItem from "../components/TimelineItem";
 
+const ROLES = [
+    "Ex MLE Intern @ Shopify",
+    "Student Researcher @ CMU",
+    "AI @ CMU",
+];
+
 export default function Home({ projects }) {
     const [isMounted, setIsMounted] = useState(false);
-    const roles = [
-        "Ex MLE Intern @ Shopify",
-        "Student Researcher @ CMU",
-        "AI @ CMU",
-    ];
     const [showAllProjects, setShowAllProjects] = useState(false);
     const [typedText, setTypedText] = useState("");
     const [roleIndex, setRoleIndex] = useState(0);
@@ -24,10 +25,10 @@ export default function Home({ projects }) {
 
 	useEffect(() => {
 		setIsMounted(true);
-	}, []);
+    }, []);
 
     useEffect(() => {
-        const current = roles[roleIndex % roles.length];
+        const current = ROLES[roleIndex % ROLES.length];
         const typingSpeed = isDeleting ? 40 : 90;
         const pauseAtEndMs = 1200;
 
@@ -45,13 +46,13 @@ export default function Home({ projects }) {
                 setCharIndex(charIndex - 1);
                 if (next.length === 0) {
                     setIsDeleting(false);
-                    setRoleIndex((roleIndex + 1) % roles.length);
+                    setRoleIndex((roleIndex + 1) % ROLES.length);
                 }
             }
         }, typingSpeed);
 
         return () => clearTimeout(timeout);
-    }, [roles, roleIndex, charIndex, isDeleting]);
+    }, [roleIndex, charIndex, isDeleting]);
 
     return (
         <div className="min-h-screen bg-white dark:bg-[#1D1E21]">

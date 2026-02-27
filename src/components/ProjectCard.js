@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import ClientOnly from "../components/ClientOnly";
 
@@ -9,18 +10,22 @@ export default function ProjectCard({ project, showTechnologies = true }) {
     <div className="w-full h-full flex flex-col">
       {/* Project image or icon */}
       {project.image ? (
-        <div className="w-full h-48 mb-4 overflow-hidden rounded-lg">
-          <img 
+        <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
+          <Image
             src={project.image} 
             alt={`${project.title}`}
-            className="w-full h-full object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
           />
         </div>
       ) : project.icon ? (
         <div className="w-full h-48 mb-4 overflow-hidden rounded-lg flex items-center justify-center bg-gray-50 dark:bg-gray-800">
-          <img 
+          <Image
             src={project.icon} 
             alt={`${project.title} Icon`}
+            width={96}
+            height={96}
             className="w-24 h-24 object-contain"
           />
         </div>

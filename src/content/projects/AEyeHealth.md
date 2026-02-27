@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
 ranking: 9
-=======
-ranking: 7
->>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
 title: 'AEye Health'
 description: 'A computer vision solution to address digital eye strain by monitoring blink patterns and promoting healthy screen habits.'
 image: '/images/aeye-health.png'

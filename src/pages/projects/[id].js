@@ -58,19 +58,21 @@ export default function ProjectPage({ project }) {
         </code>
       );
     },
-    img({ node, src, alt, title, ...props }) {
+    img({ src, alt, title }) {
       if (!src) return null;
       const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('/') || src.startsWith('data:');
       const resolvedSrc = isAbsolute ? src : `/images/projects/${project.id}/${src}`;
 
       return (
         <span className="block my-6">
-          <img
+          <Image
             src={resolvedSrc}
             alt={alt || ''}
-            loading="lazy"
+            width={1600}
+            height={900}
+            sizes="(max-width: 1024px) 100vw, 800px"
+            unoptimized
             className="w-full h-auto rounded-lg border border-gray-200 dark:border-[#2a2a2a]"
-            {...props}
           />
           {title && (
             <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
