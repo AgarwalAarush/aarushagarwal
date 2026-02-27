@@ -5,7 +5,11 @@ github: ""
 demo: ""
 image: "/images/haven/haven.png"
 # icon: "/images/haven-icon.png"
+<<<<<<< HEAD
 ranking: 3
+=======
+ranking: 2
+>>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
 technologies:
   - Fetch.ai
   - Anthropic Claude

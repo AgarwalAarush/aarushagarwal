@@ -5,7 +5,11 @@ github: "https://github.com/scrappydevs/yumi"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
 image: "/images/yumi/yumi-hero.jpeg"
 icon: "/images/yumi/yumi-hero.jpeg"
+<<<<<<< HEAD
 ranking: 4
+=======
+ranking: 3
+>>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
 technologies:
   - Gemini Flash
   - Netlify
