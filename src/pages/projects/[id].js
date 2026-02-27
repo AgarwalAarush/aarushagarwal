@@ -13,6 +13,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import MarkdownOutline from '../../components/MarkdownOutline';
 import { extractHeadings } from '../../lib/markdownOutline';
+import { getAssetUrl } from '../../lib/assets';
 
 export default function ProjectPage({ project }) {
   const router = useRouter();
@@ -60,13 +61,39 @@ export default function ProjectPage({ project }) {
     },
     img({ src, alt, title }) {
       if (!src) return null;
-      const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('/') || src.startsWith('data:');
-      const resolvedSrc = isAbsolute ? src : `/images/projects/${project.id}/${src}`;
+      const isAbsolute = /^(https?:)?\/\//.test(src) || src.startsWith('data:');
+      const resolvedSrc = isAbsolute
+        ? src
+        : `/images/projects/${project.id}/${src}`;
+      const assetSrc = resolvedSrc.startsWith('/')
+        ? getAssetUrl(resolvedSrc)
+        : resolvedSrc;
+      const isVideo = /\.(mp4|webm|ogg)$/i.test(assetSrc);
+
+      if (isVideo) {
+        return (
+          <span className="block my-6">
+            <video
+              src={assetSrc}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto rounded-lg border border-gray-200 dark:border-[#2a2a2a]"
+            />
+            {title && (
+              <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
+                {title}
+              </span>
+            )}
+          </span>
+        );
+      }
 
       return (
         <span className="block my-6">
           <Image
-            src={resolvedSrc}
+            src={assetSrc}
             alt={alt || ''}
             width={1600}
             height={900}
@@ -278,8 +305,8 @@ export async function getStaticProps({ params }) {
         id,
         title: frontmatter.title || 'Untitled Project',
         description: frontmatter.description || 'No description available',
-        image: frontmatter.image || null,
-        icon: frontmatter.icon || null,
+        image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
+        icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
         github: frontmatter.github || null,
         demo: frontmatter.demo || null,
         technologies: frontmatter.technologies || [],

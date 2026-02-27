@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -9,6 +10,7 @@ import 'katex/dist/katex.min.css';
 import MarkdownOutline from '../../components/MarkdownOutline';
 import { extractHeadings } from '../../lib/markdownOutline';
 import { getNoteBySlug, getNoteSlugs } from '../../lib/notes';
+import { getAssetUrl } from '../../lib/assets';
 
 export async function getStaticPaths() {
   const slugs = getNoteSlugs();
@@ -71,7 +73,32 @@ export default function NotePage({ note }) {
                 ) : (
                   <article className="prose prose-sm max-w-none markdown-github">
                     <div className="text-black dark:text-gray-300">
-                      <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeSlug, rehypeKatex]}>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm, remarkMath]}
+                        rehypePlugins={[rehypeSlug, rehypeKatex]}
+                        components={{
+                          img({ src, alt, title }) {
+                            if (!src) return null;
+                            const assetSrc = getAssetUrl(src);
+                            return (
+                              <span className="block my-6">
+                                <Image
+                                  src={assetSrc}
+                                  alt={alt || ''}
+                                  width={800}
+                                  height={450}
+                                  className="w-full h-auto rounded-lg border border-gray-200 dark:border-[#2a2a2a]"
+                                />
+                                {title && (
+                                  <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
+                                    {title}
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          },
+                        }}
+                      >
                         {note.content}
                       </ReactMarkdown>
                     </div>

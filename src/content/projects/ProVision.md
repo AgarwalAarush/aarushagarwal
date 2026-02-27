@@ -43,7 +43,7 @@ ProVision makes match analysis **observable, measurable, and actionable** by com
 
 ### Demo
 
-![ProVision Analysis Demo](/images/provision/analysis.gif)
+![ProVision Analysis Demo](/images/provision/analysis.mp4)
 
 ### How It Works
 

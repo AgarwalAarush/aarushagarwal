@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import ClientOnly from "../components/ClientOnly";
 import Image from "next/image";
 import TimelineItem from "../components/TimelineItem";
+import { getAssetUrl } from "../lib/assets";
 
 const ROLES = [
     "Ex MLE Intern @ Shopify",
@@ -62,8 +63,8 @@ export default function Home({ projects }) {
 					name="description"
 					content="Personal website showcasing projects and blog posts"
 				/>
-				<link rel="icon" href="/images/profile-pic.png" />
-				<link rel="apple-touch-icon" href="/images/profile-pic.png" />
+				<link rel="icon" href={getAssetUrl("/favicon.ico")} />
+				<link rel="apple-touch-icon" href={getAssetUrl("/images/profile-pic.png")} />
 			</Head>
             <main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Hero Section */}
@@ -79,7 +80,7 @@ export default function Home({ projects }) {
                             </p>
                             <div className="flex gap-4">
                                 <a
-                                    href="/documents/Resume%20-%20Aarush%20Agarwal.pdf"
+                                    href={getAssetUrl("/documents/Resume%20-%20Aarush%20Agarwal.pdf")}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors duration-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
@@ -112,7 +113,7 @@ export default function Home({ projects }) {
                         </div>
                         <div className="flex flex-col items-center">
                             <div className="w-40 h-40 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
-                                <Image src="/images/profile-pic.jpeg" alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
+                                <Image src={getAssetUrl("/images/profile-pic.jpeg")} alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
                             </div>
                         </div>
                     </div>
@@ -127,7 +128,7 @@ export default function Home({ projects }) {
                     </div>
                     <div>
                         <TimelineItem
-                            icon="/images/felicis.png"
+                            icon={getAssetUrl("/images/felicis.png")}
                             iconAlt="Felicis"
                             company="Felicis"
                             role="Venture Fellow"
@@ -139,7 +140,7 @@ export default function Home({ projects }) {
                             }
                         />
                         <TimelineItem
-                            icon="/images/shopify.png"
+                            icon={getAssetUrl("/images/shopify.png")}
                             iconAlt="Shopify"
                             company="Shopify"
                             role="MLE Intern"
@@ -167,7 +168,7 @@ export default function Home({ projects }) {
                     </div>
                     <div>
                         <TimelineItem
-                            icon="/images/moe-research/lti-logo.png"
+                            icon={getAssetUrl("/images/moe-research/lti-logo.png")}
                             iconAlt="CMU Language Technologies Institute"
                             company="CMU Language Technologies Institute"
                             role=""
@@ -179,7 +180,7 @@ export default function Home({ projects }) {
                             }
                         />
                         <TimelineItem
-                            icon="/images/cern.png"
+                            icon={getAssetUrl("/images/cern.png")}
                             iconAlt="CERN"
                             company="CMU Cosmology Laboratory & CERN"
                             role="CUDA Researcher"
@@ -249,8 +250,8 @@ export async function getStaticProps() {
 			id,
 			title: frontmatter.title || "Untitled Project",
 			description: frontmatter.description || "No description available",
-			image: frontmatter.image || null,
-			icon: frontmatter.icon || null,
+			image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
+			icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
 			github: frontmatter.github || null,
 			demo: frontmatter.demo || null,
 			technologies: frontmatter.technologies || [],
