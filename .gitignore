@@ -110,6 +110,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Static assets — served from Vercel Blob, not in repo
+/public/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
