@@ -274,7 +274,7 @@ export default function ProjectPage({ project }) {
                             </ReactMarkdown>
                             <div className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-[#2a2a2a] not-prose">
                               <iframe
-                                src="/circuit-diagram.html"
+                                src="/api/circuit-diagram"
                                 className="w-full border-0"
                                 style={{ minHeight: '560px', height: '560px' }}
                                 title="AutoReflex hardware circuit diagram"
