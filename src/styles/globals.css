@@ -219,6 +219,17 @@
   @apply bg-transparent p-0;
 }
 
+/* Plain code blocks (no language): monospace + preserve whitespace for ASCII diagrams */
+.markdown-github pre,
+.markdown-github pre code {
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  white-space: pre;
+}
+
+.markdown-github pre {
+  overflow-x: auto;
+}
+
 /* Animations */
 @keyframes fadeIn {
 	from {
