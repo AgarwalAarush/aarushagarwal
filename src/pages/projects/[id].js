@@ -44,20 +44,6 @@ export default function ProjectPage({ project }) {
       const match = /language-(\w+)/.exec(className || '');
       const lang = match ? match[1] : '';
 
-      // Embed interactive circuit diagram (AutoReflex) as live iframe
-      if (!inline && lang === 'circuit-embed') {
-        return (
-          <div className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-[#2a2a2a] not-prose">
-            <iframe
-              src="/circuit-diagram.html"
-              className="w-full border-0"
-              style={{ minHeight: '560px', height: '560px' }}
-              title="AutoReflex hardware circuit diagram"
-            />
-          </div>
-        );
-      }
-
       return !inline && match ? (
         <SyntaxHighlighter
           style={oneDark}
@@ -275,9 +261,37 @@ export default function ProjectPage({ project }) {
                 {/* Project content */}
                 <article className="prose prose-sm max-w-none markdown-github">
                   <div className="text-black dark:text-gray-300">
-                    <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
-                      {project.content}
-                    </ReactMarkdown>
+                    {(() => {
+                      const circuitEmbedMarker = /(\n*```circuit-embed\s*```\s*\n*)/;
+                      const parts = project.id === 'AutoReflex' ? project.content.split(circuitEmbedMarker) : null;
+                      if (parts && parts.length >= 2) {
+                        const [before, , ...afterParts] = parts;
+                        const after = afterParts.join('');
+                        return (
+                          <>
+                            <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                              {before}
+                            </ReactMarkdown>
+                            <div className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-[#2a2a2a] not-prose">
+                              <iframe
+                                src="/circuit-diagram.html"
+                                className="w-full border-0"
+                                style={{ minHeight: '560px', height: '560px' }}
+                                title="AutoReflex hardware circuit diagram"
+                              />
+                            </div>
+                            <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                              {after}
+                            </ReactMarkdown>
+                          </>
+                        );
+                      }
+                      return (
+                        <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                          {project.content}
+                        </ReactMarkdown>
+                      );
+                    })()}
                   </div>
                 </article>
               </div>

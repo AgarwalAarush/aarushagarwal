@@ -25,7 +25,9 @@ The result is a closed-loop system spanning two compute nodes, a servo motor, an
 
 ### Architecture
 
-![AutoReflex System Diagram](/images/autoreflex/diagram.png)
+```circuit-embed
+
+```
 
 AutoReflex runs as two cooperating nodes over a direct Ethernet link:
 
@@ -49,10 +51,6 @@ AutoReflex runs as two cooperating nodes over a direct Ethernet link:
 └──────────────────────┘                                   │  └──────────┘                    │
        10.0.0.1                                            └──────────────────────────────────┘
                                                                    10.0.0.2
-```
-
-```circuit-embed
-
 ```
 
 ### Demo Image
