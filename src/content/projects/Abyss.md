@@ -1,7 +1,7 @@
 ---
 title: "Abyss"
 description: "A voice-first AI assistant that lives on your iPhone, learns you over time through a context graph, and reaches deeper tools through a permissioned macOS bridge — built for the way people actually work."
-ranking: 2
+ranking: 6
 demo: "https://www.youtube.com/watch?v=DEMO_LINK"
 website: "https://abyss.app"
 deck: "https://www.figma.com/deck/DECK_LINK"

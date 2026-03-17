@@ -5,7 +5,7 @@ github: "https://github.com/beeler-devs/Mimir"
 demo: ""
 image: "/images/mimir/example.jpeg"
 icon: "/images/mimir/mimir.png"
-ranking: 6
+ranking: 7
 technologies:
   - Claude
   - Manim
