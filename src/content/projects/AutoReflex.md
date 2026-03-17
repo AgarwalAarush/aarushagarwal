@@ -4,7 +4,6 @@ description: "**3rd Place at Hackberry Pi.** Real-time neuromuscular aim-assist 
 ranking: 1
 demo: "https://youtu.be/0nmgYhaoP1Q"
 image: "/images/autoreflex/autoreflex-cover.png"
-icon: "/images/autoreflex/logo.png"
 technologies:
   - YOLO11n
   - OpenCV
