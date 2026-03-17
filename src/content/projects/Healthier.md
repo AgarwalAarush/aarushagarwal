@@ -4,7 +4,7 @@ description: "**Won 2nd Place in Healthcare at NexHacks** An AI-powered care lay
 github: "https://github.com/scrappydevs/healthier"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
 image: "/images/healthier/healthier.png"
-ranking: 2
+ranking: 3
 technologies:
   - YOLOv8
   - LiveKit

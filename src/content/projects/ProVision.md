@@ -1,7 +1,7 @@
 ---
 title: "ProVision"
 description: "AI Moneyball for Table Tennis. Transforms match film and tournament footage captured by 2D camera into actionable insights backed by tracked ball trajectories, 3D biomechanics, and Moneyball-grade analytics in minutes."
-ranking: 1
+ranking: 2
 demo: "https://www.youtube.com/watch?v=XPG1tP3K3gs"
 website: "https://tryprovision.vercel.app"
 deck: "https://www.figma.com/deck/FdaBB10ebZ1kcceXqmSbSM"

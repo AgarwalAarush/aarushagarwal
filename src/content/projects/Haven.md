@@ -5,7 +5,7 @@ github: ""
 demo: ""
 image: "/images/haven/haven.png"
 # icon: "/images/haven-icon.png"
-ranking: 3
+ranking: 4
 technologies:
   - Fetch.ai
   - Anthropic Claude
