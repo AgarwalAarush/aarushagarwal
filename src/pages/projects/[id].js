@@ -8,6 +8,7 @@ import matter from 'gray-matter';
 import { motion } from 'framer-motion';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -41,7 +42,22 @@ export default function ProjectPage({ project }) {
     // Custom renderer for code blocks
     code({ node, inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
-      
+      const lang = match ? match[1] : '';
+
+      // Embed interactive circuit diagram (AutoReflex) as live iframe
+      if (!inline && lang === 'circuit-embed') {
+        return (
+          <div className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-[#2a2a2a] not-prose">
+            <iframe
+              src="/circuit-diagram.html"
+              className="w-full border-0"
+              style={{ minHeight: '560px', height: '560px' }}
+              title="AutoReflex hardware circuit diagram"
+            />
+          </div>
+        );
+      }
+
       return !inline && match ? (
         <SyntaxHighlighter
           style={oneDark}
@@ -259,7 +275,7 @@ export default function ProjectPage({ project }) {
                 {/* Project content */}
                 <article className="prose prose-sm max-w-none markdown-github">
                   <div className="text-black dark:text-gray-300">
-                    <ReactMarkdown components={components} rehypePlugins={[rehypeSlug]}>
+                    <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
                       {project.content}
                     </ReactMarkdown>
                   </div>

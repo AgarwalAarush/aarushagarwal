@@ -120,10 +120,10 @@ The system provides a comprehensive toolkit for macOS automation:
 
 | Tool | Description | Parameters |
 |------|-------------|------------|
-| `click` | Intelligent clicking on UI elements | `target`: Description of element, `appName`: Target application |
-| `type` | Text input with keyboard simulation | `text`: Text to type, `appName`: Target application |
-| `screenshot` | Application window capture | `appName`: Target application |
-| `activate_app` | Bring application to foreground | `appName`: Application to activate |
+| click | Intelligent clicking on UI elements | target: Description of element, appName: Target application |
+| type | Text input with keyboard simulation | text: Text to type, appName: Target application |
+| screenshot | Application window capture | appName: Target application |
+| activate_app | Bring application to foreground | appName: Application to activate |
 
 ## 📋 Example Tasks
 

@@ -50,7 +50,10 @@ AutoReflex runs as two cooperating nodes over a direct Ethernet link:
        10.0.0.1                                            └──────────────────────────────────┘
                                                                    10.0.0.2
 ```
-(in-depth diagram at bottom)
+
+```circuit-embed
+
+```
 
 ### Demo Image
 
@@ -69,10 +72,10 @@ Each detected frame produces a 20-byte big-endian UDP packet:
 
 | Field | Type | Bytes | Description |
 |-------|------|-------|-------------|
-| `timestamp` | double | 8 | `CLOCK_MONOTONIC` capture time |
-| `tx` | float | 4 | Target centroid X (pixels) |
-| `cx` | float | 4 | Crosshair reference X (pixels) |
-| `blob_w` | float | 4 | Target bounding-rect width (pixels) |
+| timestamp | double | 8 | CLOCK_MONOTONIC capture time |
+| tx | float | 4 | Target centroid X (pixels) |
+| cx | float | 4 | Crosshair reference X (pixels) |
+| blob_w | float | 4 | Target bounding-rect width (pixels) |
 
 #### **PID State Machine**
 
