@@ -275,13 +275,19 @@ export default function ProjectPage({ project }) {
 
 export async function getStaticPaths() {
   const projectFiles = fs.readdirSync(path.join(process.cwd(), 'src/content/projects'));
-  
-  const paths = projectFiles.map(filename => ({
-    params: {
-      id: filename.replace('.md', '')
-    }
-  }));
-  
+  const paths = [];
+
+  for (const filename of projectFiles) {
+    const id = filename.replace('.md', '');
+    const markdownWithMeta = fs.readFileSync(
+      path.join(process.cwd(), 'src/content/projects', filename),
+      'utf-8'
+    );
+    const { data: frontmatter } = matter(markdownWithMeta);
+    if (frontmatter.ignore === true) continue;
+    paths.push({ params: { id } });
+  }
+
   return {
     paths,
     fallback: false

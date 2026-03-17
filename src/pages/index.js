@@ -239,25 +239,29 @@ export async function getStaticProps() {
 	const projectFiles = fs.readdirSync(
 		path.join(process.cwd(), "src/content/projects")
 	);
-	const projects = projectFiles.map((filename) => {
-		const id = filename.replace(".md", "");
-		const markdownWithMeta = fs.readFileSync(
-			path.join(process.cwd(), "src/content/projects", filename),
-			"utf-8"
-		);
-		const { data: frontmatter } = matter(markdownWithMeta);
-		return {
-			id,
-			title: frontmatter.title || "Untitled Project",
-			description: frontmatter.description || "No description available",
-			image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
-			icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
-			github: frontmatter.github || null,
-			demo: frontmatter.demo || null,
-			technologies: frontmatter.technologies || [],
-			ranking: frontmatter.ranking || 999,
-		};
-	}).sort((a, b) => a.ranking - b.ranking);
+	const projects = projectFiles
+		.map((filename) => {
+			const id = filename.replace(".md", "");
+			const markdownWithMeta = fs.readFileSync(
+				path.join(process.cwd(), "src/content/projects", filename),
+				"utf-8"
+			);
+			const { data: frontmatter } = matter(markdownWithMeta);
+			if (frontmatter.ignore === true) return null;
+			return {
+				id,
+				title: frontmatter.title || "Untitled Project",
+				description: frontmatter.description || "No description available",
+				image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
+				icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
+				github: frontmatter.github || null,
+				demo: frontmatter.demo || null,
+				technologies: frontmatter.technologies || [],
+				ranking: frontmatter.ranking || 999,
+			};
+		})
+		.filter(Boolean)
+		.sort((a, b) => a.ranking - b.ranking);
 
 	// Load blog posts from markdown files
 	const blogDir = path.join(process.cwd(), "src/content/thoughts");
