@@ -1,10 +1,7 @@
 # Modality Extension Deep Dive
 
-<<<<<<< HEAD
 ### Intuition: use LLaVA as a starting point, experiment with Q-Former for vision modality. When shifting over to MoE, may need to incorporate aspects of MoExtend-Calibration, etc
 
-=======
->>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
 ### Goal: add a new modality (e.g. vision) to a base MoE architecture
 
 ### Status Update:
@@ -28,11 +25,7 @@ Issues: catastrophic forgetting, large fine-tuning cost
 Note: LLaVA successor
 ![MoExtend](/images/notes/MoExtend.png)
 1. Alignment: add a trainable MLP for vision encoder, tune using image-caption pairs for modal alignment
-<<<<<<< HEAD
-2. Extension Stage: dtermine which MoE layers need extension using an Extender
-=======
-2. Extension Stage: dtermine whihc MoE layers need extension using an Extender
->>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
+2. Extension Stage: determine which MoE layers need extension using an Extender
 3. Fine-tuning stage: fine tuning the added extension given an Instruction dataset while keeping other parameteres frozen
 
 Extension Stage: Extender
@@ -67,7 +60,6 @@ Code: https://github.com/PKU-YuanGroup/MoE-LLaVA
 
 Paper: https://arxiv.org/abs/2401.15947 
 
-<<<<<<< HEAD
 ### Med-MoE
 ![Med-MoE](/images/notes/Med-MoE.png)
 1. Multimodal Medical Alignment: train the project layer to align modalities
@@ -87,8 +79,6 @@ Code: https://github.com/facebookresearch/blip2
 
 Paper: https://arxiv.org/abs/2201.12597
 
-=======
->>>>>>> e678b13d4bcde7299b0a1c55e3336e8112dc9205
 ### FlexOlmo:
 ![FlexOlmo](/images/notes/FlexOlmo.png)
 1. 
