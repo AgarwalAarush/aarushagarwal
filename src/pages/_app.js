@@ -9,8 +9,9 @@ const inter = Inter({
 });
 
 function MyApp({ Component, pageProps }) {
+  // forcedTheme locks light until dark mode redesign; ThemeToggle commented out in Layout/Navbar
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={true} disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
       <style jsx global>{`
         html {
           font-family: ${inter.style.fontFamily};

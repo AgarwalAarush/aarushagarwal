@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
+// import ThemeToggle from "./ThemeToggle"; // disabled until dark mode redesign — keep component for reuse
 
 export default function Layout({ children }) {
 
@@ -23,10 +23,11 @@ export default function Layout({ children }) {
                         </svg>
                     </Link>
                 </div>
-                {/* Theme toggle fixed at top-right */}
+                {/* Theme toggle fixed at top-right — disabled until dark mode redesign
                 <div className="hidden md:block fixed top-4 right-4 z-50">
                     <ThemeToggle />
                 </div>
+                */}
 				{/* Add top padding for mobile header */}
 				<main className="flex-grow pt-16 md:pt-0">{children}</main>
                 <footer className="py-8 bg-gray-100 dark:bg-[#1D1E21] relative">

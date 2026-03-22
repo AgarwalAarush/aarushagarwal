@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle'; // disabled until dark mode redesign
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
@@ -39,9 +39,9 @@ export default function Navbar() {
                 Aarush Agarwal
               </Link>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <ThemeToggle />
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>
