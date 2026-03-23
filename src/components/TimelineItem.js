@@ -17,7 +17,9 @@ export default function TimelineItem({
             <div className="flex gap-4">
                 {/* Icon with vertical line */}
                 <div className="relative flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
+                    {/* Opaque disk behind logos so transparent PNGs (e.g. CERN) do not show the
+                        connector line from the row above, which extends past the previous item. */}
+                    <div className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center overflow-hidden bg-white dark:bg-[#1D1E21]">
                         <Image 
                             src={icon} 
                             alt={iconAlt} 
@@ -27,10 +29,10 @@ export default function TimelineItem({
                         />
                     </div>
                     
-                    {/* Vertical connecting line */}
+                    {/* Vertical connecting line (behind icon disk) */}
                     {!isLast && (
                         <div 
-                            className="absolute left-1/2 top-12 w-0.5 bg-gray-300 dark:bg-gray-700 -translate-x-1/2"
+                            className="absolute left-1/2 top-12 z-0 w-0.5 bg-gray-300 dark:bg-gray-700 -translate-x-1/2"
                             style={{ height: 'calc(100% + 1rem)' }}
                         />
                     )}
