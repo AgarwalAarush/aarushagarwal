@@ -1,11 +1,18 @@
 import '../styles/globals.css';
 import Layout from '../components/Layout';
 import { ThemeProvider } from 'next-themes';
-import { Inter } from 'next/font/google';
+import { Inter, DM_Mono } from 'next/font/google';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   weight: '400',
+  variable: '--font-inter',
+});
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-dm-mono',
 });
 
 function MyApp({ Component, pageProps }) {
@@ -15,6 +22,10 @@ function MyApp({ Component, pageProps }) {
       <style jsx global>{`
         html {
           font-family: ${inter.style.fontFamily};
+        }
+        :root {
+          --font-inter: ${inter.style.fontFamily};
+          --font-dm-mono: ${dmMono.style.fontFamily};
         }
       `}</style>
       <Layout>
