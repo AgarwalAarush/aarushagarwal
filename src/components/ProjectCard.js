@@ -1,10 +1,25 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { getAssetUrl } from "../lib/assets";
 
 export default function ProjectCard({ project, showTechnologies = true }) {
   return (
     <Link href={`/projects/${project.id}`} legacyBehavior>
       <a className="block group border border-gray-100 hover:border-gray-300 hover:bg-gray-50 transition-colors duration-200">
+        {/* Project image */}
+        {project.image && (
+          <div className="relative w-full h-44 overflow-hidden bg-gray-50">
+            <Image
+              src={getAssetUrl(project.image)}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        )}
+
         <div className="px-4 py-5">
           <div className="flex flex-col gap-1.5">
             {/* Title row */}
@@ -19,7 +34,7 @@ export default function ProjectCard({ project, showTechnologies = true }) {
 
             {/* Description */}
             <div
-              className="text-sm text-gray-500 leading-relaxed line-clamp-2"
+              className="text-sm text-gray-500 leading-relaxed line-clamp-3"
               dangerouslySetInnerHTML={{
                 __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-700 font-normal">$1</strong>')
               }}
