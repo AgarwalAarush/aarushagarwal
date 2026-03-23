@@ -168,7 +168,7 @@ export default function Home({ projects }) {
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-2xl text-gray-900 dark:text-white">Projects</h2>
                     </div>
-                    <div className="flex flex-col mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         {(projects || [])
                             .slice(0, showAllProjects ? projects.length : 5)
                             .map((project) => (
