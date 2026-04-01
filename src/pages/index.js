@@ -11,8 +11,11 @@ import { getAssetUrl } from "../lib/assets";
 export default function Home({ projects }) {
     const [showAllProjects, setShowAllProjects] = useState(false);
 
+    const heroCtaCell =
+        'inline-flex items-center justify-center border border-gray-200 bg-white px-5 py-3 text-[11px] font-medium uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-50 focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-[#1D1E21] dark:text-white dark:hover:bg-gray-800 dark:focus-visible:ring-gray-500 dark:focus-visible:ring-offset-[#1D1E21] rounded-md -ml-px first:ml-0 relative z-0 hover:z-10';
+
     return (
-        <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
+        <div className="font-soehne-home min-h-screen bg-white dark:bg-[#1D1E21]">
 			<Head>
 				<title>Aarush Agarwal - Personal Website</title>
 				<meta
@@ -23,20 +26,17 @@ export default function Home({ projects }) {
             <main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Hero Section */}
                 <section className="mb-16">
-                    <div className="max-w-4xl flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div className="max-w-2xl text-left">
-                            <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-3">
+                    <div className="max-w-4xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="max-w-2xl text-left md:min-h-60 md:flex md:flex-col md:justify-center">
+                            <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-6">
                                 Aarush Agarwal
                             </h1>
-                            <p className="text-xl text-gray-700 dark:text-gray-400 mb-6">
-                                AI @ CMU
-                            </p>
-                            <div className="flex gap-4">
+                            <div className="inline-flex items-stretch gap-0">
                                 <a
                                     href={getAssetUrl("/documents/Resume%20-%20Aarush%20Agarwal.pdf")}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center px-3 py-2 border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-200"
+                                    className={heroCtaCell}
                                 >
                                     Resume
                                 </a>
@@ -44,23 +44,19 @@ export default function Home({ projects }) {
                                     href="https://github.com/agarwalaarush"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-200"
+                                    className={heroCtaCell}
                                     aria-label="GitHub"
                                 >
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.31.76-1.6-2.67-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.4s2.04.13 3 .4c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.47 5.93.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
-                                    </svg>
+                                    GitHub
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/in/aarush-agarwal-2751a61b1/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-200"
+                                    className={heroCtaCell}
                                     aria-label="LinkedIn"
                                 >
-                                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.96 0-1.73-.79-1.73-1.73s.77-1.73 1.73-1.73 1.73.79 1.73 1.73-.77 1.73-1.73 1.73zm13.5 11.27h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.88 0-2.17 1.46-2.17 2.97v5.7h-3v-10h2.88v1.37h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.6v5.57z"/>
-                                    </svg>
+                                    LinkedIn
                                 </a>
                             </div>
                         </div>

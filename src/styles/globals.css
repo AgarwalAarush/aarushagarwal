@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Soehne Leicht (Klim) — place your licensed SoehneLeicht.woff2 in public/fonts/ */
+@font-face {
+	font-family: 'Soehne Leicht';
+	src: url('/fonts/SoehneLeicht.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
 /* Import highlight.js theme for syntax highlighting */
 @import 'highlight.js/styles/github-dark.css';
 
@@ -73,6 +82,13 @@
 
 	::-webkit-scrollbar-thumb:hover {
 		background: #6b7280;
+	}
+}
+
+@layer utilities {
+	.font-soehne-home {
+		font-family: 'Soehne Leicht', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+			'Segoe UI', sans-serif;
 	}
 }
 
