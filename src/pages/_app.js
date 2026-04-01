@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import { ThemeProvider } from 'next-themes';
 import { Inter } from 'next/font/google';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   weight: '400',
 });

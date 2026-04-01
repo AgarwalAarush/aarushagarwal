@@ -111,7 +111,9 @@ yarn-error.log*
 .vercel
 
 # Static assets — served from Vercel Blob, not in repo
-/public/
+/public/*
+!/public/metadata/
+!/public/metadata/**
 
 # typescript
 *.tsbuildinfo

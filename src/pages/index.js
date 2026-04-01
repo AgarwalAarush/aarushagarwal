@@ -2,58 +2,14 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
-import { motion } from "framer-motion";
 import ProjectCard from "../components/ProjectCard";
-import { useState, useEffect, useRef } from "react";
-import ClientOnly from "../components/ClientOnly";
+import { useState } from "react";
 import Image from "next/image";
 import TimelineItem from "../components/TimelineItem";
 import { getAssetUrl } from "../lib/assets";
 
-const ROLES = [
-    "Ex MLE Intern @ Shopify",
-    "Student Researcher @ CMU",
-    "AI @ CMU",
-];
-
 export default function Home({ projects }) {
-    const [isMounted, setIsMounted] = useState(false);
     const [showAllProjects, setShowAllProjects] = useState(false);
-    const [typedText, setTypedText] = useState("");
-    const [roleIndex, setRoleIndex] = useState(0);
-    const [charIndex, setCharIndex] = useState(0);
-    const [isDeleting, setIsDeleting] = useState(false);
-
-	useEffect(() => {
-		setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        const current = ROLES[roleIndex % ROLES.length];
-        const typingSpeed = isDeleting ? 40 : 90;
-        const pauseAtEndMs = 1200;
-
-        const timeout = setTimeout(() => {
-            if (!isDeleting) {
-                const next = current.slice(0, charIndex + 1);
-                setTypedText(next);
-                setCharIndex(charIndex + 1);
-                if (next === current) {
-                    setTimeout(() => setIsDeleting(true), pauseAtEndMs);
-                }
-            } else {
-                const next = current.slice(0, charIndex - 1);
-                setTypedText(next);
-                setCharIndex(charIndex - 1);
-                if (next.length === 0) {
-                    setIsDeleting(false);
-                    setRoleIndex((roleIndex + 1) % ROLES.length);
-                }
-            }
-        }, typingSpeed);
-
-        return () => clearTimeout(timeout);
-    }, [roleIndex, charIndex, isDeleting]);
 
     return (
         <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
@@ -63,8 +19,6 @@ export default function Home({ projects }) {
 					name="description"
 					content="Personal website showcasing projects and blog posts"
 				/>
-				<link rel="icon" href={getAssetUrl("/favicon.ico")} />
-				<link rel="apple-touch-icon" href={getAssetUrl("/images/profile-pic.png")} />
 			</Head>
             <main className="max-w-4xl mx-auto px-6 py-16">
 				{/* Hero Section */}
@@ -74,16 +28,15 @@ export default function Home({ projects }) {
                             <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-3">
                                 Aarush Agarwal
                             </h1>
-                            <p className="text-xl text-gray-900 dark:text-white mb-6 h-7">
-                                <span className="text-gray-700 dark:text-gray-400">{typedText}</span>
-                                <span className="ml-1 inline-block w-3 bg-gray-900 dark:bg-white animate-pulse" style={{height: '1.1em'}}></span>
+                            <p className="text-xl text-gray-700 dark:text-gray-400 mb-6">
+                                AI @ CMU
                             </p>
                             <div className="flex gap-4">
                                 <a
                                     href={getAssetUrl("/documents/Resume%20-%20Aarush%20Agarwal.pdf")}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors duration-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                                    className="inline-flex items-center px-3 py-2 border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-200"
                                 >
                                     Resume
                                 </a>
@@ -91,7 +44,7 @@ export default function Home({ projects }) {
                                     href="https://github.com/agarwalaarush"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 rounded-md border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                                    className="p-2 border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-200"
                                     aria-label="GitHub"
                                 >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -102,7 +55,7 @@ export default function Home({ projects }) {
                                     href="https://www.linkedin.com/in/aarush-agarwal-2751a61b1/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 rounded-md border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
+                                    className="p-2 border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-200"
                                     aria-label="LinkedIn"
                                 >
                                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
