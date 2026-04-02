@@ -166,11 +166,16 @@ export default function Home({ projects }) {
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-2xl text-gray-900 dark:text-white">Projects</h2>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div className="mb-6 grid grid-cols-1 gap-0 sm:grid-cols-2 [&>*:not(:first-child)]:max-sm:-mt-px sm:[&>*:nth-child(even)]:-ml-px sm:[&>*:nth-child(n+3)]:-mt-px">
                         {(projects || [])
                             .slice(0, showAllProjects ? projects.length : 4)
                             .map((project) => (
-                                <ProjectCard key={project.id} project={project} showTechnologies={false} />
+                                <ProjectCard
+                                    key={project.id}
+                                    project={project}
+                                    showTechnologies={false}
+                                    showImagePreview={false}
+                                />
                             ))}
                     </div>
                     <button onClick={() => setShowAllProjects(!showAllProjects)} className="inline-block px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors duration-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
