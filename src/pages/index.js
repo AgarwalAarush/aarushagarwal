@@ -3,14 +3,19 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import ProjectCard from "../components/ProjectCard";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import TimelineItem from "../components/TimelineItem";
 import { getAssetUrl } from "../lib/assets";
 
-export default function Home({ projects }) {
-    const [showAllProjects, setShowAllProjects] = useState(false);
+const projectCardSpring = {
+    type: 'spring',
+    stiffness: 120,
+    damping: 42,
+    mass: 2.1,
+};
 
+export default function Home({ projects }) {
     const heroCtaCell =
         'inline-flex items-center justify-center border border-gray-200 bg-white px-5 py-3 text-[11px] font-medium uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-50 focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-[#1D1E21] dark:text-white dark:hover:bg-gray-800 dark:focus-visible:ring-gray-500 dark:focus-visible:ring-offset-[#1D1E21] rounded-md -ml-px first:ml-0 relative z-0 hover:z-10';
 
@@ -160,27 +165,37 @@ export default function Home({ projects }) {
                     </div>
                 </section>
 
-                {/* Projects Section with expand/collapse */}
+                {/* Projects — all cards in grid; pairs reveal on scroll */}
                 <section id="projects" className="mb-16">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-2xl text-gray-900 dark:text-white">Projects</h2>
                     </div>
                     <div className="mb-6 grid grid-cols-1 gap-0 sm:grid-cols-2 [&>*:not(:first-child)]:max-sm:-mt-px sm:[&>*:nth-child(even)]:-ml-px sm:[&>*:nth-child(n+3)]:-mt-px">
-                        {(projects || [])
-                            .slice(0, showAllProjects ? projects.length : 4)
-                            .map((project) => (
-                                <ProjectCard
+                        {(projects || []).map((project, index) => {
+                            const row = Math.floor(index / 2);
+                            const col = index % 2;
+                            return (
+                                <motion.div
                                     key={project.id}
-                                    project={project}
-                                    showTechnologies={false}
-                                    showImagePreview={false}
-                                />
-                            ))}
+                                    className="min-w-0"
+                                    initial={{ opacity: 0, y: 36 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.2, margin: '0px 0px -10% 0px' }}
+                                    transition={{
+                                        ...projectCardSpring,
+                                        delay: row * 0.22 + col * 0.09,
+                                    }}
+                                >
+                                    <ProjectCard
+                                        project={project}
+                                        showTechnologies={false}
+                                        showImagePreview={false}
+                                    />
+                                </motion.div>
+                            );
+                        })}
                     </div>
-                    <button onClick={() => setShowAllProjects(!showAllProjects)} className="inline-block px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors duration-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-                        {showAllProjects ? 'Minimize' : 'View more'}
-                    </button>
                 </section>
 
                 {/* Bottom space */}
