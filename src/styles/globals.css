@@ -206,16 +206,44 @@
 }
 
 .markdown-github table {
-  @apply border-collapse w-full;
+  @apply w-full border-separate overflow-hidden rounded-lg;
+  border-spacing: 0;
+  border: 1px solid #d1d5db;
+}
+
+.dark .markdown-github table {
+  border-color: #374151;
 }
 
 .markdown-github table th,
 .markdown-github table td {
-  @apply border border-gray-700 px-4 py-2;
+  @apply px-4 py-2;
+  border-bottom: 1px solid #d1d5db;
+  border-right: 1px solid #d1d5db;
+}
+
+.dark .markdown-github table th,
+.dark .markdown-github table td {
+  border-color: #374151;
+}
+
+.markdown-github table th:last-child,
+.markdown-github table td:last-child {
+  border-right: none;
+}
+
+.markdown-github table tr:last-child td {
+  border-bottom: none;
 }
 
 .markdown-github table th {
-  @apply bg-gray-800;
+  background-color: #F3F2ED;
+  @apply text-gray-900;
+}
+
+.dark .markdown-github table th {
+  background-color: #1f2937;
+  @apply text-white;
 }
 
 .markdown-github img {
@@ -418,21 +446,50 @@ pre code.hljs {
 
 /* Table styling for blog content */
 .prose table {
-  border-collapse: collapse !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
   margin: 1.5rem 0 !important;
   width: 100% !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden !important;
+}
+
+.dark .prose table {
+  border-color: #374151 !important;
 }
 
 .prose th,
 .prose td {
-  border: 1px solid #374151 !important;
+  border-bottom: 1px solid #d1d5db !important;
+  border-right: 1px solid #d1d5db !important;
   padding: 0.75rem !important;
   text-align: left !important;
 }
 
+.dark .prose th,
+.dark .prose td {
+  border-color: #374151 !important;
+}
+
+.prose th:last-child,
+.prose td:last-child {
+  border-right: none !important;
+}
+
+.prose tr:last-child td {
+  border-bottom: none !important;
+}
+
 .prose th {
-  @apply bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white !important;
+  background-color: #F3F2ED !important;
+  @apply text-gray-900 !important;
   font-weight: 400 !important;
+}
+
+.dark .prose th {
+  background-color: #1f2937 !important;
+  @apply text-white !important;
 }
 
 .prose td {
