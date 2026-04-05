@@ -6,6 +6,10 @@ demo: "https://www.youtube.com/watch?v=DEMO_LINK"
 website: "https://abyss.app"
 deck: "https://www.figma.com/deck/DECK_LINK"
 image: "/images/abyss/abyss-architecture.png"
+images:
+  - "/images/abyss/abyss-architecture.png"
+  - "/images/abyss/abyss-data-flow.png"
+  - "/images/abyss/abyss-infrastructure.png"
 icon: "/images/abyss/icon.jpeg"
 technologies:
   - Amazon Bedrock

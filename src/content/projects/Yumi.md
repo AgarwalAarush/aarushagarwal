@@ -1,9 +1,13 @@
 ---
 title: "Yumi"
-description: "**3rd Place (Top 3 / 150+ teams) at HackHarvard 2025.** Agentic social food network that learns food profiles to eliminate dining friction."
+description: "**3rd Place at HackHarvard 2025.** Agentic social food network that learns food profiles to eliminate dining friction."
 github: "https://github.com/scrappydevs/yumi"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
 image: "/images/yumi/yumi-hero.jpeg"
+images:
+  - "/images/yumi/yumi-hero.jpeg"
+  - "/images/yumi/tech-stack.png"
+  - "/images/yumi/yumi-ios.jpeg"
 icon: "/images/yumi/yumi-hero.jpeg"
 ranking: 5
 technologies:

@@ -1,9 +1,12 @@
 ---
 title: "Mimir"
-description: "**Winner of the CMU Claude Builder Hackathon** An AI tutoring workspace that promotes deep understanding through full-context reasoning, live guidance, and generative visualizations."
+description: "**1st Place at CMU Claude Builder Hackathon** An AI tutoring workspace that promotes deep understanding through full-context reasoning, live guidance, and generative visualizations."
 github: "https://github.com/beeler-devs/Mimir"
 demo: ""
 image: "/images/mimir/example.jpeg"
+images:
+  - "/images/mimir/example.jpeg"
+  - "/images/mimir/tech-stack.png"
 icon: "/images/mimir/mimir.png"
 ranking: 7
 technologies:

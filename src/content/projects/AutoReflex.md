@@ -5,6 +5,9 @@ ranking: 1
 github: "https://github.com/beeler-devs/HackberryPi"
 demo: "https://youtu.be/0nmgYhaoP1Q"
 image: "/images/autoreflex/autoreflex-cover.png"
+images:
+  - "/images/autoreflex/autoreflex-cover.png"
+  - "/images/autoreflex/box-demo.jpeg"
 technologies:
   - YOLO11n
   - OpenCV

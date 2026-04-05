@@ -1,9 +1,12 @@
 ---
 title: "Healthier"
-description: "**Won 2nd Place in Healthcare at NexHacks** An AI-powered care layer that makes senior care observable through multimodal sensing, real-time feedback, and clinician-facing risk insights."
+description: "**2nd Place in Healthcare at NexHacks** An AI-powered care layer that makes senior care observable through multimodal sensing, real-time feedback, and clinician-facing risk insights."
 github: "https://github.com/scrappydevs/healthier"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
 image: "/images/healthier/healthier.png"
+images:
+  - "/images/healthier/healthier.png"
+  - "/images/healthier/tech-stack.jpeg"
 ranking: 3
 technologies:
   - YOLOv8

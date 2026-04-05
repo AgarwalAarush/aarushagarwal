@@ -6,6 +6,9 @@ demo: "https://www.youtube.com/watch?v=XPG1tP3K3gs"
 website: "https://tryprovision.vercel.app"
 deck: "https://www.figma.com/deck/FdaBB10ebZ1kcceXqmSbSM"
 image: "/images/provision/hero.png"
+images:
+  - "/images/provision/hero.png"
+  - "/images/provision/tech-stack.png"
 icon: "/images/provision/logo.png"
 technologies:
   - TrackNet

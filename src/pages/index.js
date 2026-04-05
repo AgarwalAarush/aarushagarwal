@@ -165,7 +165,7 @@ export default function Home({ projects }) {
                     </div>
                 </section>
 
-                {/* Projects — all cards in grid; pairs reveal on scroll */}
+                {/* Projects — vertical list with image thumbnails */}
                 <section id="projects" className="mb-16">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
@@ -217,6 +217,7 @@ export async function getStaticProps() {
 				title: frontmatter.title || "Untitled Project",
 				description: frontmatter.description || "No description available",
 				image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
+				images: frontmatter.images ? frontmatter.images.map(img => getAssetUrl(img)) : null,
 				icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
 				github: frontmatter.github || null,
 				demo: frontmatter.demo || null,

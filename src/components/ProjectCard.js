@@ -55,11 +55,16 @@ export default function ProjectCard({
   showImagePreview = true,
 }) {
   const [hover, setHover] = useState(false);
+  const images = (project.images && project.images.length > 0)
+    ? project.images
+    : [project.image].filter(Boolean);
+  const [imgIndex, setImgIndex] = useState(0);
+  const currentImage = images[imgIndex] || null;
 
   // Card content — title layout unchanged; arrow is absolutely positioned beside it
   const cardContent = (
     <div
-      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'relative flex-col gap-1'}`}
+      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'items-center gap-4'}`}
     >
       {/* Project image or icon */}
       {showImagePreview &&
@@ -120,33 +125,67 @@ export default function ProjectCard({
         </div>
       ) : (
         <>
-          <div className="pr-10 sm:pr-11">
-            <h3 className="m-0 text-lg font-normal leading-snug text-gray-900 dark:text-white">
-              {project.title}
-            </h3>
+          {/* Text block */}
+          <div className="flex-1 min-w-0">
+            <div className="mb-1">
+              <h3 className="m-0 text-lg font-normal leading-snug text-gray-900 dark:text-white">
+                {project.title}
+              </h3>
+            </div>
+            <div
+              className="text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white"
+              dangerouslySetInnerHTML={{
+                __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+              }}
+            />
+            {showTechnologies && project.technologies && (
+              <div className="flex shrink-0 flex-wrap gap-2 mt-2">
+                {project.technologies.slice(0, 3).map((tech, index) => (
+                  <span
+                    key={index}
+                    className="rounded-sm border border-gray-200 bg-gray-100 px-2 py-1 text-xs text-gray-700 dark:border-transparent dark:bg-[#181818] dark:text-white"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
-          <div
-            className="pr-10 text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white sm:pr-11"
-            dangerouslySetInnerHTML={{
-              __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            }}
-          />
-          {/* Arrow top-right */}
-          <div className="pointer-events-none absolute right-0 top-0" aria-hidden>
-            <CurvedArrowIndicator active={hover} />
-          </div>
-          {showTechnologies && project.technologies && (
-            <div className="flex shrink-0 flex-wrap gap-2">
-              {project.technologies.slice(0, 3).map((tech, index) => (
-                <span
-                  key={index}
-                  className="rounded-sm border border-gray-200 bg-gray-100 px-2 py-1 text-xs text-gray-700 dark:border-transparent dark:bg-[#181818] dark:text-white"
-                >
-                  {tech}
-                </span>
-              ))}
+
+          {/* Image with arrows */}
+          {currentImage && (
+            <div className="shrink-0 flex items-center gap-2">
+              <button
+                onClick={e => { e.preventDefault(); setImgIndex(i => (i - 1 + images.length) % images.length); }}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                aria-label="Previous image"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M10 3L5.5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <div className="w-48 h-32 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                <Image
+                  src={currentImage}
+                  alt={project.title}
+                  width={384}
+                  height={256}
+                  className="w-full h-full object-cover"
+                  unoptimized
+                />
+              </div>
+              <button
+                onClick={e => { e.preventDefault(); setImgIndex(i => (i + 1) % images.length); }}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                aria-label="Next image"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 3L10.5 8L6 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
             </div>
           )}
+
         </>
       )}
     </div>
@@ -155,7 +194,7 @@ export default function ProjectCard({
   const cardShellClass = [
     'relative flex w-full flex-col overflow-hidden bg-transparent transition-colors duration-300',
     'group hover:bg-gray-100 dark:hover:bg-gray-800/30',
-    showImagePreview ? 'rounded-2xl border border-gray-200 dark:border-gray-700 h-96 p-6' : 'py-5 px-3',
+    showImagePreview ? 'rounded-2xl border border-gray-200 dark:border-gray-700 h-96 p-6' : 'py-4 px-3',
   ].join(' ');
 
   const cardInner = (

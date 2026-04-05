@@ -1,9 +1,12 @@
 ---
 title: "Medicly"
-description: "**Grand Prize (1st Overall) at HackCMU among 200+ teams.** AI‑powered physical therapy analysis platform for patients and clinicians to track recovery together."
+description: "**1st Place at HackCMU** AI‑powered physical therapy analysis platform for patients and clinicians to track recovery together."
 github: "https://github.com/scrappydevs/medicly"
 demo: "https://www.medicly.dev/"
 image: "/images/medicly/demo.jpeg"
+images:
+  - "/images/medicly/demo.jpeg"
+  - "/images/medicly/tech-stack.jpg"
 icon: "/images/medicly/medicly-icon.png"
 ranking: 8
 technologies:
