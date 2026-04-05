@@ -125,12 +125,15 @@ export default function ProjectCard({
         </div>
       ) : (
         <>
-          {/* Text block */}
-          <div className="flex-1 min-w-0">
-            <div className="mb-1">
+          {/* Text block — vertically centered against image */}
+          <div className="flex-1 min-w-0 flex flex-col justify-center">
+            <div className="flex items-center gap-2 mb-1">
               <h3 className="m-0 text-lg font-normal leading-snug text-gray-900 dark:text-white">
                 {project.title}
               </h3>
+              <div className="pointer-events-none shrink-0" aria-hidden>
+                <CurvedArrowIndicator active={hover} />
+              </div>
             </div>
             <div
               className="text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white"
@@ -164,13 +167,13 @@ export default function ProjectCard({
                   <path d="M10 3L5.5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <div className="w-48 h-32 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+              <div className="w-72 aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                 <Image
                   src={currentImage}
                   alt={project.title}
-                  width={384}
-                  height={256}
-                  className="w-full h-full object-cover"
+                  width={576}
+                  height={324}
+                  className="w-full h-full object-contain"
                   unoptimized
                 />
               </div>
