@@ -59,7 +59,7 @@ export default function ProjectCard({
   // Card content — title layout unchanged; arrow is absolutely positioned beside it
   const cardContent = (
     <div
-      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'flex-row items-center gap-4'}`}
+      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'relative flex-col gap-1'}`}
     >
       {/* Project image or icon */}
       {showImagePreview &&
@@ -120,21 +120,19 @@ export default function ProjectCard({
         </div>
       ) : (
         <>
-          {/* Title on the left */}
-          <div className="shrink-0 sm:w-56">
+          <div className="pr-10 sm:pr-11">
             <h3 className="m-0 text-lg font-normal leading-snug text-gray-900 dark:text-white">
               {project.title}
             </h3>
           </div>
-          {/* Description on the right */}
           <div
-            className="flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white"
+            className="pr-10 text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white sm:pr-11"
             dangerouslySetInnerHTML={{
               __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             }}
           />
           {/* Arrow top-right */}
-          <div className="shrink-0 self-start" aria-hidden>
+          <div className="pointer-events-none absolute right-0 top-0" aria-hidden>
             <CurvedArrowIndicator active={hover} />
           </div>
           {showTechnologies && project.technologies && (
