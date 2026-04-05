@@ -1,6 +1,6 @@
 ---
 title: "Medicly"
-description: "**1st Place at HackCMU** AI‑powered physical therapy analysis platform for patients and clinicians to track recovery together."
+description: "**1st Place at HackCMU** AI-powered physical therapy platform that uses real-time pose detection and LLM-driven form feedback to make rehabilitation measurable — giving patients live corrections and clinicians observable recovery data beyond the clinic."
 github: "https://github.com/scrappydevs/medicly"
 demo: "https://www.medicly.dev/"
 image: "/images/medicly/demo.jpeg"

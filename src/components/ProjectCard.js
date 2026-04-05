@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ClientOnly from "../components/ClientOnly";
 
 /**
@@ -59,7 +59,19 @@ export default function ProjectCard({
     ? project.images
     : [project.image].filter(Boolean);
   const [imgIndex, setImgIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const currentImage = images[imgIndex] || null;
+
+  const prevImg = (e) => {
+    e.preventDefault();
+    setDirection(-1);
+    setImgIndex(i => (i - 1 + images.length) % images.length);
+  };
+  const nextImg = (e) => {
+    e.preventDefault();
+    setDirection(1);
+    setImgIndex(i => (i + 1) % images.length);
+  };
 
   // Card content — title layout unchanged; arrow is absolutely positioned beside it
   const cardContent = (
@@ -159,7 +171,7 @@ export default function ProjectCard({
           {currentImage && (
             <div className="shrink-0 flex items-center gap-2">
               <button
-                onClick={e => { e.preventDefault(); setImgIndex(i => (i - 1 + images.length) % images.length); }}
+                onClick={prevImg}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                 aria-label="Previous image"
               >
@@ -167,18 +179,29 @@ export default function ProjectCard({
                   <path d="M10 3L5.5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <div className="w-72 aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-                <Image
-                  src={currentImage}
-                  alt={project.title}
-                  width={576}
-                  height={324}
-                  className="w-full h-full object-cover"
-                  unoptimized
-                />
+              <div className="relative w-72 aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                <AnimatePresence mode="popLayout" custom={direction}>
+                  <motion.div
+                    key={imgIndex}
+                    custom={direction}
+                    initial={{ x: direction * 60, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: direction * -60, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={currentImage}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
               <button
-                onClick={e => { e.preventDefault(); setImgIndex(i => (i + 1) % images.length); }}
+                onClick={nextImg}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                 aria-label="Next image"
               >
