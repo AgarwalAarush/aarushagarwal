@@ -34,23 +34,8 @@ AutoReflex runs as two cooperating nodes over a direct Ethernet link:
 - **Vision node (Jetson Nano):** Arducam OV9782 captures at 100fps, runs HSV color thresholding or YOLO11n detection, and transmits 20-byte UDP packets containing target centroid, crosshair position, and blob width.
 - **Control node (Raspberry Pi):** Receives packets and runs a 1kHz busy-spin PID loop — driving the ST3215 servo over half-duplex UART at 1 Mbps, firing a solenoid trigger via GPIO on target lock, and modulating TENS (EMS) intensity via two MCP4131 digital potentiometers over SPI.
 
-```
-┌──────────────────────┐           UDP (20 bytes)          ┌──────────────────────────────────┐
-│     JETSON NANO      │  ───────────────────────────────► │        RASPBERRY PI 4/5          │
-│                      │   timestamp | tx | cx | blob_w    │                                  │
-│  ┌────────────────┐  │                                   │  1kHz PID Loop                   │
-│  │ Arducam OV9782 │  │                                   │                                  │
-│  │ 100fps MJPEG   │  │                                   │  ┌──────────┐                    │
-│  └───────┬────────┘  │                                   │  │  ST3215  │  Servo (UART 1Mbps)│
-│          │           │                                   │  └──────────┘                    │
-│  ┌───────▼────────┐  │                                   │  ┌──────────┐                    │
-│  │ VisionProcessor│  │                                   │  │ Solenoid │  Trigger (GPIO)    │
-│  │  HSV / YOLO    │  │                                   │  └──────────┘                    │
-│  └────────────────┘  │                                   │  ┌──────────┐                    │
-│                      │                                   │  │   TENS   │  EMS (SPI/MCP4131) │
-└──────────────────────┘                                   │  └──────────┘                    │
-       10.0.0.1                                            └──────────────────────────────────┘
-                                                                   10.0.0.2
+```software-embed
+
 ```
 
 ### Demo Image
@@ -61,7 +46,7 @@ AutoReflex runs as two cooperating nodes over a direct Ethernet link:
 
 #### **Vision Pipeline**
 
-The Arducam OV9782 streams 1280×720 MJPEG at 100fps over USB 2.0 into a `FrameGrabber` thread with a shallow queue of depth 2. Pre-allocated numpy buffers eliminate per-frame heap allocation. Detection runs in two modes:
+The Arducam OV9782 streams 1280×720 MJPEG at 100fps over USB 2.0 into a FrameGrabber thread with a shallow queue of depth 2. Pre-allocated numpy buffers eliminate per-frame heap allocation. Detection runs in two modes:
 
 - **HSV thresholding** for Aimlabs cyan targets — ~2ms per frame
 - **YOLO11n** for Valorant enemy detection, trained on A100 SXM and quantized for Jetson inference
@@ -85,7 +70,7 @@ The control node runs a 1kHz busy-spin loop (<5µs jitter) with a two-state mach
 | **SETTLE** | \|error\| < 30px | PID (Kp=3.0, Ki=0.15) | Precision lock with integral action |
 | **FIRE** | \|error\| < 5px | Solenoid pulse | Target acquired — click |
 
-Overshoot damping halves gains for 10 frames after error sign reversal. Backlash compensation ramps a dead-zone offset over 5 frames on direction change. Fire threshold, flick threshold, and settle gains all scale dynamically with apparent target size (`blob_w`) — tighter for distant small targets, more aggressive for close large ones.
+Overshoot damping halves gains for 10 frames after error sign reversal. Backlash compensation ramps a dead-zone offset over 5 frames on direction change. Fire threshold, flick threshold, and settle gains all scale dynamically with apparent target size (blob_w) — tighter for distant small targets, more aggressive for close large ones.
 
 #### **TENS Integration**
 
@@ -119,7 +104,7 @@ Two MCP4131 digital potentiometers over SPI (CE0 + CE1) modulate TENS electrode 
 - **1kHz determinism on Linux:** Achieving <5µs jitter on a non-RTOS required a busy-spin loop with CPU affinity pinning rather than timer-based sleep, trading a core for real-time guarantees.
 - **Half-duplex UART at 1 Mbps:** The Feetech SCS/STS protocol uses a shared TX/RX line. Direction switching timing is critical — too slow and packets corrupt; too fast and the servo doesn't respond. First-order position smoothing absorbs the residual jitter.
 - **TENS safety:** Intensity is hard-capped at MCP4131 wiper value 40 (out of 127). The TENS output is purely modulated through the potentiometer — the unit's own safety circuitry remains in the loop.
-- **Dynamic scaling with blob width:** A naive fixed-threshold controller overshoots on close targets and undershoots on distant ones. Scaling all thresholds and gains proportionally to `blob_w` linearizes the response across ranges.
+- **Dynamic scaling with blob width:** A naive fixed-threshold controller overshoots on close targets and undershoots on distant ones. Scaling all thresholds and gains proportionally to blob_w linearizes the response across ranges.
 
 ### Outcome
 

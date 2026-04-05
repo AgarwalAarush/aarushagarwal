@@ -262,35 +262,42 @@ export default function ProjectPage({ project }) {
                 <article className="prose prose-sm max-w-none markdown-github">
                   <div className="text-black dark:text-gray-300">
                     {(() => {
-                      const circuitEmbedMarker = /(\n*```circuit-embed\s*```\s*\n*)/;
-                      const parts = project.id === 'AutoReflex' ? project.content.split(circuitEmbedMarker) : null;
-                      if (parts && parts.length >= 2) {
-                        const [before, , ...afterParts] = parts;
-                        const after = afterParts.join('');
+                      if (project.id !== 'AutoReflex') {
                         return (
-                          <>
-                            <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
-                              {before}
-                            </ReactMarkdown>
-                            <div className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-[#2a2a2a] not-prose">
-                              <iframe
-                                src="/api/circuit-diagram"
-                                className="w-full border-0"
-                                style={{ minHeight: '560px', height: '560px' }}
-                                title="AutoReflex hardware circuit diagram"
-                              />
-                            </div>
-                            <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
-                              {after}
-                            </ReactMarkdown>
-                          </>
+                          <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                            {project.content}
+                          </ReactMarkdown>
                         );
                       }
-                      return (
-                        <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
-                          {project.content}
-                        </ReactMarkdown>
-                      );
+
+                      const embedMarker = /(\n*```(?:circuit-embed|software-embed)\s*```\s*\n*)/;
+                      const segments = project.content.split(embedMarker);
+                      const embeds = [
+                        { marker: 'circuit-embed', src: '/api/circuit-diagram', title: 'AutoReflex hardware circuit diagram', height: '560px' },
+                        { marker: 'software-embed', src: '/api/software-diagram', title: 'AutoReflex software architecture diagram', height: '420px' },
+                      ];
+                      let embedIndex = 0;
+
+                      return segments.map((segment, i) => {
+                        const embed = embeds.find(e => segment.includes(e.marker));
+                        if (embed) {
+                          return (
+                            <div key={i} className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-[#2a2a2a] not-prose">
+                              <iframe
+                                src={embed.src}
+                                className="w-full border-0"
+                                style={{ minHeight: embed.height, height: embed.height }}
+                                title={embed.title}
+                              />
+                            </div>
+                          );
+                        }
+                        return (
+                          <ReactMarkdown key={i} components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                            {segment}
+                          </ReactMarkdown>
+                        );
+                      });
                     })()}
                   </div>
                 </article>
