@@ -92,6 +92,31 @@ export default function ProjectPage({ project }) {
         );
       }
 
+      const cropTopBottom = src && src.includes('box-demo');
+
+      if (cropTopBottom) {
+        return (
+          <span className="block my-6 overflow-hidden rounded-lg border border-gray-200 dark:border-[#2a2a2a]">
+            <span className="block" style={{ marginTop: '-20%', marginBottom: '-20%' }}>
+              <Image
+                src={assetSrc}
+                alt={alt || ''}
+                width={1600}
+                height={900}
+                sizes="(max-width: 1024px) 100vw, 800px"
+                unoptimized
+                className="w-full h-auto block"
+              />
+            </span>
+            {title && (
+              <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
+                {title}
+              </span>
+            )}
+          </span>
+        );
+      }
+
       return (
         <span className="block my-6">
           <Image
