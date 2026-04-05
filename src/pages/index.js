@@ -36,7 +36,7 @@ export default function Home({ projects }) {
                             <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-6">
                                 Aarush Agarwal
                             </h1>
-                            <div className="inline-flex items-stretch gap-0">
+                            <div className="inline-flex items-stretch gap-2">
                                 <a
                                     href={getAssetUrl("/documents/Resume%20-%20Aarush%20Agarwal.pdf")}
                                     target="_blank"
