@@ -97,7 +97,7 @@ export default function ProjectPage({ project }) {
       if (cropTopBottom) {
         return (
           <span className="block my-6 overflow-hidden rounded-lg border border-gray-200 dark:border-[#2a2a2a]">
-            <span className="block" style={{ marginTop: '-20%', marginBottom: '-20%' }}>
+            <span className="block" style={{ marginTop: '-35%', marginBottom: '-28%' }}>
               <Image
                 src={assetSrc}
                 alt={alt || ''}
