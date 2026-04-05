@@ -2,6 +2,7 @@
 title: "AutoReflex"
 description: "**3rd Place at Hackberry Pi.** Real-time neuromuscular aim-assist that closes the loop from pixels to physical movement in under 15ms. A Jetson Nano runs a 100fps vision pipeline and streams target coordinates over UDP to a Raspberry Pi, which drives a Feetech ST3215 servo and optional TENS muscle stimulation via a 1kHz PID control loop."
 ranking: 1
+github: "https://github.com/beeler-devs/HackberryPi"
 demo: "https://youtu.be/0nmgYhaoP1Q"
 image: "/images/autoreflex/autoreflex-cover.png"
 technologies:
@@ -110,14 +111,7 @@ Two MCP4131 digital potentiometers over SPI (CE0 + CE1) modulate TENS electrode 
 
 AutoReflex placed 3rd at HackberryPi and demonstrates that hardware-level aim assist — operating entirely outside the game process — is feasible at latencies competitive with human reaction time. The same Jetson-to-Pi UDP architecture, PID state machine, and TENS integration pattern applies directly to any real-time physical control problem: robotic manipulation, prosthetics, or closed-loop rehabilitation devices.
 
-![AutoReflex Electrical Diagram](/images/autoreflex/architecture.png)
-
 ### Links
-
-- **Video Demo**: [YouTube](https://youtu.be/0nmgYhaoP1Q)
-
-### Acknowledgements
-
 - **pigpio** — Raspberry Pi GPIO library with microsecond-level timing
 - **Ultralytics YOLO** — Object detection framework
 - **Feetech SCS/STS Protocol** — Servo communication protocol
