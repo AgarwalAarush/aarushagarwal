@@ -8,33 +8,33 @@
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
 
   :root {
-    --bg: #0a0e1a;
-    --bg-surface: #0f1526;
-    --grid-line: rgba(40, 60, 100, 0.25);
-    --grid-line-major: rgba(50, 75, 120, 0.35);
-    --text-primary: #c8d6e5;
-    --text-bright: #e8f0fa;
-    --text-dim: #5a6a80;
-    --accent-red: #ff4757;
-    --accent-orange: #ff9f43;
-    --accent-green: #26de81;
-    --accent-blue: #45aaf2;
-    --accent-cyan: #0abde3;
-    --accent-purple: #a55eea;
-    --wire-power: #ff4757;
-    --wire-signal: #ff9f43;
-    --wire-12v: #c0392b;
-    --wire-ground: #636e72;
-    --wire-ethernet: #26de81;
-    --box-jetson: #26de81;
-    --box-rpi: #45aaf2;
-    --box-power: #ff4757;
-    --box-relay: #a55eea;
-    --box-tos: #45aaf2;
-    --tooltip-bg: rgba(10, 14, 26, 0.95);
-    --tooltip-border: rgba(69, 170, 242, 0.4);
-    --glow-power: rgba(255, 71, 87, 0.3);
-    --glow-signal: rgba(255, 159, 67, 0.15);
+    --bg: #F3F2ED;
+    --bg-surface: #E8E7E2;
+    --grid-line: rgba(180, 175, 160, 0.25);
+    --grid-line-major: rgba(160, 155, 140, 0.35);
+    --text-primary: #3a3a3a;
+    --text-bright: #1a1a1a;
+    --text-dim: #8a8580;
+    --accent-red: #d63031;
+    --accent-orange: #e67e22;
+    --accent-green: #16a34a;
+    --accent-blue: #2563eb;
+    --accent-cyan: #0891b2;
+    --accent-purple: #7c3aed;
+    --wire-power: #d63031;
+    --wire-signal: #e67e22;
+    --wire-12v: #991b1b;
+    --wire-ground: #6b7280;
+    --wire-ethernet: #16a34a;
+    --box-jetson: #16a34a;
+    --box-rpi: #2563eb;
+    --box-power: #d63031;
+    --box-relay: #7c3aed;
+    --box-tos: #2563eb;
+    --tooltip-bg: rgba(243, 242, 237, 0.96);
+    --tooltip-border: rgba(37, 99, 235, 0.3);
+    --glow-power: rgba(214, 48, 49, 0.15);
+    --glow-signal: rgba(230, 126, 34, 0.1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,16 +46,15 @@
     overflow: hidden;
     height: 100vh;
     width: 100vw;
-    cursor: grab;
+    cursor: default;
   }
-  body.dragging { cursor: grabbing; }
 
   #header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 12px 24px;
-    background: linear-gradient(180deg, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0) 100%);
+    background: linear-gradient(180deg, rgba(243,242,237,0.95) 0%, rgba(243,242,237,0) 100%);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -77,36 +76,13 @@
     gap: 8px;
     align-items: center;
   }
-  .controls button {
-    background: var(--bg-surface);
-    border: 1px solid rgba(69,170,242,0.2);
-    color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .controls button:hover {
-    border-color: var(--accent-cyan);
-    color: var(--text-bright);
-    box-shadow: 0 0 12px rgba(10,189,227,0.15);
-  }
-  .zoom-display {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    min-width: 48px;
-    text-align: center;
-  }
 
   #legend {
     position: fixed;
     bottom: 16px; left: 16px;
     z-index: 100;
-    background: rgba(15, 21, 38, 0.92);
-    border: 1px solid rgba(69,170,242,0.15);
+    background: rgba(243, 242, 237, 0.92);
+    border: 1px solid rgba(37, 99, 235, 0.15);
     border-radius: 6px;
     padding: 12px 16px;
     font-size: 11px;
@@ -172,7 +148,7 @@
     transform: translateY(4px);
     transition: opacity 0.15s, transform 0.15s;
     backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   }
   #tooltip.visible {
     opacity: 1;
@@ -209,21 +185,15 @@
 <body>
 <div id="header">
   <h1><span>//</span> Hardware System Schematic <span>v1.0</span></h1>
-  <div class="controls">
-    <button onclick="zoomIn()">+</button>
-    <span class="zoom-display" id="zoomLevel">100%</span>
-    <button onclick="zoomOut()">&minus;</button>
-    <button onclick="resetView()">Reset</button>
-  </div>
 </div>
 
 <div id="legend">
   <h3>Wire Legend</h3>
-  <div class="legend-item"><div class="legend-line" style="background:#ff4757"></div> 5V Power</div>
-  <div class="legend-item"><div class="legend-line" style="background:#c0392b"></div> 12V Power</div>
-  <div class="legend-item"><div class="legend-line" style="background:#ff9f43"></div> SPI / Signal</div>
-  <div class="legend-item"><div class="legend-line" style="background:#26de81"></div> Ethernet</div>
-  <div class="legend-item"><div class="legend-line" style="background:#636e72"></div> Ground</div>
+  <div class="legend-item"><div class="legend-line" style="background:#d63031"></div> 5V Power</div>
+  <div class="legend-item"><div class="legend-line" style="background:#991b1b"></div> 12V Power</div>
+  <div class="legend-item"><div class="legend-line" style="background:#e67e22"></div> SPI / Signal</div>
+  <div class="legend-item"><div class="legend-line" style="background:#16a34a"></div> Ethernet</div>
+  <div class="legend-item"><div class="legend-line" style="background:#6b7280"></div> Ground</div>
 </div>
 
 <div id="tooltip">
@@ -235,11 +205,11 @@
 <svg id="diagram" viewBox="0 0 1300 820" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(40,60,100,0.15)" stroke-width="0.5"/>
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(180,175,160,0.2)" stroke-width="0.5"/>
     </pattern>
     <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
       <rect width="100" height="100" fill="url(#smallGrid)"/>
-      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(50,75,120,0.25)" stroke-width="0.8"/>
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(160,155,140,0.3)" stroke-width="0.8"/>
     </pattern>
     <filter id="glow-red" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
@@ -254,65 +224,65 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <marker id="arrow-blue" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="8" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,3 L0,6 Z" fill="#45aaf2"/>
+      <path d="M0,0 L10,3 L0,6 Z" fill="#2563eb"/>
     </marker>
     <marker id="arrow-red" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="8" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,3 L0,6 Z" fill="#ff4757"/>
+      <path d="M0,0 L10,3 L0,6 Z" fill="#d63031"/>
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1300" height="820" fill="#0a0e1a"/>
+  <rect width="1300" height="820" fill="#F3F2ED"/>
   <rect width="1300" height="820" fill="url(#grid)"/>
 
   <!-- ============================================ -->
   <!-- BIG RED ENCLOSURE (relay/MOSFET/HID area)    -->
   <!-- ============================================ -->
-  <rect x="830" y="260" width="410" height="230" rx="6" fill="rgba(255,71,87,0.03)" stroke="#ff4757" stroke-width="2" stroke-opacity="0.6"/>
+  <rect x="830" y="260" width="410" height="230" rx="6" fill="rgba(214,48,49,0.04)" stroke="#d63031" stroke-width="2" stroke-opacity="0.4"/>
 
   <!-- ============================================ -->
   <!-- ANNOTATIONS                                  -->
   <!-- ============================================ -->
 
   <!-- Jetson annotations — all BELOW the Jetson box, horizontally aligned -->
-  <text x="185" y="340" font-family="JetBrains Mono, monospace" font-size="9" fill="#1a8a52" font-weight="500" opacity="0.85">
+  <text x="185" y="340" font-family="JetBrains Mono, monospace" font-size="9" fill="#15803d" font-weight="500" opacity="0.85">
     Valorant: custom fine-tuned YOLO-11 model
   </text>
-  <text x="185" y="356" font-family="JetBrains Mono, monospace" font-size="9" fill="#1a8a52" font-weight="500" opacity="0.85">
+  <text x="185" y="356" font-family="JetBrains Mono, monospace" font-size="9" fill="#15803d" font-weight="500" opacity="0.85">
     HSV color filtering for target detection
   </text>
-  <circle cx="355" cy="353" r="3" fill="#ff4757" opacity="0.6"/>
-  <circle cx="363" cy="353" r="3" fill="#ff4757" opacity="0.4"/>
-  <circle cx="371" cy="353" r="3" fill="#ff4757" opacity="0.3"/>
-  <text x="185" y="372" font-family="JetBrains Mono, monospace" font-size="9" fill="#1a8a52" font-weight="500" opacity="0.85">
+  <circle cx="355" cy="353" r="3" fill="#d63031" opacity="0.6"/>
+  <circle cx="363" cy="353" r="3" fill="#d63031" opacity="0.4"/>
+  <circle cx="371" cy="353" r="3" fill="#d63031" opacity="0.3"/>
+  <text x="185" y="372" font-family="JetBrains Mono, monospace" font-size="9" fill="#15803d" font-weight="500" opacity="0.85">
     Dynamic adjustment &amp; real-time inference
   </text>
 
   <!-- Arm Control label -->
-  <text x="850" y="32" font-family="JetBrains Mono, monospace" font-size="13" fill="#45aaf2" font-weight="600" text-anchor="middle">
+  <text x="850" y="32" font-family="JetBrains Mono, monospace" font-size="13" fill="#2563eb" font-weight="600" text-anchor="middle">
     ARM CONTROL
   </text>
-  <line x1="790" y1="38" x2="790" y2="62" stroke="#45aaf2" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-  <line x1="850" y1="38" x2="850" y2="62" stroke="#45aaf2" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-  <line x1="910" y1="38" x2="910" y2="62" stroke="#45aaf2" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="790" y1="38" x2="790" y2="62" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="850" y1="38" x2="850" y2="62" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="910" y1="38" x2="910" y2="62" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
 
   <!-- Wrist Control label — below motor -->
-  <text x="660" y="520" font-family="JetBrains Mono, monospace" font-size="11" fill="#45aaf2" font-weight="600" text-anchor="middle">
+  <text x="660" y="520" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" font-weight="600" text-anchor="middle">
     WRIST
   </text>
-  <text x="660" y="533" font-family="JetBrains Mono, monospace" font-size="11" fill="#45aaf2" font-weight="600" text-anchor="middle">
+  <text x="660" y="533" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" font-weight="600" text-anchor="middle">
     CONTROL
   </text>
-  <line x1="660" y1="498" x2="660" y2="510" stroke="#45aaf2" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="660" y1="498" x2="660" y2="510" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
 
   <!-- PID Controls label -->
-  <text x="580" y="445" font-family="JetBrains Mono, monospace" font-size="10" fill="#45aaf2" font-weight="500" opacity="0.85">
+  <text x="580" y="445" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" font-weight="500" opacity="0.85">
     PID Controls
   </text>
 
   <!-- HID label — below HID device, with arrow -->
-  <line x1="1155" y1="400" x2="1155" y2="418" stroke="#45aaf2" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
-  <text x="1155" y="435" font-family="JetBrains Mono, monospace" font-size="13" fill="#45aaf2" font-weight="700" text-anchor="middle">
+  <line x1="1155" y1="400" x2="1155" y2="418" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="1155" y="435" font-family="JetBrains Mono, monospace" font-size="13" fill="#2563eb" font-weight="700" text-anchor="middle">
     HID
   </text>
 
@@ -322,227 +292,227 @@
 
   <!-- 1. CAMERA -->
   <g class="component" data-tooltip="Camera" data-desc="Video input device feeding frames to Jetson Orin Nano for real-time object detection and tracking.">
-    <rect class="comp-box" x="55" y="225" width="80" height="55" rx="4" fill="none" stroke="#5a6a80" stroke-width="1.5"/>
-    <circle cx="95" cy="248" r="14" fill="none" stroke="#8395a7" stroke-width="1.5"/>
-    <circle cx="95" cy="248" r="6" fill="#8395a7" opacity="0.4"/>
-    <circle cx="95" cy="248" r="2.5" fill="#c8d6e5"/>
-    <text class="comp-label" x="95" y="275" font-family="JetBrains Mono, monospace" font-size="9" fill="#8395a7" text-anchor="middle" font-weight="500">CAMERA</text>
+    <rect class="comp-box" x="55" y="225" width="80" height="55" rx="4" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+    <circle cx="95" cy="248" r="14" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+    <circle cx="95" cy="248" r="6" fill="#6b7280" opacity="0.4"/>
+    <circle cx="95" cy="248" r="2.5" fill="#4a4a4a"/>
+    <text class="comp-label" x="95" y="275" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="500">CAMERA</text>
   </g>
 
   <!-- 2. JETSON ORIN NANO -->
   <g class="component" data-tooltip="Jetson Orin Nano" data-desc="NVIDIA edge AI module running custom fine-tuned YOLO-11 model for Valorant with HSV color filtering and dynamic real-time adjustment.">
-    <rect class="comp-box" x="185" y="205" width="155" height="115" rx="5" fill="rgba(38,222,129,0.06)" stroke="#26de81" stroke-width="2"/>
-    <rect x="230" y="230" width="60" height="40" rx="3" fill="none" stroke="#26de81" stroke-width="1" opacity="0.5"/>
-    <rect x="245" y="240" width="30" height="20" rx="2" fill="rgba(38,222,129,0.15)" stroke="#26de81" stroke-width="0.8"/>
-    <line x1="235" y1="228" x2="235" y2="222" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="250" y1="228" x2="250" y2="222" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="265" y1="228" x2="265" y2="222" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="280" y1="228" x2="280" y2="222" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="235" y1="272" x2="235" y2="278" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="250" y1="272" x2="250" y2="278" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="265" y1="272" x2="265" y2="278" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <line x1="280" y1="272" x2="280" y2="278" stroke="#26de81" stroke-width="0.8" opacity="0.5"/>
-    <text class="comp-label" x="262" y="296" font-family="JetBrains Mono, monospace" font-size="11" fill="#26de81" text-anchor="middle" font-weight="600">JETSON ORIN</text>
-    <text class="comp-label" x="262" y="312" font-family="JetBrains Mono, monospace" font-size="11" fill="#26de81" text-anchor="middle" font-weight="600">NANO</text>
+    <rect class="comp-box" x="185" y="205" width="155" height="115" rx="5" fill="rgba(22,163,74,0.06)" stroke="#16a34a" stroke-width="2"/>
+    <rect x="230" y="230" width="60" height="40" rx="3" fill="none" stroke="#16a34a" stroke-width="1" opacity="0.5"/>
+    <rect x="245" y="240" width="30" height="20" rx="2" fill="rgba(22,163,74,0.12)" stroke="#16a34a" stroke-width="0.8"/>
+    <line x1="235" y1="228" x2="235" y2="222" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="250" y1="228" x2="250" y2="222" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="265" y1="228" x2="265" y2="222" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="280" y1="228" x2="280" y2="222" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="235" y1="272" x2="235" y2="278" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="250" y1="272" x2="250" y2="278" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="265" y1="272" x2="265" y2="278" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="280" y1="272" x2="280" y2="278" stroke="#16a34a" stroke-width="0.8" opacity="0.5"/>
+    <text class="comp-label" x="262" y="296" font-family="JetBrains Mono, monospace" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="600">JETSON ORIN</text>
+    <text class="comp-label" x="262" y="312" font-family="JetBrains Mono, monospace" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="600">NANO</text>
   </g>
 
   <!-- 3. RASPBERRY PI -->
   <g class="component" data-tooltip="Raspberry Pi" data-desc="Central controller. Connects to Jetson via Ethernet, drives SPI bus to Tos7000 servo drivers, controls relay via transistor, and runs PID motor control.">
-    <rect class="comp-box" x="420" y="175" width="180" height="250" rx="5" fill="rgba(69,170,242,0.05)" stroke="#45aaf2" stroke-width="2"/>
-    <rect x="440" y="200" width="140" height="80" rx="3" fill="none" stroke="#45aaf2" stroke-width="0.8" opacity="0.3"/>
-    <rect x="455" y="215" width="50" height="30" rx="2" fill="rgba(69,170,242,0.1)" stroke="#45aaf2" stroke-width="0.7"/>
+    <rect class="comp-box" x="420" y="175" width="180" height="250" rx="5" fill="rgba(37,99,235,0.05)" stroke="#2563eb" stroke-width="2"/>
+    <rect x="440" y="200" width="140" height="80" rx="3" fill="none" stroke="#2563eb" stroke-width="0.8" opacity="0.3"/>
+    <rect x="455" y="215" width="50" height="30" rx="2" fill="rgba(37,99,235,0.08)" stroke="#2563eb" stroke-width="0.7"/>
     <g opacity="0.5">
-      <rect x="520" y="210" width="45" height="60" rx="1" fill="none" stroke="#45aaf2" stroke-width="0.6"/>
-      <line x1="528" y1="218" x2="528" y2="262" stroke="#45aaf2" stroke-width="0.5" stroke-dasharray="3 3"/>
-      <line x1="536" y1="218" x2="536" y2="262" stroke="#45aaf2" stroke-width="0.5" stroke-dasharray="3 3"/>
-      <line x1="544" y1="218" x2="544" y2="262" stroke="#45aaf2" stroke-width="0.5" stroke-dasharray="3 3"/>
-      <line x1="552" y1="218" x2="552" y2="262" stroke="#45aaf2" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <rect x="520" y="210" width="45" height="60" rx="1" fill="none" stroke="#2563eb" stroke-width="0.6"/>
+      <line x1="528" y1="218" x2="528" y2="262" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="536" y1="218" x2="536" y2="262" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="544" y1="218" x2="544" y2="262" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="552" y1="218" x2="552" y2="262" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3 3"/>
     </g>
-    <text class="comp-label" x="510" y="310" font-family="JetBrains Mono, monospace" font-size="13" fill="#45aaf2" text-anchor="middle" font-weight="700">RASPBERRY PI</text>
+    <text class="comp-label" x="510" y="310" font-family="JetBrains Mono, monospace" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">RASPBERRY PI</text>
 
     <!-- Pin labels on right side -->
-    <text x="604" y="200" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff4757" font-weight="500">5V</text>
-    <text x="604" y="218" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500">SDI1</text>
-    <text x="604" y="236" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500">SDI2</text>
-    <text x="604" y="254" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500">CLK/CS</text>
-    <circle cx="600" cy="197" r="3" fill="#ff4757"/>
-    <circle cx="600" cy="215" r="3" fill="#ff9f43"/>
-    <circle cx="600" cy="233" r="3" fill="#ff9f43"/>
-    <circle cx="600" cy="251" r="3" fill="#ff9f43"/>
+    <text x="604" y="200" font-family="JetBrains Mono, monospace" font-size="8" fill="#d63031" font-weight="500">5V</text>
+    <text x="604" y="218" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500">SDI1</text>
+    <text x="604" y="236" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500">SDI2</text>
+    <text x="604" y="254" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500">CLK/CS</text>
+    <circle cx="600" cy="197" r="3" fill="#d63031"/>
+    <circle cx="600" cy="215" r="3" fill="#e67e22"/>
+    <circle cx="600" cy="233" r="3" fill="#e67e22"/>
+    <circle cx="600" cy="251" r="3" fill="#e67e22"/>
 
     <!-- Bottom-left pins -->
-    <text x="425" y="393" font-family="JetBrains Mono, monospace" font-size="8" fill="#636e72" font-weight="500">GND</text>
-    <text x="425" y="413" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500">SC</text>
-    <text x="425" y="420" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500"></text>
-    <circle cx="420" cy="390" r="3" fill="#636e72"/>
-    <circle cx="420" cy="410" r="3" fill="#ff9f43"/>
+    <text x="425" y="393" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" font-weight="500">GND</text>
+    <text x="425" y="413" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500">SC</text>
+    <text x="425" y="420" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500"></text>
+    <circle cx="420" cy="390" r="3" fill="#6b7280"/>
+    <circle cx="420" cy="410" r="3" fill="#e67e22"/>
 
     <!-- MC pin on bottom -->
-    <text x="560" y="430" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500">MC</text>
-    <circle cx="555" cy="425" r="3" fill="#ff9f43"/>
+    <text x="560" y="430" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500">MC</text>
+    <circle cx="555" cy="425" r="3" fill="#e67e22"/>
   </g>
 
   <!-- 4. TOS7000 CH1 -->
   <g class="component" data-tooltip="Tos7000 CH1" data-desc="Servo/motor driver IC (Channel 1) for arm control. Connected via SPI interface (SDI1, CLK, CS) from Raspberry Pi.">
-    <rect class="comp-box" x="720" y="80" width="120" height="70" rx="4" fill="rgba(69,170,242,0.05)" stroke="#45aaf2" stroke-width="1.5"/>
-    <text class="comp-label" x="780" y="110" font-family="JetBrains Mono, monospace" font-size="10" fill="#45aaf2" text-anchor="middle" font-weight="600">TOS7000</text>
-    <text x="780" y="124" font-family="JetBrains Mono, monospace" font-size="9" fill="#45aaf2" text-anchor="middle" opacity="0.7">CH1</text>
-    <line x1="745" y1="80" x2="745" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <line x1="765" y1="80" x2="765" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <line x1="785" y1="80" x2="785" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <line x1="805" y1="80" x2="805" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <circle cx="745" cy="62" r="2.5" fill="#45aaf2"/>
-    <circle cx="765" cy="62" r="2.5" fill="#45aaf2"/>
-    <circle cx="785" cy="62" r="2.5" fill="#45aaf2"/>
-    <circle cx="805" cy="62" r="2.5" fill="#45aaf2"/>
-    <text x="775" y="56" font-family="JetBrains Mono, monospace" font-size="7" fill="#45aaf2" text-anchor="middle" opacity="0.6">x4</text>
+    <rect class="comp-box" x="720" y="80" width="120" height="70" rx="4" fill="rgba(37,99,235,0.05)" stroke="#2563eb" stroke-width="1.5"/>
+    <text class="comp-label" x="780" y="110" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="600">TOS7000</text>
+    <text x="780" y="124" font-family="JetBrains Mono, monospace" font-size="9" fill="#2563eb" text-anchor="middle" opacity="0.7">CH1</text>
+    <line x1="745" y1="80" x2="745" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="765" y1="80" x2="765" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="785" y1="80" x2="785" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="805" y1="80" x2="805" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="745" cy="62" r="2.5" fill="#2563eb"/>
+    <circle cx="765" cy="62" r="2.5" fill="#2563eb"/>
+    <circle cx="785" cy="62" r="2.5" fill="#2563eb"/>
+    <circle cx="805" cy="62" r="2.5" fill="#2563eb"/>
+    <text x="775" y="56" font-family="JetBrains Mono, monospace" font-size="7" fill="#2563eb" text-anchor="middle" opacity="0.6">x4</text>
   </g>
 
   <!-- 5. TOS7000 CH2 -->
   <g class="component" data-tooltip="Tos7000 CH2" data-desc="Servo/motor driver IC (Channel 2) for arm control. Connected via SPI interface (SDI2, CLK, CS) from Raspberry Pi.">
-    <rect class="comp-box" x="870" y="80" width="120" height="70" rx="4" fill="rgba(69,170,242,0.05)" stroke="#45aaf2" stroke-width="1.5"/>
-    <text class="comp-label" x="930" y="110" font-family="JetBrains Mono, monospace" font-size="10" fill="#45aaf2" text-anchor="middle" font-weight="600">TOS7000</text>
-    <text x="930" y="124" font-family="JetBrains Mono, monospace" font-size="9" fill="#45aaf2" text-anchor="middle" opacity="0.7">CH2</text>
-    <line x1="895" y1="80" x2="895" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <line x1="915" y1="80" x2="915" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <line x1="935" y1="80" x2="935" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <line x1="955" y1="80" x2="955" y2="62" stroke="#45aaf2" stroke-width="1.5"/>
-    <circle cx="895" cy="62" r="2.5" fill="#45aaf2"/>
-    <circle cx="915" cy="62" r="2.5" fill="#45aaf2"/>
-    <circle cx="935" cy="62" r="2.5" fill="#45aaf2"/>
-    <circle cx="955" cy="62" r="2.5" fill="#45aaf2"/>
-    <text x="925" y="56" font-family="JetBrains Mono, monospace" font-size="7" fill="#45aaf2" text-anchor="middle" opacity="0.6">x4</text>
+    <rect class="comp-box" x="870" y="80" width="120" height="70" rx="4" fill="rgba(37,99,235,0.05)" stroke="#2563eb" stroke-width="1.5"/>
+    <text class="comp-label" x="930" y="110" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="600">TOS7000</text>
+    <text x="930" y="124" font-family="JetBrains Mono, monospace" font-size="9" fill="#2563eb" text-anchor="middle" opacity="0.7">CH2</text>
+    <line x1="895" y1="80" x2="895" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="915" y1="80" x2="915" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="935" y1="80" x2="935" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="955" y1="80" x2="955" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="895" cy="62" r="2.5" fill="#2563eb"/>
+    <circle cx="915" cy="62" r="2.5" fill="#2563eb"/>
+    <circle cx="935" cy="62" r="2.5" fill="#2563eb"/>
+    <circle cx="955" cy="62" r="2.5" fill="#2563eb"/>
+    <text x="925" y="56" font-family="JetBrains Mono, monospace" font-size="7" fill="#2563eb" text-anchor="middle" opacity="0.6">x4</text>
   </g>
 
   <!-- 6. RESISTORS (2x 1k&#937; in PARALLEL) -->
   <g class="component" data-tooltip="2x 1k&#937; Resistors (Parallel)" data-desc="Base current limiting resistors in parallel for NPN transistor. Limits current from Raspberry Pi SC pin to safe levels for transistor switching. Parallel configuration halves effective resistance to 500&#937;.">
     <!-- Input wire (left junction) -->
-    <circle cx="685" cy="380" r="3" fill="#c8d6e5"/>
+    <circle cx="685" cy="380" r="3" fill="#4a4a4a"/>
     <!-- Top branch: Resistor 1 -->
-    <line x1="685" y1="380" x2="685" y2="365" stroke="#c8d6e5" stroke-width="1.5"/>
-    <line x1="685" y1="365" x2="695" y2="365" stroke="#c8d6e5" stroke-width="1.5"/>
-    <polyline points="695,365 698,358 706,372 714,358 722,372 730,358 733,365" fill="none" stroke="#c8d6e5" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="733" y1="365" x2="745" y2="365" stroke="#c8d6e5" stroke-width="1.5"/>
-    <text x="714" y="356" font-family="JetBrains Mono, monospace" font-size="8" fill="#8395a7" text-anchor="middle">1k&#937;</text>
+    <line x1="685" y1="380" x2="685" y2="365" stroke="#4a4a4a" stroke-width="1.5"/>
+    <line x1="685" y1="365" x2="695" y2="365" stroke="#4a4a4a" stroke-width="1.5"/>
+    <polyline points="695,365 698,358 706,372 714,358 722,372 730,358 733,365" fill="none" stroke="#4a4a4a" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="733" y1="365" x2="745" y2="365" stroke="#4a4a4a" stroke-width="1.5"/>
+    <text x="714" y="356" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" text-anchor="middle">1k&#937;</text>
     <!-- Bottom branch: Resistor 2 -->
-    <line x1="685" y1="380" x2="685" y2="395" stroke="#c8d6e5" stroke-width="1.5"/>
-    <line x1="685" y1="395" x2="695" y2="395" stroke="#c8d6e5" stroke-width="1.5"/>
-    <polyline points="695,395 698,388 706,402 714,388 722,402 730,388 733,395" fill="none" stroke="#c8d6e5" stroke-width="1.6" stroke-linejoin="round"/>
-    <line x1="733" y1="395" x2="745" y2="395" stroke="#c8d6e5" stroke-width="1.5"/>
-    <text x="714" y="414" font-family="JetBrains Mono, monospace" font-size="8" fill="#8395a7" text-anchor="middle">1k&#937;</text>
+    <line x1="685" y1="380" x2="685" y2="395" stroke="#4a4a4a" stroke-width="1.5"/>
+    <line x1="685" y1="395" x2="695" y2="395" stroke="#4a4a4a" stroke-width="1.5"/>
+    <polyline points="695,395 698,388 706,402 714,388 722,402 730,388 733,395" fill="none" stroke="#4a4a4a" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="733" y1="395" x2="745" y2="395" stroke="#4a4a4a" stroke-width="1.5"/>
+    <text x="714" y="414" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" text-anchor="middle">1k&#937;</text>
     <!-- Output junction (right) -->
-    <line x1="745" y1="365" x2="745" y2="395" stroke="#c8d6e5" stroke-width="1.5"/>
-    <circle cx="745" cy="380" r="3" fill="#c8d6e5"/>
+    <line x1="745" y1="365" x2="745" y2="395" stroke="#4a4a4a" stroke-width="1.5"/>
+    <circle cx="745" cy="380" r="3" fill="#4a4a4a"/>
   </g>
 
   <!-- 7. NPN TRANSISTOR -->
   <g class="component" data-tooltip="NPN Transistor" data-desc="Switching transistor driven by Raspberry Pi SC pin through parallel 1k&#937; resistors. Switches relay coil on/off for HID circuit control.">
     <!-- Vertical base bar -->
-    <line x1="790" y1="362" x2="790" y2="398" stroke="#c8d6e5" stroke-width="2"/>
+    <line x1="790" y1="362" x2="790" y2="398" stroke="#4a4a4a" stroke-width="2"/>
     <!-- Base input -->
-    <line x1="745" y1="380" x2="790" y2="380" stroke="#c8d6e5" stroke-width="1.5"/>
+    <line x1="745" y1="380" x2="790" y2="380" stroke="#4a4a4a" stroke-width="1.5"/>
     <!-- Collector (goes up-right) -->
-    <line x1="790" y1="370" x2="815" y2="350" stroke="#c8d6e5" stroke-width="1.8"/>
+    <line x1="790" y1="370" x2="815" y2="350" stroke="#4a4a4a" stroke-width="1.8"/>
     <!-- Emitter (goes down-right) with arrow -->
-    <line x1="790" y1="390" x2="815" y2="410" stroke="#c8d6e5" stroke-width="1.8"/>
-    <polygon points="809,404 815,410 806,410" fill="#c8d6e5"/>
+    <line x1="790" y1="390" x2="815" y2="410" stroke="#4a4a4a" stroke-width="1.8"/>
+    <polygon points="809,404 815,410 806,410" fill="#4a4a4a"/>
     <!-- Circle housing -->
-    <circle cx="798" cy="380" r="22" fill="none" stroke="#8395a7" stroke-width="1" opacity="0.5"/>
-    <text x="798" y="416" font-family="JetBrains Mono, monospace" font-size="8" fill="#8395a7" text-anchor="middle">NPN</text>
+    <circle cx="798" cy="380" r="22" fill="none" stroke="#6b7280" stroke-width="1" opacity="0.5"/>
+    <text x="798" y="416" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" text-anchor="middle">NPN</text>
   </g>
 
   <!-- 8. RELAY MODULE -->
   <g class="component" data-tooltip="Relay Module" data-desc="Electromechanical relay (DC+, DC-, Com, NC, IN). Coil driven by NPN transistor. Normally-closed contact switches MOSFET gate for HID power control.">
-    <rect class="comp-box" x="860" y="300" width="120" height="85" rx="4" fill="rgba(165,94,234,0.06)" stroke="#a55eea" stroke-width="1.5"/>
+    <rect class="comp-box" x="860" y="300" width="120" height="85" rx="4" fill="rgba(124,58,237,0.05)" stroke="#7c3aed" stroke-width="1.5"/>
     <!-- Pin labels matching image: DC+ top-left, Com top-right, DC- bottom-left, NC right, IN bottom -->
-    <text x="868" y="318" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff4757" font-weight="500">DC+</text>
-    <text x="950" y="318" font-family="JetBrains Mono, monospace" font-size="8" fill="#8395a7" font-weight="500">Com</text>
-    <text x="868" y="375" font-family="JetBrains Mono, monospace" font-size="8" fill="#8395a7" font-weight="500">DC-</text>
-    <text x="950" y="350" font-family="JetBrains Mono, monospace" font-size="8" fill="#8395a7" font-weight="500">NC</text>
-    <text x="868" y="350" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff9f43" font-weight="500">IN</text>
-    <text class="comp-label" x="920" y="340" font-family="JetBrains Mono, monospace" font-size="11" fill="#a55eea" text-anchor="middle" font-weight="600">RELAY</text>
+    <text x="868" y="318" font-family="JetBrains Mono, monospace" font-size="8" fill="#d63031" font-weight="500">DC+</text>
+    <text x="950" y="318" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" font-weight="500">Com</text>
+    <text x="868" y="375" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" font-weight="500">DC-</text>
+    <text x="950" y="350" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" font-weight="500">NC</text>
+    <text x="868" y="350" font-family="JetBrains Mono, monospace" font-size="8" fill="#e67e22" font-weight="500">IN</text>
+    <text class="comp-label" x="920" y="340" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="600">RELAY</text>
     <!-- Relay coil symbol inside -->
-    <rect x="900" y="355" width="25" height="16" rx="2" fill="none" stroke="#a55eea" stroke-width="1" opacity="0.5"/>
+    <rect x="900" y="355" width="25" height="16" rx="2" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
     <!-- Connection dots -->
-    <circle cx="860" cy="313" r="3" fill="#ff4757"/>
-    <circle cx="860" cy="345" r="3" fill="#ff9f43"/>
-    <circle cx="860" cy="372" r="3" fill="#636e72"/>
-    <circle cx="980" cy="313" r="3" fill="#c8d6e5"/>
-    <circle cx="980" cy="345" r="3" fill="#c8d6e5"/>
+    <circle cx="860" cy="313" r="3" fill="#d63031"/>
+    <circle cx="860" cy="345" r="3" fill="#e67e22"/>
+    <circle cx="860" cy="372" r="3" fill="#6b7280"/>
+    <circle cx="980" cy="313" r="3" fill="#4a4a4a"/>
+    <circle cx="980" cy="345" r="3" fill="#4a4a4a"/>
   </g>
 
   <!-- 9. 15N819 MOSFET -->
   <g class="component" data-tooltip="15N819 MOSFET" data-desc="N-channel power MOSFET for switching 5V/8A HID device power. Gate controlled through relay NC contact. Handles high-current switching for HID emulator.">
-    <line x1="1060" y1="330" x2="1060" y2="395" stroke="#c8d6e5" stroke-width="2"/>
+    <line x1="1060" y1="330" x2="1060" y2="395" stroke="#4a4a4a" stroke-width="2"/>
     <!-- Gate -->
-    <line x1="1020" y1="362" x2="1050" y2="362" stroke="#c8d6e5" stroke-width="1.5"/>
-    <line x1="1050" y1="342" x2="1050" y2="382" stroke="#c8d6e5" stroke-width="2"/>
+    <line x1="1020" y1="362" x2="1050" y2="362" stroke="#4a4a4a" stroke-width="1.5"/>
+    <line x1="1050" y1="342" x2="1050" y2="382" stroke="#4a4a4a" stroke-width="2"/>
     <!-- Drain -->
-    <line x1="1060" y1="342" x2="1060" y2="330" stroke="#c8d6e5" stroke-width="1.8"/>
-    <line x1="1060" y1="342" x2="1090" y2="342" stroke="#c8d6e5" stroke-width="1.5"/>
+    <line x1="1060" y1="342" x2="1060" y2="330" stroke="#4a4a4a" stroke-width="1.8"/>
+    <line x1="1060" y1="342" x2="1090" y2="342" stroke="#4a4a4a" stroke-width="1.5"/>
     <!-- Source -->
-    <line x1="1060" y1="382" x2="1060" y2="395" stroke="#c8d6e5" stroke-width="1.8"/>
-    <line x1="1060" y1="382" x2="1090" y2="382" stroke="#c8d6e5" stroke-width="1.5"/>
-    <polygon points="1058,372 1065,382 1058,382" fill="#c8d6e5"/>
-    <circle cx="1060" cy="362" r="25" fill="none" stroke="#8395a7" stroke-width="1" opacity="0.5"/>
-    <text x="1060" y="288" font-family="JetBrains Mono, monospace" font-size="10" fill="#8395a7" text-anchor="middle" font-weight="500">15N819</text>
+    <line x1="1060" y1="382" x2="1060" y2="395" stroke="#4a4a4a" stroke-width="1.8"/>
+    <line x1="1060" y1="382" x2="1090" y2="382" stroke="#4a4a4a" stroke-width="1.5"/>
+    <polygon points="1058,372 1065,382 1058,382" fill="#4a4a4a"/>
+    <circle cx="1060" cy="362" r="25" fill="none" stroke="#6b7280" stroke-width="1" opacity="0.5"/>
+    <text x="1060" y="288" font-family="JetBrains Mono, monospace" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="500">15N819</text>
   </g>
 
   <!-- 10. HID DEVICE (5V/8A) -->
   <g class="component" data-tooltip="HID Device (5V/8A)" data-desc="USB HID mouse/input emulator powered at 5V/8A. Generates mouse movements based on Raspberry Pi commands. Switched by MOSFET via relay.">
-    <circle cx="1155" cy="362" r="30" fill="rgba(69,170,242,0.06)" stroke="#45aaf2" stroke-width="2"/>
-    <path d="M 1138 362 Q 1143 348 1148 362 Q 1153 376 1158 362 Q 1163 348 1168 362" fill="none" stroke="#45aaf2" stroke-width="1.5"/>
-    <text x="1155" y="356" font-family="JetBrains Mono, monospace" font-size="10" fill="#45aaf2" text-anchor="middle" font-weight="600">5V</text>
-    <text x="1155" y="370" font-family="JetBrains Mono, monospace" font-size="9" fill="#45aaf2" text-anchor="middle" opacity="0.7">/8A</text>
+    <circle cx="1155" cy="362" r="30" fill="rgba(37,99,235,0.05)" stroke="#2563eb" stroke-width="2"/>
+    <path d="M 1138 362 Q 1143 348 1148 362 Q 1153 376 1158 362 Q 1163 348 1168 362" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="1155" y="356" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="600">5V</text>
+    <text x="1155" y="370" font-family="JetBrains Mono, monospace" font-size="9" fill="#2563eb" text-anchor="middle" opacity="0.7">/8A</text>
   </g>
 
   <!-- 11. MOTOR (M) — positioned below RPi MC pin -->
   <g class="component" data-tooltip="Motor (Wrist Control)" data-desc="DC motor for wrist movement control. Driven by Raspberry Pi MC pin with PID control algorithm for precise positioning. Powered by 12V 2A source.">
-    <circle cx="660" cy="470" r="22" fill="rgba(69,170,242,0.06)" stroke="#45aaf2" stroke-width="1.8"/>
-    <text x="660" y="467" font-family="JetBrains Mono, monospace" font-size="14" fill="#45aaf2" text-anchor="middle" font-weight="700">M</text>
-    <text x="660" y="482" font-family="JetBrains Mono, monospace" font-size="7" fill="#45aaf2" text-anchor="middle" opacity="0.6">~AC</text>
+    <circle cx="660" cy="470" r="22" fill="rgba(37,99,235,0.05)" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="660" y="467" font-family="JetBrains Mono, monospace" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="700">M</text>
+    <text x="660" y="482" font-family="JetBrains Mono, monospace" font-size="7" fill="#2563eb" text-anchor="middle" opacity="0.6">~AC</text>
   </g>
 
   <!-- 12. 12V 2A POWER SOURCE -->
   <g class="component" data-tooltip="12V 2A Power Source" data-desc="12V DC power supply providing 2A for motor circuit. V+ powers motor rail, GND connects to common ground bus.">
-    <rect class="comp-box" x="450" y="580" width="140" height="60" rx="4" fill="rgba(255,71,87,0.06)" stroke="#ff4757" stroke-width="1.8"/>
-    <line x1="495" y1="598" x2="495" y2="625" stroke="#ff4757" stroke-width="2"/>
-    <line x1="485" y1="603" x2="505" y2="603" stroke="#ff4757" stroke-width="2.5"/>
-    <line x1="489" y1="610" x2="501" y2="610" stroke="#ff4757" stroke-width="1.5"/>
-    <line x1="485" y1="617" x2="505" y2="617" stroke="#ff4757" stroke-width="2.5"/>
-    <text x="540" y="608" font-family="JetBrains Mono, monospace" font-size="12" fill="#ff4757" font-weight="600">12V</text>
-    <text x="540" y="625" font-family="JetBrains Mono, monospace" font-size="10" fill="#ff4757" opacity="0.7">2A</text>
-    <text x="455" y="577" font-family="JetBrains Mono, monospace" font-size="8" fill="#c0392b" font-weight="500">V+</text>
-    <circle cx="462" cy="580" r="3" fill="#c0392b"/>
+    <rect class="comp-box" x="450" y="580" width="140" height="60" rx="4" fill="rgba(214,48,49,0.05)" stroke="#d63031" stroke-width="1.8"/>
+    <line x1="495" y1="598" x2="495" y2="625" stroke="#d63031" stroke-width="2"/>
+    <line x1="485" y1="603" x2="505" y2="603" stroke="#d63031" stroke-width="2.5"/>
+    <line x1="489" y1="610" x2="501" y2="610" stroke="#d63031" stroke-width="1.5"/>
+    <line x1="485" y1="617" x2="505" y2="617" stroke="#d63031" stroke-width="2.5"/>
+    <text x="540" y="608" font-family="JetBrains Mono, monospace" font-size="12" fill="#d63031" font-weight="600">12V</text>
+    <text x="540" y="625" font-family="JetBrains Mono, monospace" font-size="10" fill="#d63031" opacity="0.7">2A</text>
+    <text x="455" y="577" font-family="JetBrains Mono, monospace" font-size="8" fill="#991b1b" font-weight="500">V+</text>
+    <circle cx="462" cy="580" r="3" fill="#991b1b"/>
     <!-- GND on right -->
-    <text x="570" y="645" font-family="JetBrains Mono, monospace" font-size="8" fill="#636e72" font-weight="500">GND</text>
-    <circle cx="575" cy="640" r="3" fill="#636e72"/>
+    <text x="570" y="645" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" font-weight="500">GND</text>
+    <circle cx="575" cy="640" r="3" fill="#6b7280"/>
     <!-- Ground symbol -->
-    <line x1="575" y1="640" x2="575" y2="655" stroke="#636e72" stroke-width="1.5"/>
-    <line x1="567" y1="655" x2="583" y2="655" stroke="#636e72" stroke-width="1.5"/>
-    <line x1="570" y1="659" x2="580" y2="659" stroke="#636e72" stroke-width="1"/>
-    <line x1="573" y1="663" x2="577" y2="663" stroke="#636e72" stroke-width="0.8"/>
+    <line x1="575" y1="640" x2="575" y2="655" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="567" y1="655" x2="583" y2="655" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="570" y1="659" x2="580" y2="659" stroke="#6b7280" stroke-width="1"/>
+    <line x1="573" y1="663" x2="577" y2="663" stroke="#6b7280" stroke-width="0.8"/>
   </g>
 
   <!-- 13. 5V 3A POWER SOURCE -->
   <g class="component" data-tooltip="5V 3A Power Source" data-desc="5V DC power supply providing 3A. V+ routes up to power the relay/MOSFET/HID enclosure. Does not connect directly to HID.">
-    <rect class="comp-box" x="450" y="700" width="140" height="60" rx="4" fill="rgba(255,71,87,0.06)" stroke="#ff4757" stroke-width="1.8"/>
-    <line x1="495" y1="718" x2="495" y2="745" stroke="#ff4757" stroke-width="2"/>
-    <line x1="485" y1="723" x2="505" y2="723" stroke="#ff4757" stroke-width="2.5"/>
-    <line x1="489" y1="730" x2="501" y2="730" stroke="#ff4757" stroke-width="1.5"/>
-    <line x1="485" y1="737" x2="505" y2="737" stroke="#ff4757" stroke-width="2.5"/>
-    <text x="540" y="728" font-family="JetBrains Mono, monospace" font-size="12" fill="#ff4757" font-weight="600">5V</text>
-    <text x="540" y="745" font-family="JetBrains Mono, monospace" font-size="10" fill="#ff4757" opacity="0.7">3A</text>
-    <text x="455" y="697" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff4757" font-weight="500">V+</text>
-    <circle cx="462" cy="700" r="3" fill="#ff4757"/>
+    <rect class="comp-box" x="450" y="700" width="140" height="60" rx="4" fill="rgba(214,48,49,0.05)" stroke="#d63031" stroke-width="1.8"/>
+    <line x1="495" y1="718" x2="495" y2="745" stroke="#d63031" stroke-width="2"/>
+    <line x1="485" y1="723" x2="505" y2="723" stroke="#d63031" stroke-width="2.5"/>
+    <line x1="489" y1="730" x2="501" y2="730" stroke="#d63031" stroke-width="1.5"/>
+    <line x1="485" y1="737" x2="505" y2="737" stroke="#d63031" stroke-width="2.5"/>
+    <text x="540" y="728" font-family="JetBrains Mono, monospace" font-size="12" fill="#d63031" font-weight="600">5V</text>
+    <text x="540" y="745" font-family="JetBrains Mono, monospace" font-size="10" fill="#d63031" opacity="0.7">3A</text>
+    <text x="455" y="697" font-family="JetBrains Mono, monospace" font-size="8" fill="#d63031" font-weight="500">V+</text>
+    <circle cx="462" cy="700" r="3" fill="#d63031"/>
     <!-- GND on right -->
-    <text x="570" y="765" font-family="JetBrains Mono, monospace" font-size="8" fill="#636e72" font-weight="500">GND</text>
-    <circle cx="575" cy="760" r="3" fill="#636e72"/>
+    <text x="570" y="765" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b7280" font-weight="500">GND</text>
+    <circle cx="575" cy="760" r="3" fill="#6b7280"/>
     <!-- Ground symbol -->
-    <line x1="575" y1="760" x2="575" y2="775" stroke="#636e72" stroke-width="1.5"/>
-    <line x1="567" y1="775" x2="583" y2="775" stroke="#636e72" stroke-width="1.5"/>
-    <line x1="570" y1="779" x2="580" y2="779" stroke="#636e72" stroke-width="1"/>
-    <line x1="573" y1="783" x2="577" y2="783" stroke="#636e72" stroke-width="0.8"/>
+    <line x1="575" y1="760" x2="575" y2="775" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="567" y1="775" x2="583" y2="775" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="570" y1="779" x2="580" y2="779" stroke="#6b7280" stroke-width="1"/>
+    <line x1="573" y1="783" x2="577" y2="783" stroke="#6b7280" stroke-width="0.8"/>
   </g>
 
   <!-- ============================================ -->
@@ -550,186 +520,93 @@
   <!-- ============================================ -->
 
   <!-- Camera → Jetson -->
-  <line class="wire" x1="135" y1="252" x2="185" y2="252" stroke="#8395a7" stroke-width="2"/>
-  <circle cx="135" cy="252" r="2.5" fill="#8395a7"/>
+  <line class="wire" x1="135" y1="252" x2="185" y2="252" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="135" cy="252" r="2.5" fill="#6b7280"/>
 
   <!-- Jetson → RPi (Ethernet) -->
-  <line class="wire data-flow" x1="340" y1="262" x2="420" y2="262" stroke="#26de81" stroke-width="2.5" filter="url(#glow-green)"/>
-  <text x="380" y="255" font-family="JetBrains Mono, monospace" font-size="9" fill="#26de81" text-anchor="middle" font-weight="500">Eth</text>
+  <line class="wire data-flow" x1="340" y1="262" x2="420" y2="262" stroke="#16a34a" stroke-width="2.5" filter="url(#glow-green)"/>
+  <text x="380" y="255" font-family="JetBrains Mono, monospace" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="500">Eth</text>
   <line class="data-flow" x1="342" y1="258" x2="418" y2="258" stroke="rgba(38,222,129,0.3)" stroke-width="6"/>
 
   <!-- RPi 5V → Tos7000 power (red), goes right then up then right -->
-  <polyline class="wire" points="600,197 660,197 660,100 720,100" fill="none" stroke="#ff4757" stroke-width="2" filter="url(#glow-red)"/>
-  <line class="wire" x1="660" y1="100" x2="870" y2="100" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="6 3"/>
-  <circle cx="660" cy="100" r="3" fill="#ff4757"/>
-  <circle cx="660" cy="197" r="3" fill="#ff4757"/>
-  <text x="680" y="92" font-family="JetBrains Mono, monospace" font-size="7" fill="#ff4757">5V</text>
+  <polyline class="wire" points="600,197 660,197 660,100 720,100" fill="none" stroke="#d63031" stroke-width="2" filter="url(#glow-red)"/>
+  <line class="wire" x1="660" y1="100" x2="870" y2="100" stroke="#d63031" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <circle cx="660" cy="100" r="3" fill="#d63031"/>
+  <circle cx="660" cy="197" r="3" fill="#d63031"/>
+  <text x="680" y="92" font-family="JetBrains Mono, monospace" font-size="7" fill="#d63031">5V</text>
 
   <!-- RPi SDI1 → Tos7000 CH1 (orange) -->
-  <polyline class="wire" points="600,215 670,215 670,125 720,125" fill="none" stroke="#ff9f43" stroke-width="1.8" filter="url(#glow-orange)"/>
-  <text x="678" y="175" font-family="JetBrains Mono, monospace" font-size="7" fill="#ff9f43">SDI1</text>
+  <polyline class="wire" points="600,215 670,215 670,125 720,125" fill="none" stroke="#e67e22" stroke-width="1.8" filter="url(#glow-orange)"/>
+  <text x="678" y="175" font-family="JetBrains Mono, monospace" font-size="7" fill="#e67e22">SDI1</text>
 
   <!-- RPi SDI2 → Tos7000 CH2 (orange) -->
-  <polyline class="wire" points="600,233 680,233 680,135 870,135" fill="none" stroke="#ff9f43" stroke-width="1.8" filter="url(#glow-orange)"/>
-  <text x="770" y="145" font-family="JetBrains Mono, monospace" font-size="7" fill="#ff9f43">SDI2</text>
+  <polyline class="wire" points="600,233 680,233 680,135 870,135" fill="none" stroke="#e67e22" stroke-width="1.8" filter="url(#glow-orange)"/>
+  <text x="770" y="145" font-family="JetBrains Mono, monospace" font-size="7" fill="#e67e22">SDI2</text>
 
   <!-- RPi CLK/CS → shared SPI bus to both Tos7000s (orange) -->
-  <polyline class="wire" points="600,251 690,251 690,165 775,165" fill="none" stroke="#ff9f43" stroke-width="1.5"/>
+  <polyline class="wire" points="600,251 690,251 690,165 775,165" fill="none" stroke="#e67e22" stroke-width="1.5"/>
   <!-- Tap down to CH1 -->
-  <line class="wire" x1="775" y1="165" x2="775" y2="150" stroke="#ff9f43" stroke-width="1.5"/>
+  <line class="wire" x1="775" y1="165" x2="775" y2="150" stroke="#e67e22" stroke-width="1.5"/>
   <!-- Continue to CH2 -->
-  <polyline class="wire" points="775,165 925,165 925,150" fill="none" stroke="#ff9f43" stroke-width="1.5"/>
-  <circle cx="775" cy="165" r="2.5" fill="#ff9f43"/>
-  <text x="698" y="178" font-family="JetBrains Mono, monospace" font-size="7" fill="#ff9f43">CLK/CS</text>
+  <polyline class="wire" points="775,165 925,165 925,150" fill="none" stroke="#e67e22" stroke-width="1.5"/>
+  <circle cx="775" cy="165" r="2.5" fill="#e67e22"/>
+  <text x="698" y="178" font-family="JetBrains Mono, monospace" font-size="7" fill="#e67e22">CLK/CS</text>
 
   <!-- RPi GND → ground -->
-  <polyline class="wire" points="420,390 400,390 400,560 462,560 462,580" fill="none" stroke="#636e72" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <polyline class="wire" points="420,390 400,390 400,560 462,560 462,580" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
 
   <!-- RPi SC → parallel resistors → transistor → relay -->
-  <polyline class="wire" points="420,410 400,410 400,380 685,380" fill="none" stroke="#ff9f43" stroke-width="1.8"/>
-  <text x="540" y="375" font-family="JetBrains Mono, monospace" font-size="7" fill="#ff9f43">SC</text>
+  <polyline class="wire" points="420,410 400,410 400,380 685,380" fill="none" stroke="#e67e22" stroke-width="1.8"/>
+  <text x="540" y="375" font-family="JetBrains Mono, monospace" font-size="7" fill="#e67e22">SC</text>
 
   <!-- RPi MC → PID Controls → Motor (from top) -->
-  <polyline class="wire" points="555,425 555,470 638,470" fill="none" stroke="#ff9f43" stroke-width="1.8"/>
-  <text x="565" y="455" font-family="JetBrains Mono, monospace" font-size="7" fill="#ff9f43">MC</text>
+  <polyline class="wire" points="555,425 555,470 638,470" fill="none" stroke="#e67e22" stroke-width="1.8"/>
+  <text x="565" y="455" font-family="JetBrains Mono, monospace" font-size="7" fill="#e67e22">MC</text>
 
   <!-- Motor → down to Wrist Control -->
   <!-- (arrow and label already placed above) -->
 
   <!-- Transistor collector → Relay DC+ -->
-  <polyline class="wire" points="815,350 840,330 840,313 860,313" fill="none" stroke="#c8d6e5" stroke-width="1.5"/>
+  <polyline class="wire" points="815,350 840,330 840,313 860,313" fill="none" stroke="#4a4a4a" stroke-width="1.5"/>
 
   <!-- Transistor emitter → Relay DC- (ground side) -->
-  <polyline class="wire" points="815,410 840,425 840,460 860,460 860,372" fill="none" stroke="#636e72" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <polyline class="wire" points="815,410 840,425 840,460 860,460 860,372" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
 
   <!-- Relay IN → from transistor area -->
   <!-- (IN connection is on the left side of relay, connected through transistor) -->
 
   <!-- Relay NC → MOSFET gate -->
-  <polyline class="wire" points="980,345 1000,345 1000,362 1020,362" fill="none" stroke="#c8d6e5" stroke-width="1.8"/>
+  <polyline class="wire" points="980,345 1000,345 1000,362 1020,362" fill="none" stroke="#4a4a4a" stroke-width="1.8"/>
 
   <!-- MOSFET Drain → HID device -->
-  <polyline class="wire" points="1090,342 1110,342 1110,362 1125,362" fill="none" stroke="#45aaf2" stroke-width="2"/>
+  <polyline class="wire" points="1090,342 1110,342 1110,362 1125,362" fill="none" stroke="#2563eb" stroke-width="2"/>
 
   <!-- MOSFET Source → Ground (down to bottom) -->
-  <polyline class="wire" points="1090,382 1110,382 1110,490 1110,490" fill="none" stroke="#636e72" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <polyline class="wire" points="1090,382 1110,382 1110,490 1110,490" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
   <!-- Ground symbol at bottom of MOSFET -->
-  <line x1="1110" y1="490" x2="1110" y2="500" stroke="#636e72" stroke-width="1.5"/>
-  <line x1="1102" y1="500" x2="1118" y2="500" stroke="#636e72" stroke-width="1.5"/>
-  <line x1="1105" y1="504" x2="1115" y2="504" stroke="#636e72" stroke-width="1"/>
-  <line x1="1107" y1="508" x2="1113" y2="508" stroke="#636e72" stroke-width="0.8"/>
+  <line x1="1110" y1="490" x2="1110" y2="500" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="1102" y1="500" x2="1118" y2="500" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="1105" y1="504" x2="1115" y2="504" stroke="#6b7280" stroke-width="1"/>
+  <line x1="1107" y1="508" x2="1113" y2="508" stroke="#6b7280" stroke-width="0.8"/>
 
   <!-- 12V Source V+ → Motor power (through wrist control from top) -->
-  <polyline class="wire" points="462,580 462,540 660,540 660,492" fill="none" stroke="#c0392b" stroke-width="2"/>
-  <text x="550" y="535" font-family="JetBrains Mono, monospace" font-size="7" fill="#c0392b">12V</text>
+  <polyline class="wire" points="462,580 462,540 660,540 660,492" fill="none" stroke="#991b1b" stroke-width="2"/>
+  <text x="550" y="535" font-family="JetBrains Mono, monospace" font-size="7" fill="#991b1b">12V</text>
 
   <!-- 5V Source V+ → routes up to RED ENCLOSURE (relay area) -->
-  <polyline class="wire" points="462,700 430,700 430,490 830,490" fill="none" stroke="#ff4757" stroke-width="2" filter="url(#glow-red)"/>
+  <polyline class="wire" points="462,700 430,700 430,490 830,490" fill="none" stroke="#d63031" stroke-width="2" filter="url(#glow-red)"/>
   <!-- 5V bus runs along bottom of red enclosure and up right side -->
-  <polyline class="wire" points="830,490 1230,490 1230,280 1230,260 830,260" fill="none" stroke="#ff4757" stroke-width="2"/>
-  <circle cx="830" cy="490" r="3" fill="#ff4757" class="pulse"/>
-  <text x="730" y="485" font-family="JetBrains Mono, monospace" font-size="8" fill="#ff4757">5V 3A Bus</text>
+  <polyline class="wire" points="830,490 1230,490 1230,280 1230,260 830,260" fill="none" stroke="#d63031" stroke-width="2"/>
+  <circle cx="830" cy="490" r="3" fill="#d63031" class="pulse"/>
+  <text x="730" y="485" font-family="JetBrains Mono, monospace" font-size="8" fill="#d63031">5V 3A Bus</text>
 
   <!-- Relay Com → 5V bus (connects to enclosure power) -->
-  <polyline class="wire" points="980,313 1000,313 1000,280" fill="none" stroke="#ff4757" stroke-width="1.5"/>
+  <polyline class="wire" points="980,313 1000,313 1000,280" fill="none" stroke="#d63031" stroke-width="1.5"/>
 
 </svg>
 </div>
 
 <script>
-// ---- Pan & Zoom ----
-const svg = document.getElementById('diagram');
-const container = document.getElementById('svg-container');
-let viewBox = { x: 0, y: 0, w: 1300, h: 820 };
-let isPanning = false;
-let startPoint = { x: 0, y: 0 };
-let startViewBox = { x: 0, y: 0 };
-const ZOOM_FACTOR = 0.9;
-let scale = 1;
-
-function updateViewBox() {
-  svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-  document.getElementById('zoomLevel').textContent = Math.round(scale * 100) + '%';
-}
-
-container.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const rect = svg.getBoundingClientRect();
-  const mouseX = viewBox.x + (e.clientX - rect.left) / rect.width * viewBox.w;
-  const mouseY = viewBox.y + (e.clientY - rect.top) / rect.height * viewBox.h;
-
-  const factor = e.deltaY > 0 ? 1 / ZOOM_FACTOR : ZOOM_FACTOR;
-  const newW = viewBox.w * factor;
-  const newH = viewBox.h * factor;
-
-  // Clamp zoom
-  if (newW < 300 || newW > 3000) return;
-
-  viewBox.x = mouseX - (mouseX - viewBox.x) * factor;
-  viewBox.y = mouseY - (mouseY - viewBox.y) * factor;
-  viewBox.w = newW;
-  viewBox.h = newH;
-  scale = 1300 / viewBox.w;
-  updateViewBox();
-}, { passive: false });
-
-container.addEventListener('mousedown', (e) => {
-  if (e.target.closest('.component')) return;
-  isPanning = true;
-  document.body.classList.add('dragging');
-  startPoint = { x: e.clientX, y: e.clientY };
-  startViewBox = { x: viewBox.x, y: viewBox.y };
-});
-
-window.addEventListener('mousemove', (e) => {
-  if (!isPanning) return;
-  const rect = svg.getBoundingClientRect();
-  const dx = (e.clientX - startPoint.x) / rect.width * viewBox.w;
-  const dy = (e.clientY - startPoint.y) / rect.height * viewBox.h;
-  viewBox.x = startViewBox.x - dx;
-  viewBox.y = startViewBox.y - dy;
-  updateViewBox();
-});
-
-window.addEventListener('mouseup', () => {
-  isPanning = false;
-  document.body.classList.remove('dragging');
-});
-
-function zoomIn() {
-  const cx = viewBox.x + viewBox.w / 2;
-  const cy = viewBox.y + viewBox.h / 2;
-  const newW = viewBox.w * ZOOM_FACTOR;
-  const newH = viewBox.h * ZOOM_FACTOR;
-  if (newW < 300) return;
-  viewBox.x = cx - newW / 2;
-  viewBox.y = cy - newH / 2;
-  viewBox.w = newW;
-  viewBox.h = newH;
-  scale = 1300 / viewBox.w;
-  updateViewBox();
-}
-
-function zoomOut() {
-  const cx = viewBox.x + viewBox.w / 2;
-  const cy = viewBox.y + viewBox.h / 2;
-  const newW = viewBox.w / ZOOM_FACTOR;
-  const newH = viewBox.h / ZOOM_FACTOR;
-  if (newW > 3000) return;
-  viewBox.x = cx - newW / 2;
-  viewBox.y = cy - newH / 2;
-  viewBox.w = newW;
-  viewBox.h = newH;
-  scale = 1300 / viewBox.w;
-  updateViewBox();
-}
-
-function resetView() {
-  viewBox = { x: 0, y: 0, w: 1300, h: 820 };
-  scale = 1;
-  updateViewBox();
-}
-
 // ---- Tooltips ----
 const tooltip = document.getElementById('tooltip');
 const ttTitle = tooltip.querySelector('.tt-title');
@@ -748,7 +625,6 @@ document.querySelectorAll('.component').forEach(comp => {
   comp.addEventListener('mousemove', (e) => {
     const x = e.clientX + 16;
     const y = e.clientY + 16;
-    // Keep tooltip on screen
     const tw = tooltip.offsetWidth;
     const th = tooltip.offsetHeight;
     tooltip.style.left = (x + tw > window.innerWidth ? e.clientX - tw - 8 : x) + 'px';
@@ -758,69 +634,6 @@ document.querySelectorAll('.component').forEach(comp => {
   comp.addEventListener('mouseleave', () => {
     tooltip.classList.remove('visible');
   });
-});
-
-// ---- Touch support ----
-let lastTouchDist = 0;
-let lastTouchCenter = { x: 0, y: 0 };
-
-container.addEventListener('touchstart', (e) => {
-  if (e.touches.length === 1) {
-    isPanning = true;
-    startPoint = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    startViewBox = { x: viewBox.x, y: viewBox.y };
-  } else if (e.touches.length === 2) {
-    isPanning = false;
-    const dx = e.touches[1].clientX - e.touches[0].clientX;
-    const dy = e.touches[1].clientY - e.touches[0].clientY;
-    lastTouchDist = Math.hypot(dx, dy);
-    lastTouchCenter = {
-      x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
-      y: (e.touches[0].clientY + e.touches[1].clientY) / 2
-    };
-  }
-}, { passive: true });
-
-container.addEventListener('touchmove', (e) => {
-  e.preventDefault();
-  if (e.touches.length === 1 && isPanning) {
-    const rect = svg.getBoundingClientRect();
-    const dx = (e.touches[0].clientX - startPoint.x) / rect.width * viewBox.w;
-    const dy = (e.touches[0].clientY - startPoint.y) / rect.height * viewBox.h;
-    viewBox.x = startViewBox.x - dx;
-    viewBox.y = startViewBox.y - dy;
-    updateViewBox();
-  } else if (e.touches.length === 2) {
-    const dx = e.touches[1].clientX - e.touches[0].clientX;
-    const dy = e.touches[1].clientY - e.touches[0].clientY;
-    const dist = Math.hypot(dx, dy);
-    const factor = lastTouchDist / dist;
-    const rect = svg.getBoundingClientRect();
-    const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-    const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-    const mouseX = viewBox.x + (cx - rect.left) / rect.width * viewBox.w;
-    const mouseY = viewBox.y + (cy - rect.top) / rect.height * viewBox.h;
-    const newW = viewBox.w * factor;
-    const newH = viewBox.h * factor;
-    if (newW >= 300 && newW <= 3000) {
-      viewBox.x = mouseX - (mouseX - viewBox.x) * factor;
-      viewBox.y = mouseY - (mouseY - viewBox.y) * factor;
-      viewBox.w = newW;
-      viewBox.h = newH;
-      scale = 1300 / viewBox.w;
-      updateViewBox();
-    }
-    lastTouchDist = dist;
-  }
-}, { passive: false });
-
-container.addEventListener('touchend', () => { isPanning = false; });
-
-// ---- Keyboard shortcuts ----
-document.addEventListener('keydown', (e) => {
-  if (e.key === '+' || e.key === '=') zoomIn();
-  else if (e.key === '-') zoomOut();
-  else if (e.key === '0') resetView();
 });
 </script>
 </body>
