@@ -287,7 +287,7 @@ export default function ProjectPage({ project }) {
                 <article className="prose prose-sm max-w-none markdown-github">
                   <div className="text-black dark:text-gray-300">
                     {(() => {
-                      if (project.id !== 'AutoReflex') {
+                      if (project.id !== 'AutoReflex' && project.id !== 'Abyss') {
                         return (
                           <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
                             {project.content}
@@ -295,11 +295,12 @@ export default function ProjectPage({ project }) {
                         );
                       }
 
-                      const embedMarker = /(\n*```(?:circuit-embed|software-embed)\s*```\s*\n*)/;
+                      const embedMarker = /(\n*```(?:circuit-embed|software-embed|abyss-embed)\s*```\s*\n*)/;
                       const segments = project.content.split(embedMarker);
                       const embeds = [
                         { marker: 'circuit-embed', src: '/api/circuit-diagram', title: 'AutoReflex hardware circuit diagram', height: '560px' },
                         { marker: 'software-embed', src: '/api/software-diagram', title: 'AutoReflex software architecture diagram', height: '420px' },
+                        { marker: 'abyss-embed', src: '/api/abyss-diagram', title: 'Abyss system architecture diagram', height: '860px' },
                       ];
                       let embedIndex = 0;
 

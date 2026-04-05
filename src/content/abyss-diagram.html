@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Architecture — Abyss</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #F3F2ED;
+    --text-primary: #3a3a3a;
+    --text-bright: #1a1a1a;
+    --text-dim: #8a8580;
+    --green: #16a34a;
+    --blue: #2563eb;
+    --orange: #e67e22;
+    --purple: #7c3aed;
+    --slate: #475569;
+    --tooltip-bg: rgba(243, 242, 237, 0.96);
+    --tooltip-border: rgba(37, 99, 235, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100vw;
+    cursor: default;
+  }
+
+  #svg-container { width: 100%; }
+  svg { width: 100%; height: auto; display: block; }
+
+  .component { cursor: pointer; }
+  .component:hover .comp-box { filter: brightness(1.08); stroke-width: 2.5; }
+  .component:hover .comp-label { fill: var(--text-bright); }
+
+  #tooltip {
+    position: fixed;
+    z-index: 200;
+    background: var(--tooltip-bg);
+    border: 1px solid var(--tooltip-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 280px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  #tooltip.visible { opacity: 1; transform: translateY(0); }
+  #tooltip .tt-title { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 12px; color: var(--blue); margin-bottom: 4px; }
+  #tooltip .tt-body { color: var(--text-primary); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div id="tooltip">
+  <div class="tt-title"></div>
+  <div class="tt-body"></div>
+</div>
+
+<div id="svg-container">
+<svg viewBox="0 0 1200 1380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(180,175,160,0.2)" stroke-width="0.5"/>
+    </pattern>
+    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#smallGrid)"/>
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(160,155,140,0.3)" stroke-width="0.8"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#e67e22"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="1380" fill="#F3F2ED"/>
+  <rect width="1200" height="1380" fill="url(#grid)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 1: Neptune Analytics                     -->
+  <!-- ============================================ -->
+  <g class="component" data-tooltip="Neptune Analytics" data-desc="Amazon Neptune Analytics stores the context graph — User, Session, Goal, Decision, Blocker, and MemoryEpisode nodes — enabling hybrid vector + graph search for session recall.">
+    <rect class="comp-box" x="450" y="30" width="220" height="75" rx="5" fill="rgba(71,85,105,0.05)" stroke="#475569" stroke-width="1.8"/>
+    <text class="comp-label" x="560" y="60" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle" font-weight="600">Neptune Analytics</text>
+    <text x="560" y="78" font-family="JetBrains Mono, monospace" font-size="10" fill="#475569" text-anchor="middle" opacity="0.7">(Graph DB)</text>
+  </g>
+
+  <!-- Neptune → Titan (left) -->
+  <line x1="510" y1="105" x2="430" y2="175" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <!-- Neptune → S3 (right) -->
+  <line x1="610" y1="105" x2="690" y2="175" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 2: Titan Embeddings + S3                 -->
+  <!-- ============================================ -->
+  <g class="component" data-tooltip="Amazon Titan Embeddings" data-desc="Amazon Titan Text Embeddings V2 (d=256) generates semantic embeddings per goal for hybrid vector + graph search retrieval.">
+    <rect class="comp-box" x="310" y="175" width="185" height="70" rx="5" fill="rgba(71,85,105,0.05)" stroke="#475569" stroke-width="1.8"/>
+    <text class="comp-label" x="402" y="205" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle" font-weight="600">Titan</text>
+    <text x="402" y="222" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle" font-weight="600">Embeddings</text>
+  </g>
+
+  <g class="component" data-tooltip="S3 Memory Store" data-desc="Amazon S3 stores conversation summaries and MemoryService fallback data when Neptune is unavailable.">
+    <rect class="comp-box" x="620" y="175" width="185" height="70" rx="5" fill="rgba(71,85,105,0.05)" stroke="#475569" stroke-width="1.8"/>
+    <text class="comp-label" x="712" y="205" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle" font-weight="600">S3</text>
+    <text x="712" y="222" font-family="JetBrains Mono, monospace" font-size="10" fill="#475569" text-anchor="middle" opacity="0.7">(Memory Store)</text>
+  </g>
+
+  <!-- Titan → Conductor -->
+  <line x1="402" y1="245" x2="402" y2="305" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <!-- S3 → Conductor -->
+  <line x1="712" y1="245" x2="712" y2="305" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 3: iOS App + Conductor Server            -->
+  <!-- ============================================ -->
+
+  <!-- iOS App -->
+  <g class="component" data-tooltip="iOS App" data-desc="SwiftUI voice interface with WhisperKit on-device STT, ElevenLabs TTS, WebSocket auto-reconnect, Apple Keychain credentials, and ASWebAuthenticationSession for OAuth.">
+    <rect class="comp-box" x="30" y="305" width="185" height="220" rx="5" fill="rgba(22,163,74,0.04)" stroke="#16a34a" stroke-width="2"/>
+    <text class="comp-label" x="122" y="332" font-family="JetBrains Mono, monospace" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">iOS App</text>
+    <text x="55" y="360" font-family="JetBrains Mono, monospace" font-size="10" fill="#15803d">· SwiftUI</text>
+    <text x="55" y="378" font-family="JetBrains Mono, monospace" font-size="10" fill="#15803d">· WhisperKit</text>
+    <text x="55" y="394" font-family="JetBrains Mono, monospace" font-size="10" fill="#15803d" opacity="0.75">  (STT)</text>
+    <text x="55" y="412" font-family="JetBrains Mono, monospace" font-size="10" fill="#15803d">· ElevenLabs</text>
+    <text x="55" y="428" font-family="JetBrains Mono, monospace" font-size="10" fill="#15803d" opacity="0.75">  (TTS)</text>
+    <text x="55" y="446" font-family="JetBrains Mono, monospace" font-size="10" fill="#15803d">· OAuth</text>
+  </g>
+
+  <!-- WebSocket arrow: iOS → Conductor -->
+  <line x1="215" y1="375" x2="280" y2="375" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="222" y="368" font-family="JetBrains Mono, monospace" font-size="9" fill="#2563eb">WebSocket</text>
+  <!-- Events arrow: Conductor → iOS -->
+  <line x1="280" y1="410" x2="215" y2="410" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="222" y="403" font-family="JetBrains Mono, monospace" font-size="9" fill="#16a34a">Events</text>
+
+  <!-- Conductor Server -->
+  <g class="component" data-tooltip="Node.js Conductor Server" data-desc="Node.js + TypeScript WebSocket server on AWS ECS Fargate. Orchestrates conversation turns, tool dispatch, and streaming responses via Amazon Bedrock. Dynamic routing between Nova Lite, Nova Pro, and Nova Sonic.">
+    <rect class="comp-box" x="280" y="305" width="870" height="220" rx="5" fill="rgba(37,99,235,0.04)" stroke="#2563eb" stroke-width="2"/>
+    <text class="comp-label" x="715" y="335" font-family="JetBrains Mono, monospace" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">Node.js Conductor Server</text>
+    <text x="715" y="352" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" opacity="0.7">(ECS Fargate)</text>
+  </g>
+
+  <!-- Bedrock Nova -->
+  <g class="component" data-tooltip="Bedrock Nova Lite / Pro" data-desc="Amazon Bedrock routes between Nova Lite (fast, cheap for everyday tasks) and Nova Pro (deep coding and agent workflows) based on task complexity.">
+    <rect class="comp-box" x="310" y="370" width="190" height="120" rx="4" fill="rgba(37,99,235,0.06)" stroke="#2563eb" stroke-width="1.5"/>
+    <text class="comp-label" x="405" y="398" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="600">Bedrock</text>
+    <text x="405" y="414" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="600">Nova</text>
+    <text x="405" y="432" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" opacity="0.7">Lite / Pro</text>
+  </g>
+
+  <!-- Anthropic Claude -->
+  <g class="component" data-tooltip="Anthropic Claude" data-desc="Claude is used alongside Bedrock Nova for specific tool workflows and coding tasks via the conductor's model routing logic.">
+    <rect class="comp-box" x="535" y="370" width="190" height="120" rx="4" fill="rgba(37,99,235,0.06)" stroke="#2563eb" stroke-width="1.5"/>
+    <text class="comp-label" x="630" y="398" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="600">Anthropic</text>
+    <text x="630" y="416" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="600">Claude</text>
+  </g>
+
+  <!-- Nova Sonic -->
+  <g class="component" data-tooltip="Nova Sonic" data-desc="Amazon Nova Sonic provides real-time bidirectional voice streaming — end-to-end voice without the WhisperKit → TTS chain for latency-critical interactions.">
+    <rect class="comp-box" x="760" y="370" width="360" height="120" rx="4" fill="rgba(37,99,235,0.06)" stroke="#2563eb" stroke-width="1.5"/>
+    <text class="comp-label" x="940" y="398" font-family="JetBrains Mono, monospace" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="600">Nova Sonic</text>
+    <text x="940" y="416" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" opacity="0.7">(Voice Stream)</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- ARROWS: Conductor → Service boxes            -->
+  <!-- ============================================ -->
+  <!-- Gmail -->
+  <line x1="370" y1="525" x2="105" y2="620" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <!-- Google Calendar -->
+  <line x1="430" y1="525" x2="295" y2="620" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <!-- Canvas LMS -->
+  <line x1="560" y1="525" x2="490" y2="620" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <!-- Cursor Cloud Agents -->
+  <line x1="660" y1="525" x2="690" y2="620" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <!-- Brave Search -->
+  <line x1="810" y1="525" x2="885" y2="620" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <!-- GitHub OAuth -->
+  <line x1="1080" y1="525" x2="1090" y2="620" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 4: Service boxes                         -->
+  <!-- ============================================ -->
+
+  <!-- Gmail API -->
+  <g class="component" data-tooltip="Gmail API" data-desc="Inbox triage, search, read, and compose. Send and reply require iOS user confirmation (⚡) before dispatch.">
+    <rect class="comp-box" x="30" y="620" width="165" height="185" rx="4" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.5"/>
+    <text class="comp-label" x="112" y="648" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Gmail</text>
+    <text x="112" y="664" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">API</text>
+    <text x="50" y="690" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· inbox</text>
+    <text x="50" y="707" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· search</text>
+    <text x="50" y="724" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· read</text>
+    <text x="50" y="741" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· send ⚡</text>
+    <text x="50" y="758" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· reply ⚡</text>
+  </g>
+
+  <!-- Google Calendar API -->
+  <g class="component" data-tooltip="Google Calendar API" data-desc="List, create, and update calendar events. Delete requires iOS user confirmation (⚡).">
+    <rect class="comp-box" x="215" y="620" width="165" height="185" rx="4" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.5"/>
+    <text class="comp-label" x="297" y="648" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Google</text>
+    <text x="297" y="664" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Calendar</text>
+    <text x="297" y="680" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">API</text>
+    <text x="235" y="706" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· list</text>
+    <text x="235" y="723" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· create</text>
+    <text x="235" y="740" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· update</text>
+    <text x="235" y="757" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· delete ⚡</text>
+  </g>
+
+  <!-- Canvas LMS -->
+  <g class="component" data-tooltip="Canvas LMS" data-desc="Reads todos, grades, and assignment data from Canvas Learning Management System.">
+    <rect class="comp-box" x="400" y="620" width="165" height="185" rx="4" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.5"/>
+    <text class="comp-label" x="482" y="648" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Canvas</text>
+    <text x="482" y="664" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">LMS</text>
+    <text x="420" y="690" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· todo</text>
+    <text x="420" y="707" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· grades</text>
+    <text x="420" y="724" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· assgn</text>
+  </g>
+
+  <!-- Cursor Cloud Agents -->
+  <g class="component" data-tooltip="Cursor Cloud Agents" data-desc="Spawns, monitors, and cancels Cursor cloud coding agents. Followup dispatches continuation tasks to running agents.">
+    <rect class="comp-box" x="585" y="620" width="175" height="185" rx="4" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.5"/>
+    <text class="comp-label" x="672" y="648" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Cursor</text>
+    <text x="672" y="664" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Cloud Agents</text>
+    <text x="605" y="690" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· spawn</text>
+    <text x="605" y="707" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· status</text>
+    <text x="605" y="724" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· cancel</text>
+    <text x="605" y="741" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· followup</text>
+  </g>
+
+  <!-- Brave Search -->
+  <g class="component" data-tooltip="Brave Search" data-desc="Privacy-respecting web search. Returns grounded results without tracking or personalization bias.">
+    <rect class="comp-box" x="780" y="620" width="165" height="185" rx="4" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.5"/>
+    <text class="comp-label" x="862" y="648" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Brave</text>
+    <text x="862" y="664" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">Search</text>
+    <text x="800" y="690" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· web</text>
+    <text x="800" y="707" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· search</text>
+  </g>
+
+  <!-- GitHub OAuth -->
+  <g class="component" data-tooltip="GitHub OAuth" data-desc="GitHub-authenticated developer workflows — repository access, auth token management, and developer context.">
+    <rect class="comp-box" x="1005" y="620" width="165" height="185" rx="4" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.5"/>
+    <text class="comp-label" x="1087" y="648" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">GitHub</text>
+    <text x="1087" y="664" font-family="JetBrains Mono, monospace" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="600">OAuth</text>
+    <text x="1025" y="690" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· auth</text>
+    <text x="1025" y="707" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· repos</text>
+  </g>
+
+  <!-- ⚡ legend -->
+  <text x="30" y="825" font-family="JetBrains Mono, monospace" font-size="10" fill="#8a8580">⚡ = iOS user confirmation required</text>
+
+  <!-- ============================================ -->
+  <!-- Cursor → Bridge Router                       -->
+  <!-- ============================================ -->
+  <line x1="672" y1="805" x2="672" y2="880" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- Bridge Router -->
+  <g class="component" data-tooltip="Bridge Router" data-desc="Routes privileged local execution requests from the Conductor to the paired macOS bridge over a secured persistent connection.">
+    <rect class="comp-box" x="555" y="880" width="235" height="55" rx="5" fill="rgba(124,58,237,0.05)" stroke="#7c3aed" stroke-width="1.8"/>
+    <text class="comp-label" x="672" y="913" font-family="JetBrains Mono, monospace" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="600">Bridge Router</text>
+  </g>
+
+  <!-- Bridge Router → macOS Bridge -->
+  <line x1="672" y1="935" x2="672" y2="980" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- ============================================ -->
+  <!-- macOS Bridge outer box                       -->
+  <!-- ============================================ -->
+  <g class="component" data-tooltip="macOS Bridge" data-desc="Swift app with per-capability permission toggles and workspace root constraints. Bridges shell execution, file operations, git workflows, Claude Code, and Nova Act browser automation.">
+    <rect class="comp-box" x="30" y="980" width="1140" height="350" rx="6" fill="rgba(124,58,237,0.03)" stroke="#7c3aed" stroke-width="2"/>
+    <text class="comp-label" x="600" y="1010" font-family="JetBrains Mono, monospace" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="700">macOS Bridge</text>
+  </g>
+
+  <!-- Command Executor -->
+  <g class="component" data-tooltip="Command Executor" data-desc="Shell execution, file read/search/patch, and git.* workflows. All scoped to the workspace root defined at bridge pairing time.">
+    <rect class="comp-box" x="60" y="1030" width="230" height="210" rx="4" fill="rgba(124,58,237,0.05)" stroke="#7c3aed" stroke-width="1.5"/>
+    <text class="comp-label" x="175" y="1058" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="600">Command Executor</text>
+    <text x="82" y="1084" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· exec.run</text>
+    <text x="82" y="1101" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· fs.read</text>
+    <text x="82" y="1118" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· fs.search</text>
+    <text x="82" y="1135" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· fs.patch</text>
+    <text x="82" y="1152" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· git.*</text>
+  </g>
+
+  <!-- Claude Code -->
+  <g class="component" data-tooltip="Claude Code (Subprocess)" data-desc="Claude Code runs as a subprocess on the macOS bridge, executing Bash, Read, Edit, Write, Glob, and Grep tools within the permissioned workspace.">
+    <rect class="comp-box" x="330" y="1030" width="230" height="210" rx="4" fill="rgba(124,58,237,0.05)" stroke="#7c3aed" stroke-width="1.5"/>
+    <text class="comp-label" x="445" y="1058" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="600">Claude Code</text>
+    <text x="445" y="1074" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c3aed" text-anchor="middle" opacity="0.7">(Subprocess)</text>
+    <text x="352" y="1100" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Bash, Read</text>
+    <text x="352" y="1117" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Edit, Write</text>
+    <text x="352" y="1134" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Glob, Grep</text>
+  </g>
+
+  <!-- Nova Act -->
+  <g class="component" data-tooltip="Nova Act (Python)" data-desc="Amazon Nova Act browser automation via a Python subprocess. Exposes start, act, and stop commands for controlling Chrome to automate web tasks.">
+    <rect class="comp-box" x="600" y="1030" width="220" height="210" rx="4" fill="rgba(124,58,237,0.05)" stroke="#7c3aed" stroke-width="1.5"/>
+    <text class="comp-label" x="710" y="1058" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="600">Nova Act</text>
+    <text x="710" y="1074" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c3aed" text-anchor="middle" opacity="0.7">(Python)</text>
+    <text x="622" y="1100" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· start</text>
+    <text x="622" y="1117" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· act</text>
+    <text x="622" y="1134" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· stop</text>
+    <!-- Chrome → Web -->
+    <text x="622" y="1185" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#6b7280">Chrome</text>
+    <line x1="672" y1="1180" x2="790" y2="1180" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <text x="796" y="1185" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#6b7280">Web</text>
+  </g>
+
+  <!-- Workspace Sandbox bar -->
+  <rect x="60" y="1280" width="1080" height="38" rx="4" fill="rgba(124,58,237,0.04)" stroke="#7c3aed" stroke-width="1.2"/>
+  <text x="600" y="1304" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="500">Workspace Sandbox  ·  Pairing Security</text>
+
+</svg>
+</div>
+
+<script>
+const tooltip = document.getElementById('tooltip');
+const ttTitle = tooltip.querySelector('.tt-title');
+const ttBody = tooltip.querySelector('.tt-body');
+
+document.querySelectorAll('.component').forEach(comp => {
+  comp.addEventListener('mouseenter', () => {
+    const title = comp.getAttribute('data-tooltip');
+    const desc = comp.getAttribute('data-desc');
+    if (!title) return;
+    ttTitle.textContent = title;
+    ttBody.textContent = desc || '';
+    tooltip.classList.add('visible');
+  });
+  comp.addEventListener('mousemove', (e) => {
+    const x = e.clientX + 16, y = e.clientY + 16;
+    const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+    tooltip.style.left = (x + tw > window.innerWidth ? e.clientX - tw - 8 : x) + 'px';
+    tooltip.style.top = (y + th > window.innerHeight ? e.clientY - th - 8 : y) + 'px';
+  });
+  comp.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+});
+</script>
+</body>
+</html>

@@ -34,7 +34,8 @@ That is a gap nobody should have to accept. People do their most time-sensitive 
 
 ### System Architecture
 
-![Abyss System Architecture](/images/abyss/abyss-architecture.png)
+```abyss-embed
+```
 
 ### Data Flow
 
@@ -83,7 +84,7 @@ Abyss is a three-layer system with a strict JSON event protocol connecting every
 - Pairing is persistent — iOS auto-re-registers paired bridge codes on every reconnect
 
 #### **Inline Card Architecture**
-All tool results render as inline transcript cards via ` ```card:TYPE:CARD_ID``` ` fenced blocks — email drafts, calendar events, agent progress, bridge output, and Canvas data surface directly in the conversation without breaking the flow.
+All tool results render as inline transcript cards via card:TYPE:CARD_ID fenced blocks — email drafts, calendar events, agent progress, bridge output, and Canvas data surface directly in the conversation without breaking the flow.
 
 ### Challenges & Solutions
 
