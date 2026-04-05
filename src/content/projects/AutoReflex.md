@@ -12,8 +12,6 @@ technologies:
   - CUDA
   - TENS
   - Feetech SCS/STS
-  - pigpio
-  - C++
 ---
 
 **AutoReflex** is a real-time neuromuscular aim-assist system that combines computer vision, servo-driven mechanical actuation, and transcutaneous electrical nerve stimulation (TENS) to physically guide a player's aim. A Jetson Nano detects on-screen targets at 100fps and streams coordinates over UDP to a Raspberry Pi, which runs a 1kHz PID control loop driving a Feetech ST3215 servo and optional solenoid trigger — closing the loop from pixels to physical movement in under 15ms.
@@ -107,11 +105,6 @@ Two MCP4131 digital potentiometers over SPI (CE0 + CE1) modulate TENS electrode 
 - **TENS safety:** Intensity is hard-capped at MCP4131 wiper value 40 (out of 127). The TENS output is purely modulated through the potentiometer — the unit's own safety circuitry remains in the loop.
 - **Dynamic scaling with blob width:** A naive fixed-threshold controller overshoots on close targets and undershoots on distant ones. Scaling all thresholds and gains proportionally to blob_w linearizes the response across ranges.
 
-### Outcome
+### Achievement
 
 AutoReflex placed 3rd at HackberryPi and demonstrates that hardware-level aim assist — operating entirely outside the game process — is feasible at latencies competitive with human reaction time. The same Jetson-to-Pi UDP architecture, PID state machine, and TENS integration pattern applies directly to any real-time physical control problem: robotic manipulation, prosthetics, or closed-loop rehabilitation devices.
-
-### Links
-- **pigpio** — Raspberry Pi GPIO library with microsecond-level timing
-- **Ultralytics YOLO** — Object detection framework
-- **Feetech SCS/STS Protocol** — Servo communication protocol

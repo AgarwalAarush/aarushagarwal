@@ -243,7 +243,7 @@ export default function ProjectPage({ project }) {
                       {project.technologies.map((tech, index) => (
                         <span 
                           key={index} 
-                          className="px-3 py-1 text-sm  rounded-sm bg-gray-100 text-gray-700 dark:bg-[#181818] dark:text-white border border-gray-200 dark:border-transparent"
+                          className="px-3 py-1 text-sm rounded-lg bg-[#F3F2EC] text-gray-700 dark:bg-[#181818] dark:text-white"
                         >
                           {tech}
                         </span>
