@@ -171,30 +171,25 @@ export default function Home({ projects }) {
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-2xl text-gray-900 dark:text-white">Projects</h2>
                     </div>
-                    <div className="mb-6 grid grid-cols-1 gap-0 sm:grid-cols-2 [&>*:not(:first-child)]:max-sm:-mt-px sm:[&>*:nth-child(even)]:-ml-px sm:[&>*:nth-child(n+3)]:-mt-px">
-                        {(projects || []).map((project, index) => {
-                            const row = Math.floor(index / 2);
-                            const col = index % 2;
-                            return (
-                                <motion.div
-                                    key={project.id}
-                                    className="min-w-0"
-                                    initial={{ opacity: 0, y: 36 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.2, margin: '0px 0px -10% 0px' }}
-                                    transition={{
-                                        ...projectCardSpring,
-                                        delay: row * 0.22 + col * 0.09,
-                                    }}
-                                >
-                                    <ProjectCard
-                                        project={project}
-                                        showTechnologies={false}
-                                        showImagePreview={false}
-                                    />
-                                </motion.div>
-                            );
-                        })}
+                    <div className="mb-6 flex flex-col divide-y divide-gray-200 dark:divide-gray-800 border-y border-gray-200 dark:border-gray-800">
+                        {(projects || []).map((project, index) => (
+                            <motion.div
+                                key={project.id}
+                                initial={{ opacity: 0, y: 36 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.2, margin: '0px 0px -10% 0px' }}
+                                transition={{
+                                    ...projectCardSpring,
+                                    delay: index * 0.12,
+                                }}
+                            >
+                                <ProjectCard
+                                    project={project}
+                                    showTechnologies={false}
+                                    showImagePreview={false}
+                                />
+                            </motion.div>
+                        ))}
                     </div>
                 </section>
 

@@ -59,7 +59,7 @@ export default function ProjectCard({
   // Card content — title layout unchanged; arrow is absolutely positioned beside it
   const cardContent = (
     <div
-      className={`flex w-full flex-col ${showImagePreview ? 'min-h-0 flex-1' : 'h-full min-h-0'}`}
+      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'flex-row items-center gap-4'}`}
     >
       {/* Project image or icon */}
       {showImagePreview &&
@@ -86,73 +86,78 @@ export default function ProjectCard({
         ) : null)}
 
       {/* Content */}
-      <div
-        className={`flex flex-col ${showImagePreview ? 'min-h-0 flex-1 justify-center' : 'min-h-0 flex-1 justify-start'}`}
-      >
-        {showImagePreview ? (
-          <>
-            <div className="relative mb-2 shrink-0 pr-10 sm:pr-11">
-              <h3 className="text-lg text-gray-900 dark:text-white">
-                {project.title}
-              </h3>
-              <div
-                className="pointer-events-none absolute right-0 top-[11px] z-10 -translate-y-1/2"
-                aria-hidden
-              >
-                <CurvedArrowIndicator active={hover} />
-              </div>
-            </div>
+      {showImagePreview ? (
+        <div className="flex min-h-0 flex-1 flex-col justify-center">
+          <div className="relative mb-2 shrink-0 pr-10 sm:pr-11">
+            <h3 className="text-lg text-gray-900 dark:text-white">
+              {project.title}
+            </h3>
             <div
-              className="mb-3 text-sm text-gray-700 dark:text-white"
-              dangerouslySetInnerHTML={{
-                __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-              }}
-            />
-          </>
-        ) : (
-          <>
-            {/* Fixed title band — same layout as before; arrow overlays on the right */}
-            <div className="relative h-[3.25rem] shrink-0 pr-10 sm:pr-11">
-              <h3 className="m-0 line-clamp-2 text-lg font-normal leading-snug text-gray-900 dark:text-white">
-                {project.title}
-              </h3>
-              <div
-                className="pointer-events-none absolute right-0 top-[11px] z-10 -translate-y-1/2"
-                aria-hidden
-              >
-                <CurvedArrowIndicator active={hover} />
-              </div>
+              className="pointer-events-none absolute right-0 top-[11px] z-10 -translate-y-1/2"
+              aria-hidden
+            >
+              <CurvedArrowIndicator active={hover} />
             </div>
-            <div
-              className="-mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-normal [&_strong]:text-gray-900 dark:[&_strong]:text-white"
-              dangerouslySetInnerHTML={{
-                __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-              }}
-            />
-          </>
-        )}
-
-        {/* Technologies */}
-        {showTechnologies && project.technologies && (
-          <div className={`flex flex-wrap gap-2 ${showImagePreview ? '' : 'mt-3'}`}>
-            {project.technologies.slice(0, 3).map((tech, index) => (
-              <span
-                key={index}
-                className="rounded-sm border border-gray-200 bg-gray-100 px-2 py-1 text-xs text-gray-700 dark:border-transparent dark:bg-[#181818] dark:text-white"
-              >
-                {tech}
-              </span>
-            ))}
           </div>
-        )}
-      </div>
+          <div
+            className="mb-3 text-sm text-gray-700 dark:text-white"
+            dangerouslySetInnerHTML={{
+              __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            }}
+          />
+          {showTechnologies && project.technologies && (
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.slice(0, 3).map((tech, index) => (
+                <span
+                  key={index}
+                  className="rounded-sm border border-gray-200 bg-gray-100 px-2 py-1 text-xs text-gray-700 dark:border-transparent dark:bg-[#181818] dark:text-white"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <>
+          {/* Title on the left */}
+          <div className="shrink-0 sm:w-56">
+            <h3 className="m-0 text-lg font-normal leading-snug text-gray-900 dark:text-white">
+              {project.title}
+            </h3>
+          </div>
+          {/* Description on the right */}
+          <div
+            className="flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white"
+            dangerouslySetInnerHTML={{
+              __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            }}
+          />
+          {/* Arrow top-right */}
+          <div className="shrink-0 self-start" aria-hidden>
+            <CurvedArrowIndicator active={hover} />
+          </div>
+          {showTechnologies && project.technologies && (
+            <div className="flex shrink-0 flex-wrap gap-2">
+              {project.technologies.slice(0, 3).map((tech, index) => (
+                <span
+                  key={index}
+                  className="rounded-sm border border-gray-200 bg-gray-100 px-2 py-1 text-xs text-gray-700 dark:border-transparent dark:bg-[#181818] dark:text-white"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 
   const cardShellClass = [
-    'relative flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-transparent p-6 transition-colors duration-300',
-    'group hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800/30',
-    showImagePreview ? 'h-96' : 'aspect-[50/29]',
+    'relative flex w-full flex-col overflow-hidden bg-transparent transition-colors duration-300',
+    'group hover:bg-gray-100 dark:hover:bg-gray-800/30',
+    showImagePreview ? 'rounded-2xl border border-gray-200 dark:border-gray-700 h-96 p-6' : 'py-5 px-3',
   ].join(' ');
 
   const cardInner = (
@@ -168,13 +173,13 @@ export default function ProjectCard({
       >
         <ClientOnly
           fallback={
-            <div className="w-full cursor-pointer overflow-hidden rounded-2xl">
+            <div className={`w-full cursor-pointer ${showImagePreview ? 'overflow-hidden rounded-2xl' : ''}`}>
               <div className={cardShellClass}>{cardInner}</div>
             </div>
           }
         >
           {() => (
-            <div className="w-full cursor-pointer overflow-hidden rounded-2xl">
+            <div className={`w-full cursor-pointer ${showImagePreview ? 'overflow-hidden rounded-2xl' : ''}`}>
               <div className={cardShellClass}>{cardInner}</div>
             </div>
           )}
