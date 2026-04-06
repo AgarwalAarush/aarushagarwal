@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Flow — Abyss</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #F3F2ED;
+    --text-primary: #3a3a3a;
+    --text-bright: #1a1a1a;
+    --text-dim: #8a8580;
+    --green: #16a34a;
+    --blue: #2563eb;
+    --orange: #e67e22;
+    --purple: #7c3aed;
+    --slate: #475569;
+    --tooltip-bg: rgba(243, 242, 237, 0.96);
+    --tooltip-border: rgba(37, 99, 235, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100vw;
+    cursor: default;
+  }
+
+  #svg-container { width: 100%; }
+  svg { width: 100%; height: auto; display: block; }
+
+  .component { cursor: pointer; }
+  .component:hover .comp-box { filter: brightness(1.08); stroke-width: 2.5; }
+  .component:hover .comp-label { fill: var(--text-bright); }
+
+  #tooltip {
+    position: fixed;
+    z-index: 200;
+    background: var(--tooltip-bg);
+    border: 1px solid var(--tooltip-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 280px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  #tooltip.visible { opacity: 1; transform: translateY(0); }
+  #tooltip .tt-title { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 12px; color: var(--blue); margin-bottom: 4px; }
+  #tooltip .tt-body { color: var(--text-primary); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div id="tooltip">
+  <div class="tt-title"></div>
+  <div class="tt-body"></div>
+</div>
+
+<div id="svg-container">
+<svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(180,175,160,0.2)" stroke-width="0.5"/>
+    </pattern>
+    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#smallGrid)"/>
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(160,155,140,0.3)" stroke-width="0.8"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="7" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="680" fill="#F3F2ED"/>
+  <rect width="1000" height="680" fill="url(#grid)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 1: Input chain                           -->
+  <!-- User speaks → WhisperKit → Conductor         -->
+  <!-- ============================================ -->
+
+  <!-- "User speaks" -->
+  <g class="component" data-tooltip="User speaks" data-desc="The user activates Abyss with push-to-talk or VAD auto-detection and begins speaking. Voice capture starts immediately on the iPhone's microphone through AVFoundation.">
+    <rect class="comp-box" x="20" y="42" width="115" height="72" rx="5" fill="rgba(107,114,128,0.05)" stroke="#6b7280" stroke-width="1.8"/>
+    <text class="comp-label" x="77" y="75" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="600">User</text>
+    <text x="77" y="91" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="600">speaks</text>
+  </g>
+
+  <!-- Arrow: User speaks → WhisperKit -->
+  <line x1="135" y1="78" x2="175" y2="78" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+
+  <!-- WhisperKit -->
+  <g class="component" data-tooltip="WhisperKit" data-desc="WhisperKit runs on-device speech-to-text on the iPhone using the Apple Neural Engine. It transcribes speech in real-time without sending raw audio to any server, keeping transcription private and latency low.">
+    <rect class="comp-box" x="175" y="42" width="165" height="72" rx="5" fill="rgba(22,163,74,0.04)" stroke="#16a34a" stroke-width="1.8"/>
+    <text class="comp-label" x="257" y="73" font-family="JetBrains Mono, monospace" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="600">WhisperKit</text>
+    <text x="257" y="90" font-family="JetBrains Mono, monospace" font-size="10" fill="#16a34a" text-anchor="middle" opacity="0.7">(on-device STT)</text>
+  </g>
+
+  <!-- Arrow: WhisperKit → Conductor with "WebSocket" label -->
+  <line x1="340" y1="78" x2="375" y2="78" stroke="#2563eb" stroke-width="1.4" marker-end="url(#arrow-blue)"/>
+  <text x="357" y="71" font-family="JetBrains Mono, monospace" font-size="9" fill="#2563eb" text-anchor="middle">WebSocket</text>
+
+  <!-- Node.js Conductor -->
+  <g class="component" data-tooltip="Node.js Conductor" data-desc="Node.js + TypeScript WebSocket server running on AWS ECS Fargate. Receives transcribed text from the iOS client, manages conversation history with context summarization after 30 turns, routes requests to LLMs via Amazon Bedrock Converse API, dispatches tool calls, and streams response chunks back to the device.">
+    <rect class="comp-box" x="375" y="30" width="250" height="96" rx="5" fill="rgba(37,99,235,0.04)" stroke="#2563eb" stroke-width="2"/>
+    <text class="comp-label" x="500" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Node.js Conductor</text>
+    <text x="500" y="86" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" opacity="0.7">ECS Fargate  ·  Port 8080</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- Arrow: Conductor → LLM Dispatch              -->
+  <!-- ============================================ -->
+  <line x1="500" y1="126" x2="500" y2="175" stroke="#2563eb" stroke-width="1.4" marker-end="url(#arrow-blue)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 2: LLM Dispatch                          -->
+  <!-- ============================================ -->
+  <g class="component" data-tooltip="LLM Dispatch" data-desc="The Conductor calls Amazon Bedrock Converse API to route the request: Nova Lite for fast everyday tasks, Nova Pro for deep coding and agent workflows, Anthropic Claude for specific tool use. The LLM decides which tool groups — if any — to invoke and returns a structured tool-call list.">
+    <rect class="comp-box" x="375" y="175" width="250" height="75" rx="5" fill="rgba(37,99,235,0.05)" stroke="#2563eb" stroke-width="1.8"/>
+    <text class="comp-label" x="500" y="203" font-family="JetBrains Mono, monospace" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">LLM Dispatch</text>
+    <text x="500" y="221" font-family="JetBrains Mono, monospace" font-size="10" fill="#2563eb" text-anchor="middle" opacity="0.7">Nova Lite / Pro  ·  Claude</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- FAN-OUT: LLM → three tool groups             -->
+  <!-- ============================================ -->
+
+  <!-- Stem down from LLM bottom center -->
+  <line x1="500" y1="250" x2="500" y2="284" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- Horizontal crossbar spanning all three branch points -->
+  <line x1="183" y1="284" x2="817" y2="284" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- Three downward arrows into tool boxes -->
+  <line x1="183" y1="284" x2="183" y2="314" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="500" y1="284" x2="500" y2="314" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="817" y1="284" x2="817" y2="314" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 3: Tool groups                           -->
+  <!-- ============================================ -->
+
+  <!-- Server Tools (orange) -->
+  <g class="component" data-tooltip="Server Tools" data-desc="Tools executed server-side by the Conductor. Gmail — inbox triage, search, read, compose, and reply (send/reply require iOS confirmation ⚡). Google Calendar — list, create, update, and delete events. Canvas LMS — todos, grades, and assignments. Brave Search — grounded web results without tracking.">
+    <rect class="comp-box" x="68" y="314" width="230" height="140" rx="5" fill="rgba(230,126,34,0.04)" stroke="#e67e22" stroke-width="1.8"/>
+    <text class="comp-label" x="183" y="339" font-family="JetBrains Mono, monospace" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="600">Server Tools</text>
+    <text x="88" y="362" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Gmail API</text>
+    <text x="88" y="379" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Google Calendar</text>
+    <text x="88" y="396" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Canvas LMS</text>
+    <text x="88" y="413" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Brave Search</text>
+  </g>
+
+  <!-- iOS Tools (green) -->
+  <g class="component" data-tooltip="iOS Tools" data-desc="Tools that execute on the iOS client. Confirm ⚡ surfaces a native card before any irreversible action — the user must approve before the server proceeds. Audio controls TTS playback and microphone state from the server side. Preferences reads and writes user settings stored in Apple Keychain.">
+    <rect class="comp-box" x="385" y="314" width="230" height="140" rx="5" fill="rgba(22,163,74,0.04)" stroke="#16a34a" stroke-width="1.8"/>
+    <text class="comp-label" x="500" y="339" font-family="JetBrains Mono, monospace" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="600">iOS Tools</text>
+    <text x="405" y="362" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Confirm ⚡</text>
+    <text x="405" y="379" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Audio / TTS</text>
+    <text x="405" y="396" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Preferences</text>
+  </g>
+
+  <!-- Bridge Tools (purple) -->
+  <g class="component" data-tooltip="Bridge Tools" data-desc="Privileged tools routed through the Bridge Router to the paired macOS Bridge app. All capabilities are individually toggled and scoped to the workspace root set at pairing time. Confirmation cards surface before irreversible bridge operations.">
+    <rect class="comp-box" x="702" y="314" width="230" height="140" rx="5" fill="rgba(124,58,237,0.04)" stroke="#7c3aed" stroke-width="1.8"/>
+    <text class="comp-label" x="817" y="339" font-family="JetBrains Mono, monospace" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="600">Bridge Tools</text>
+    <text x="722" y="362" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· exec / shell</text>
+    <text x="722" y="379" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· fs read / write</text>
+    <text x="722" y="396" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· git workflows</text>
+    <text x="722" y="413" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Claude Code</text>
+    <text x="722" y="430" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a3a3a">· Nova Act</text>
+  </g>
+
+  <!-- ⚡ legend, placed below Server Tools content, above fan-in -->
+  <text x="68" y="470" font-family="JetBrains Mono, monospace" font-size="10" fill="#8a8580">⚡ = iOS user confirmation required</text>
+
+  <!-- ============================================ -->
+  <!-- FAN-IN: tool groups → LLM continues          -->
+  <!-- ============================================ -->
+
+  <!-- Three lines up from box bottoms to junction -->
+  <line x1="183" y1="454" x2="183" y2="485" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="500" y1="454" x2="500" y2="485" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="817" y1="454" x2="817" y2="485" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- Horizontal crossbar -->
+  <line x1="183" y1="485" x2="817" y2="485" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- Arrow down to LLM continues -->
+  <line x1="500" y1="485" x2="500" y2="510" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- ROW 4: LLM continues                         -->
+  <!-- ============================================ -->
+  <g class="component" data-tooltip="LLM continues..." data-desc="After tool results are returned, the Conductor appends them to the conversation and calls the LLM again. The model synthesizes all tool outputs into a coherent natural-language response. If further tool calls are needed, the loop repeats.">
+    <rect class="comp-box" x="375" y="510" width="250" height="62" rx="5" fill="rgba(71,85,105,0.05)" stroke="#475569" stroke-width="1.8"/>
+    <text class="comp-label" x="500" y="547" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle" font-weight="600">LLM continues...</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- OUTPUT: LLM continues → TTS → iOS → Speaker  -->
+  <!-- Elbow: down, left, down                       -->
+  <!-- ============================================ -->
+  <line x1="500" y1="572" x2="500" y2="595" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="350" y1="595" x2="500" y2="595" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="350" y1="595" x2="350" y2="610" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ElevenLabs / Nova Sonic -->
+  <g class="component" data-tooltip="ElevenLabs / Nova Sonic" data-desc="The LLM's text response is synthesized to audio. ElevenLabs provides high-quality cloud TTS with streaming chunk delivery. Nova Sonic offers real-time end-to-end bidirectional voice streaming via Amazon Bedrock — bypassing WhisperKit and TTS entirely for lowest-latency voice-to-voice interactions.">
+    <rect class="comp-box" x="245" y="610" width="210" height="62" rx="5" fill="rgba(71,85,105,0.05)" stroke="#475569" stroke-width="1.8"/>
+    <text class="comp-label" x="350" y="634" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle" font-weight="600">ElevenLabs / Nova Sonic</text>
+    <text x="350" y="652" font-family="JetBrains Mono, monospace" font-size="10" fill="#475569" text-anchor="middle" opacity="0.7">(TTS synthesis)</text>
+  </g>
+
+  <!-- Arrow: ElevenLabs → iOS App -->
+  <line x1="455" y1="641" x2="495" y2="641" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <text x="475" y="634" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b7280" text-anchor="middle">audio</text>
+
+  <!-- iOS App (playback) -->
+  <g class="component" data-tooltip="iOS App (playback)" data-desc="The iOS client receives the audio stream and plays it through AVFoundation. For streaming TTS, audio chunks play as they arrive — targeting first-audio latency under 300ms from response start. AirPods and Bluetooth output are fully supported.">
+    <rect class="comp-box" x="495" y="610" width="115" height="62" rx="5" fill="rgba(22,163,74,0.04)" stroke="#16a34a" stroke-width="1.8"/>
+    <text class="comp-label" x="552" y="635" font-family="JetBrains Mono, monospace" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="600">iOS App</text>
+    <text x="552" y="652" font-family="JetBrains Mono, monospace" font-size="10" fill="#16a34a" text-anchor="middle" opacity="0.7">(playback)</text>
+  </g>
+
+  <!-- Arrow: iOS App → Speaker -->
+  <line x1="610" y1="641" x2="648" y2="641" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <text x="629" y="634" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b7280" text-anchor="middle">plays</text>
+
+  <!-- Speaker -->
+  <g class="component" data-tooltip="Speaker" data-desc="Audio output — the user hears Abyss's response through the iPhone speaker or connected headphones and AirPods.">
+    <rect class="comp-box" x="648" y="610" width="110" height="62" rx="5" fill="rgba(107,114,128,0.05)" stroke="#6b7280" stroke-width="1.8"/>
+    <text class="comp-label" x="703" y="646" font-family="JetBrains Mono, monospace" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="600">Speaker</text>
+  </g>
+
+</svg>
+</div>
+
+<script>
+const tooltip = document.getElementById('tooltip');
+const ttTitle = tooltip.querySelector('.tt-title');
+const ttBody = tooltip.querySelector('.tt-body');
+
+document.querySelectorAll('.component').forEach(comp => {
+  comp.addEventListener('mouseenter', () => {
+    const title = comp.getAttribute('data-tooltip');
+    const desc = comp.getAttribute('data-desc');
+    if (!title) return;
+    ttTitle.textContent = title;
+    ttBody.textContent = desc || '';
+    tooltip.classList.add('visible');
+  });
+  comp.addEventListener('mousemove', (e) => {
+    const x = e.clientX + 16, y = e.clientY + 16;
+    const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+    tooltip.style.left = (x + tw > window.innerWidth ? e.clientX - tw - 8 : x) + 'px';
+    tooltip.style.top = (y + th > window.innerHeight ? e.clientY - th - 8 : y) + 'px';
+  });
+  comp.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+});
+</script>
+</body>
+</html>

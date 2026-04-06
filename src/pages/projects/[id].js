@@ -302,7 +302,7 @@ export default function ProjectPage({ project }) {
                         { marker: 'software-embed', src: '/api/software-diagram', title: 'AutoReflex software architecture diagram', height: '420px' },
                         { marker: 'abyss-embed', src: '/api/abyss-diagram', title: 'Abyss system architecture diagram', height: '730px' },
                         { marker: 'abyss-dataflow-embed', src: '/api/abyss-dataflow', title: 'Abyss data flow diagram', height: '580px' },
-                        { marker: 'abyss-infra-embed', src: '/api/abyss-infra-diagram', title: 'Abyss AWS infrastructure diagram', height: '700px' },
+                        { marker: 'abyss-infra-embed', src: '/api/abyss-infra-diagram', title: 'Abyss AWS infrastructure diagram', height: '640px' },
                       ];
                       let embedIndex = 0;
 
