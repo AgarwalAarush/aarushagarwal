@@ -69,7 +69,7 @@
 </div>
 
 <div id="svg-container">
-<svg viewBox="0 0 1200 1000" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 960" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(180,175,160,0.2)" stroke-width="0.5"/>
@@ -87,13 +87,13 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="1000" fill="#F3F2ED"/>
-  <rect width="1200" height="1000" fill="url(#grid)"/>
+  <rect width="1200" height="960" fill="#F3F2ED"/>
+  <rect width="1200" height="960" fill="url(#grid)"/>
 
   <!-- ============================================ -->
   <!-- SECTION 1: Compute                           -->
   <!-- ============================================ -->
-  <text x="600" y="20" font-family="JetBrains Mono, monospace" font-size="14" fill="#475569" text-anchor="middle" font-weight="700">Compute</text>
+  <text x="600" y="42" font-family="JetBrains Mono, monospace" font-size="14" fill="#475569" text-anchor="middle" font-weight="700">Compute</text>
 
   <!-- Amazon ECR -->
   <g class="component" data-tooltip="Amazon ECR" data-desc="Container registry storing the abyss-server:latest image (linux/amd64). ECS Fargate pulls from here on task launch.">
