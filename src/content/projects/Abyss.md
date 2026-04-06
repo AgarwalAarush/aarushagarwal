@@ -39,11 +39,13 @@ That is a gap nobody should have to accept. People do their most time-sensitive 
 
 ### Data Flow
 
-![Abyss Data Flow](/images/abyss/abyss-data-flow.png)
+```abyss-dataflow-embed
+```
 
 ### AWS Infrastructure
 
-![Abyss Infrastructure](/images/abyss/abyss-infrastructure.png)
+```abyss-infra-embed
+```
 
 ### What Abyss Does
 
@@ -55,43 +57,18 @@ Abyss makes AI assistance **ambient, personal, and trustworthy** by combining vo
 - **Real Integrations**: Gmail triage and draft-before-send, Google Calendar management, Canvas LMS, Cursor Cloud Agents, Brave web search, GitHub-authenticated developer workflows, and Nova Act browser automation.
 - **Dynamic Model Routing**: Amazon Bedrock routes requests between Nova Lite and Nova Pro based on task complexity — fast and cheap for everyday tasks, full power for deep coding and agent workflows.
 
-### How It Works
-
-Abyss is a three-layer system with a strict JSON event protocol connecting every component.
-
-#### **iPhone Client**
-- SwiftUI voice interface with AVFoundation audio pipeline
-- WhisperKit on-device speech transcription; ElevenLabs TTS with system voice fallback
-- URLSession WebSockets with auto-reconnect and exponential backoff
-- Apple Keychain-backed credential storage; ASWebAuthenticationSession for OAuth flows
-
-#### **Conductor Server**
-- Node.js + TypeScript WebSocket server deployed on AWS ECS Fargate
-- Orchestrates conversation turns, tool dispatch, and streaming responses via Amazon Bedrock
-- Dynamic routing: Nova Lite for lightweight tasks, Nova Pro for bridge execution and agent workflows
-- Nova Sonic for real-time bidirectional voice streaming
-- Context summarization after 30 turns — compressing older history into a 3–6 sentence summary prepended to every subsequent request
-
-#### **Context Graph**
+### Context Graph: Abyss's Memory
 - Amazon Neptune Analytics stores User, Session, Goal, Decision, Blocker, and MemoryEpisode nodes
 - Amazon Titan Text Embeddings V2 ($d = 256$) generates semantic embeddings per goal
 - Hybrid vector + graph search retrieves the most relevant prior context on session start
-- Falls back to MemoryService summary if Neptune is unavailable
-
-#### **macOS Bridge**
-- Swift app with per-capability permission toggles and workspace root constraints
-- Bridges shell execution, file operations, git workflows, Claude Code, and Nova Act browser automation
-- Pairing is persistent — iOS auto-re-registers paired bridge codes on every reconnect
-
-#### **Inline Card Architecture**
-All tool results render as inline transcript cards via card:TYPE:CARD_ID fenced blocks — email drafts, calendar events, agent progress, bridge output, and Canvas data surface directly in the conversation without breaking the flow.
+- Falls back to MemoryService (file-based) summary if Neptune is unavailable
 
 ### Challenges & Solutions
 
 - **Security without friction**: Designing per-capability permissioning that felt natural rather than bureaucratic required careful UX work — presets, granular toggles, and confirmation cards that interrupt only when something is truly irreversible.
 - **Voice latency on mobile**: Chaining WhisperKit → WebSocket → Bedrock → ElevenLabs introduced compounding latency at every hop. Streaming responses as they generate, push-to-talk as a low-latency alternative, and Nova Sonic for end-to-end voice kept the experience responsive.
 - **Context that transfers**: Getting Neptune hybrid search to surface the *right* prior context — not just recent context — required careful tuning of neighborhood traversal depth and vector similarity thresholds.
-- **Cross-platform protocol consistency**: Keeping Swift and TypeScript protocol libraries in sync across a fast-moving codebase required strict shared JSON schemas and versioned `EventEnvelope` types. A single mismatched field would silently break entire tool flows.
+- **Cross-platform protocol consistency**: Keeping Swift and TypeScript protocol libraries in sync across a fast-moving codebase required strict shared JSON schemas and versioned EventEnvelope types. A single mismatched field would silently break entire tool flows.
 
 ### Outcome
 
@@ -104,12 +81,3 @@ The vision is an assistant that fits in your pocket, earns your trust, and gets 
 - **Website**: [abyss.app](https://abyss.app)
 - **Video Demo**: [YouTube](https://www.youtube.com/watch?v=DEMO_LINK)
 - **Deck**: [Figma](https://www.figma.com/deck/DECK_LINK)
-
-### Acknowledgements
-
-- **WhisperKit** — On-device speech transcription on iOS
-- **Nova Act** — Browser automation on the macOS bridge
-- **Amazon Bedrock** — Model inference, Nova Sonic voice, and dynamic routing
-- **Amazon Neptune Analytics + Titan Embeddings** — Context graph and semantic retrieval
-
-*Deployed on AWS ECS Fargate with ECR image publishing and ALB-based WebSocket routing.*
