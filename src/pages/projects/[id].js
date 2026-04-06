@@ -300,7 +300,7 @@ export default function ProjectPage({ project }) {
                       const embeds = [
                         { marker: 'circuit-embed', src: '/api/circuit-diagram', title: 'AutoReflex hardware circuit diagram', height: '560px' },
                         { marker: 'software-embed', src: '/api/software-diagram', title: 'AutoReflex software architecture diagram', height: '420px' },
-                        { marker: 'abyss-embed', src: '/api/abyss-diagram', title: 'Abyss system architecture diagram', height: '860px' },
+                        { marker: 'abyss-embed', src: '/api/abyss-diagram', title: 'Abyss system architecture diagram', height: '660px' },
                       ];
                       let embedIndex = 0;
 
