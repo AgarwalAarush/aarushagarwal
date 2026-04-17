@@ -25,7 +25,7 @@ export default function Home({ projects }) {
                 <section className="mb-12 md:mb-16">
                     <div className="max-w-4xl flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-6">
                         <div className="max-w-2xl text-left md:min-h-60 md:flex md:flex-col md:justify-center">
-                            <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-6 whitespace-nowrap">
+                            <h1 className="text-[13vw] md:text-6xl text-gray-900 dark:text-white mb-6 whitespace-nowrap">
                                 Aarush Agarwal
                             </h1>
                             <div className="inline-flex items-stretch gap-2">
