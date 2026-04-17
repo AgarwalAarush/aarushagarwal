@@ -3,17 +3,9 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import ProjectCard from "../components/ProjectCard";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import TimelineItem from "../components/TimelineItem";
 import { getAssetUrl } from "../lib/assets";
-
-const projectCardSpring = {
-    type: 'spring',
-    stiffness: 120,
-    damping: 42,
-    mass: 2.1,
-};
 
 export default function Home({ projects }) {
     const heroCtaCell =
@@ -172,23 +164,13 @@ export default function Home({ projects }) {
                         <h2 className="text-2xl text-gray-900 dark:text-white">Projects</h2>
                     </div>
                     <div className="mb-6 flex flex-col divide-y divide-gray-200 dark:divide-gray-800 border-y border-gray-200 dark:border-gray-800">
-                        {(projects || []).map((project, index) => (
-                            <motion.div
+                        {(projects || []).map((project) => (
+                            <ProjectCard
                                 key={project.id}
-                                initial={{ opacity: 0, y: 36 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2, margin: '0px 0px -10% 0px' }}
-                                transition={{
-                                    ...projectCardSpring,
-                                    delay: index * 0.12,
-                                }}
-                            >
-                                <ProjectCard
-                                    project={project}
-                                    showTechnologies={false}
-                                    showImagePreview={false}
-                                />
-                            </motion.div>
+                                project={project}
+                                showTechnologies={false}
+                                showImagePreview={false}
+                            />
                         ))}
                     </div>
                 </section>
