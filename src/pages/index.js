@@ -9,7 +9,7 @@ import { getAssetUrl } from "../lib/assets";
 
 export default function Home({ projects }) {
     const heroCtaCell =
-        'inline-flex items-center justify-center border border-gray-200 bg-white px-5 py-3 text-[11px] font-medium uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-50 focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-[#1D1E21] dark:text-white dark:hover:bg-gray-800 dark:focus-visible:ring-gray-500 dark:focus-visible:ring-offset-[#1D1E21] rounded-md -ml-px first:ml-0 relative z-0 hover:z-10';
+        'inline-flex items-center justify-center border border-gray-200 bg-white px-6 py-4 text-[13px] md:px-5 md:py-3 md:text-[11px] font-medium uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-50 focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-[#1D1E21] dark:text-white dark:hover:bg-gray-800 dark:focus-visible:ring-gray-500 dark:focus-visible:ring-offset-[#1D1E21] rounded-md -ml-px first:ml-0 relative z-0 hover:z-10';
 
     return (
         <div className="font-soehne-home min-h-screen bg-white dark:bg-[#1D1E21]">
@@ -20,12 +20,12 @@ export default function Home({ projects }) {
 					content="Personal website showcasing projects and blog posts"
 				/>
 			</Head>
-            <main className="max-w-4xl mx-auto px-6 py-16">
+            <main className="max-w-4xl mx-auto px-6 py-10 md:py-16">
 				{/* Hero Section */}
-                <section className="mb-16">
-                    <div className="max-w-4xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <section className="mb-12 md:mb-16">
+                    <div className="max-w-4xl flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-6">
                         <div className="max-w-2xl text-left md:min-h-60 md:flex md:flex-col md:justify-center">
-                            <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-6">
+                            <h1 className="text-6xl md:text-6xl text-gray-900 dark:text-white mb-6">
                                 Aarush Agarwal
                             </h1>
                             <div className="inline-flex items-stretch gap-2">
@@ -58,7 +58,7 @@ export default function Home({ projects }) {
                             </div>
                         </div>
                         <div className="flex flex-col items-center">
-                            <div className="w-40 h-40 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
+                            <div className="w-56 h-56 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
                                 <Image src={getAssetUrl("/images/profile-pic.jpeg")} alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
                             </div>
                         </div>
@@ -70,7 +70,7 @@ export default function Home({ projects }) {
                 <section id="experiences" className="mb-8">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
-                        <h2 className="text-2xl text-gray-900 dark:text-white">Experiences</h2>
+                        <h2 className="text-3xl md:text-2xl text-gray-900 dark:text-white">Experiences</h2>
                     </div>
                     <div>
                         <TimelineItem
@@ -110,7 +110,7 @@ export default function Home({ projects }) {
                 <section id="research" className="mb-8">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
-                        <h2 className="text-2xl text-gray-900 dark:text-white">Research</h2>
+                        <h2 className="text-3xl md:text-2xl text-gray-900 dark:text-white">Research</h2>
                     </div>
                     <div>
                         <TimelineItem
@@ -161,7 +161,7 @@ export default function Home({ projects }) {
                 <section id="projects" className="mb-16">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
-                        <h2 className="text-2xl text-gray-900 dark:text-white">Projects</h2>
+                        <h2 className="text-3xl md:text-2xl text-gray-900 dark:text-white">Projects</h2>
                     </div>
                     <div className="mb-6 flex flex-col divide-y divide-gray-200 dark:divide-gray-800 border-y border-gray-200 dark:border-gray-800">
                         {(projects || []).map((project) => (
