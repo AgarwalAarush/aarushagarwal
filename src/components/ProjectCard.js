@@ -76,7 +76,7 @@ export default function ProjectCard({
   // Card content — title layout unchanged; arrow is absolutely positioned beside it
   const cardContent = (
     <div
-      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'items-center gap-4'}`}
+      className={`flex w-full ${showImagePreview ? 'flex-col min-h-0 flex-1' : 'flex-col gap-3 md:flex-row md:items-center md:gap-4'}`}
     >
       {/* Project image or icon */}
       {showImagePreview &&
@@ -140,7 +140,7 @@ export default function ProjectCard({
           {/* Text block — vertically centered against image */}
           <div className="flex-1 min-w-0 flex flex-col justify-center">
             <div className="flex items-start justify-between gap-2 mb-1">
-              <h3 className="m-0 text-lg font-normal leading-snug text-gray-900 dark:text-white">
+              <h3 className="m-0 text-xl md:text-lg font-normal leading-snug text-gray-900 dark:text-white">
                 {project.title}
               </h3>
               <div className="pointer-events-none shrink-0 mt-1 mr-4" aria-hidden>
@@ -148,7 +148,7 @@ export default function ProjectCard({
               </div>
             </div>
             <div
-              className="text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white"
+              className="text-base md:text-sm leading-relaxed text-gray-600 dark:text-gray-400 [&_strong]:font-medium [&_strong]:text-gray-900 dark:[&_strong]:text-white"
               dangerouslySetInnerHTML={{
                 __html: project.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
               }}
@@ -169,7 +169,7 @@ export default function ProjectCard({
 
           {/* Image with arrows */}
           {currentImage && (
-            <div className="shrink-0 flex items-center gap-2">
+            <div className="shrink-0 flex w-full items-center gap-2 md:w-auto">
               <button
                 onClick={prevImg}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
@@ -179,7 +179,7 @@ export default function ProjectCard({
                   <path d="M10 3L5.5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <div className="relative w-72 aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+              <div className="relative flex-1 md:flex-none md:w-72 aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
                 <AnimatePresence mode="popLayout" custom={direction}>
                   <motion.div
                     key={imgIndex}
