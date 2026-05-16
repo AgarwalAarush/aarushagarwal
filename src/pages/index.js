@@ -81,7 +81,7 @@ export default function Home({ projects }) {
                             period="May 2026 – Aug 2026"
                             description={
                                 <p>
-                                    <span className="text-gray-900 dark:text-white">Search Relevance:</span> Working on Shopify&apos;s Search Relevance team to improve product discovery across large, fast-changing merchant catalogs.
+                                    <span className="text-gray-900 dark:text-white">Search Relevance:</span> Working on machine learning ranking and query-understanding systems for Shopify&apos;s commerce search stack, combining semantic retrieval, text-similarity features, and offline/online evaluation to improve product discovery across large, multi-tenant catalogs.
                                 </p>
                             }
                         />
