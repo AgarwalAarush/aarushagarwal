@@ -74,30 +74,50 @@ export default function Home({ projects }) {
                     </div>
                     <div>
                         <TimelineItem
+                            icon={getAssetUrl("/images/shopify.png")}
+                            iconAlt="Shopify"
+                            company="Shopify"
+                            role="Machine Learning Engineer Intern, Search Relevance"
+                            period="May 2026 – Aug 2026"
+                            description={
+                                <p>
+                                    Working on Shopify&apos;s Search Relevance team this summer, improving how shoppers discover the right products across large, fast-changing merchant catalogs.
+                                </p>
+                            }
+                        />
+                        <TimelineItem
                             icon={getAssetUrl("/images/felicis.png")}
                             iconAlt="Felicis"
                             company="Felicis"
                             role="Venture Fellow"
                             period="January 2026 - Present"
                             description={
-                                <p>
-                                    Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact. Partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
-                                </p>
+                                <>
+                                    <p>
+                                        Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact. Partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
+                                    </p>
+                                    <p>
+                                        Conducting startup diligence and market research for the firm, and co-organized VentureHacks, a Felicis x CMU hackathon with $10K+ in prizes, 500+ applicants, and speakers including Felicis partners and a Skild AI founding researcher.
+                                    </p>
+                                </>
                             }
                         />
                         <TimelineItem
                             icon={getAssetUrl("/images/shopify.png")}
                             iconAlt="Shopify"
                             company="Shopify"
-                            role="MLE Intern"
+                            role="Machine Learning Engineer Intern"
                             period="May 2025 – Aug 2025"
                             description={
                                 <>
                                     <p>
-                                        <span className="text-gray-900 dark:text-white">Fraud Detection:</span> Developed a more robust buyer‑fraud detection system by implementing machine learning models with VertexAI and optimizing data pipelines with BigQuery and Dataflow. Improvements to data freshness and analysis increased predictive accuracy, while targeted feature selection significantly reduced training iteration time.
+                                        <span className="text-gray-900 dark:text-white">Fraud Detection:</span> Improved buyer-fraud detection accuracy by 3% and reduced training iteration time by 70% through dimensionality reduction, importance-based feature pruning, and BigQuery/Dataflow + Vertex AI pipeline rebuilds.
                                     </p>
                                     <p>
-                                        <span className="text-gray-900 dark:text-white">AI Agent Network:</span> Built a distributed agent framework powered by Neo4j, where specialized AI agents collaborated through graph traversal queries. This enabled intelligent task decomposition and significantly improved the quality and efficiency of automated output. <span className="text-gray-900 dark:text-white">Patent filed.</span>
+                                        <span className="text-gray-900 dark:text-white">AI Agent Network:</span> Co-filed a patent for a distributed multi-agent system that decomposes tasks with a Neo4j dependency graph and executes subtasks across specialized agents in parallel.
+                                    </p>
+                                    <p>
+                                        <span className="text-gray-900 dark:text-white">Sequence Modeling:</span> Designed transformer-based fraud models with embeddings and temporal attention over transaction sequences.
                                     </p>
                                 </>
                             }
@@ -120,9 +140,14 @@ export default function Home({ projects }) {
                             role=""
                             period="Jan 2026 – Present"
                             description={
-                                <p>
-                                    Researching dynamic Mixture-of-Experts (MoE) architectures under Chenyan Xiong, designed to seamlessly integrate private-domain knowledge into Large Language Models while preserving public capabilities. Leveraging memorization sinks and expert specialization, the work employs adaptive routing and mid-training expert duplication to autonomously expand model capacity when novel data arises. This strategy unifies decentralized training environments, such as FlexOlmo, with scalable MoE systems to drive continual learning, effectively balancing strong knowledge isolation with positive transfer.
-                                </p>
+                                <>
+                                    <p>
+                                        Researching dynamic Mixture-of-Experts architectures under Chenyan Xiong, developing adaptive strategies that expand model capacity on out-of-distribution data while mitigating reasoning degradation in continual pretraining.
+                                    </p>
+                                    <p>
+                                        Designing autonomous research agents that propose, execute, and evaluate model-adaptation experiments across tasks and modalities including vision, clinical, and financial time-series data, iteratively committing variants that improve reasoning and task-benchmark performance over dense backbones.
+                                    </p>
+                                </>
                             }
                         />
                         <TimelineItem
@@ -130,7 +155,7 @@ export default function Home({ projects }) {
                             iconAlt="CERN"
                             company="CMU Cosmology Laboratory & CERN"
                             role="CUDA Researcher"
-                            period="Aug 2024 – Aug 2025"
+                            period="Aug 2024 – Oct 2025"
                             description={
                                 <>
                                     <div className="mb-3">
@@ -145,7 +170,7 @@ export default function Home({ projects }) {
                                         </a>
                                     </div>
                                     <p>
-                                        Co-authored FastGraph, a GPU-optimized k-nearest neighbor algorithm that accelerates graph construction in low-dimensional spaces (2–10D) using a bin-partitioned, fully GPU-resident architecture with full gradient-flow support. FastGraph achieves a 20–40× speedup over FAISS, ANNOY, and SCANN with virtually no memory overhead, improving GNN workloads including particle clustering, visual tracking, and large-scale graph clustering.
+                                        First-authored FastGraph, a GPU-resident differentiable k-nearest neighbor algorithm with custom CUDA kernels for low-dimensional graph neural network workflows. FastGraph accelerates graph construction in 2–10D spaces with a bin-partitioned, fully GPU-resident architecture and achieves 20–40× speedups over FAISS, ANNOY, and SCANN.
                                     </p>
                                     <p>
                                         Engineered PyTorch autograd and gradient operations in C++/CUDA and integrated JIT serialization, reducing KNN runtime by an additional 10% and enabling end-to-end differentiability inside GPU training pipelines.
