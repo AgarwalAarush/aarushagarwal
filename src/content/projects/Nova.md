@@ -168,5 +168,3 @@ Works in previously impossible scenarios: air travel, secure environments, remot
 ## 🏆 Technical Excellence
 
 Nova demonstrates innovation in local-first AI, engineering complexity mastery, exceptional user experience, security leadership, performance optimization, and sophisticated architecture. It proves that advanced AI capabilities don't require sacrificing privacy, performance, or reliability—representing the future of AI assistants: powerful, private, and always available.
-
-*Nova: Where artificial intelligence meets genuine privacy and unlimited capability.*

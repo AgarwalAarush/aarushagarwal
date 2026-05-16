@@ -113,6 +113,3 @@ In 36 hours, we shipped a fully functional agentic system spanning mobile, web, 
 - **Voice-Based Reservations**: Automatically call restaurants using voice AI.
 - **Reputation-Weighted Preferences**: Learn which friends’ tastes align most closely with yours.
 - **City Expansion**: Scale beyond Boston to help people experience local food culture anywhere.
-
-The vision is simple:  
-**AI agents handle coordination, so humans can focus on shared experiences.**

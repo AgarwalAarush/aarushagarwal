@@ -88,7 +88,3 @@ We plan to expand Haven's capabilities by introducing new specialized agents and
 -   **Reinforcement Learning from Clinical Feedback (RLCF)**: Allow nurses to rate agent suggestions, enabling the system to learn hospital-specific workflows and improve its accuracy over time.
 -   **Multi-modal Patient Monitoring**: Integrate computer vision to detect fall risk, patient movement patterns, and other behavioral changes that complement vital sign monitoring.
 -   **Federated Learning**: Enable Haven deployments across different hospitals to learn from each other while maintaining strict patient privacy, creating a collective intelligence that improves with every installation.
-
-### Tagline
-
-**Haven: Your hospital's nervous system.**

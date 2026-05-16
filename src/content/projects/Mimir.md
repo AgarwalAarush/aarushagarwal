@@ -99,6 +99,3 @@ At the **CMU Claude Builder Hackathon**, Mimir was recognized for rethinking how
 - **Expanded Visual Library**: Richer, reusable visual explanations across math, CS, and physics.
 - **Collaborative Tutoring**: Shared workspaces for study groups and peer learning.
 - **Institutional Integrations**: LMS and course-level deployment for classrooms and universities.
-
-**The vision:**  
-AI that helps students *think better*, not just finish faster.

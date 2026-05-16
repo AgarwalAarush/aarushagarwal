@@ -102,6 +102,3 @@ At **CMU Hacks 2025**, Medicly was recognized for translating cutting-edge AI in
 - **Advanced Analytics**: Longitudinal progress tracking and predictive recovery insights.
 - **Clinic Dashboards**: Multi-patient views for providers managing large caseloads.
 - **Insurance Integration**: Support for billing, documentation, and coverage workflows.
-
-**The long-term vision:**  
-make high-quality physical therapy accessible anywhere, without sacrificing clinical rigor.
