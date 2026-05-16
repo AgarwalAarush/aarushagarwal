@@ -94,7 +94,7 @@ export default function Home({ projects }) {
                             description={
                                 <>
                                     <p>
-                                        Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact. Partnering with Felicis to identify, support, and accelerate early-stage student founders across campus.
+                                        Selected as a Venture Fellow in a highly competitive program focused on leveraging AI and technology for real-world impact.
                                     </p>
                                     <p>
                                         Conducting startup diligence and market research for the firm, and co-organized VentureHacks, a Felicis x CMU hackathon with $10K+ in prizes, 500+ applicants, and speakers including Felicis partners and a Skild AI founding researcher.
