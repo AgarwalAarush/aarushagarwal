@@ -77,11 +77,11 @@ export default function Home({ projects }) {
                             icon={getAssetUrl("/images/shopify.png")}
                             iconAlt="Shopify"
                             company="Shopify"
-                            role="Machine Learning Engineer Intern, Search Relevance"
+                            role="Machine Learning Engineer Intern"
                             period="May 2026 – Aug 2026"
                             description={
                                 <p>
-                                    Working on Shopify&apos;s Search Relevance team this summer, improving how shoppers discover the right products across large, fast-changing merchant catalogs.
+                                    <span className="text-gray-900 dark:text-white">Search Relevance:</span> Working on Shopify&apos;s Search Relevance team to improve product discovery across large, fast-changing merchant catalogs.
                                 </p>
                             }
                         />
