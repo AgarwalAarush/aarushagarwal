@@ -141,6 +141,17 @@ export default function Home({ projects }) {
                             period="Jan 2026 – Present"
                             description={
                                 <>
+                                    <div className="mb-3">
+                                        <p className="text-gray-900 dark:text-white mb-1">Research group:</p>
+                                        <a
+                                            href="https://www.cs.cmu.edu/~cxcscmu/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-700 dark:text-blue-400 hover:underline"
+                                        >
+                                            CXC Research Group
+                                        </a>
+                                    </div>
                                     <p>
                                         Researching dynamic Mixture-of-Experts architectures under Chenyan Xiong, developing adaptive strategies that expand model capacity on out-of-distribution data while mitigating reasoning degradation in continual pretraining.
                                     </p>
