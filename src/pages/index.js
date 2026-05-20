@@ -17,7 +17,7 @@ export default function Home({ projects }) {
 				<title>Aarush Agarwal - Personal Website</title>
 				<meta
 					name="description"
-					content="Personal website showcasing projects and blog posts"
+					content="Aarush Agarwal's work across machine learning systems, AI products, research, and engineering projects."
 				/>
 			</Head>
             <main className="max-w-4xl mx-auto px-6 py-10 md:py-16">
