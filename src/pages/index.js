@@ -142,7 +142,6 @@ export default function Home({ projects }) {
                             description={
                                 <>
                                     <div className="mb-3">
-                                        <p className="text-gray-900 dark:text-white mb-1">Research group:</p>
                                         <a
                                             href="https://www.cs.cmu.edu/~cxcscmu/"
                                             target="_blank"
