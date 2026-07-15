@@ -82,10 +82,10 @@ export default function Home({ projects }) {
                             description={
                                 <>
                                     <p>
-                                        <span className="text-gray-900 dark:text-white">Search Relevance:</span> Building and optimizing neural ranking and query-understanding systems for Shopify&apos;s commerce search stack, including successful LFM 2.5 fine-tuning and distillation, semantic retrieval, and low-latency DNN inference on custom Triton serving infrastructure.
+                                        <span className="text-gray-900 dark:text-white">Search Relevance:</span> Building and optimizing neural ranking and query-understanding systems for Shopify&apos;s commerce search stack, including LFM 2.5 fine-tuning and distillation and low-latency DNN inference on custom Triton serving infrastructure.
                                     </p>
                                     <p>
-                                        <span className="text-gray-900 dark:text-white">Merchant-Aware Ranking:</span> Building on the LFM 2.5 work, invented an auxiliary loss that trains on merchant data so merchant-focused queries prioritize that merchant&apos;s own products. Increased core search metrics by 15% while substantially reducing the prominence of resellers in product search results.
+                                        <span className="text-gray-900 dark:text-white">Merchant-Aware Ranking:</span> Building on the LFM 2.5 work, invented an auxiliary loss that trains on merchant data so merchant-focused queries prioritize that merchant&apos;s own products. Increased core merchant search metric by 15% while substantially reducing the prominence of third-party resellers in product search results.
                                     </p>
                                 </>
                             }
