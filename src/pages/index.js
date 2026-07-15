@@ -95,7 +95,7 @@ export default function Home({ projects }) {
                             iconAlt="Felicis"
                             company="Felicis"
                             role="Venture Fellow"
-                            period="January 2026 - Present"
+                            period="January 2026 – June 2026"
                             description={
                                 <>
                                     <p>
