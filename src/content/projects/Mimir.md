@@ -3,6 +3,7 @@ title: "Mimir"
 description: "**1st Place at CMU Claude Builder Hackathon** An AI tutoring workspace that promotes deep understanding through full-context reasoning, live guidance, and generative visualizations."
 github: "https://github.com/beeler-devs/Mimir"
 demo: ""
+devpost: "https://devpost.com/software/mimir-mjgh47"
 image: "/images/mimir/example.jpeg"
 images:
   - "/images/mimir/example.jpeg"

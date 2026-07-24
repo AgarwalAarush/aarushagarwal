@@ -190,6 +190,7 @@ export default function ProjectPage({ project }) {
   const projectActions = [
     { label: 'Watch demo', href: project.demo },
     { label: 'Visit website', href: project.website },
+    { label: 'View Devpost', href: project.devpost },
     { label: 'View GitHub', href: project.github },
     {
       label: 'View deck',
@@ -409,6 +410,7 @@ export async function getStaticProps({ params }) {
         github: frontmatter.github || null,
         demo: frontmatter.demo || null,
         website: frontmatter.website || null,
+        devpost: frontmatter.devpost || null,
         deck: frontmatter.deck || null,
         technologies: frontmatter.technologies || [],
         content,

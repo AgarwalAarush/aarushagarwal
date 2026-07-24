@@ -5,6 +5,7 @@ ranking: 6
 demo: "https://www.youtube.com/watch?v=DEMO_LINK"
 website: "https://abyss.app"
 deck: "https://www.figma.com/deck/DECK_LINK"
+devpost: "https://devpost.com/software/abyss-suckfx"
 image: "/images/abyss/abyss-architecture.png"
 images:
   - "/images/abyss/abyss-architecture.png"

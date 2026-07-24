@@ -3,6 +3,7 @@ title: "Healthier"
 description: "**2nd Place in Healthcare at NexHacks** An AI-powered care layer that makes senior care observable through multimodal sensing, real-time feedback, and clinician-facing risk insights."
 github: "https://github.com/scrappydevs/healthier"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
+devpost: "https://devpost.com/software/healthier-w0baus"
 image: "/images/healthier/healthier.png"
 images:
   - "/images/healthier/healthier.png"

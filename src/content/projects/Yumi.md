@@ -3,6 +3,7 @@ title: "Yumi"
 description: "**3rd Place at HackHarvard 2025.** Agentic social food network that builds structured taste profiles from natural language, then coordinates preferences across friend groups to surface restaurants that work for everyone — not just the loudest voice."
 github: "https://github.com/scrappydevs/yumi"
 demo: "https://www.youtube.com/watch?v=taJw4XDSlKU"
+devpost: "https://devpost.com/software/yumi"
 image: "/images/yumi/yumi-hero.jpeg"
 images:
   - "/images/yumi/yumi-hero.jpeg"
