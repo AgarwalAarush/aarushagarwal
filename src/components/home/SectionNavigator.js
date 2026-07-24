@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 const sections = [
   { id: "top", label: "Headline", y: 42, x: 112, labelSide: "left" },
@@ -7,6 +13,8 @@ const sections = [
   { id: "experience", label: "Experience", y: 238, x: 112, labelSide: "left" },
   { id: "projects", label: "Projects", y: 336, x: 62, labelSide: "right" },
 ];
+
+const NAVIGATOR_VISUAL_CENTER_X = 81;
 
 function scrollToSection(id, reducedMotion) {
   document.getElementById(id)?.scrollIntoView({
@@ -18,6 +26,22 @@ function scrollToSection(id, reducedMotion) {
 export default function SectionNavigator() {
   const reducedMotion = useReducedMotion();
   const [activeId, setActiveId] = useState(sections[0].id);
+  const [navigatorCenter, setNavigatorCenter] = useState(null);
+  const [scrollCueVisible, setScrollCueVisible] = useState(true);
+  const { scrollY } = useScroll();
+  const scrollCueFadeEnd = reducedMotion ? 1 : 180;
+  const scrollCueOpacity = useTransform(
+    scrollY,
+    [0, scrollCueFadeEnd],
+    [1, 0]
+  );
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const visible = latest < scrollCueFadeEnd;
+    setScrollCueVisible((current) =>
+      current === visible ? current : visible
+    );
+  });
 
   useEffect(() => {
     const elements = sections
@@ -44,6 +68,32 @@ export default function SectionNavigator() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const portraitEdge = document.querySelector(
+      "[data-hero-portrait-edge]"
+    );
+
+    if (!portraitEdge) return undefined;
+
+    const updateNavigatorCenter = () => {
+      const portraitRight = portraitEdge.getBoundingClientRect().right;
+      const viewportRight = document.documentElement.clientWidth;
+      setNavigatorCenter((portraitRight + viewportRight) / 2);
+    };
+
+    updateNavigatorCenter();
+
+    const resizeObserver = new ResizeObserver(updateNavigatorCenter);
+    resizeObserver.observe(portraitEdge);
+    resizeObserver.observe(document.documentElement);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    setScrollCueVisible(scrollY.get() < scrollCueFadeEnd);
+  }, [scrollCueFadeEnd, scrollY]);
+
   const selectSection = (section) => {
     setActiveId(section.id);
     scrollToSection(section.id, reducedMotion);
@@ -59,7 +109,15 @@ export default function SectionNavigator() {
   return (
     <aside
       aria-label="Homepage section navigator"
-      className="pointer-events-none fixed right-5 top-1/2 z-[4] hidden h-[430px] w-[220px] -translate-y-1/2 xl:block"
+      className="pointer-events-none fixed top-1/2 z-[4] hidden h-[430px] w-[220px] xl:block"
+      style={
+        navigatorCenter === null
+          ? { right: 0, transform: "translateY(-50%)" }
+          : {
+              left: navigatorCenter,
+              transform: `translate(-${NAVIGATOR_VISUAL_CENTER_X}px, -50%)`,
+            }
+      }
     >
       <div className="relative h-[382px] w-full">
         <svg
@@ -123,23 +181,40 @@ export default function SectionNavigator() {
         })}
       </div>
 
-      <button
-        type="button"
-        onClick={scrollToNextSection}
-        className="pointer-events-auto absolute bottom-0 right-0 flex flex-col items-center gap-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#45433f] transition-colors duration-300 hover:text-[#ef432f] focus-visible:outline-none focus-visible:text-[#ef432f]"
+      <div
+        className="absolute bottom-0 flex w-[84px] justify-center"
+        style={{
+          left: NAVIGATOR_VISUAL_CENTER_X,
+          transform: "translateX(-50%)",
+        }}
       >
-        Scroll
-        <svg aria-hidden="true" viewBox="0 0 18 24" className="h-6 w-[18px]">
-          <path
-            d="M9 1v19m0 0-5-5m5 5 5-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
+        <motion.button
+          type="button"
+          onClick={scrollToNextSection}
+          aria-hidden={!scrollCueVisible}
+          tabIndex={scrollCueVisible ? 0 : -1}
+          style={{ opacity: scrollCueOpacity }}
+          className={`flex flex-col items-center gap-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#45433f] transition-colors duration-300 hover:text-[#ef432f] focus-visible:outline-none focus-visible:text-[#ef432f] ${
+            scrollCueVisible ? "pointer-events-auto" : "pointer-events-none"
+          }`}
+        >
+          Scroll
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 18 24"
+            className="h-6 w-[18px]"
+          >
+            <path
+              d="M9 1v19m0 0-5-5m5 5 5-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </motion.button>
+      </div>
     </aside>
   );
 }

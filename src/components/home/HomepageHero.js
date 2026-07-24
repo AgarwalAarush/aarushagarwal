@@ -150,64 +150,72 @@ export default function HomepageHero() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={reducedMotion ? false : { opacity: 0, x: 28 }}
-            animate={reducedMotion ? {} : { opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.12,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="relative mx-auto w-full max-w-[560px]"
-          >
-            <div
+          <div className="relative mx-auto w-full max-w-[560px]">
+            <span
               aria-hidden="true"
-              className="absolute -right-4 top-[5%] h-[90%] w-[32%] overflow-hidden border border-[#d8d5ce] opacity-25 sm:-right-8"
-            >
-              <Image
-                src={getAssetUrl("/images/profile-pic.jpeg")}
-                alt=""
-                fill
-                sizes="220px"
-                className="object-cover object-center grayscale-[0.15]"
-                priority
-              />
-            </div>
+              data-hero-portrait-edge
+              className="pointer-events-none absolute -right-4 top-0 h-px w-px sm:-right-8"
+            />
 
             <motion.div
-              animate={
-                reducedMotion
-                  ? {}
-                  : {
-                      y: [0, -7, 0],
-                    }
-              }
+              initial={reducedMotion ? false : { opacity: 0, x: 28 }}
+              animate={reducedMotion ? {} : { opacity: 1, x: 0 }}
               transition={{
-                duration: 7,
-                repeat: Infinity,
-                ease: "easeInOut",
+                duration: 0.8,
+                delay: 0.12,
+                ease: [0.16, 1, 0.3, 1],
               }}
-              className="relative mr-5 aspect-[1.02/1] overflow-hidden bg-[#e7e1d7] sm:mr-10 md:mr-14"
+              className="relative w-full"
             >
-              <Image
-                src={getAssetUrl("/images/profile-pic.jpeg")}
-                alt="Aarush Agarwal"
-                fill
-                sizes="(max-width: 768px) 100vw, 55vw"
-                className="object-cover object-center"
-                priority
-              />
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#171716]/15 to-transparent"
-              />
-            </motion.div>
+                className="absolute -right-4 top-[5%] h-[90%] w-[32%] overflow-hidden border border-[#d8d5ce] opacity-25 sm:-right-8"
+              >
+                <Image
+                  src={getAssetUrl("/images/profile-pic.jpeg")}
+                  alt=""
+                  fill
+                  sizes="220px"
+                  className="object-cover object-center grayscale-[0.15]"
+                  priority
+                />
+              </div>
 
-            <div className="absolute -bottom-7 right-5 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[#77736b] sm:right-10 sm:text-[10px]">
-              <span className="h-px w-10 bg-[#b8b4ac]" />
-              Pittsburgh, PA
-            </div>
-          </motion.div>
+              <motion.div
+                animate={
+                  reducedMotion
+                    ? {}
+                    : {
+                        y: [0, -7, 0],
+                      }
+                }
+                transition={{
+                  duration: 7,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="relative mr-5 aspect-[1.02/1] overflow-hidden bg-[#e7e1d7] sm:mr-10 md:mr-14"
+              >
+                <Image
+                  src={getAssetUrl("/images/profile-pic.jpeg")}
+                  alt="Aarush Agarwal"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  className="object-cover object-center"
+                  priority
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#171716]/15 to-transparent"
+                />
+              </motion.div>
+
+              <div className="absolute -bottom-7 right-5 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[#77736b] sm:right-10 sm:text-[10px]">
+                <span className="h-px w-10 bg-[#b8b4ac]" />
+                Pittsburgh, PA
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
