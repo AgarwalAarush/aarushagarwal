@@ -151,11 +151,11 @@ export default function Home({ projects }) {
                   impact.
                 </p>
                 <p>
-                  Conducting startup diligence and market research for the
-                  firm, and co-organized VentureHacks, a Felicis x CMU
-                  hackathon with $10K+ in prizes, 500+ applicants, and speakers
-                  including Felicis partners and a Skild AI founding
-                  researcher.
+                  Conducted startup diligence and market research across AI and
+                  emerging technology. Co-organized VentureHacks, a Felicis ×
+                  CMU hackathon that attracted 500+ applicants and awarded
+                  $10K+ in prizes, with speakers including Felicis partners and
+                  a founding researcher at Skild AI.
                 </p>
               </>
             }
