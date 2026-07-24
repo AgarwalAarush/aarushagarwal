@@ -59,7 +59,7 @@ export default function HomepageHero() {
       aria-labelledby="homepage-title"
       className="relative min-h-[100dvh] overflow-hidden border-b border-[#d8d5ce] px-5 pb-16 pt-5 sm:px-8 lg:px-12 lg:pb-20"
     >
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1400px] xl:pr-[240px] 2xl:pr-0">
         <header className="flex items-center justify-between">
           <Link
             href="#top"
@@ -88,18 +88,18 @@ export default function HomepageHero() {
           </nav>
         </header>
 
-        <div className="grid min-h-[calc(100dvh-76px)] items-center gap-14 py-14 md:grid-cols-[0.9fr_1.1fr] md:gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:py-10">
+        <div className="grid min-h-[calc(100dvh-76px)] items-center gap-14 py-14 md:grid-cols-[0.92fr_1.08fr] md:gap-8 lg:py-10">
           <motion.div
             {...reveal}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-[1] max-w-xl md:pb-6 lg:pl-[6vw]"
+            className="relative z-[1] max-w-lg md:pb-6 lg:pl-[4vw]"
           >
             <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#ef432f] sm:text-[11px]">
               Engineer / Researcher / Builder
             </p>
             <h1
               id="homepage-title"
-              className="font-display max-w-[8ch] text-[clamp(4.8rem,11vw,9.3rem)] font-medium uppercase leading-[0.75] tracking-[-0.055em] text-[#171716]"
+              className="font-display max-w-[8ch] text-[clamp(4.5rem,9vw,8.6rem)] font-medium uppercase leading-[0.76] tracking-[-0.055em] text-[#171716]"
             >
               Aarush
               <br />
@@ -107,10 +107,15 @@ export default function HomepageHero() {
             </h1>
 
             <div className="mt-8 border-t border-[#b8b4ac] pt-5 sm:mt-10 sm:pt-6">
-              <p className="max-w-[34rem] text-[clamp(1rem,1.6vw,1.2rem)] leading-relaxed text-[#353431]">
-                I build machine-learning systems, research adaptive AI, and turn
-                technical ideas into products that move.
-              </p>
+              <h2 className="font-display max-w-[31rem] text-[clamp(1.55rem,2.15vw,2rem)] font-medium uppercase leading-[1.03] tracking-[-0.025em] text-[#2a2926]">
+                <span className="whitespace-nowrap">
+                  MLE @ Shopify
+                  <span className="px-2 text-[#ef432f]">/</span>
+                  AI @ CMU
+                </span>
+                <br />
+                <span className="whitespace-nowrap">Venture @ Felicis</span>
+              </h2>
 
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
                 {socialLinks.map((link) => (
@@ -140,7 +145,7 @@ export default function HomepageHero() {
               delay: 0.12,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="relative mx-auto w-full max-w-[700px] md:mr-[5vw]"
+            className="relative mx-auto w-full max-w-[650px]"
           >
             <div
               aria-hidden="true"

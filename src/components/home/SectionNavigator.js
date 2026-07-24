@@ -1,16 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-} from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const sections = [
-  { id: "research", label: "Research", y: 64, x: 108 },
-  { id: "experience", label: "Experience", y: 198, x: 52 },
-  { id: "projects", label: "Projects", y: 334, x: 108 },
+  { id: "top", label: "Headline", y: 42, x: 112, labelSide: "left" },
+  { id: "research", label: "Research", y: 140, x: 62, labelSide: "right" },
+  { id: "experience", label: "Experience", y: 238, x: 112, labelSide: "left" },
+  { id: "projects", label: "Projects", y: 336, x: 62, labelSide: "right" },
 ];
 
 function scrollToSection(id, reducedMotion) {
@@ -23,18 +18,6 @@ function scrollToSection(id, reducedMotion) {
 export default function SectionNavigator() {
   const reducedMotion = useReducedMotion();
   const [activeId, setActiveId] = useState(sections[0].id);
-  const [dragging, setDragging] = useState(false);
-  const orbY = useMotionValue(sections[0].y);
-  const orbX = useTransform(
-    orbY,
-    sections.map((section) => section.y),
-    sections.map((section) => section.x)
-  );
-
-  const activeSection = useMemo(
-    () => sections.find((section) => section.id === activeId) || sections[0],
-    [activeId]
-  );
 
   useEffect(() => {
     const elements = sections
@@ -52,8 +35,8 @@ export default function SectionNavigator() {
         if (visible[0]) setActiveId(visible[0].target.id);
       },
       {
-        rootMargin: "-18% 0px -52% 0px",
-        threshold: [0.05, 0.25, 0.5],
+        rootMargin: "-12% 0px -55% 0px",
+        threshold: [0.02, 0.2, 0.45],
       }
     );
 
@@ -61,33 +44,16 @@ export default function SectionNavigator() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (dragging) return undefined;
-
-    const controls = animate(orbY, activeSection.y, {
-      type: reducedMotion ? "tween" : "spring",
-      duration: reducedMotion ? 0 : undefined,
-      stiffness: 150,
-      damping: 22,
-    });
-
-    return () => controls.stop();
-  }, [activeSection, dragging, orbY, reducedMotion]);
-
   const selectSection = (section) => {
     setActiveId(section.id);
     scrollToSection(section.id, reducedMotion);
   };
 
-  const handleDragEnd = () => {
-    setDragging(false);
-    const currentY = orbY.get();
-    const nearest = sections.reduce((closest, section) =>
-      Math.abs(section.y - currentY) < Math.abs(closest.y - currentY)
-        ? section
-        : closest
-    );
-    selectSection(nearest);
+  const scrollToNextSection = () => {
+    const activeIndex = sections.findIndex((section) => section.id === activeId);
+    const nextSection =
+      sections[Math.min(Math.max(activeIndex, 0) + 1, sections.length - 1)];
+    scrollToSection(nextSection.id, reducedMotion);
   };
 
   return (
@@ -102,7 +68,7 @@ export default function SectionNavigator() {
           className="absolute inset-0 h-full w-full overflow-visible"
         >
           <motion.path
-            d="M108 64 C194 86 184 140 52 198 C-8 225 16 290 108 334"
+            d="M112 42 C42 68 30 108 62 140 C98 176 166 202 112 238 C50 278 24 304 62 336"
             fill="none"
             stroke="#c9c5bd"
             strokeWidth="1"
@@ -120,7 +86,7 @@ export default function SectionNavigator() {
 
         {sections.map((section) => {
           const active = section.id === activeId;
-          const labelOnRight = section.id !== "experience";
+          const labelOnRight = section.labelSide === "right";
 
           return (
             <button
@@ -139,9 +105,9 @@ export default function SectionNavigator() {
               }}
             >
               <span
-                className={`h-2.5 w-2.5 rounded-full border transition-colors duration-300 ${
+                className={`h-2.5 w-2.5 rounded-full border transition-all duration-300 ${
                   active
-                    ? "border-[#ef432f] bg-[#ef432f]"
+                    ? "scale-110 border-[#ef432f] bg-[#ef432f]"
                     : "border-[#171716] bg-[#f4f1eb]"
                 }`}
               />
@@ -155,31 +121,11 @@ export default function SectionNavigator() {
             </button>
           );
         })}
-
-        <motion.button
-          type="button"
-          aria-label="Drag to navigate between Research, Experience, and Projects"
-          drag={reducedMotion ? false : "y"}
-          dragConstraints={{ top: 46, bottom: 350 }}
-          dragElastic={0.04}
-          dragMomentum={false}
-          onDragStart={() => setDragging(true)}
-          onDragEnd={handleDragEnd}
-          style={{ x: orbX, y: orbY }}
-          whileFocus={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          className="pointer-events-auto group absolute left-0 top-0 h-[76px] w-[76px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ef432f]/55 bg-[#f4f1eb]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef432f] focus-visible:ring-offset-4"
-        >
-          <span className="absolute inset-[14px] rounded-full bg-[radial-gradient(circle,rgba(239,67,47,0.72)_0%,rgba(239,67,47,0.18)_38%,rgba(239,67,47,0)_72%)] opacity-75 transition-opacity duration-300 group-hover:opacity-100" />
-          <span className="absolute left-[88px] top-1/2 -translate-y-1/2 font-mono text-[9px] uppercase tracking-[0.17em] text-[#ef432f] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-            Drag
-          </span>
-        </motion.button>
       </div>
 
       <button
         type="button"
-        onClick={() => scrollToSection("research", reducedMotion)}
+        onClick={scrollToNextSection}
         className="pointer-events-auto absolute bottom-0 right-0 flex flex-col items-center gap-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#45433f] transition-colors duration-300 hover:text-[#ef432f] focus-visible:outline-none focus-visible:text-[#ef432f]"
       >
         Scroll
