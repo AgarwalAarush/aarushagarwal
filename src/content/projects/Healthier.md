@@ -10,13 +10,9 @@ images:
 ranking: 3
 homepage:
   award: "2nd Place, Healthcare · NexHacks"
+  competitionScale: "Among 1,500 hackers"
   metric: "Multimodal"
   metricLabel: "home-to-clinic signals"
-  systemFlow:
-    - Home sensing
-    - Vision + pose
-    - Risk signals
-    - Clinician
 technologies:
   - YOLOv8
   - LiveKit

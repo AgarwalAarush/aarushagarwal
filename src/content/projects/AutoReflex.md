@@ -4,13 +4,11 @@ description: "**3rd Place at Hackberry Pi.** Real-time neuromuscular aim-assist 
 ranking: 1
 homepage:
   award: "3rd Place · Hackberry Pi"
+  competitionScale: "Among 250 participants"
+  cardImage: "/images/autoreflex/box-demo.jpeg"
+  cardImagePosition: "right center"
   metric: "< 15 ms"
   metricLabel: "end-to-end latency"
-  systemFlow:
-    - Camera
-    - Jetson Nano
-    - Raspberry Pi
-    - Servo / TENS
 github: "https://github.com/beeler-devs/HackberryPi"
 demo: "https://youtu.be/0nmgYhaoP1Q"
 image: "/images/autoreflex/autoreflex-cover.png"

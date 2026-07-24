@@ -11,13 +11,9 @@ images:
 ranking: 4
 homepage:
   award: "1st Place, YC + Fetch.AI · Best Startup · CalHacks 12.0"
+  competitionScale: "Among 2,166 participants"
   metric: "Multi-agent"
   metricLabel: "hospital intelligence"
-  systemFlow:
-    - Patient signals
-    - Specialist agents
-    - Coordination
-    - Clinical action
 technologies:
   - Fetch.ai
   - Anthropic Claude

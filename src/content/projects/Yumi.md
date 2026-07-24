@@ -12,6 +12,7 @@ icon: "/images/yumi/yumi-hero.jpeg"
 ranking: 5
 homepage:
   award: "3rd Place · HackHarvard 2025"
+  competitionScale: "Among 528 participants"
 technologies:
   - Gemini Flash
   - Netlify
