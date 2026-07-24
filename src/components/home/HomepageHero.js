@@ -145,7 +145,7 @@ export default function HomepageHero() {
               delay: 0.12,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="relative mx-auto w-full max-w-[650px]"
+            className="relative mx-auto w-full max-w-[560px]"
           >
             <div
               aria-hidden="true"
