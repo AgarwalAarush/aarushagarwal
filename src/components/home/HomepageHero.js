@@ -94,7 +94,7 @@ export default function HomepageHero() {
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-[1] max-w-lg md:pb-6 lg:pl-[4vw]"
           >
-            <div className="mb-7 grid max-w-[28rem] grid-cols-[auto_1fr] items-end gap-4">
+            <div className="mb-7 grid max-w-[28rem] grid-cols-[auto_1fr] items-center gap-4">
               <p className="font-display text-[3.4rem] font-medium uppercase leading-[0.72] tracking-[-0.06em] text-[#ef432f] sm:text-[4rem]">
                 6×
               </p>
@@ -103,7 +103,7 @@ export default function HomepageHero() {
                   Hackathon Winner
                 </p>
                 <p className="mt-2 font-mono text-[7px] uppercase tracking-[0.14em] text-[#77736b] sm:text-[8px]">
-                  CalHacks / HackHarvard / HackCMU / Hackberry Pi
+                  CalHacks / HackHarvard / HackCMU
                 </p>
               </div>
             </div>
