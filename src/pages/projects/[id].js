@@ -39,6 +39,13 @@ export default function ProjectPage({ project }) {
 
   // Custom components for ReactMarkdown
   const components = {
+    table({ children }) {
+      return (
+        <div className="project-table-shell not-prose">
+          <table>{children}</table>
+        </div>
+      );
+    },
     // Custom renderer for code blocks
     code({ node, inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
@@ -171,14 +178,14 @@ export default function ProjectPage({ project }) {
 
       <main className="py-16 bg-white dark:bg-[#1D1E21] relative min-h-screen">
         
-        <div className="container relative z-10 px-4 mx-auto">
+        <div className="container relative z-10 mx-auto w-full max-w-full overflow-x-hidden px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="max-w-6xl mx-auto"
           >
-            <div className="flex flex-col lg:flex-row gap-12">
+            <div className="flex min-w-0 max-w-full flex-col gap-12 lg:flex-row">
               <aside className="lg:w-60 flex-shrink-0">
                 <div className="lg:sticky lg:top-24 space-y-8">
                   <Link
@@ -205,7 +212,7 @@ export default function ProjectPage({ project }) {
                 </div>
               </aside>
 
-              <div className="flex-1 min-w-0">
+              <div className="w-full min-w-0 max-w-full flex-1">
                 {/* Project header */}
                 <div className="mb-10">
                   {project.image && (
@@ -284,8 +291,8 @@ export default function ProjectPage({ project }) {
                 </div>
                 
                 {/* Project content */}
-                <article className="prose prose-sm max-w-none markdown-github">
-                  <div className="text-black dark:text-gray-300">
+                <article className="prose prose-sm w-full min-w-0 max-w-none markdown-github">
+                  <div className="w-full min-w-0 text-black dark:text-gray-300">
                     {(() => {
                       if (project.id !== 'AutoReflex' && project.id !== 'Abyss') {
                         return (

@@ -231,45 +231,114 @@
   @apply pl-4 border-l-4 border-gray-600 text-gray-300;
 }
 
-.markdown-github table {
-  @apply w-full border-separate overflow-hidden rounded-lg;
-  border-spacing: 0;
-  border: 1px solid #d1d5db;
+.markdown-github .project-table-shell {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 2rem 0;
+  overflow-x: auto;
+  border: 1px solid #d7d2c8;
+  border-radius: 0.9rem;
+  background: #fbfaf7;
+  box-shadow: 0 20px 50px -42px rgba(39, 35, 29, 0.72);
+  scrollbar-color: #b8b2a7 transparent;
+  scrollbar-width: thin;
 }
 
-.dark .markdown-github table {
-  border-color: #374151;
+.dark .markdown-github .project-table-shell {
+  border-color: #393a3e;
+  background: #202124;
+  box-shadow: 0 20px 50px -42px rgba(0, 0, 0, 0.9);
+  scrollbar-color: #55565a transparent;
 }
 
-.markdown-github table th,
-.markdown-github table td {
-  @apply px-4 py-2;
-  border-bottom: 1px solid #d1d5db;
-  border-right: 1px solid #d1d5db;
+.markdown-github .project-table-shell table {
+  width: 100% !important;
+  min-width: 40rem;
+  margin: 0 !important;
+  border: 0 !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border-radius: 0 !important;
+  background: transparent;
+  color: #302e2a;
+  font-size: 0.925rem;
+  line-height: 1.55;
 }
 
-.dark .markdown-github table th,
-.dark .markdown-github table td {
-  border-color: #374151;
+.markdown-github .project-table-shell th,
+.markdown-github .project-table-shell td {
+  padding: 0.95rem 1.15rem !important;
+  border-right: 1px solid #ddd8cf !important;
+  border-bottom: 1px solid #ddd8cf !important;
+  text-align: left !important;
+  vertical-align: top;
 }
 
-.markdown-github table th:last-child,
-.markdown-github table td:last-child {
-  border-right: none;
+.dark .markdown-github .project-table-shell th,
+.dark .markdown-github .project-table-shell td {
+  border-color: #393a3e !important;
 }
 
-.markdown-github table tr:last-child td {
-  border-bottom: none;
+.markdown-github .project-table-shell th {
+  background: #ece8df !important;
+  color: #5d5952 !important;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
-.markdown-github table th {
-  background-color: #F3F2ED;
-  @apply text-gray-900;
+.dark .markdown-github .project-table-shell th {
+  background: #292a2e !important;
+  color: #b9b9b7 !important;
 }
 
-.dark .markdown-github table th {
-  background-color: #1f2937;
-  @apply text-white;
+.markdown-github .project-table-shell tbody tr:nth-child(even) {
+  background: #f5f2ec;
+}
+
+.dark .markdown-github .project-table-shell tbody tr:nth-child(even) {
+  background: #242529;
+}
+
+.markdown-github .project-table-shell tbody tr {
+  transition: background-color 180ms ease;
+}
+
+.markdown-github .project-table-shell tbody tr:hover {
+  background: #efebe3;
+}
+
+.dark .markdown-github .project-table-shell tbody tr:hover {
+  background: #2b2c30;
+}
+
+.markdown-github .project-table-shell tbody td:first-child {
+  color: #282622;
+  font-weight: 600;
+}
+
+.dark .markdown-github .project-table-shell tbody td:first-child {
+  color: #f0eee9;
+}
+
+.markdown-github .project-table-shell tbody td:nth-child(2) {
+  color: #d94331;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+
+.markdown-github .project-table-shell th:last-child,
+.markdown-github .project-table-shell td:last-child {
+  border-right: 0 !important;
+}
+
+.markdown-github .project-table-shell tbody tr:last-child td {
+  border-bottom: 0 !important;
 }
 
 .markdown-github img {

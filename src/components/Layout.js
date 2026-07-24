@@ -12,7 +12,7 @@ export default function Layout({ children }) {
         <div className="flex min-h-screen bg-white dark:bg-[#1D1E21]">
 			<Navbar />
 			{/* Main content area */}
-            <div className="flex-1 min-h-screen bg-white dark:bg-[#1D1E21]">
+            <div className="min-h-screen w-full min-w-0 flex-1 bg-white dark:bg-[#1D1E21]">
                 {/* Home shortcut fixed at top-left */}
                 {!isHomepage && <div className="hidden md:block fixed top-4 left-4 z-50">
                     <Link
