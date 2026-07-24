@@ -116,6 +116,8 @@ yarn-error.log*
 !/public/metadata/**
 !/public/fonts/
 !/public/fonts/**
+!/public/generated/
+!/public/generated/**
 
 # typescript
 *.tsbuildinfo

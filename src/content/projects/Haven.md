@@ -13,6 +13,7 @@ ranking: 4
 homepage:
   award: "1st Place, YC + Fetch.AI · Best Startup · CalHacks 12.0"
   competitionScale: "Among 2,166 participants"
+  cardImage: "/generated/homepage/haven-card.png"
   metric: "Multi-agent"
   metricLabel: "hospital intelligence"
 technologies:

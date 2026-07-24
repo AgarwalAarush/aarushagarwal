@@ -44,5 +44,8 @@ export function getAssetUrl(path) {
     return path;
   }
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  if (normalizedPath.startsWith('/generated/')) {
+    return normalizedPath;
+  }
   return `${BLOB_STORAGE_URL}${normalizedPath}`;
 }

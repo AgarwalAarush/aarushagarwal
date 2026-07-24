@@ -12,6 +12,7 @@ ranking: 3
 homepage:
   award: "2nd Place, Healthcare · NexHacks"
   competitionScale: "Among 1,500 hackers"
+  cardImage: "/generated/homepage/healthier-card.png"
   metric: "Multimodal"
   metricLabel: "home-to-clinic signals"
 technologies:
