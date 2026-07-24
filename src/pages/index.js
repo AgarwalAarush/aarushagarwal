@@ -120,19 +120,18 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
-                  <span>Search Relevance:</span> Building and optimizing neural
-                  ranking and query-understanding systems for Shopify&apos;s
-                  commerce search stack, including LFM 2.5 fine-tuning and
-                  distillation and low-latency DNN inference on custom Triton serving
-                  infrastructure.
+                  <span>Search Relevance:</span> Developing ranking systems for
+                  Shopify&apos;s commerce search stack. Fine-tuning and
+                  distilling LFM 2.5 models, then deploying them for low-latency
+                  DNN inference on custom Triton serving infrastructure.
                 </p>
                 <p>
-                  <span>Merchant-Aware Ranking:</span> Building on the LFM 2.5
-                  work, invented an auxiliary loss that trains on merchant data
-                  so merchant-focused queries prioritize that merchant&apos;s
-                  own products. Increased core merchant search metric by 15%
-                  while substantially reducing the prominence of third-party
-                  resellers in product search results.
+                  <span>Merchant-Aware Ranking:</span> Designed and implemented
+                  a novel auxiliary merchant-aware training objective that
+                  teaches the ranker to prioritize a merchant&apos;s first-party
+                  catalog for merchant-intent queries. Improved a core
+                  merchant-search relevance metric by 10% while reducing the
+                  ranking prominence of third-party resellers.
                 </p>
               </>
             }
