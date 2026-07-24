@@ -136,8 +136,8 @@ function FeaturedProjectCard({ project, index }) {
                   <video
                     src={cardImage}
                     aria-label={`${project.title} project demo`}
-                    autoPlay
-                    loop
+                    autoPlay={!reducedMotion}
+                    loop={!reducedMotion}
                     muted
                     playsInline
                     preload="metadata"
