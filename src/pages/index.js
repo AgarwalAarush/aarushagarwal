@@ -22,7 +22,7 @@ export default function Home({ projects }) {
 
       <HomepageHero />
 
-      <main className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+      <main className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28 xl:pr-[240px]">
         <section id="research" className="scroll-mt-10 pb-28 lg:pb-40">
           <SectionHeading
             number="01"

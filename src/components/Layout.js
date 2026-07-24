@@ -32,9 +32,17 @@ export default function Layout({ children }) {
                 </div>
                 */}
 				<main className="flex-grow">{children}</main>
-                <footer className="py-8 bg-gray-100 dark:bg-[#1D1E21] relative">
+                <footer
+                    className={`relative py-8 ${
+                        isHomepage
+                            ? "border-t border-[#c9c5bd] bg-[#f4f1eb]"
+                            : "bg-gray-100 dark:bg-[#1D1E21]"
+                    }`}
+                >
 					<motion.div
-						className="max-w-4xl mx-auto px-6 relative z-10"
+						className={`relative mx-auto px-6 ${
+                            isHomepage ? "max-w-7xl xl:pr-[240px]" : "max-w-4xl"
+                        }`}
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5 }}
@@ -43,7 +51,11 @@ export default function Layout({ children }) {
 						<div className="flex justify-center items-center gap-6 relative">
 							<Link
 								href="/notes"
-								className="absolute right-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 text-sm"
+								className={`absolute right-0 text-sm transition-colors duration-200 ${
+                                    isHomepage
+                                        ? "font-mono text-[9px] uppercase tracking-[0.16em] text-[#77736b] hover:text-[#ef432f]"
+                                        : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                }`}
 							>
 								Notes
 							</Link>

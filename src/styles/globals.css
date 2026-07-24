@@ -96,16 +96,16 @@
 	}
 
 	::-webkit-scrollbar-track {
-		background: #1f2937;
+		background: #f4f1eb;
 	}
 
 	::-webkit-scrollbar-thumb {
-		background: #4b5563;
+		background: #aaa59b;
 		border-radius: 4px;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		background: #6b7280;
+		background: #817c73;
 	}
 }
 
@@ -317,6 +317,17 @@
 
 .animate-fade-in {
 	animation: fadeIn 0.5s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
 }
 
 /* Add scroll-in animation for sections */

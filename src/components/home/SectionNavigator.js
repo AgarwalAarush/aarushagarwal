@@ -93,7 +93,7 @@ export default function SectionNavigator() {
   return (
     <aside
       aria-label="Homepage section navigator"
-      className="pointer-events-none fixed right-5 top-1/2 hidden h-[430px] w-[220px] -translate-y-1/2 xl:block"
+      className="pointer-events-none fixed right-5 top-1/2 z-[4] hidden h-[430px] w-[220px] -translate-y-1/2 xl:block"
     >
       <div className="relative h-[382px] w-full">
         <svg
@@ -146,7 +146,7 @@ export default function SectionNavigator() {
                 }`}
               />
               <span
-                className={`transition-colors duration-300 ${
+                className={`bg-[#f4f1eb]/90 px-1 py-0.5 transition-colors duration-300 ${
                   active ? "text-[#ef432f]" : "text-[#343330] hover:text-[#ef432f]"
                 }`}
               >

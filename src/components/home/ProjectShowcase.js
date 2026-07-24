@@ -127,7 +127,7 @@ function FeaturedProjectCard({ project, index }) {
       whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
       transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       viewport={{ once: true, amount: 0.12 }}
-      className="sticky top-4 mb-6 overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#171716] text-[#f0eee9] shadow-[0_24px_70px_-42px_rgba(46,36,28,0.65)] sm:top-6 sm:rounded-[1.75rem]"
+      className="mb-6 overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#171716] text-[#f0eee9] shadow-[0_24px_70px_-42px_rgba(46,36,28,0.65)] sm:rounded-[1.75rem] lg:sticky"
       style={{ top: `${24 + index * 10}px` }}
     >
       <Link
@@ -156,9 +156,17 @@ function FeaturedProjectCard({ project, index }) {
                 <ProjectArrow active={active && !reducedMotion} />
               </div>
 
-              <h3 className="font-display text-[clamp(4rem,8vw,7.2rem)] font-medium uppercase leading-[0.75] tracking-[-0.05em]">
+              <motion.h3
+                initial={false}
+                animate={{
+                  color: active && !reducedMotion ? "#ef432f" : "#f0eee9",
+                  x: active && !reducedMotion ? 6 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 150, damping: 20 }}
+                className="font-display text-[clamp(4rem,8vw,7.2rem)] font-medium uppercase leading-[0.75] tracking-[-0.05em]"
+              >
                 {project.title}
-              </h3>
+              </motion.h3>
               <p className="mt-7 max-w-[42rem] text-[14px] leading-[1.7] text-white/62 sm:text-[15px]">
                 {cleanDescription(project.description)}
               </p>
@@ -185,8 +193,8 @@ function FeaturedProjectCard({ project, index }) {
                 className="absolute inset-0"
                 initial={false}
                 animate={{
-                  scale: active && !reducedMotion ? 1.045 : 1,
-                  x: active && !reducedMotion ? (reverse ? -8 : 8) : 0,
+                  scale: active && !reducedMotion ? 1.065 : 1,
+                  x: active && !reducedMotion ? (reverse ? -12 : 12) : 0,
                 }}
                 transition={{ type: "spring", stiffness: 90, damping: 20 }}
               >
