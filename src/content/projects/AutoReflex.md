@@ -2,6 +2,14 @@
 title: "AutoReflex"
 description: "**3rd Place at Hackberry Pi.** Real-time neuromuscular aim-assist that closes the loop from pixels to physical movement in under 15ms. A Jetson Nano runs a 100fps vision pipeline and streams target coordinates over UDP to a Raspberry Pi, which drives a Feetech ST3215 servo and optional TENS muscle stimulation via a 1kHz PID control loop."
 ranking: 1
+homepage:
+  metric: "< 15 ms"
+  metricLabel: "end-to-end latency"
+  systemFlow:
+    - Camera
+    - Jetson Nano
+    - Raspberry Pi
+    - Servo / TENS
 github: "https://github.com/beeler-devs/HackberryPi"
 demo: "https://youtu.be/0nmgYhaoP1Q"
 image: "/images/autoreflex/autoreflex-cover.png"

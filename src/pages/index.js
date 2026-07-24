@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
-import ProjectCard from "../components/ProjectCard";
 import TimelineItem from "../components/TimelineItem";
 import HomepageHero from "../components/home/HomepageHero";
+import ProjectShowcase from "../components/home/ProjectShowcase";
 import SectionNavigator from "../components/home/SectionNavigator";
 import SectionHeading from "../components/home/SectionHeading";
 import { getAssetUrl } from "../lib/assets";
@@ -199,16 +199,7 @@ export default function Home({ projects }) {
             title="Projects"
             description="A focused set of systems that connect models, hardware, and interfaces to real outcomes."
           />
-          <div className="mb-6 flex flex-col divide-y divide-[#c9c5bd] border-y border-[#c9c5bd]">
-            {(projects || []).map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                showTechnologies={false}
-                showImagePreview={false}
-              />
-            ))}
-          </div>
+          <ProjectShowcase projects={projects} />
         </section>
       </main>
 
@@ -241,6 +232,7 @@ export async function getStaticProps() {
 				demo: frontmatter.demo || null,
 				technologies: frontmatter.technologies || [],
 				ranking: frontmatter.ranking || 999,
+				homepage: frontmatter.homepage || null,
 			};
 		})
 		.filter(Boolean)

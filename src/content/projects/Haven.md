@@ -9,6 +9,14 @@ images:
   - "/images/haven/tech-stack.png"
 # icon: "/images/haven-icon.png"
 ranking: 4
+homepage:
+  metric: "Multi-agent"
+  metricLabel: "hospital intelligence"
+  systemFlow:
+    - Patient signals
+    - Specialist agents
+    - Coordination
+    - Clinical action
 technologies:
   - Fetch.ai
   - Anthropic Claude

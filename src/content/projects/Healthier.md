@@ -8,6 +8,14 @@ images:
   - "/images/healthier/healthier.png"
   - "/images/healthier/tech-stack.jpeg"
 ranking: 3
+homepage:
+  metric: "Multimodal"
+  metricLabel: "home-to-clinic signals"
+  systemFlow:
+    - Home sensing
+    - Vision + pose
+    - Risk signals
+    - Clinician
 technologies:
   - YOLOv8
   - LiveKit
