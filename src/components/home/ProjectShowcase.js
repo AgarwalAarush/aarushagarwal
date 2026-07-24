@@ -30,6 +30,26 @@ function ProjectArrow({ active }) {
   );
 }
 
+function ProjectMetricFooter({ homepage, project, className = "" }) {
+  return (
+    <div
+      className={`items-end justify-between gap-3 border-t border-white/15 pt-5 ${className}`}
+    >
+      <div>
+        <p className="whitespace-nowrap font-display text-[2.25rem] font-medium uppercase leading-none tracking-[-0.035em] text-[#ef432f] sm:text-[2.7rem] xl:text-[3rem]">
+          {homepage.metric}
+        </p>
+        <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/42">
+          {homepage.metricLabel}
+        </p>
+      </div>
+      <p className="max-w-[24rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.1em] text-white/35 lg:whitespace-nowrap xl:text-[9px] xl:tracking-[0.13em]">
+        {project.technologies.slice(0, 4).join(" / ")}
+      </p>
+    </div>
+  );
+}
+
 function FeaturedProjectCard({ project, index }) {
   const [active, setActive] = useState(false);
   const reducedMotion = useReducedMotion();
@@ -109,19 +129,11 @@ function FeaturedProjectCard({ project, index }) {
               </p>
             </div>
 
-            <div className="mt-8 flex items-end justify-between gap-3 border-t border-white/15 pt-5">
-              <div>
-                <p className="whitespace-nowrap font-display text-[2.25rem] font-medium uppercase leading-none tracking-[-0.035em] text-[#ef432f] sm:text-[2.7rem] xl:text-[3rem]">
-                  {homepage.metric}
-                </p>
-                <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/42">
-                  {homepage.metricLabel}
-                </p>
-              </div>
-              <p className="max-w-[24rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.1em] text-white/35 lg:whitespace-nowrap xl:text-[9px] xl:tracking-[0.13em]">
-                {project.technologies.slice(0, 4).join(" / ")}
-              </p>
-            </div>
+            <ProjectMetricFooter
+              homepage={homepage}
+              project={project}
+              className="mt-8 hidden lg:flex"
+            />
           </div>
 
           <div className="relative min-h-[310px] overflow-hidden bg-[#242321] lg:min-h-full">
@@ -174,6 +186,14 @@ function FeaturedProjectCard({ project, index }) {
                 opacity: active || reducedMotion ? 0.8 : 0,
               }}
               transition={{ type: "spring", stiffness: 80, damping: 22 }}
+            />
+          </div>
+
+          <div className="px-6 pb-6 pt-5 sm:px-8 sm:pb-8 lg:hidden">
+            <ProjectMetricFooter
+              homepage={homepage}
+              project={project}
+              className="flex"
             />
           </div>
         </div>
