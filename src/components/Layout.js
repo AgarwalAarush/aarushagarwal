@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 // import ThemeToggle from "./ThemeToggle"; // disabled until dark mode redesign — keep component for reuse
 
 export default function Layout({ children }) {
+    const router = useRouter();
+    const isHomepage = router.pathname === "/";
 
     return (
         <div className="flex min-h-screen bg-white dark:bg-[#1D1E21]">
@@ -11,7 +14,7 @@ export default function Layout({ children }) {
 			{/* Main content area */}
             <div className="flex-1 min-h-screen bg-white dark:bg-[#1D1E21]">
                 {/* Home shortcut fixed at top-left */}
-                <div className="hidden md:block fixed top-4 left-4 z-50">
+                {!isHomepage && <div className="hidden md:block fixed top-4 left-4 z-50">
                     <Link
                         href="/"
                         className="inline-flex items-center justify-center p-2 rounded-md bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
@@ -22,7 +25,7 @@ export default function Layout({ children }) {
                             <path d="M5 9.5V21h14V9.5" />
                         </svg>
                     </Link>
-                </div>
+                </div>}
                 {/* Theme toggle fixed at top-right — disabled until dark mode redesign
                 <div className="hidden md:block fixed top-4 right-4 z-50">
                     <ThemeToggle />

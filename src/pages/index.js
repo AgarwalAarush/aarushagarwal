@@ -3,16 +3,14 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import ProjectCard from "../components/ProjectCard";
-import Image from "next/image";
 import TimelineItem from "../components/TimelineItem";
+import HomepageHero from "../components/home/HomepageHero";
+import SectionNavigator from "../components/home/SectionNavigator";
 import { getAssetUrl } from "../lib/assets";
 
 export default function Home({ projects }) {
-    const heroCtaCell =
-        'inline-flex items-center justify-center border border-gray-200 bg-white px-6 py-4 text-[13px] md:px-5 md:py-3 md:text-[11px] font-medium uppercase tracking-[0.18em] text-gray-900 transition-colors hover:bg-gray-50 focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-[#1D1E21] dark:text-white dark:hover:bg-gray-800 dark:focus-visible:ring-gray-500 dark:focus-visible:ring-offset-[#1D1E21] rounded-md -ml-px first:ml-0 relative z-0 hover:z-10';
-
     return (
-        <div className="font-soehne-home min-h-screen bg-white dark:bg-[#1D1E21]">
+        <div className="homepage-shell min-h-screen bg-[#f4f1eb] text-[#171716]">
 			<Head>
 				<title>Aarush Agarwal - Personal Website</title>
 				<meta
@@ -20,54 +18,11 @@ export default function Home({ projects }) {
 					content="ML systems, AI products, and research by Aarush Agarwal."
 				/>
 			</Head>
-            <main className="max-w-4xl mx-auto px-6 py-10 md:py-16">
-				{/* Hero Section */}
-                <section className="mb-12 md:mb-16">
-                    <div className="max-w-4xl flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-6">
-                        <div className="max-w-2xl text-left md:min-h-60 md:flex md:flex-col md:justify-center">
-                            <h1 className="text-[13vw] md:text-6xl text-gray-900 dark:text-white mb-6 whitespace-nowrap">
-                                Aarush Agarwal
-                            </h1>
-                            <div className="inline-flex items-stretch gap-2">
-                                <a
-                                    href={getAssetUrl("/documents/Resume%20-%20Aarush%20Agarwal.pdf")}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={heroCtaCell}
-                                >
-                                    Resume
-                                </a>
-                                <a
-                                    href="https://github.com/agarwalaarush"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={heroCtaCell}
-                                    aria-label="GitHub"
-                                >
-                                    GitHub
-                                </a>
-                                <a
-                                    href="https://www.linkedin.com/in/aarush-agarwal-2751a61b1/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={heroCtaCell}
-                                    aria-label="LinkedIn"
-                                >
-                                    LinkedIn
-                                </a>
-                            </div>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div className="w-56 h-56 md:w-60 md:h-60 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-xl">
-                                <Image src={getAssetUrl("/images/profile-pic.jpeg")} alt="Aarush" width={240} height={240} className="w-full h-full object-cover" />
-                            </div>
-                        </div>
-                    </div>
-                        
-				</section>
+            <HomepageHero />
+            <main className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
 
                 {/* Experiences Section */}
-                <section id="experiences" className="mb-8">
+                <section id="experience" className="mb-8">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-1 h-1 bg-gray-900 dark:bg-white rounded-full"></div>
                         <h2 className="text-3xl md:text-2xl text-gray-900 dark:text-white">Experiences</h2>
@@ -217,6 +172,7 @@ export default function Home({ projects }) {
 
                 {/* Bottom space */}
 			</main>
+            <SectionNavigator />
 		</div>
 	);
 }

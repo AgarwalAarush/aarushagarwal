@@ -2,11 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Soehne Leicht (Klim) — place your licensed SoehneLeicht.woff2 in public/fonts/ */
 @font-face {
-	font-family: 'Soehne Leicht';
-	src: url('/fonts/SoehneLeicht.woff2') format('woff2');
+	font-family: 'Barlow Condensed';
+	src: url('/fonts/BarlowCondensed-Regular.woff2') format('woff2');
 	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Barlow Condensed';
+	src: url('/fonts/BarlowCondensed-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Barlow Condensed';
+	src: url('/fonts/BarlowCondensed-SemiBold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Barlow Condensed';
+	src: url('/fonts/BarlowCondensed-Bold.woff2') format('woff2');
+	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
@@ -24,8 +47,7 @@
     --text-primary: #111827;
     --text-secondary: #374151;
     --card-bg: #ffffff;
-    --font-soehne: 'Soehne Leicht', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        sans-serif;
+    --font-display: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
 }
 
 .dark {
@@ -89,7 +111,11 @@
 
 @layer utilities {
 	.font-soehne-home {
-		font-family: var(--font-soehne);
+		font-family: inherit;
+	}
+
+	.font-display {
+		font-family: var(--font-display);
 	}
 }
 
@@ -137,7 +163,7 @@
 /* GitHub-style Markdown Styling */
 .markdown-github {
   font-weight: 400;
-  font-family: var(--font-soehne);
+  font-family: inherit;
 }
 
 .markdown-github h1,
