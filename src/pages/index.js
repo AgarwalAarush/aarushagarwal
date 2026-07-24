@@ -28,7 +28,6 @@ export default function Home({ projects }) {
             number="01"
             eyebrow="Systems / Intelligence"
             title="Research"
-            description="Adaptive model architectures, GPU systems, and tools that make ambitious experiments practical."
           />
 
           <TimelineItem
