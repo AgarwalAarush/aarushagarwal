@@ -109,16 +109,16 @@ function FeaturedProjectCard({ project, index }) {
               </p>
             </div>
 
-            <div className="mt-8 flex items-end justify-between gap-5 border-t border-white/15 pt-5">
+            <div className="mt-8 flex items-end justify-between gap-3 border-t border-white/15 pt-5">
               <div>
-                <p className="font-display text-[2.25rem] font-medium uppercase leading-none tracking-[-0.035em] text-[#ef432f] sm:text-[3rem]">
+                <p className="whitespace-nowrap font-display text-[2.25rem] font-medium uppercase leading-none tracking-[-0.035em] text-[#ef432f] sm:text-[2.7rem] xl:text-[3rem]">
                   {homepage.metric}
                 </p>
                 <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/42">
                   {homepage.metricLabel}
                 </p>
               </div>
-              <p className="max-w-[24rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.13em] text-white/35 sm:text-[9px] lg:whitespace-nowrap">
+              <p className="max-w-[24rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.1em] text-white/35 lg:whitespace-nowrap xl:text-[9px] xl:tracking-[0.13em]">
                 {project.technologies.slice(0, 4).join(" / ")}
               </p>
             </div>
