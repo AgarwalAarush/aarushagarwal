@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
 export default function TimelineItem({ 
     icon, 
@@ -8,61 +8,53 @@ export default function TimelineItem({
     role, 
     period, 
     description,
-    isLast = false 
+    isLast = false
 }) {
     const hasRole = Boolean(role);
+    const reducedMotion = useReducedMotion();
 
     return (
-        <div className="relative">
-            <div className="flex gap-4">
-                {/* Icon with vertical line */}
-                <div className="relative flex-shrink-0">
-                    {/* Opaque disk behind logos so transparent PNGs (e.g. CERN) do not show the
-                        connector line from the row above, which extends past the previous item. */}
-                    <div className="relative z-10 w-14 h-14 md:w-12 md:h-12 rounded-full flex items-center justify-center overflow-hidden bg-white dark:bg-[#1D1E21]">
+        <motion.article
+            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+            whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.18 }}
+            className={`grid gap-6 border-t border-[#c9c5bd] py-8 md:grid-cols-[0.34fr_0.66fr] md:gap-10 md:py-10 ${
+                isLast ? "border-b" : ""
+            }`}
+        >
+            <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden bg-[#ebe7df] p-1.5">
                         <Image
                             src={icon}
                             alt={iconAlt}
-                            width={56}
-                            height={56}
-                            className="w-14 h-14 md:w-12 md:h-12 object-contain"
+                            width={48}
+                            height={48}
+                            className="h-full w-full object-contain"
                         />
-                    </div>
-
-                    {/* Vertical connecting line (behind icon disk) */}
-                    {!isLast && (
-                        <div
-                            className="absolute left-1/2 top-14 md:top-12 z-0 w-0.5 bg-gray-300 dark:bg-gray-700 -translate-x-1/2"
-                            style={{ height: 'calc(100% + 1rem)' }}
-                        />
-                    )}
                 </div>
-
-                {/* Content */}
-                <div className="flex-1 pb-8">
-                    {/* Company and role with period */}
-                    <div className="mb-1">
-                        <h3 className="text-lg md:text-base text-gray-900 dark:text-white">
-                            {company}
-                        </h3>
-                        <p className="text-base md:text-sm text-gray-600 dark:text-gray-400 mt-0.5">
-                            {hasRole ? `${role} • ${period}` : period}
-                        </p>
-                    </div>
-
-                    {/* Description */}
-                    {description && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.2, ease: 'easeOut' }}
-                            className="pt-3 text-base md:text-sm text-gray-700 dark:text-gray-300 space-y-2"
-                        >
-                            {description}
-                        </motion.div>
-                    )}
+                <div className="min-w-0">
+                    <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#ef432f]">
+                        {period}
+                    </p>
+                    <h3 className="text-[15px] font-medium leading-snug text-[#22211f]">
+                        {company}
+                    </h3>
                 </div>
             </div>
-        </div>
+
+            <div>
+                {hasRole && (
+                    <p className="mb-4 font-display text-2xl font-medium uppercase tracking-[-0.02em] text-[#22211f] sm:text-[1.75rem]">
+                        {role}
+                    </p>
+                )}
+                {description && (
+                    <div className="space-y-3 text-[14px] leading-[1.75] text-[#625f59] sm:text-[15px] [&_a]:text-[#d83b2a] [&_a]:underline-offset-4 [&_a:hover]:underline [&_span]:font-medium [&_span]:text-[#22211f]">
+                        {description}
+                    </div>
+                )}
+            </div>
+        </motion.article>
     );
 }
