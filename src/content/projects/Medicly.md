@@ -9,6 +9,8 @@ images:
   - "/images/medicly/tech-stack.jpg"
 icon: "/images/medicly/medicly-icon.png"
 ranking: 8
+homepage:
+  award: "1st Place · HackCMU"
 technologies:
   - MediaPipe
   - BioDigital Human

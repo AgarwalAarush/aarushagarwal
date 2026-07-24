@@ -10,6 +10,7 @@ images:
 # icon: "/images/haven-icon.png"
 ranking: 4
 homepage:
+  award: "1st Place, YC + Fetch.AI · Best Startup · CalHacks 12.0"
   metric: "Multi-agent"
   metricLabel: "hospital intelligence"
   systemFlow:

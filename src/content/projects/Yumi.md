@@ -10,6 +10,8 @@ images:
   - "/images/yumi/yumi-ios.jpeg"
 icon: "/images/yumi/yumi-hero.jpeg"
 ranking: 5
+homepage:
+  award: "3rd Place · HackHarvard 2025"
 technologies:
   - Gemini Flash
   - Netlify

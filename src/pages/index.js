@@ -221,6 +221,14 @@ export async function getStaticProps() {
 			);
 			const { data: frontmatter } = matter(markdownWithMeta);
 			if (frontmatter.ignore === true) return null;
+			const homepage = frontmatter.homepage
+				? {
+						...frontmatter.homepage,
+						cardImage: frontmatter.homepage.cardImage
+							? getAssetUrl(frontmatter.homepage.cardImage)
+							: null,
+					}
+				: null;
 			return {
 				id,
 				title: frontmatter.title || "Untitled Project",
@@ -232,7 +240,7 @@ export async function getStaticProps() {
 				demo: frontmatter.demo || null,
 				technologies: frontmatter.technologies || [],
 				ranking: frontmatter.ranking || 999,
-				homepage: frontmatter.homepage || null,
+				homepage,
 			};
 		})
 		.filter(Boolean)

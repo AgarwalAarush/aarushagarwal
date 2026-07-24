@@ -9,6 +9,7 @@ images:
   - "/images/healthier/tech-stack.jpeg"
 ranking: 3
 homepage:
+  award: "2nd Place, Healthcare · NexHacks"
   metric: "Multimodal"
   metricLabel: "home-to-clinic signals"
   systemFlow:

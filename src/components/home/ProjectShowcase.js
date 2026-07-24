@@ -6,7 +6,9 @@ import { motion, useReducedMotion } from "framer-motion";
 const FLOW_NODE_X = [18, 206, 394, 582];
 
 function cleanDescription(description = "") {
-  return description.replace(/\*\*/g, "");
+  return description
+    .replace(/^\*\*.*?\*\*\s*/, "")
+    .replace(/\*\*/g, "");
 }
 
 function ProjectArrow({ active }) {
@@ -120,6 +122,7 @@ function FeaturedProjectCard({ project, index }) {
   const reverse = index % 2 === 1;
   const homepage = project.homepage || {};
   const steps = homepage.systemFlow || [];
+  const cardImage = homepage.cardImage || project.image;
 
   return (
     <motion.article
@@ -127,8 +130,7 @@ function FeaturedProjectCard({ project, index }) {
       whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
       transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       viewport={{ once: true, amount: 0.12 }}
-      className="mb-6 overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#171716] text-[#f0eee9] shadow-[0_24px_70px_-42px_rgba(46,36,28,0.65)] sm:rounded-[1.75rem] lg:sticky"
-      style={{ top: `${24 + index * 10}px` }}
+      className="mb-10 overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#171716] text-[#f0eee9] shadow-[0_24px_70px_-42px_rgba(46,36,28,0.65)] sm:rounded-[1.75rem] lg:mb-20"
     >
       <Link
         href={`/projects/${project.id}`}
@@ -149,10 +151,22 @@ function FeaturedProjectCard({ project, index }) {
         >
           <div className="flex flex-col justify-between p-6 sm:p-9 lg:p-12">
             <div>
-              <div className="mb-9 flex items-center justify-between">
-                <p className="font-mono text-[9px] uppercase tracking-[0.19em] text-white/45">
-                  Selected work / {String(index + 1).padStart(2, "0")}
-                </p>
+              <div className="mb-9 flex items-start justify-between gap-5">
+                <div>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.19em] text-white/45">
+                    Selected work / {String(index + 1).padStart(2, "0")}
+                  </p>
+                  {homepage.award && (
+                    <div className="mt-7 border-l border-[#ef432f] pl-4">
+                      <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-[#ef432f]">
+                        Recognition
+                      </p>
+                      <p className="mt-1.5 max-w-[25rem] font-display text-2xl font-medium uppercase leading-[0.9] tracking-[-0.025em] text-white sm:text-[1.75rem]">
+                        {homepage.award}
+                      </p>
+                    </div>
+                  )}
+                </div>
                 <ProjectArrow active={active && !reducedMotion} />
               </div>
 
@@ -188,7 +202,7 @@ function FeaturedProjectCard({ project, index }) {
           </div>
 
           <div className="relative min-h-[310px] overflow-hidden bg-[#242321] lg:min-h-full">
-            {project.image ? (
+            {cardImage ? (
               <motion.div
                 className="absolute inset-0"
                 initial={false}
@@ -199,7 +213,7 @@ function FeaturedProjectCard({ project, index }) {
                 transition={{ type: "spring", stiffness: 90, damping: 20 }}
               >
                 <Image
-                  src={project.image}
+                  src={cardImage}
                   alt={`${project.title} project preview`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -242,6 +256,8 @@ function FeaturedProjectCard({ project, index }) {
 
 function ProjectArchiveRow({ project, index }) {
   const reducedMotion = useReducedMotion();
+  const homepage = project.homepage || {};
+  const cardImage = homepage.cardImage || project.image;
 
   return (
     <motion.li
@@ -262,9 +278,16 @@ function ProjectArchiveRow({ project, index }) {
         <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#8c8880]">
           {String(index + 5).padStart(2, "0")}
         </span>
-        <h3 className="font-display text-3xl font-medium uppercase tracking-[-0.025em] text-[#22211f] transition-transform duration-300 group-hover:translate-x-1.5 sm:text-4xl">
-          {project.title}
-        </h3>
+        <div>
+          {homepage.award && (
+            <p className="mb-2 font-display text-base font-medium uppercase leading-none tracking-[-0.01em] text-[#ef432f] sm:text-lg">
+              {homepage.award}
+            </p>
+          )}
+          <h3 className="font-display text-3xl font-medium uppercase tracking-[-0.025em] text-[#22211f] transition-transform duration-300 group-hover:translate-x-1.5 sm:text-4xl">
+            {project.title}
+          </h3>
+        </div>
         <div className="pr-0 sm:pr-28">
           <p className="line-clamp-2 text-[13px] leading-relaxed text-[#66635d]">
             {cleanDescription(project.description)}
@@ -274,10 +297,10 @@ function ProjectArchiveRow({ project, index }) {
           </p>
         </div>
 
-        {project.image && (
+        {cardImage && (
           <div className="pointer-events-none absolute right-6 top-1/2 hidden h-24 w-32 -translate-y-1/2 overflow-hidden border border-[#b8b4ac] bg-[#e8e4dc] opacity-0 transition-all duration-300 group-hover:right-3 group-hover:opacity-100 group-focus-visible:right-3 group-focus-visible:opacity-100 md:block">
             <Image
-              src={project.image}
+              src={cardImage}
               alt=""
               fill
               sizes="128px"

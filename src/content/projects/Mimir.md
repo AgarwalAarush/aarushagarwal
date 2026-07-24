@@ -9,6 +9,8 @@ images:
   - "/images/mimir/tech-stack.png"
 icon: "/images/mimir/mimir.png"
 ranking: 7
+homepage:
+  award: "1st Place · CMU Claude Builder Hackathon"
 technologies:
   - Claude
   - Manim
