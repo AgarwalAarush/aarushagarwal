@@ -1,6 +1,6 @@
 ---
 title: "AutoReflex"
-description: "**3rd Place at Hackberry Pi.** Real-time neuromuscular aim-assist that closes the loop from pixels to physical movement in under 15ms. A Jetson Nano runs a 100fps vision pipeline and streams target coordinates over UDP to a Raspberry Pi, which drives a Feetech ST3215 servo and optional TENS muscle stimulation via a 1kHz PID control loop."
+description: "**3rd Place at Hackberry Pi.** A sub-15ms hardware-in-the-loop aim assist that turns visual detections into physical corrections. A Jetson Nano tracks targets at 100fps and streams coordinates over UDP to a Raspberry Pi, which drives a servo and optional TENS stimulation through a 1kHz PID controller."
 ranking: 1
 homepage:
   award: "3rd Place · Hackberry Pi"

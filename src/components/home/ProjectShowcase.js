@@ -66,13 +66,13 @@ function FeaturedProjectCard({ project, index }) {
         >
           <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10">
             <div>
-              <div className="mb-7 flex items-start justify-between gap-5">
-                <div>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.19em] text-white/45">
-                    Selected work / {String(index + 1).padStart(2, "0")}
-                  </p>
-                  {homepage.award && (
-                    <div className="mt-5 border-l border-[#ef432f] pl-4">
+              <div
+                className={`mb-7 flex items-start gap-5 ${
+                  homepage.award ? "justify-between" : "justify-end"
+                }`}
+              >
+                {homepage.award && (
+                  <div className="border-l border-[#ef432f] pl-4">
                       <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-[#ef432f]">
                         Recognition
                       </p>
@@ -84,9 +84,8 @@ function FeaturedProjectCard({ project, index }) {
                           {homepage.competitionScale}
                         </p>
                       )}
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
                 <ProjectArrow active={active && !reducedMotion} />
               </div>
 
@@ -97,7 +96,11 @@ function FeaturedProjectCard({ project, index }) {
                   x: active && !reducedMotion ? 6 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 150, damping: 20 }}
-                className="font-display text-[clamp(4rem,8vw,7.2rem)] font-medium uppercase leading-[0.75] tracking-[-0.05em]"
+                className={`font-display font-medium uppercase leading-[0.75] tracking-[-0.05em] ${
+                  project.id === "AutoReflex"
+                    ? "text-[clamp(3.8rem,6.7vw,6.35rem)]"
+                    : "text-[clamp(4rem,8vw,7.2rem)]"
+                }`}
               >
                 {project.title}
               </motion.h3>
@@ -115,7 +118,7 @@ function FeaturedProjectCard({ project, index }) {
                   {homepage.metricLabel}
                 </p>
               </div>
-              <p className="max-w-[15rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.13em] text-white/35 sm:text-[9px]">
+              <p className="max-w-[24rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.13em] text-white/35 sm:text-[9px] lg:whitespace-nowrap">
                 {project.technologies.slice(0, 4).join(" / ")}
               </p>
             </div>
