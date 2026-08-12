@@ -103,7 +103,7 @@ export default function HomepageHero() {
                   Hackathon Winner
                 </p>
                 <p className="mt-2 font-mono text-[7px] uppercase tracking-[0.14em] text-[#77736b] sm:text-[8px]">
-                  CalHacks / HackHarvard / HackCMU
+                  CMU 3× / Harvard / Berkeley
                 </p>
               </div>
             </div>
