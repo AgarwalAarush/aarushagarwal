@@ -112,7 +112,7 @@ export default function Home({ projects }) {
           />
 
           <TimelineItem
-            icon={getAssetUrl("/images/shopify.png")}
+            icon="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg"
             iconAlt="Shopify"
             company="Shopify"
             role="Machine Learning Engineer Intern"
@@ -160,7 +160,7 @@ export default function Home({ projects }) {
             }
           />
           <TimelineItem
-            icon={getAssetUrl("/images/shopify.png")}
+            icon="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg"
             iconAlt="Shopify"
             company="Shopify"
             role="Machine Learning Engineer Intern"

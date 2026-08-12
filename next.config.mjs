@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: '7fzwxvblhjtadxkp.public.blob.vercel-storage.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.shopify.com',
+        pathname: '/shopifycloud/brochure/assets/brand-assets/**',
+      },
     ],
   },
 };
