@@ -123,9 +123,9 @@ export default function HomepageHero() {
               <h2 className="font-display max-w-[31rem] text-[clamp(1.55rem,2.15vw,2rem)] font-medium uppercase leading-[1.03] tracking-[-0.025em] text-[#2a2926]">
                 <span className="whitespace-nowrap">
                   AI @ CMU
-                  <span className="px-2 text-[#ef432f]">/</span>
-                  MLE @ Shopify
                 </span>
+                <br />
+                <span className="whitespace-nowrap">MLE @ Shopify</span>
                 <br />
                 <span className="whitespace-nowrap">Venture @ Felicis</span>
               </h2>
