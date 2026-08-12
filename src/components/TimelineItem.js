@@ -24,7 +24,7 @@ export default function TimelineItem({
             }`}
         >
             <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden bg-[#ebe7df] p-1.5">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden">
                         <Image
                             src={icon}
                             alt={iconAlt}
