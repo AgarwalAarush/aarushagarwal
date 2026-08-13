@@ -98,12 +98,12 @@ export default function HomepageHero() {
               <p className="font-display text-[3.4rem] font-medium uppercase leading-[0.72] tracking-[-0.06em] text-[#ef432f] sm:text-[4rem]">
                 6×
               </p>
-              <div className="pb-2">
+              <div className="translate-y-2">
                 <p className="font-display text-[1.65rem] font-medium uppercase leading-none tracking-[-0.025em] text-[#242320] sm:text-[1.85rem]">
                   Hackathon Winner
                 </p>
                 <p className="mt-2 font-mono text-[7px] uppercase tracking-[0.14em] text-[#77736b] sm:text-[8px]">
-                  CMU 3× / Harvard / Berkeley
+                  CMU 3× / Harvard / Berkeley / Claude
                 </p>
               </div>
             </div>
