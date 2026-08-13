@@ -84,18 +84,17 @@ export default function Home({ projects }) {
                   </a>
                 </div>
                 <p>
-                  First-authored FastGraph, a GPU-resident differentiable
-                  k-nearest neighbor algorithm with custom CUDA kernels for
-                  low-dimensional graph neural network workflows. FastGraph
-                  accelerates graph construction in 2–10D spaces with a
-                  bin-partitioned, fully GPU-resident architecture and achieves
-                  20–40× speedups over FAISS, ANNOY, and SCANN.
+                  First-authored FastGraph, developing a GPU-resident exact kNN
+                  primitive for geometric deep learning. Designed a PCA-subspace
+                  spatial partitioning algorithm that preserves exact neighbors
+                  and delivers up to 41× speedups over FAISS-GPU on 5M-point CMS
+                  HGCAL workloads.
                 </p>
                 <p>
-                  Engineered PyTorch autograd and gradient operations in
-                  C++/CUDA and integrated JIT serialization, reducing KNN
-                  runtime by an additional 10% and enabling end-to-end
-                  differentiability inside GPU training pipelines.
+                  Implemented FastGraph&apos;s PyTorch/CUDA integration, including
+                  C++ autograd support, CUDA kernels, TorchScript-compatible
+                  axis-aligned execution, and eager-mode PCA APIs for GNN
+                  workflows.
                 </p>
               </>
             }
@@ -120,18 +119,18 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
-                  <span>Search Relevance:</span> Developing ranking systems for
-                  Shopify&apos;s commerce search stack. Fine-tuning and
-                  distilling LFM 2.5 models, then deploying them for low-latency
-                  DNN inference on custom Triton serving infrastructure.
+                  <span>Search Relevance:</span> Building ranking systems for
+                  Shopify&apos;s commerce-search stack, including fine-tuning and
+                  distilling Liquid AI LFM2.5 re-rankers for low-latency
+                  inference on custom Triton serving infrastructure. Reduced p99
+                  inference latency by 10% (20 ms → 18 ms).
                 </p>
                 <p>
                   <span>Merchant-Aware Ranking:</span> Designed and implemented
-                  a novel auxiliary merchant-aware training objective that
-                  teaches the ranker to prioritize a merchant&apos;s first-party
-                  catalog for merchant-intent queries. Improved a core
-                  merchant-search relevance metric by 10% while reducing the
-                  ranking prominence of third-party resellers.
+                  an auxiliary merchant-aware training objective for
+                  merchant-intent queries. Improved a core merchant-search
+                  relevance metric by 10% by helping the ranker surface a
+                  merchant&apos;s first-party catalog ahead of third-party resellers.
                 </p>
               </>
             }
@@ -145,16 +144,15 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
-                  Selected as a Venture Fellow in a highly competitive program
-                  focused on leveraging AI and technology for real-world
-                  impact.
+                  Co-organized Felicis × CMU VentureHacks, selecting 53 builders
+                  from 150+ applicants for an eight-hour build sprint that
+                  produced 20 project demos; awarded $10K+ in prizes and hosted
+                  an AMA with a Skild AI founding researcher.
                 </p>
                 <p>
-                  Conducted startup diligence and market research across AI and
-                  emerging technology. Co-organized VentureHacks, a Felicis ×
-                  CMU hackathon that attracted 500+ applicants and awarded
-                  $10K+ in prizes, with speakers including Felicis partners and
-                  a founding researcher at Skild AI.
+                  <span>AI Venture Research:</span> Conducted startup diligence
+                  and market research on emerging AI companies and technical
+                  market shifts alongside the Felicis team.
                 </p>
               </>
             }
