@@ -98,7 +98,7 @@ export default function HomepageHero() {
               <p className="font-display text-[3.4rem] font-medium uppercase leading-[0.72] tracking-[-0.06em] text-[#ef432f] sm:text-[4rem]">
                 6×
               </p>
-              <div className="translate-y-2">
+              <div className="translate-y-0.5">
                 <p className="font-display text-[1.65rem] font-medium uppercase leading-none tracking-[-0.025em] text-[#242320] sm:text-[1.85rem]">
                   Hackathon Winner
                 </p>
