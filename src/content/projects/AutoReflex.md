@@ -1,13 +1,13 @@
 ---
 title: "AutoReflex"
-description: "**3rd Place at Hackberry Pi.** A sub-15ms hardware-in-the-loop aim assist that turns visual detections into physical corrections. A Jetson Nano tracks targets at 100fps and streams coordinates over UDP to a Raspberry Pi, which drives a servo and optional TENS stimulation through a 1kHz PID controller."
+description: "**3rd Place at Hackberry Pi.** A sub-30ms hardware-in-the-loop aim assist that turns visual detections into physical corrections. A Jetson Orin Nano tracks targets at 100fps and streams coordinates over UDP to a Raspberry Pi, which drives a servo and optional TENS stimulation through a 1kHz PID controller."
 ranking: 1
 homepage:
   award: "3rd Place · Hackberry Pi"
   competitionScale: "Among 250 participants"
   cardImage: "/images/autoreflex/box-demo.jpeg"
   cardImagePosition: "right center"
-  metric: "< 15 ms"
+  metric: "< 30 ms"
   metricLabel: "end-to-end latency"
 github: "https://github.com/beeler-devs/HackberryPi"
 demo: "https://youtu.be/0nmgYhaoP1Q"
@@ -24,7 +24,7 @@ technologies:
   - Feetech SCS/STS
 ---
 
-**AutoReflex** is a real-time neuromuscular aim-assist system that combines computer vision, servo-driven mechanical actuation, and transcutaneous electrical nerve stimulation (TENS) to physically guide a player's aim. A Jetson Nano detects on-screen targets at 100fps and streams coordinates over UDP to a Raspberry Pi, which runs a 1kHz PID control loop driving a Feetech ST3215 servo and optional solenoid trigger — closing the loop from pixels to physical movement in under 15ms.
+**AutoReflex** is a real-time neuromuscular aim-assist system that combines computer vision, servo-driven mechanical actuation, and transcutaneous electrical nerve stimulation (TENS) to physically guide a player's aim. A Jetson Orin Nano detects on-screen targets at 100fps and streams coordinates over UDP to a Raspberry Pi, which runs a 1kHz PID control loop driving a Feetech ST3215 servo and optional solenoid trigger — closing the loop from pixels to physical movement in under 30ms.
 
 ### The Problem
 
@@ -40,7 +40,7 @@ The result is a closed-loop system spanning two compute nodes, a servo motor, an
 
 AutoReflex runs as two cooperating nodes over a direct Ethernet link:
 
-- **Vision node (Jetson Nano):** Arducam OV9782 captures at 100fps, runs HSV color thresholding or YOLO11n detection, and transmits 20-byte UDP packets containing target centroid, crosshair position, and blob width.
+- **Vision node (Jetson Orin Nano):** Arducam OV9782 captures at 100fps, runs HSV color thresholding or YOLO11n detection, and transmits 20-byte UDP packets containing target centroid, crosshair position, and blob width.
 - **Control node (Raspberry Pi):** Receives packets and runs a 1kHz busy-spin PID loop — driving the ST3215 servo over half-duplex UART at 1 Mbps, firing a solenoid trigger via GPIO on target lock, and modulating TENS (EMS) intensity via two MCP4131 digital potentiometers over SPI.
 
 ```software-embed
@@ -85,22 +85,15 @@ Overshoot damping halves gains for 10 frames after error sign reversal. Backlash
 
 Two MCP4131 digital potentiometers over SPI (CE0 + CE1) modulate TENS electrode intensity as a function of pixel error. Large errors trigger stronger muscle stimulation, physically redirecting the arm before the servo completes its mechanical slew. This creates a two-channel correction: electrical (fast, ~1ms) and mechanical (slower, ~10ms).
 
-### Latency Budget
+### Latency
 
-| Stage | Time | Notes |
-|-------|------|-------|
-| Camera capture | ~10ms | 100fps MJPEG, hardware-timed |
-| HSV detection | ~2ms | Pre-allocated buffers, no malloc |
-| UDP transit | <1ms | Direct Ethernet, no routing |
-| PID compute | <1µs | All stack, no heap |
-| Servo write | ~9µs | 9 bytes @ 1 Mbps |
-| **End-to-end** | **~13ms** | **Pixel to servo movement** |
+The full camera-to-actuation loop completed in under 30ms end to end.
 
 ### Hardware
 
 | Component | Role | Interface |
 |-----------|------|-----------|
-| NVIDIA Jetson Nano | Vision processing (HSV/YOLO) | USB (camera), Ethernet (UDP) |
+| NVIDIA Jetson Orin Nano | Vision processing (HSV/YOLO) | USB (camera), Ethernet (UDP) |
 | Arducam OV9782 | 100fps global shutter camera | USB 2.0 (MJPEG) |
 | Raspberry Pi 4/5 | Real-time servo control | Ethernet (UDP), UART, GPIO, SPI |
 | Feetech ST3215 | 12-bit digital servo (4096 steps/360°) | Half-duplex UART @ 1 Mbps |
