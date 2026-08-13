@@ -87,8 +87,8 @@ export default function Home({ projects }) {
                   First-authored FastGraph, developing a GPU-resident exact kNN
                   primitive for geometric deep learning. Designed a PCA-subspace
                   spatial partitioning algorithm that preserves exact neighbors
-                  and delivers up to 41× speedups over FAISS-GPU on 5M-point CMS
-                  HGCAL workloads.
+                  and delivers up to 41× speedups over FAISS-GPU on CMS HGCAL
+                  workloads.
                 </p>
                 <p>
                   Implemented FastGraph&apos;s PyTorch/CUDA integration, including
