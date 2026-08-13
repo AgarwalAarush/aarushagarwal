@@ -123,7 +123,7 @@ export default function Home({ projects }) {
                   Shopify&apos;s commerce-search stack, including fine-tuning and
                   distilling Liquid AI LFM2.5 re-rankers for low-latency
                   inference on custom Triton serving infrastructure. Reduced p99
-                  inference latency by 10% (20 ms → 18 ms).
+                  inference latency by 5% (20 ms → 19 ms).
                 </p>
                 <p>
                   <span>Merchant-Aware Ranking:</span> Designed and implemented
