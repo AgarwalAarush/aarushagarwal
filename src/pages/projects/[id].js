@@ -97,6 +97,7 @@ export default function ProjectPage({ project }) {
         ? getAssetUrl(resolvedSrc)
         : resolvedSrc;
       const isVideo = /\.(mp4|webm|ogg)$/i.test(assetSrc);
+      const isPortraitDemo = src.includes('scrappydevs/healthier') && src.includes('/assets/demos/');
 
       if (isVideo) {
         return (
@@ -134,6 +135,27 @@ export default function ProjectPage({ project }) {
                 className="w-full h-auto block"
               />
             </span>
+            {title && (
+              <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
+                {title}
+              </span>
+            )}
+          </span>
+        );
+      }
+
+      if (isPortraitDemo) {
+        return (
+          <span className="block my-6">
+            <Image
+              src={assetSrc}
+              alt={alt || ''}
+              width={600}
+              height={1297}
+              sizes="(max-width: 640px) 100vw, 360px"
+              unoptimized
+              className="mx-auto h-auto w-full max-w-[360px] rounded-lg border border-gray-200 dark:border-[#2a2a2a]"
+            />
             {title && (
               <span className="mt-2 block text-center text-sm text-gray-500 dark:text-gray-400">
                 {title}
