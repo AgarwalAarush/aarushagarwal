@@ -48,13 +48,6 @@ Haven is an AI-powered coordination platform that provides three integrated laye
 -   **Autonomous Monitoring**: A coordinated network of Fetch.ai agents continuously analyzes patient status using a computer-vision pipeline built with OpenCV pose-estimation and a custom remote photoplethysmography (rPPG) model. The system adapts thresholds dynamically to balance false positives and reliably detect early clinical deterioration, triggering intelligent alerts before issues escalate.
 -   **Spatial Intelligence Hub**: A live 3D hospital map, powered by a Claude agent, provides a real-time spatial overview of the entire floor. Nurses can use natural language to query patient status, manage resources, and visualize alerts.
 
-### Agent Orchestration
-
-The important design choice is the handoff: specialized agents coordinate live inputs into a shared clinical picture, but a nurse remains the decision point. Select a component to trace that path.
-
-```haven-agent-orchestration-embed
-```
-
 ### Product Demo
 
 ![Haven emergency monitoring demo](https://raw.githubusercontent.com/scrappydevs/haven/94fba7293a4f9bc1f4833c7fb8d0dafc5b147a0c/Haven%20Seizure%20Example.gif)

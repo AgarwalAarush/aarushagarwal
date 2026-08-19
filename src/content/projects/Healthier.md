@@ -49,17 +49,6 @@ Healthier makes at-home care **observable, measurable, and actionable** by combi
 - **Voice-Based Daily Check-Ins**: A conversational voice agent lets patients journal symptoms, mood, and concerns naturally—lowering friction for daily engagement.
 - **Caregiver & Clinician View**: Behind the scenes, Healthier converts raw signals into adherence timelines, risk indicators, and early alerts, surfaced through a live 2D/3D view of homes or facilities.
 
-### Care Continuity Loop
-
-The value is not a single detection—it is the feedback loop from care plan to daily behavior to a clinician-reviewed next step. Select a stage to see how the system turns home activity into durable care context.
-
-```healthier-care-loop-embed
-```
-
-### Product Demo
-
-![Healthier medication analysis demo](https://raw.githubusercontent.com/scrappydevs/healthier/8dbc1ac6b3469f30f44b36b1e6755aa3125be1fa/assets/demos/Medication%20Analysis.gif)
-
 ### How It Works
 
 Healthier is built around the idea that **care data should be captured passively, validated intelligently, and summarized automatically**.
