@@ -316,15 +316,7 @@ export default function ProjectPage({ project }) {
                 <article className="prose prose-sm w-full min-w-0 max-w-none markdown-github">
                   <div className="w-full min-w-0 text-black dark:text-gray-300">
                     {(() => {
-                      if (project.id !== 'AutoReflex' && project.id !== 'Abyss') {
-                        return (
-                          <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
-                            {project.content}
-                          </ReactMarkdown>
-                        );
-                      }
-
-                      const embedMarker = /(\n*```(?:circuit-embed|software-embed|abyss-embed|abyss-dataflow-embed|abyss-infra-embed)\s*```\s*\n*)/;
+                      const embedMarker = /(\n*```(?:circuit-embed|software-embed|abyss-embed|abyss-dataflow-embed|abyss-infra-embed|healthier-care-loop-embed|haven-agent-orchestration-embed)\s*```\s*\n*)/;
                       const segments = project.content.split(embedMarker);
                       const embeds = [
                         { marker: 'circuit-embed', src: '/api/circuit-diagram', title: 'AutoReflex hardware circuit diagram', height: '560px' },
@@ -332,8 +324,9 @@ export default function ProjectPage({ project }) {
                         { marker: 'abyss-embed', src: '/api/abyss-diagram', title: 'Abyss system architecture diagram', height: '730px' },
                         { marker: 'abyss-dataflow-embed', src: '/api/abyss-dataflow', title: 'Abyss data flow diagram', height: '580px' },
                         { marker: 'abyss-infra-embed', src: '/api/abyss-infra-diagram', title: 'Abyss AWS infrastructure diagram', height: '605px' },
+                        { marker: 'healthier-care-loop-embed', src: '/api/healthier-care-loop', title: 'Healthier care continuity loop', height: '560px' },
+                        { marker: 'haven-agent-orchestration-embed', src: '/api/haven-agent-orchestration', title: 'Haven multi-agent orchestration', height: '600px' },
                       ];
-                      let embedIndex = 0;
 
                       return segments.map((segment, i) => {
                         const embed = embeds.find(e => segment.includes(e.marker));

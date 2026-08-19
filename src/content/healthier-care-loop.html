@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Healthier care continuity loop</title>
+  <style>
+    :root { --bg:#f3f2ed; --ink:#2f2e2b; --muted:#77736b; --line:#c8c3b9; --green:#16804b; --blue:#2563eb; --orange:#d97706; --red:#dc4b35; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--ink); background:linear-gradient(rgba(113,106,94,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(113,106,94,.1) 1px,transparent 1px),var(--bg); background-size:24px 24px; font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    .diagram { min-height:100vh; padding:28px; display:flex; flex-direction:column; justify-content:center; gap:20px; }
+    .eyebrow { color:var(--red); font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { margin:6px 0 0; font-size:clamp(18px,2.4vw,27px); letter-spacing:-.06em; line-height:1; }
+    .intro { margin:9px 0 0; max-width:690px; color:var(--muted); font-size:11px; line-height:1.6; }
+    .stages { display:grid; grid-template-columns:1.15fr 28px 1.1fr 28px 1.05fr 28px 1.15fr; align-items:stretch; gap:0; }
+    .node { position:relative; min-height:204px; border:1px solid var(--line); border-radius:9px; background:rgba(243,242,237,.91); padding:17px; text-align:left; color:inherit; font:inherit; cursor:pointer; transition:transform .2s,border-color .2s,box-shadow .2s; }
+    .node:hover,.node:focus-visible,.node.active { transform:translateY(-3px); outline:none; border-color:var(--accent); box-shadow:0 13px 28px -20px color-mix(in srgb,var(--accent) 80%,transparent); }
+    .node[data-tone="home"] { --accent:var(--green); } .node[data-tone="edge"] { --accent:var(--blue); } .node[data-tone="signal"] { --accent:var(--orange); } .node[data-tone="care"] { --accent:var(--red); }
+    .index { color:var(--accent); font-size:9px; font-weight:700; letter-spacing:.14em; }
+    .node h2 { margin:14px 0 9px; font-size:13px; letter-spacing:-.045em; line-height:1.14; }
+    .node p { margin:0; color:#69655e; font-size:10px; line-height:1.55; }
+    .tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:14px; }
+    .tag { border:1px solid color-mix(in srgb,var(--accent) 36%,white); color:var(--accent); padding:4px 6px; font-size:8px; letter-spacing:.04em; }
+    .arrow { display:grid; place-items:center; color:#aaa49a; font-size:23px; }
+    .feedback { width:76%; margin:0 auto; border-top:1px dashed #b3aea5; padding-top:11px; display:flex; justify-content:space-between; gap:18px; color:var(--muted); font-size:9px; line-height:1.4; }
+    .feedback strong { color:var(--green); font-size:9px; letter-spacing:.06em; }
+    .detail { border-left:3px solid var(--green); background:rgba(22,128,75,.055); padding:12px 14px; min-height:62px; }
+    .detail-label { color:var(--green); font-size:9px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+    .detail p { margin:5px 0 0; font-size:11px; line-height:1.5; }
+    @media (max-width:700px) { .diagram{padding:20px;justify-content:flex-start}.stages{grid-template-columns:1fr;gap:8px}.arrow{height:22px;transform:rotate(90deg)}.node{min-height:0}.feedback{width:100%;font-size:8px}.intro{font-size:10px} }
+    @media (prefers-reduced-motion:reduce) { .node { transition:none; } }
+  </style>
+</head>
+<body>
+  <main class="diagram">
+    <header>
+      <div class="eyebrow">Interactive system view · select a stage</div>
+      <h1>From a care plan to a visible care trajectory.</h1>
+      <p class="intro">Healthier closes the observability gap by preserving the path from everyday home behavior to a clinician-reviewed next step.</p>
+    </header>
+    <section class="stages" aria-label="Healthier care continuity loop">
+      <button class="node active" type="button" data-tone="home" data-detail="Patients use the lowest-friction interface for the moment: a camera scan, guided exercise, or a natural voice check-in.">
+        <span class="index">01 · At home</span><h2>Everyday care happens</h2><p>Medication, meals, physical therapy, symptoms, and mood are usually invisible between visits.</p><span class="tags"><span class="tag">CAMERA</span><span class="tag">MOTION</span><span class="tag">VOICE</span></span>
+      </button>
+      <div class="arrow" aria-hidden="true">→</div>
+      <button class="node" type="button" data-tone="edge" data-detail="Vision and pose models provide immediate guidance while preserving a low-friction, mobile-first patient experience. Voice check-ins turn free-form updates into structured signals.">
+        <span class="index">02 · On device</span><h2>Validate the moment</h2><p>Edge vision verifies pills and form; the conversation layer captures symptoms without a form.</p><span class="tags"><span class="tag">YOLOV8</span><span class="tag">COREML</span><span class="tag">LIVEKIT</span></span>
+      </button>
+      <div class="arrow" aria-hidden="true">→</div>
+      <button class="node" type="button" data-tone="signal" data-detail="The useful output is not a raw stream of detections. It is a longitudinal view of adherence, deviations, and changes that merit attention.">
+        <span class="index">03 · Signal layer</span><h2>Find meaningful drift</h2><p>Signals become adherence history, trends, and risk indicators rather than another data feed.</p><span class="tags"><span class="tag">TIMELINE</span><span class="tag">DEVIATIONS</span><span class="tag">RISK</span></span>
+      </button>
+      <div class="arrow" aria-hidden="true">→</div>
+      <button class="node" type="button" data-tone="care" data-detail="Caregivers and clinicians receive context to review and act on. Healthier supports the care decision; it does not replace clinical judgment.">
+        <span class="index">04 · Care team</span><h2>Review, reach out, adapt</h2><p>A live care view surfaces what changed so a human can intervene or update the plan.</p><span class="tags"><span class="tag">HUMAN REVIEW</span><span class="tag">ALERTS</span><span class="tag">PLAN UPDATE</span></span>
+      </button>
+    </section>
+    <div class="feedback"><span><strong>FEEDBACK LOOP</strong><br>Updated guidance returns to the patient, creating a continuous care record—not isolated check-ins.</span><span>Human review remains the decision point.</span></div>
+    <aside class="detail" aria-live="polite"><div class="detail-label">Stage detail</div><p id="detail">Patients use the lowest-friction interface for the moment: a camera scan, guided exercise, or a natural voice check-in.</p></aside>
+  </main>
+  <script>
+    const nodes = document.querySelectorAll('.node'); const detail = document.getElementById('detail');
+    nodes.forEach((node) => node.addEventListener('click', () => { nodes.forEach((item) => item.classList.remove('active')); node.classList.add('active'); detail.textContent = node.dataset.detail; }));
+  </script>
+</body>
+</html>

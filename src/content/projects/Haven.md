@@ -1,7 +1,7 @@
 ---
 title: "Haven"
 description: "**1st Place in YC, Fetch.AI Tracks and Best Startup Award at CalHacks 12.0** A multi-agent hospital intelligence platform that coordinates autonomous AI agents for patient monitoring and clinical decision support."
-github: ""
+github: "https://github.com/scrappydevs/haven"
 demo: ""
 devpost: "https://devpost.com/software/haven-536r1q"
 image: "/images/haven/haven.png"
@@ -47,6 +47,17 @@ Haven is an AI-powered coordination platform that provides three integrated laye
 -   **Intelligent Voice Intake**: Patients communicate naturally with a voice agent that asks structured follow-up questions, accesses validated EHR data, and generates concise, nurse-ready summaries and action items.
 -   **Autonomous Monitoring**: A coordinated network of Fetch.ai agents continuously analyzes patient status using a computer-vision pipeline built with OpenCV pose-estimation and a custom remote photoplethysmography (rPPG) model. The system adapts thresholds dynamically to balance false positives and reliably detect early clinical deterioration, triggering intelligent alerts before issues escalate.
 -   **Spatial Intelligence Hub**: A live 3D hospital map, powered by a Claude agent, provides a real-time spatial overview of the entire floor. Nurses can use natural language to query patient status, manage resources, and visualize alerts.
+
+### Agent Orchestration
+
+The important design choice is the handoff: specialized agents coordinate live inputs into a shared clinical picture, but a nurse remains the decision point. Select a component to trace that path.
+
+```haven-agent-orchestration-embed
+```
+
+### Product Demo
+
+![Haven emergency monitoring demo](https://raw.githubusercontent.com/scrappydevs/haven/94fba7293a4f9bc1f4833c7fb8d0dafc5b147a0c/Haven%20Seizure%20Example.gif)
 
 ### How It Works: A Multi-Agent Architecture
 
