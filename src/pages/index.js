@@ -22,6 +22,11 @@ const personStructuredData = {
     "https://github.com/agarwalaarush",
     "https://www.linkedin.com/in/aarush-agarwal-2751a61b1/",
   ],
+  subjectOf: {
+    "@type": "CreativeWork",
+    name: "Aarush Agarwal resume",
+    url: `${siteOrigin}/documents/Resume%20-%20Aarush%20Agarwal.pdf`,
+  },
   description:
     "Machine-learning engineer at Shopify and AI researcher at Carnegie Mellon University, graduating in December 2027.",
   memberOf: [
@@ -137,17 +142,18 @@ export default function Home({ projects }) {
                   </a>
                 </div>
                 <p>
-                  First-authored FastGraph, developing a GPU-resident exact kNN
-                  primitive for geometric deep learning. Designed a PCA-subspace
-                  spatial partitioning algorithm that preserves exact neighbors
-                  and delivers up to 41× speedups over FAISS-GPU on CMS HGCAL
-                  workloads.
+                  First-authored FastGraph, a GPU-resident exact
+                  k-nearest-neighbor engine for geometric deep learning.
+                  Developed PCA-subspace pruning that reduces the search space
+                  while evaluating distances in the original coordinates,
+                  preserving exact neighbors.
                 </p>
                 <p>
-                  Implemented FastGraph&apos;s PyTorch/CUDA integration, including
-                  C++ autograd support, CUDA kernels, TorchScript-compatible
-                  axis-aligned execution, and eager-mode PCA APIs for GNN
-                  workflows.
+                  Engineered compile-time-specialized C++/CUDA kernels with 2–5D
+                  spatial binning, hypercube neighborhood traversal, and
+                  register-cached distance evaluation. Implemented custom
+                  backward-pass gradients and PyTorch/GravNet integration for
+                  differentiable graph-learning workflows.
                 </p>
               </>
             }
