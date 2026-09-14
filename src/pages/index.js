@@ -143,17 +143,21 @@ export default function Home({ projects }) {
                 </div>
                 <p>
                   First-authored FastGraph, a GPU-resident exact
-                  k-nearest-neighbor engine for geometric deep learning.
-                  Developed PCA-subspace pruning that reduces the search space
-                  while evaluating distances in the original coordinates,
-                  preserving exact neighbors.
+                  k-nearest-neighbor engine for geometric deep learning,
+                  delivering up to{" "}
+                  <strong className="font-semibold text-[#22211f]">
+                    41× speedups over FAISS-GPU
+                  </strong>
+                  . Developed PCA-subspace spatial pruning that reduces the
+                  search space while evaluating distances in the original
+                  coordinates, preserving exact neighbors.
                 </p>
                 <p>
                   Engineered compile-time-specialized C++/CUDA kernels with 2–5D
                   spatial binning, hypercube neighborhood traversal, and
-                  register-cached distance evaluation. Implemented custom
-                  backward-pass gradients and PyTorch/GravNet integration for
-                  differentiable graph-learning workflows.
+                  register-cached distance evaluation, custom backward gradients,
+                  and PyTorch/GravNet integration for differentiable
+                  graph-learning workflows.
                 </p>
               </>
             }
