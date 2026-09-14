@@ -121,13 +121,15 @@ export default function HomepageHero() {
 
             <div className="mt-8 border-t border-[#b8b4ac] pt-5 sm:mt-10 sm:pt-6">
               <h2 className="font-display max-w-[31rem] text-[clamp(1.55rem,2.15vw,2rem)] font-medium uppercase leading-[1.03] tracking-[-0.025em] text-[#2a2926]">
+                <span className="whitespace-nowrap">ML @ CMU</span>
+                <br />
                 <span className="whitespace-nowrap">
-                  AI @ CMU
+                  Search Relevance @ Shopify
                 </span>
                 <br />
-                <span className="whitespace-nowrap">MLE @ Shopify</span>
-                <br />
-                <span className="whitespace-nowrap">Venture @ Felicis</span>
+                <span className="whitespace-nowrap text-[clamp(0.82rem,1.35vw,1.2rem)] tracking-[-0.01em]">
+                  GPU Systems / Multimodal MOE Research
+                </span>
               </h2>
 
               <ul className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
