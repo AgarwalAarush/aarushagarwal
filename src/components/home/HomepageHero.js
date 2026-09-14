@@ -13,7 +13,7 @@ const navItems = [
 const socialLinks = [
   {
     label: "Resume",
-    href: getAssetUrl("/documents/Resume%20-%20Aarush%20Agarwal.pdf"),
+    href: "/documents/Resume%20-%20Aarush%20Agarwal.pdf",
   },
   {
     label: "GitHub",
