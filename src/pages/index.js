@@ -7,7 +7,54 @@ import HomepageHero from "../components/home/HomepageHero";
 import ProjectShowcase from "../components/home/ProjectShowcase";
 import SectionNavigator from "../components/home/SectionNavigator";
 import SectionHeading from "../components/home/SectionHeading";
-import { getAssetUrl } from "../lib/assets";
+import { getAssetUrl, getSiteOrigin } from "../lib/assets";
+
+const siteOrigin = getSiteOrigin() || "https://www.aarushagarwal.dev";
+
+const personStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteOrigin}/#aarush-agarwal`,
+  name: "Aarush Agarwal",
+  url: siteOrigin,
+  image: getAssetUrl("/images/profile-pic.jpeg"),
+  sameAs: [
+    "https://github.com/agarwalaarush",
+    "https://www.linkedin.com/in/aarush-agarwal-2751a61b1/",
+  ],
+  description:
+    "Machine-learning engineer at Shopify and AI researcher at Carnegie Mellon University, graduating in December 2027.",
+  memberOf: [
+    {
+      "@type": "Role",
+      roleName: "Machine Learning Engineer Intern, Search Relevance",
+      startDate: "2026-06",
+      memberOf: {
+        "@type": "Organization",
+        name: "Shopify",
+        url: "https://www.shopify.com/",
+      },
+    },
+    {
+      "@type": "Role",
+      roleName:
+        "B.S. student in Artificial Intelligence and Computer Science (expected graduation December 2027)",
+      endDate: "2027-12",
+      memberOf: {
+        "@type": "CollegeOrUniversity",
+        name: "Carnegie Mellon University",
+        url: "https://www.cmu.edu/",
+      },
+    },
+  ],
+  knowsAbout: [
+    "Search relevance",
+    "Query rewriting",
+    "Machine learning systems",
+    "GPU systems",
+    "Multimodal mixture-of-experts research",
+  ],
+};
 
 export default function Home({ projects }) {
   return (
@@ -17,6 +64,12 @@ export default function Home({ projects }) {
         <meta
           name="description"
           content="ML systems, AI products, and research by Aarush Agarwal."
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personStructuredData),
+          }}
         />
       </Head>
 
@@ -115,7 +168,7 @@ export default function Home({ projects }) {
             iconAlt="Shopify"
             company="Shopify"
             role="Machine Learning Engineer Intern"
-            period="May 2026 – Aug 2026"
+            period="Jun 2026 – Present"
             description={
               <>
                 <p>
@@ -131,6 +184,17 @@ export default function Home({ projects }) {
                   merchant-intent queries. Improved a core merchant-search
                   relevance metric by 10% by helping the ranker surface a
                   merchant&apos;s first-party catalog ahead of third-party resellers.
+                </p>
+                <p>
+                  <span>Win/Loss Analysis:</span> Identified data and supervision
+                  mismatches by comparing production re-ranker wins and losses
+                  against LLM reference judgments, establishing the need for new
+                  training data.
+                </p>
+                <p>
+                  <span>Query Rewriting:</span> Developing a unified
+                  Storefront/Shop/Catalog query-rewriting model (+0.5 NDCG) and
+                  improving non-English rewrites.
                 </p>
               </>
             }
