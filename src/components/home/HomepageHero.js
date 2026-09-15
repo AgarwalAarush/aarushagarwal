@@ -127,8 +127,8 @@ export default function HomepageHero() {
                   Search Relevance @ Shopify
                 </span>
                 <br />
-                <span className="whitespace-nowrap text-[clamp(0.82rem,1.35vw,1.2rem)] tracking-[-0.01em]">
-                  GPU Systems / Multimodal MOE Research
+                <span className="whitespace-nowrap">
+                  GPU Systems &amp; MoE Research
                 </span>
               </h2>
 
