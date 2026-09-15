@@ -2,7 +2,6 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 
 const NOTES_COOKIE = 'notes_access';
 const NOTES_COOKIE_MESSAGE = 'aarushagarwal:notes-access';
-const ONE_WEEK = 60 * 60 * 24 * 7;
 
 function createNotesAccessToken(password) {
   return createHmac('sha256', password)
@@ -19,6 +18,8 @@ function passwordsMatch(providedPassword, expectedPassword) {
 
 export default function handler(req, res) {
   const isProduction = process.env.NODE_ENV === 'production';
+  res.setHeader('Cache-Control', 'private, no-store, max-age=0, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
 
   if (req.method === 'DELETE') {
     res.setHeader(
@@ -45,7 +46,7 @@ export default function handler(req, res) {
 
   res.setHeader(
     'Set-Cookie',
-    `${NOTES_COOKIE}=${createNotesAccessToken(expectedPassword)}; Path=/; Max-Age=${ONE_WEEK}; HttpOnly; SameSite=Lax${isProduction ? '; Secure' : ''}`,
+    `${NOTES_COOKIE}=${createNotesAccessToken(expectedPassword)}; Path=/; HttpOnly; SameSite=Lax${isProduction ? '; Secure' : ''}`,
   );
 
   return res.status(204).end();

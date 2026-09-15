@@ -11,6 +11,7 @@ import MarkdownOutline from '../../components/MarkdownOutline';
 import { extractHeadings } from '../../lib/markdownOutline';
 import { getNoteBySlug, getNoteSlugs } from '../../lib/notes';
 import { getAssetUrl } from '../../lib/assets';
+import NotesNoCache from '../../components/NotesNoCache';
 
 export async function getStaticPaths() {
   const slugs = getNoteSlugs();
@@ -43,6 +44,7 @@ export async function getStaticProps({ params }) {
 export default function NotePage({ note }) {
   return (
     <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
+      <NotesNoCache />
       <Head>
         <title>{`${note.title} | Aarush Agarwal`}</title>
         <meta name="description" content={note.excerpt || `Notes entry: ${note.title}`} />

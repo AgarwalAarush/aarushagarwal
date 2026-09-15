@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 
 const NOTES_COOKIE = 'notes_access';
 const NOTES_COOKIE_MESSAGE = 'aarushagarwal:notes-access';
+const NO_STORE_HEADERS = {
+  'Cache-Control': 'private, no-store, max-age=0, must-revalidate',
+  Pragma: 'no-cache',
+};
 
 function isProtectedNotesPath(pathname) {
   if (pathname.startsWith('/notes') || pathname === '/ai-notes') {
@@ -38,14 +42,25 @@ export async function middleware(request) {
 
   const password = process.env.NOTES_PASSWORD;
   if (!password) {
-    return new NextResponse('Notes access is not configured.', { status: 503 });
+    return new NextResponse('Notes access is not configured.', {
+      status: 503,
+      headers: NO_STORE_HEADERS,
+    });
   }
 
   const expectedToken = await getNotesAccessToken(password);
   const accessToken = request.cookies.get(NOTES_COOKIE)?.value;
 
   if (accessToken === expectedToken) {
-    return NextResponse.next();
+    const response = NextResponse.next({ headers: NO_STORE_HEADERS });
+    response.cookies.set(NOTES_COOKIE, '', {
+      path: '/',
+      maxAge: 0,
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+    });
+    return response;
   }
 
   const loginUrl = request.nextUrl.clone();
@@ -54,7 +69,7 @@ export async function middleware(request) {
     next: `${request.nextUrl.pathname}${request.nextUrl.search}`,
   }).toString();
 
-  return NextResponse.redirect(loginUrl);
+  return NextResponse.redirect(loginUrl, { headers: NO_STORE_HEADERS });
 }
 
 export const config = {

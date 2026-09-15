@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { getAllNotesMeta } from '../../lib/notes';
+import NotesNoCache from '../../components/NotesNoCache';
 
 export async function getStaticProps() {
   return {
@@ -14,6 +15,7 @@ export async function getStaticProps() {
 export default function NotesIndex({ notes }) {
   return (
     <div className="min-h-screen bg-white dark:bg-[#1D1E21]">
+      <NotesNoCache />
       <Head>
         <title>Notes | Aarush Agarwal</title>
         <meta name="description" content="Collection of technical notes" />
