@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function getSafeNextPath(value) {
   return typeof value === 'string' && value.startsWith('/') && !value.startsWith('//')
@@ -14,6 +14,14 @@ export default function NotesAccess() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const nextPath = getSafeNextPath(router.query.next);
+
+  useEffect(() => {
+    if (router.query.logout !== '1') return;
+
+    fetch('/api/notes-access', { method: 'DELETE' }).finally(() => {
+      router.replace('/notes-access');
+    });
+  }, [router]);
 
   async function handleSubmit(event) {
     event.preventDefault();

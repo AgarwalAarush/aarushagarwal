@@ -18,8 +18,18 @@ function passwordsMatch(providedPassword, expectedPassword) {
 }
 
 export default function handler(req, res) {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  if (req.method === 'DELETE') {
+    res.setHeader(
+      'Set-Cookie',
+      `${NOTES_COOKIE}=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${isProduction ? '; Secure' : ''}`,
+    );
+    return res.status(204).end();
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'POST, DELETE');
     return res.status(405).json({ error: 'Method not allowed.' });
   }
 
@@ -33,7 +43,6 @@ export default function handler(req, res) {
     return res.status(401).json({ error: 'Incorrect password.' });
   }
 
-  const isProduction = process.env.NODE_ENV === 'production';
   res.setHeader(
     'Set-Cookie',
     `${NOTES_COOKIE}=${createNotesAccessToken(expectedPassword)}; Path=/; Max-Age=${ONE_WEEK}; HttpOnly; SameSite=Lax${isProduction ? '; Secure' : ''}`,
