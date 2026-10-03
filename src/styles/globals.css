@@ -67,6 +67,10 @@
 }
 
 @layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
     html,
     body {
         @apply text-gray-900 dark:text-white;
