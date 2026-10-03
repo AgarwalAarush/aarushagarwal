@@ -7,7 +7,6 @@ const navItems = [
   { label: "Research", href: "#research" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Notes", href: "/notes" },
 ];
 
 const socialLinks = [
