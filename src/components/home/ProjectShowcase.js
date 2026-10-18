@@ -30,7 +30,7 @@ function ProjectArrow({ active }) {
   );
 }
 
-function ProjectMetricFooter({ homepage, project, className = "" }) {
+function ProjectMetricFooter({ homepage, className = "" }) {
   return (
     <div
       className={`items-end justify-between gap-3 border-t border-white/15 pt-5 ${className}`}
@@ -43,9 +43,6 @@ function ProjectMetricFooter({ homepage, project, className = "" }) {
           {homepage.metricLabel}
         </p>
       </div>
-      <p className="max-w-[24rem] text-right font-mono text-[8px] uppercase leading-relaxed tracking-[0.1em] text-white/35 lg:whitespace-nowrap xl:text-[9px] xl:tracking-[0.13em]">
-        {project.technologies.slice(0, 4).join(" / ")}
-      </p>
     </div>
   );
 }
@@ -93,10 +90,7 @@ function FeaturedProjectCard({ project, index }) {
               >
                 {homepage.award && (
                   <div className="border-l border-[#ef432f] pl-4">
-                      <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-[#ef432f]">
-                        Recognition
-                      </p>
-                      <p className="mt-1.5 max-w-[25rem] font-display text-2xl font-medium uppercase leading-[0.9] tracking-[-0.025em] text-white sm:text-[1.75rem]">
+                      <p className="max-w-[25rem] font-display text-2xl font-medium uppercase leading-[0.9] tracking-[-0.025em] text-white sm:text-[1.75rem]">
                         {homepage.award}
                       </p>
                       {homepage.competitionScale && (
@@ -131,7 +125,6 @@ function FeaturedProjectCard({ project, index }) {
 
             <ProjectMetricFooter
               homepage={homepage}
-              project={project}
               className="mt-8 hidden lg:flex"
             />
           </div>
@@ -192,7 +185,6 @@ function FeaturedProjectCard({ project, index }) {
           <div className="px-6 pb-6 pt-5 sm:px-8 sm:pb-8 lg:hidden">
             <ProjectMetricFooter
               homepage={homepage}
-              project={project}
               className="flex"
             />
           </div>
@@ -247,9 +239,6 @@ function ProjectArchiveRow({ project, index }) {
         <div className="pr-0 sm:pr-28">
           <p className="line-clamp-2 text-[13px] leading-relaxed text-[#66635d]">
             {cleanDescription(project.description)}
-          </p>
-          <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.14em] text-[#9a958c]">
-            {project.technologies.slice(0, 3).join(" / ")}
           </p>
         </div>
 
