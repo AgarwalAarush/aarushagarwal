@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
+import Link from "next/link";
 import TimelineItem from "../components/TimelineItem";
 import HomepageHero from "../components/home/HomepageHero";
 import ProjectShowcase from "../components/home/ProjectShowcase";
@@ -131,33 +132,31 @@ export default function Home({ projects }) {
             description={
               <>
                 <div>
-                  <span>Paper: </span>
+                  <Link href="/projects/FastGraph">FastGraph case study</Link>
+                  <span> · </span>
                   <a
-                    href="https://arxiv.org/abs/2511.10442"
+                    href="https://github.com/AgarwalAarush/fastgraph-paper/blob/869f9d41277c75000f51e968ac5abe655a20b9d7/Paper.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    FastGraph: Optimized GPU-Enabled Algorithms for Fast Graph
-                    Building and Message Passing
+                    Read the PCA manuscript
                   </a>
                 </div>
                 <p>
-                  First-authored FastGraph, a GPU-resident exact
-                  k-nearest-neighbor engine for geometric deep learning,
-                  delivering up to{" "}
+                  First-authored the FastGraph paper and developed PCA-subspace
+                  pruning for exact GPU k-nearest-neighbor graph construction.
+                  The evaluated system achieves up to{" "}
                   <strong className="font-semibold text-[#22211f]">
                     41× speedups over FAISS-GPU
                   </strong>
-                  . Developed PCA-subspace spatial pruning that reduces the
-                  search space while evaluating distances in the original
-                  coordinates, preserving exact neighbors.
+                  {" "}on a 5-million-point, 8-dimensional HGCAL-derived workload
+                  with 40 neighbors on an A100 80 GB GPU.
                 </p>
                 <p>
-                  Engineered compile-time-specialized C++/CUDA kernels with 2–5D
-                  spatial binning, hypercube neighborhood traversal, and
-                  register-cached distance evaluation, custom backward gradients,
-                  and PyTorch/GravNet integration for differentiable
-                  graph-learning workflows.
+                  Built on Jan Kieseler’s initial kernels: rewrote selected
+                  kernels for compile-time specialization, made targeted
+                  optimizations, and developed the PCA enhancement. Rewrote
+                  the manuscript from the ground up after an initial draft by Jan.
                 </p>
               </>
             }
@@ -290,7 +289,7 @@ export async function getStaticProps() {
 				"utf-8"
 			);
 			const { data: frontmatter } = matter(markdownWithMeta);
-			if (frontmatter.ignore === true) return null;
+			if (frontmatter.ignore === true || frontmatter.category === 'research') return null;
 			const homepage = frontmatter.homepage
 				? {
 						...frontmatter.homepage,

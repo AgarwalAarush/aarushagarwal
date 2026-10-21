@@ -187,11 +187,14 @@ export default function ProjectPage({ project }) {
   };
 
   const headings = project.headings || [];
+  const parentSection = project.category === 'research' ? 'research' : 'projects';
   const projectActions = [
+    { label: 'Read paper', href: project.paper },
     { label: 'Watch demo', href: project.demo },
     { label: 'Visit website', href: project.website },
     { label: 'View Devpost', href: project.devpost },
     { label: 'View GitHub', href: project.github },
+    { label: 'Original library', href: project.upstream },
     {
       label: 'View deck',
       href:
@@ -221,13 +224,13 @@ export default function ProjectPage({ project }) {
               <aside className="lg:w-60 flex-shrink-0">
                 <div className="lg:sticky lg:top-24 space-y-8">
                   <Link
-                    href="/#projects"
+                    href={`/#${parentSection}`}
                     className="inline-flex items-center text-gray-900 dark:text-white hover:underline transition-all duration-300"
                     onClick={(e) => {
                       e.preventDefault();
                       router.push('/').then(() => {
                         setTimeout(() => {
-                          const projectsSection = document.getElementById('projects');
+                          const projectsSection = document.getElementById(parentSection);
                           if (projectsSection) {
                             projectsSection.scrollIntoView({ behavior: 'smooth' });
                           }
@@ -238,7 +241,7 @@ export default function ProjectPage({ project }) {
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                     </svg>
-                    Back to Projects
+                    {project.category === 'research' ? 'Back to Research' : 'Back to Projects'}
                   </Link>
                   <MarkdownOutline headings={headings} />
                 </div>
@@ -408,6 +411,9 @@ export async function getStaticProps({ params }) {
         image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
         icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
         github: frontmatter.github || null,
+        paper: frontmatter.paper || null,
+        upstream: frontmatter.upstream || null,
+        category: frontmatter.category || 'project',
         demo: frontmatter.demo || null,
         website: frontmatter.website || null,
         devpost: frontmatter.devpost || null,

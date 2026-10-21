@@ -15,6 +15,10 @@ const socialLinks = [
     href: "/documents/Resume%20-%20Aarush%20Agarwal.pdf",
   },
   {
+    label: "FastGraph case study",
+    href: "/projects/FastGraph",
+  },
+  {
     label: "GitHub",
     href: "https://github.com/agarwalaarush",
   },
@@ -136,8 +140,8 @@ export default function HomepageHero() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={link.href.startsWith('/projects/') ? undefined : '_blank'}
+                      rel={link.href.startsWith('/projects/') ? undefined : 'noopener noreferrer'}
                       className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#4b4944] transition-colors duration-300 hover:text-[#ef432f] focus-visible:outline-none focus-visible:text-[#ef432f]"
                     >
                       {link.label}
