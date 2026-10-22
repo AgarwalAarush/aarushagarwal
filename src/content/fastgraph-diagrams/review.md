@@ -14,7 +14,7 @@ Pinned library revision: ad4392eee16734a1001e82764a13144379d931e9. Source links 
 
 PCA reveals the principal axis, projects copies while preserving the original cloud, transfers those copies into bins, and then compares projected/full distances. Binstepper inspects each boundary cell, updates the retained set, and reveals the stopping comparison after completing the second shell. Final states hold before fading out; the loop resets while invisible, without reversing algorithm execution.
 
-Barlow Condensed headings, JetBrains Mono annotations and Georgia mathematical values create distinct typographic roles. Warm neutral canvases use rust for the query/search and green for projection/retained neighbors. One native Play/Pause button preserves manual pause. Offscreen/hidden animations suspend; reduced motion and printing show the final poster. Parent theme is inherited. Narrow diagrams stack their geometry.
+Barlow Condensed headings, JetBrains Mono annotations and numerical comparisons create distinct typographic roles. Supporting copy and point labels share a Helvetica sans-serif stack; both comparisons use 24px monospace with matching explanatory labels. Warm neutral canvases use rust for the query/search and green for projection/retained neighbors. One native Play/Pause button preserves manual pause. Offscreen/hidden animations suspend; reduced motion and printing show the final poster. Parent theme is inherited. Narrow diagrams stack their geometry.
 
 ## Review and repairs
 
@@ -27,3 +27,7 @@ Dia desktop review confirmed actual fonts, standalone dark PCA, embedded light P
 `node scripts/check-fastgraph-diagrams.mjs` verifies PCA covariance and all-pairs contraction, shell membership/non-overlap, every partial search state against visited-point brute force, non-premature stopping, final brute-force neighbors, animation targets and opacity ranges across sampled frames, pause/resume, visibility, reduced motion, looping, and emitted JavaScript syntax. Production build is checked separately.
 
 Regenerate HTML and SVG posters with `node scripts/build-fastgraph-diagrams.mjs`. HTML is served through `/api/fastgraph-diagram?kind=pca` and `?kind=binstepper`. This is a local author review, not independent scientific validation or deployment acceptance.
+
+## Typography refinement
+
+Replaced serif point labels and numerical values with coordinated sans-serif labels and monospace values. Both final inequalities use the same size, tracking and color, with 12px explanatory labels underneath. Supporting HTML copy now uses the same sans-serif stack as SVG labels, with adjusted sizing and line height. Reviewed final frames at 320px and 720px; increased the narrow PCA canvas to fit its explanatory label. Animation logic is unchanged.

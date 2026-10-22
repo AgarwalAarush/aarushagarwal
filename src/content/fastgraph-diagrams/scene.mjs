@@ -68,7 +68,7 @@ const progress=(t,start,end)=>ease((t-start)/(end-start));
 const escapeText=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 export function layout(kind,width=720) {
   const w=Math.max(280,Math.min(920,width)),narrow=w<560;
-  if(kind==='pca') return {w,h:narrow?568:342,narrow,a:{x:narrow?w/2:w*.25,y:154},b:{x:narrow?w/2:w*.75,y:narrow?418:154},scale:Math.min(52,(narrow?w:w/2)/6.7)};
+  if(kind==='pca') return {w,h:narrow?592:342,narrow,a:{x:narrow?w/2:w*.25,y:154},b:{x:narrow?w/2:w*.75,y:narrow?418:154},scale:Math.min(52,(narrow?w:w/2)/6.7)};
   const size=Math.min(narrow?w-42:w*.55-28,322),x=16,y=34;
   return {w,h:narrow?size+335:408,narrow,size,x,y,cx:x+size/2,cy:y+size/2,s:size/7,rx:narrow?18:w*.60,ry:narrow?size+82:58};
 }
@@ -118,6 +118,7 @@ export function frame(kind,time,width=720,theme='light') {
     set('index-distance',{opacity:round(s.compare)});
     set('index-distance-note',{opacity:round(s.compare)});
     set('distance-comparison',{opacity:round(s.compare)});
+    set('distance-comparison-label',{opacity:round(s.compare)});
     set('projection-lines',{opacity:round(s.project*(1-s.transfer))});
     for(const pt of pcaPoints) {
       const sx=a.x+pt.x*k,sy=a.y-pt.y*k;
@@ -157,7 +158,7 @@ function diagram(kind,width,theme,time) {
     const props={...attrs,...(updates[id]||{})};const copy=props.text??text;delete props.text;
     return `<${name}${id?` id="${id}"`:''}${Object.entries(props).map(([key,value])=>` ${key}="${escapeText(value)}"`).join('')}>${copy?escapeText(copy):''}</${name}>`;
   };
-  const text=(id,x,y,value,attrs={})=>tag('text',id,{x:round(x),y:round(y),fill:p.ink,'font-size':14,'font-family':'Inter, Arial, sans-serif',...attrs},value);
+  const text=(id,x,y,value,attrs={})=>tag('text',id,{x:round(x),y:round(y),fill:p.ink,'font-size':14,'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif',...attrs},value);
   const line=(id,x1,y1,x2,y2,attrs={})=>tag('line',id,{x1:round(x1),y1:round(y1),x2:round(x2),y2:round(y2),stroke:p.line,...attrs});
   const dot=(id,x,y,fill,r=4,attrs={})=>tag('circle',id,{cx:round(x),cy:round(y),r,fill,...attrs});
   const group=(id,children,attrs={})=>`<g id="${id}" ${Object.entries({...attrs,...updates[id]}).map(([k,v])=>`${k}="${escapeText(v)}"`).join(' ')}>${children}</g>`;
@@ -168,8 +169,8 @@ function diagram(kind,width,theme,time) {
     body+=label('features-label',18,24,'ORIGINAL FEATURES');
     body+=label('index-label',l.narrow?18:l.w*.52,l.narrow?304:24,'PCA SEARCH INDEX');
     body+=line('',a.x-k*2.9,a.y,a.x+k*2.9,a.y)+line('',a.x,a.y-k*2.35,a.x,a.y+k*2.35);
-    body+=text('x-axis-label',a.x+k*2.8,a.y+20,'x₁',{'font-family':'Georgia, serif','font-size':15,fill:p.muted});
-    body+=text('',a.x+10,a.y-k*2.15,'x₂',{'font-family':'Georgia, serif','font-size':15,fill:p.muted});
+    body+=text('x-axis-label',a.x+k*2.8,a.y+20,'x₁',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-size':13,fill:p.muted});
+    body+=text('',a.x+10,a.y-k*2.15,'x₂',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-size':13,fill:p.muted});
     body+=line('principal-axis',a.x-k*2.8*.8,a.y+k*2.8*.6,a.x+k*2.8*.8,a.y-k*2.8*.6,{stroke:p.teal,'stroke-width':1.5});
     body+=label('axis-label',a.x+k*.95,a.y-k*1.9,'PC1',{fill:p.teal});
     let guides='';
@@ -185,14 +186,15 @@ function diagram(kind,width,theme,time) {
     const candidate=pcaPoints[11];
     body+=line('original-distance',a.x,a.y,a.x+candidate.x*k,a.y-candidate.y*k,{stroke:p.accent,'stroke-width':2});
     for(const pt of pcaPoints) body+=dot(`original-${pt.id}`,a.x+pt.x*k,a.y-pt.y*k,pt.id===candidate.id?p.accent:pt.id==='point-7'?p.ink:p.dot,pt.id===candidate.id?5:3.5);
-    body+=text('',a.x+9,a.y+20,'q',{'font-family':'Georgia, serif','font-style':'italic'});
-    body+=text('',a.x+candidate.x*k+9,a.y-candidate.y*k+4,'p',{'font-family':'Georgia, serif','font-style':'italic'});
+    body+=text('',a.x+9,a.y+20,'q',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-weight':500});
+    body+=text('',a.x+candidate.x*k+9,a.y-candidate.y*k+4,'p',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-weight':500});
     for(const pt of pcaPoints)body+=dot(`moving-${pt.id}`,0,0,pt.id===candidate.id?p.accent:p.teal,pt.id===candidate.id?5:3.5,{stroke:p.bg,'stroke-width':1});
     body+=group('index-distance',line('',b.x,b.y-69,b.x+1.6*k,b.y-69,{stroke:p.teal,'stroke-width':2})+line('',b.x,b.y-74,b.x,b.y-64,{stroke:p.teal})+line('',b.x+1.6*k,b.y-74,b.x+1.6*k,b.y-64,{stroke:p.teal}));
-    body+=group('index-point-labels',text('',b.x,b.y+23,'q',{'font-family':'Georgia, serif','font-style':'italic','text-anchor':'middle'})+text('',b.x+1.6*k,b.y+23,'p',{'font-family':'Georgia, serif','font-style':'italic','text-anchor':'middle'}));
-    body+=text('index-distance-note',b.x+.8*k,b.y-82,'1.60',{'font-family':'Georgia, serif','font-size':21,'text-anchor':'middle',fill:p.teal});
+    body+=group('index-point-labels',text('',b.x,b.y+23,'q',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-weight':500,'text-anchor':'middle'})+text('',b.x+1.6*k,b.y+23,'p',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-weight':500,'text-anchor':'middle'}));
+    body+=text('index-distance-note',b.x+.8*k,b.y-82,'1.60',{'font-family':'JetBrains Mono, monospace','font-size':17,'letter-spacing':-.5,'text-anchor':'middle',fill:p.teal});
     body+=text('distance-note',a.x,a.y+132,'Original distance  1.71',{'text-anchor':'middle',fill:p.muted,'font-size':13});
-    body+=text('distance-comparison',b.x,b.y+132,'1.60 ≤ 1.71',{'text-anchor':'middle','font-family':'Georgia, serif','font-size':27,fill:p.teal});
+    body+=text('distance-comparison',b.x,b.y+132,'1.60 ≤ 1.71',{'text-anchor':'middle','font-family':'JetBrains Mono, monospace','font-size':24,'letter-spacing':-.8,fill:p.teal});
+    body+=text('distance-comparison-label',b.x,b.y+157,'Projected ≤ original distance',{'text-anchor':'middle','font-size':12,fill:p.muted});
   } else {
     const {s:k,x:ox,y:oy,size,rx,ry}=l;const X=x=>ox+x*k,Y=y=>oy+(7-y)*k;
     body+=label('',ox,17,'BIN SPACE');
@@ -201,18 +203,18 @@ function diagram(kind,width,theme,time) {
     body+=tag('circle','radius',{cx:0,cy:0,r:1,fill:'none',stroke:p.teal,'stroke-width':1.5,'vector-effect':'non-scaling-stroke'});
     body+=tag('circle','bound',{cx:0,cy:0,r:1,fill:'none',stroke:p.accent,'stroke-dasharray':'4 4','stroke-width':1.3,'vector-effect':'non-scaling-stroke'});
     for(const pt of binPoints)body+=dot(`point-${pt.id}`,X(pt.x),Y(pt.y),p.dot,pt.id==='q'?5.5:3.8);
-    body+=text('',l.cx-15,l.cy+20,'q',{'font-family':'Georgia, serif','font-style':'italic'});
+    body+=text('',l.cx-15,l.cy+20,'q',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-weight':500});
     body+=label('bins-count',ox,oy+size+28,'');
     body+=label('',rx,ry,'NEAREST SO FAR · K = 4');
     const slotsWidth=l.narrow?l.w-36:l.w-rx-16,slot=slotsWidth/4;
     for(let i=0;i<4;i++){
       body+=line('',rx+i*slot,ry+14,rx+i*slot+slot-8,ry+14);
-      body+=text(`slot-id-${i}`,rx+i*slot+4,ry+43,'',{'font-family':'Georgia, serif','font-style':'italic','font-size':24});
+      body+=text(`slot-id-${i}`,rx+i*slot+4,ry+43,'',{'font-family':'Helvetica Neue, Helvetica, Arial, sans-serif','font-weight':500,'font-size':20});
       body+=text(`slot-distance-${i}`,rx+i*slot+4,ry+67,'',{'font-family':'JetBrains Mono, monospace','font-size':12,fill:p.muted});
     }
     body+=text('radius-description',rx,ry+103,'',{'font-size':12,fill:p.muted});
-    body+=group('stop-equation',label('',rx,ry+156,'SAFE TO STOP',{fill:p.teal})+text('',rx,ry+200,'2.00 > 1.10',{'font-family':'Georgia, serif','font-size':l.narrow?34:Math.min(36,(l.w-rx)/7),fill:p.teal}));
-    body+=text('stop-detail',rx,ry+225,'lower bound > neighbor radius',{'font-size':12,fill:p.muted});
+    body+=group('stop-equation',label('',rx,ry+156,'SAFE TO STOP',{fill:p.teal})+text('',rx,ry+200,'2.00 > 1.10',{'font-family':'JetBrains Mono, monospace','font-size':24,'letter-spacing':-.8,fill:p.teal}));
+    body+=text('stop-detail',rx,ry+225,'Lower bound > neighbor radius',{'font-size':12,fill:p.muted});
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${l.w}" height="${l.h}" viewBox="0 0 ${l.w} ${l.h}" role="img" aria-labelledby="diagram-title"><title id="diagram-title">${escapeText(kind==='pca'?scene.pca.claim:scene.binstepper.claim)}</title><rect width="${l.w}" height="${l.h}" fill="${p.bg}"/>${group('scene-content',body)}</svg>`;
 }

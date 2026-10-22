@@ -1,5 +1,5 @@
 {
-  "fingerprint": "130ca897f5756bd4ddb80e2103cf01a03d8961462747a350519cae07e943477c",
+  "fingerprint": "0eb53b3811033cddf248eaf690ca9133870522b97900bc58813473e0e399bb6c",
   "status": "locally-reviewed",
   "reviewMode": "Author visual and source review; not independent validation",
   "files": [
@@ -61,5 +61,14 @@
     "Hide x-axis label while projected points cross its region"
   ],
   "browserEvidence": "Dia: standalone dark PCA; embedded light PCA and binstepper; PCA pause/resume; binstepper initial and final states",
-  "issues": []
+  "issues": [],
+  "typographyReview": {
+    "views": [
+      "light-320",
+      "light-720"
+    ],
+    "time": 11500,
+    "changes": "Matched sans labels and supporting copy; matched 24px monospace comparisons and 12px explanation labels",
+    "motion": "Unchanged; existing sampled-motion review applies"
+  }
 }
