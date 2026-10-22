@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
 	font-family: 'Barlow Condensed';
 	src: url('/fonts/BarlowCondensed-Regular.woff2') format('woff2');
 	font-weight: 400;
@@ -47,6 +55,7 @@
     --text-primary: #111827;
     --text-secondary: #374151;
     --card-bg: #ffffff;
+    --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     --font-display: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -349,31 +358,70 @@
   @apply max-w-full;
 }
 
-/* GitHub-style code fonts for inline code */
+/* Inline code stays quiet; block code owns its surface and syntax colors. */
 .markdown-github code {
+  font-family: var(--font-code);
   font-weight: 400;
-  font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
-  @apply text-gray-900 dark:text-white bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 text-sm;
 }
 
-/* Override for code blocks styled by SyntaxHighlighter */
-.markdown-github pre {
-  @apply p-0 bg-transparent;
+.markdown-github :not(pre) > code {
+  padding: 0.12em 0.35em;
+  border: 1px solid #e5e3df;
+  border-radius: 4px;
+  background: #f5f4f1;
+  color: #41403c;
+  font-size: 0.86em;
+  overflow-wrap: anywhere;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
-.markdown-github pre code {
-  @apply bg-transparent p-0;
+.dark .markdown-github :not(pre) > code {
+  border-color: #424449;
+  background: #292b30;
+  color: #e3e5e9;
 }
 
-/* Plain code blocks (no language): monospace + preserve whitespace for ASCII diagrams */
-.markdown-github pre,
-.markdown-github pre code {
-  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+.markdown-github .project-code-block {
+  min-width: 0;
+  margin: 1.75rem 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #242830;
+  color: #e3e5e9;
+}
+
+.project-code-language {
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid #3c414b;
+  color: #b8c0cc;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+}
+
+.markdown-github .project-code-block pre {
+  overflow-x: auto;
+  font-family: var(--font-code);
+  scrollbar-color: #657080 #242830;
+  scrollbar-width: thin;
+}
+
+.markdown-github .project-code-block pre:focus-visible {
+  outline: 2px solid #a8b9d2;
+  outline-offset: -2px;
+}
+
+.markdown-github .project-code-block code {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   white-space: pre;
 }
 
-.markdown-github pre {
-  overflow-x: auto;
+.project-code-block ::selection {
+  background: #465469;
+  color: #fff;
 }
 
 /* Animations */

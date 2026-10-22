@@ -65,27 +65,29 @@ export default function ProjectPage({ project }) {
         </div>
       );
     },
-    // Custom renderer for code blocks
-    code({ node, inline, className, children, ...props }) {
-      const match = /language-(\w+)/.exec(className || '');
-      const lang = match ? match[1] : '';
+    pre({ children }) {
+      const code = React.Children.toArray(children)[0];
+      const language = /language-([\w-]+)/.exec(code?.props?.className || '')?.[1];
+      const source = String(code?.props?.children || '').replace(/\n$/, '');
 
-      return !inline && match ? (
-        <SyntaxHighlighter
-          style={oneDark}
-          language={match[1]}
-          PreTag="div"
-          className="rounded-md my-4 bg-[#24292e]"
-          showLineNumbers={true}
-          {...props}
-        >
-          {String(children).replace(/\n$/, '')}
-        </SyntaxHighlighter>
-      ) : (
-        <code className={className} {...props}>
-          {children}
-        </code>
+      return (
+        <div className="project-code-block not-prose">
+          <div className="project-code-language">{language || 'Plain text'}</div>
+          <SyntaxHighlighter
+            style={{ ...oneDark, comment: { color: '#a8b1bf' } }}
+            language={language || 'text'}
+            customStyle={{ margin: 0, padding: '1.25rem', background: 'transparent' }}
+            codeTagProps={{ style: { fontFamily: 'var(--font-code)', fontSize: '0.8125rem', lineHeight: 1.8 } }}
+            tabIndex={0}
+            aria-label={`${language || 'Plain text'} code sample`}
+          >
+            {source}
+          </SyntaxHighlighter>
+        </div>
       );
+    },
+    code({ children, className }) {
+      return <code className={className}>{children}</code>;
     },
     img({ src, alt, title }) {
       if (!src) return null;
