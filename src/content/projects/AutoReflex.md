@@ -7,6 +7,9 @@ homepage:
   competitionScale: "Among 250 participants"
   cardImage: "/images/autoreflex/box-demo.jpeg"
   cardImagePosition: "right center"
+  cardImages:
+    - "/generated/autoreflex/circuit-diagram.svg"
+    - "/generated/autoreflex/software-diagram.svg"
   metric: "< 30 ms"
   metricLabel: "end-to-end latency"
 github: "https://github.com/beeler-devs/HackberryPi"

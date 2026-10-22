@@ -55,7 +55,7 @@ function FeaturedProjectCard({ project, index }) {
   const homepage = project.homepage || {};
   const cardImage = homepage.cardImage || project.image;
   const cardImagePosition = homepage.cardImagePosition || "center";
-  const galleryImages = [cardImage, project.image, ...(project.images || [])];
+  const galleryImages = [cardImage, project.image, ...(project.images || []), ...(homepage.cardImages || [])];
 
   return (
     <motion.article
