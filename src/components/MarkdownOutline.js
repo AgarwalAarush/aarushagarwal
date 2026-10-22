@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function MarkdownOutline({ headings }) {
+export default function MarkdownOutline({ headings, baseLevel = 2 }) {
   const [activeId, setActiveId] = useState(headings?.[0]?.id || '');
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function MarkdownOutline({ headings }) {
                     ? 'text-gray-900 dark:text-white'
                     : 'text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white'
                 }`}
-                style={{ paddingLeft: `${(heading.level - 2) * 12}px` }}
+                style={{ paddingLeft: `${(heading.level - baseLevel) * 12}px` }}
               >
                 {heading.text}
               </a>

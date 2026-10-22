@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 export default function Layout({ children }) {
     const router = useRouter();
     const isHomepage = router.pathname === "/";
+    const isProjectPage = router.pathname === "/projects/[id]";
 
     return (
         <div className="flex min-h-screen bg-white dark:bg-[#1D1E21]">
@@ -14,7 +15,7 @@ export default function Layout({ children }) {
 			{/* Main content area */}
             <div className="min-h-screen w-full min-w-0 flex-1 bg-white dark:bg-[#1D1E21]">
                 {/* Home shortcut fixed at top-left */}
-                {!isHomepage && <div className="hidden md:block fixed top-4 left-4 z-50">
+                {!isHomepage && !isProjectPage && <div className="hidden md:block fixed top-4 left-4 z-50">
                     <Link
                         href="/"
                         className="inline-flex items-center justify-center p-2 rounded-md bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"

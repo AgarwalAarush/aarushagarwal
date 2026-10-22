@@ -213,18 +213,18 @@ export default function ProjectPage({ project }) {
         <meta name="description" content={project.description} />
       </Head>
 
-      <main className="py-16 bg-white dark:bg-[#1D1E21] relative min-h-screen">
+      <main className="py-10 lg:py-14 bg-white dark:bg-[#1D1E21] relative min-h-screen">
         
-        <div className="container relative z-10 mx-auto w-full max-w-full overflow-x-hidden px-4">
+        <div className="relative z-10 mx-auto w-full px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="max-w-6xl mx-auto"
           >
-            <div className="flex min-w-0 max-w-full flex-col gap-12 lg:flex-row">
-              <aside className="lg:w-60 flex-shrink-0">
-                <div className="lg:sticky lg:top-24 space-y-8">
+            <div className="grid min-w-0 grid-cols-1 gap-10 lg:grid-cols-[208px_minmax(0,1fr)] lg:gap-16">
+              <aside className="min-w-0 lg:sticky lg:top-14 lg:self-start lg:pt-1">
+                <div className="space-y-8">
                   <Link
                     href={`/#${parentSection}`}
                     className="inline-flex items-center text-gray-900 dark:text-white hover:underline transition-all duration-300"
@@ -245,7 +245,7 @@ export default function ProjectPage({ project }) {
                     </svg>
                     {project.category === 'research' ? 'Back to Research' : 'Back to Projects'}
                   </Link>
-                  <MarkdownOutline headings={headings} />
+                  <MarkdownOutline headings={headings} baseLevel={Math.min(...headings.map(heading => heading.level))} />
                 </div>
               </aside>
 
