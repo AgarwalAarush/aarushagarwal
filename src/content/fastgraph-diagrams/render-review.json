@@ -1,5 +1,5 @@
 {
-  "fingerprint": "0eb53b3811033cddf248eaf690ca9133870522b97900bc58813473e0e399bb6c",
+  "fingerprint": "0eaf3ff8f3bada0aec7ec4de8e16c6c1e8f252cec1f80a763a66a9b54aed9122",
   "status": "locally-reviewed",
   "reviewMode": "Author visual and source review; not independent validation",
   "files": [
@@ -70,5 +70,6 @@
     "time": 11500,
     "changes": "Matched sans labels and supporting copy; matched 24px monospace comparisons and 12px explanation labels",
     "motion": "Unchanged; existing sampled-motion review applies"
-  }
+  },
+  "scrollbarReview": "Embedded overflow hidden; local Dia review confirmed clean right edge and complete footer. Content height observer unchanged."
 }

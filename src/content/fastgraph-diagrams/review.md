@@ -31,3 +31,7 @@ Regenerate HTML and SVG posters with `node scripts/build-fastgraph-diagrams.mjs`
 ## Typography refinement
 
 Replaced serif point labels and numerical values with coordinated sans-serif labels and monospace values. Both final inequalities use the same size, tracking and color, with 12px explanatory labels underneath. Supporting HTML copy now uses the same sans-serif stack as SVG labels, with adjusted sizing and line height. Reviewed final frames at 320px and 720px; increased the narrow PCA canvas to fit its explanatory label. Animation logic is unchanged.
+
+## Embedded scrollbar correction
+
+Embedded documents now hide their internal overflow while the existing ResizeObserver grows the iframe to its content height. Standalone diagrams retain normal page scrolling. Dia local review confirmed a clean right edge with the complete footer visible.
