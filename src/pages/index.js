@@ -103,7 +103,9 @@ export default function Home({ projects }) {
                     href="https://www.cs.cmu.edu/~cxcscmu/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 underline decoration-[#d83b2a]/40 focus-visible:outline-offset-4"
                   >
+                    <Link2 aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.5} />
                     CXC Research Group
                   </a>
                 </div>
@@ -133,13 +135,6 @@ export default function Home({ projects }) {
             description={
               <>
                 <div className="flex flex-col items-start gap-1">
-                  <Link
-                    href="/projects/FastGraph"
-                    className="inline-flex items-center gap-2 underline decoration-[#d83b2a]/40 focus-visible:outline-offset-4"
-                  >
-                    <Link2 aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.5} />
-                    FastGraph Case Study
-                  </Link>
                   <a
                     href="https://github.com/AgarwalAarush/fastgraph-paper/blob/869f9d41277c75000f51e968ac5abe655a20b9d7/Paper.pdf"
                     target="_blank"
@@ -149,6 +144,13 @@ export default function Home({ projects }) {
                     <Link2 aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.5} />
                     FastGraph Paper
                   </a>
+                  <Link
+                    href="/projects/FastGraph"
+                    className="inline-flex items-center gap-2 underline decoration-[#d83b2a]/40 focus-visible:outline-offset-4"
+                  >
+                    <Link2 aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                    FastGraph Case Study
+                  </Link>
                 </div>
                 <p>
                   First-authored the FastGraph paper and developed PCA-subspace
