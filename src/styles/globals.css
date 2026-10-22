@@ -358,14 +358,15 @@
   margin: 1.75rem 0;
   overflow: hidden;
   border-radius: 8px;
-  background: #242830;
-  color: #e3e5e9;
+  border: 1px solid #e2dfd8;
+  background: #f7f6f3;
+  color: #383732;
 }
 
 .project-code-language {
   padding: 0.65rem 1.25rem;
-  border-bottom: 1px solid #3c414b;
-  color: #b8c0cc;
+  border-bottom: 1px solid #e2dfd8;
+  color: #66635c;
   font-family: var(--font-code);
   font-size: 0.75rem;
 }
@@ -373,12 +374,12 @@
 .markdown-github .project-code-block pre {
   overflow-x: auto;
   font-family: var(--font-code);
-  scrollbar-color: #657080 #242830;
+  scrollbar-color: #b8b2a7 #f7f6f3;
   scrollbar-width: thin;
 }
 
 .markdown-github .project-code-block pre:focus-visible {
-  outline: 2px solid #a8b9d2;
+  outline: 2px solid #777167;
   outline-offset: -2px;
 }
 
@@ -391,8 +392,8 @@
 }
 
 .project-code-block ::selection {
-  background: #465469;
-  color: #fff;
+  background: #dedbd3;
+  color: #242320;
 }
 
 /* Animations */

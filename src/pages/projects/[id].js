@@ -11,7 +11,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import MarkdownOutline from '../../components/MarkdownOutline';
 import { extractHeadings } from '../../lib/markdownOutline';
 import { getAssetUrl } from '../../lib/assets';
@@ -74,10 +74,10 @@ export default function ProjectPage({ project }) {
         <div className="project-code-block not-prose">
           <div className="project-code-language">{language || 'Plain text'}</div>
           <SyntaxHighlighter
-            style={{ ...oneDark, comment: { color: '#a8b1bf' } }}
+            style={{ ...oneLight, comment: { color: '#686760' } }}
             language={language || 'text'}
             customStyle={{ margin: 0, padding: '1.25rem', background: 'transparent' }}
-            codeTagProps={{ style: { fontFamily: 'var(--font-code)', fontSize: '0.8125rem', lineHeight: 1.8 } }}
+            codeTagProps={{ style: { fontFamily: 'var(--font-code)', fontSize: '0.8125rem', lineHeight: 1.8, background: 'transparent' } }}
             tabIndex={0}
             aria-label={`${language || 'Plain text'} code sample`}
           >
