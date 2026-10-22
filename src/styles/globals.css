@@ -504,8 +504,8 @@ pre code.hljs {
   line-height: 1.5 !important;
 }
 
-/* Inline code styling */
-:not(pre) > code {
+/* Legacy inline code styling outside the project renderer. */
+:not(pre) > code:not(.markdown-github code) {
   background-color: #374151 !important;
   color: #e5e7eb !important;
   padding: 0.125rem 0.25rem !important;
@@ -574,7 +574,7 @@ pre code.hljs {
 }
 
 /* Table styling for blog content */
-.prose table {
+.prose:not(.markdown-github) table {
   border-collapse: separate !important;
   border-spacing: 0 !important;
   margin: 1.5rem 0 !important;
@@ -584,44 +584,44 @@ pre code.hljs {
   overflow: hidden !important;
 }
 
-.dark .prose table {
+.dark .prose:not(.markdown-github) table {
   border-color: #374151 !important;
 }
 
-.prose th,
-.prose td {
+.prose:not(.markdown-github) th,
+.prose:not(.markdown-github) td {
   border-bottom: 1px solid #d1d5db !important;
   border-right: 1px solid #d1d5db !important;
   padding: 0.75rem !important;
   text-align: left !important;
 }
 
-.dark .prose th,
-.dark .prose td {
+.dark .prose:not(.markdown-github) th,
+.dark .prose:not(.markdown-github) td {
   border-color: #374151 !important;
 }
 
-.prose th:last-child,
-.prose td:last-child {
+.prose:not(.markdown-github) th:last-child,
+.prose:not(.markdown-github) td:last-child {
   border-right: none !important;
 }
 
-.prose tr:last-child td {
+.prose:not(.markdown-github) tr:last-child td {
   border-bottom: none !important;
 }
 
-.prose th {
+.prose:not(.markdown-github) th {
   background-color: #F3F2ED !important;
   @apply text-gray-900 !important;
   font-weight: 400 !important;
 }
 
-.dark .prose th {
+.dark .prose:not(.markdown-github) th {
   background-color: #1f2937 !important;
   @apply text-white !important;
 }
 
-.prose td {
+.prose:not(.markdown-github) td {
   @apply text-gray-700 dark:text-gray-300 !important;
 }
 
