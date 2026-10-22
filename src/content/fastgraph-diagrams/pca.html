@@ -1,29 +1,27 @@
 <!doctype html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FastGraph mechanism</title>
+<title>A better space to search. · FastGraph</title>
 <style>
-:root {color-scheme:light;--bg:#fbfaf7;--ink:#292b29;--muted:#62665f;--line:#d7dbd3;--wash:#edf0e9;--accent:#aa481f;--teal:#126756}
-:root[data-theme=dark] {color-scheme:dark;--bg:#202321;--ink:#edf0e9;--muted:#b5bdb2;--line:#465047;--wash:#2b312c;--accent:#f3ad82;--teal:#85d6bc}
-* {box-sizing:border-box} body {margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 Arial,Helvetica,sans-serif} main {padding:24px;max-width:1000px;margin:auto} h1 {font-size:20px;line-height:1.3;font-weight:500;margin:0 0 8px;letter-spacing:-.025em} p {margin:0} .intro {color:var(--muted);max-width:62ch} .steps {display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 8px} button {font:inherit;font-size:13px;min-height:40px;border:1px solid var(--line);padding:7px 12px;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer} button[aria-pressed=true] {background:var(--ink);color:var(--bg);border-color:var(--ink)} button:hover {border-color:var(--ink)} button:focus-visible,a:focus-visible {outline:2px solid var(--accent);outline-offset:3px} .panels {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:8px} svg {width:100%;height:auto;display:block} .explanation {border-top:1px solid var(--line);padding-top:16px;margin-top:8px;min-height:64px} .scope {color:var(--muted);font-size:12px;margin-top:15px} a {color:inherit;text-underline-offset:3px} .metrics {padding:16px} dl {margin:0} dl div {padding:9px 0;border-bottom:1px solid var(--line)} dt {color:var(--muted);font-size:12px} dd {margin:2px 0 0;font-size:21px;font-variant-numeric:tabular-nums} .decision {color:var(--teal);margin-top:18px;font-size:15px} .legend {display:flex;gap:15px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0} .key {display:inline-block;width:10px;height:10px;margin-right:5px;background:var(--teal);border-radius:50%} .key.shell {background:var(--accent);border-radius:0} .key.wait {background:var(--line)} .key.radius,.key.bound {width:17px;height:0;border-radius:0;background:none;border-top:2px solid var(--teal);vertical-align:middle} .key.bound {border-color:var(--accent);border-top-style:dashed}
-@media(max-width:560px) {main {padding:18px 14px}.panels {grid-template-columns:1fr}.panels svg {max-width:380px;margin:auto}.metrics {padding:0 6px 10px}dl {display:grid;grid-template-columns:1fr 1fr;gap:12px}dd {font-size:19px}.steps {gap:5px}button {padding:7px 9px;font-size:12px}.explanation {min-height:0}}
-@media print {.steps {display:none} main {break-inside:avoid}}
-</style>
-</head>
-<body><main>
-<h1 id="title">PCA: a smaller space to search</h1>
-<p class="intro" id="intro">Organize points around the data’s geometry. Keep the original features for distance calculations.</p>
-<div class="steps" role="group" aria-label="Explore the mechanism"><button type="button" data-step="0" aria-pressed="false">Original features</button><button type="button" data-step="1" aria-pressed="false">Find the PCA axis</button><button type="button" data-step="2" aria-pressed="true">Project into bins</button></div>
-<div id="panels" class="panels"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="pca-original-title"><title id="pca-original-title">Original points, the principal axis, and original-space distances.</title><rect width="360" height="300" fill="#fbfaf7"/><text x="18" y="26" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >Original feature space</text><line x1="30" y1="149" x2="330" y2="149" stroke="#d7dbd3" /><line x1="180" y1="35" x2="180" y2="265" stroke="#d7dbd3" /><text x="313" y="170" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >x₁</text><text x="188" y="48" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >x₂</text><line x1="72.48" y1="229.64" x2="287.52" y2="68.36" stroke="#126756" stroke-width="2"/><text x="249" y="57" fill="#292b29" font-family="Arial, sans-serif" font-size="14" style="fill:#126756">PC1</text><line x1="80.16" y1="223.88" x2="80.16" y2="223.88" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="88.608" y1="203.144" x2="95.52" y2="212.36" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="110.803" y1="216.738" x2="103.2" y2="206.6" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="101.28" y1="172.04" x2="118.56" y2="195.08" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="162.895" y1="214.193" x2="137.76" y2="180.68" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="146.016" y1="163.688" x2="151.2" y2="170.6" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="174.36" y1="173.48" x2="164.64" y2="160.52" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="180" y1="149" x2="180" y2="149" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="185.64" y1="124.52" x2="195.36" y2="137.48" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="213.984" y1="134.312" x2="208.8" y2="127.4" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="197.105" y1="83.807" x2="222.24" y2="117.32" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="258.72" y1="125.96" x2="241.44" y2="102.92" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="249.197" y1="81.262" x2="256.8" y2="91.4" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="271.392" y1="94.856" x2="264.48" y2="85.64" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="279.84" y1="74.12" x2="279.84" y2="74.12" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="180" y1="149" x2="258.72" y2="125.96" stroke="#aa481f" stroke-width="2"/><line x1="180" y1="149" x2="241.44" y2="102.92" stroke="#126756" stroke-width="3"/><circle cx="80.16" cy="223.88" r="4" fill="#777d73" id="original-point-0"/><circle cx="88.608" cy="203.144" r="4" fill="#777d73" id="original-point-1"/><circle cx="110.803" cy="216.738" r="4" fill="#777d73" id="original-point-2"/><circle cx="101.28" cy="172.04" r="4" fill="#777d73" id="original-point-3"/><circle cx="162.895" cy="214.193" r="4" fill="#777d73" id="original-point-4"/><circle cx="146.016" cy="163.688" r="4" fill="#777d73" id="original-point-5"/><circle cx="174.36" cy="173.48" r="4" fill="#777d73" id="original-point-6"/><circle cx="180" cy="149" r="4" fill="#777d73" id="original-point-7"/><circle cx="185.64" cy="124.52" r="4" fill="#777d73" id="original-point-8"/><circle cx="213.984" cy="134.312" r="4" fill="#777d73" id="original-point-9"/><circle cx="197.105" cy="83.807" r="4" fill="#777d73" id="original-point-10"/><circle cx="258.72" cy="125.96" r="6" fill="#aa481f" id="original-point-11"/><circle cx="249.197" cy="81.262" r="4" fill="#777d73" id="original-point-12"/><circle cx="271.392" cy="94.856" r="4" fill="#777d73" id="original-point-13"/><circle cx="279.84" cy="74.12" r="4" fill="#777d73" id="original-point-14"/><path d="M180 142 l7 7 -7 7 -7 -7 Z" fill="#126756"/><text x="189" y="169" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >q</text><text x="268.72" y="129.96" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >p</text><circle cx="241.44" cy="102.92" r="4" fill="#fbfaf7" stroke="#126756" stroke-width="2"/><text x="18" y="284" fill="#292b29" font-family="Arial, sans-serif" font-size="14" style="fill:#62665f;font-size:13px">Full distance q → p = 1.71</text></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="pca-index-title"><title id="pca-index-title">PCA projection places the same points in one-dimensional bins. Their projected distances are lower bounds.</title><rect width="360" height="300" fill="#fbfaf7"/><text x="18" y="26" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >Compact search index</text><rect x="30" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="55" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">0</text><rect x="80" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="105" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">1</text><rect x="130" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="155" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">2</text><rect x="180" y="87" width="50" height="100" fill="#e2eee8" stroke="#d7dbd3"/><text x="205" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">3</text><rect x="230" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="255" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">4</text><rect x="280" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="305" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">5</text><line x1="30" y1="137" x2="330" y2="137" stroke="#126756" /><circle cx="50" cy="137" r="4" fill="#777d73" id="projected-point-0"/><circle cx="70" cy="137" r="4" fill="#777d73" id="projected-point-1"/><circle cx="80" cy="137" r="4" fill="#777d73" id="projected-point-2"/><circle cx="100" cy="137" r="4" fill="#777d73" id="projected-point-3"/><circle cx="125" cy="137" r="4" fill="#777d73" id="projected-point-4"/><circle cx="142.5" cy="137" r="4" fill="#777d73" id="projected-point-5"/><circle cx="160" cy="137" r="4" fill="#777d73" id="projected-point-6"/><circle cx="180" cy="137" r="4" fill="#777d73" id="projected-point-7"/><circle cx="200" cy="137" r="4" fill="#777d73" id="projected-point-8"/><circle cx="217.5" cy="137" r="4" fill="#777d73" id="projected-point-9"/><circle cx="235" cy="137" r="4" fill="#777d73" id="projected-point-10"/><circle cx="260" cy="137" r="6" fill="#aa481f" id="projected-point-11"/><circle cx="280" cy="137" r="4" fill="#777d73" id="projected-point-12"/><circle cx="290" cy="137" r="4" fill="#777d73" id="projected-point-13"/><circle cx="310" cy="137" r="4" fill="#777d73" id="projected-point-14"/><path d="M180 130 l7 7 -7 7 -7 -7 Z" fill="#126756"/><text x="180" y="119" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">q</text><text x="260" y="119" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">p</text><line x1="180" y1="62" x2="260" y2="62" stroke="#126756" stroke-width="2"/><line x1="180" y1="57" x2="180" y2="67" stroke="#126756" /><line x1="260" y1="57" x2="260" y2="67" stroke="#126756" /><text x="220" y="51" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">1.60</text><text x="180" y="240" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" style="font-size:13px">Bin along the retained PCA coordinate</text><text x="18" y="284" fill="#292b29" font-family="Arial, sans-serif" font-size="14" style="fill:#62665f;font-size:13px">Projected distance 1.60 ≤ full distance 1.71</text></svg></div>
-<div id="legend" class="legend"></div>
-<p id="explanation" class="explanation" aria-live="polite">The projected distance is a lower bound. The original features still determine which points are nearest.</p>
-<p class="scope">Illustrative 2D → 1D example. The benchmark uses 8D → 3D. · <a href="https://github.com/AgarwalAarush/FastGraphCompute/blob/ad4392eee16734a1001e82764a13144379d931e9/fastgraphcompute/extensions/binned_select_knn.py#L13-L39" target="_blank" rel="noopener noreferrer">Implementation ↗</a></p>
-</main>
-<script>
+@font-face{font-family:'Barlow Condensed';src:url('/fonts/BarlowCondensed-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');font-display:swap}
+:root{color-scheme:light;--paper:#faf9f6;--ink:#242924;--muted:#70766e;--line:#d9ddd5;--accent:#b75430;--green:#286c59;--ease-out:cubic-bezier(.23,1,.32,1)}
+:root[data-theme=dark]{color-scheme:dark;--paper:#20231f;--ink:#f0f2e9;--muted:#aeb7a7;--line:#475043;--accent:#e9a481;--green:#9bc7ac}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.6 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}main{max-width:1000px;padding:30px 32px 22px;margin:auto}header{display:flex;justify-content:space-between;gap:20px;align-items:center}.eyebrow{font:10px/1.5 'JetBrains Mono',monospace;letter-spacing:1.7px;color:var(--muted);text-transform:uppercase;margin:0 0 7px}h1{font:500 38px/1.02 'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:-.6px;margin:0}p{margin:0}.intro{max-width:53ch;color:var(--muted);font-size:13px;line-height:1.65;margin-top:12px}button{flex:none;width:42px;height:42px;display:grid;place-items:center;background:transparent;border:1px solid var(--line);border-radius:50%;color:var(--ink);cursor:pointer;transition:background-color 160ms var(--ease-out),border-color 160ms var(--ease-out)}button svg{width:16px;height:16px}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}@media(hover:hover) and (pointer:fine){button:hover{background:var(--line);border-color:var(--muted)}}#drawing{margin-top:28px;min-width:0}#drawing>svg{display:block;width:100%;height:auto;overflow:visible}.caption{border-top:1px solid var(--line);padding-top:17px;margin-top:4px;position:relative}#progress{position:absolute;top:-1px;left:0;right:0;height:1px;background:var(--green);transform-origin:left;transform:scaleX(0)}#explanation{font-size:14px;line-height:1.65;min-height:47px;max-width:64ch}.footnote{display:flex;justify-content:space-between;gap:18px;margin-top:16px;font-size:10px;color:var(--muted);line-height:1.65}.footnote a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line);white-space:nowrap}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:560px){main{padding:24px 20px 18px}h1{font-size:32px}.eyebrow{font-size:9px;letter-spacing:1.2px}#drawing{margin-top:20px}.intro{font-size:12px}.footnote{display:block}.footnote a{display:inline-block;margin-top:7px}#explanation{min-height:68px;font-size:13px}header{gap:10px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+@media print{button,#progress{display:none}main{break-inside:avoid}}
+</style></head><body><main>
+<header><div><p class="eyebrow">01 / PCA projection</p><h1>A better space to search.</h1></div><button id="play" type="button" aria-label="Play animation" title="Play animation"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3L13 8L5 13Z" fill="currentColor"/></svg></button></header>
+<p class="intro">Align the index with the data. Preserve the original distances.</p>
+<div id="drawing"><svg xmlns="http://www.w3.org/2000/svg" width="720" height="342" viewBox="0 0 720 342" role="img" aria-labelledby="diagram-title"><title id="diagram-title">An orthonormal PCA projection creates an index; full-space distances still rank candidates.</title><rect width="720" height="342" fill="#faf9f6"/><g id="scene-content" opacity="1"><text id="features-label" x="18" y="24" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="1.2">ORIGINAL FEATURES</text><text id="index-label" x="374.4" y="24" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="1.2" opacity="1">PCA SEARCH INDEX</text><line x1="29.2" y1="154" x2="330.8" y2="154" stroke="#d9ddd5"></line><line x1="180" y1="31.8" x2="180" y2="276.2" stroke="#d9ddd5"></line><text id="x-axis-label" x="325.6" y="174" fill="#70766e" font-size="15" font-family="Georgia, serif" opacity="1">x₁</text><text x="190" y="42.2" fill="#70766e" font-size="15" font-family="Georgia, serif">x₂</text><line id="principal-axis" x1="63.52" y1="241.36" x2="296.48" y2="66.64" stroke="#286c59" stroke-width="1.5" opacity="1"></line><text id="axis-label" x="229.4" y="55.2" fill="#286c59" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="1.2" opacity="0">PC1</text><g id="projection-lines" opacity="0"><line x1="71.84" y1="235.12" x2="71.84" y2="235.12" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="80.992" y1="212.656" x2="88.48" y2="222.64" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="105.037" y1="227.382" x2="96.8" y2="216.4" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="94.72" y1="178.96" x2="113.44" y2="203.92" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="161.469" y1="224.625" x2="134.24" y2="188.32" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="143.184" y1="169.912" x2="148.8" y2="177.4" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="173.89" y1="180.52" x2="163.36" y2="166.48" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="180" y1="154" x2="180" y2="154" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="186.11" y1="127.48" x2="196.64" y2="141.52" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="216.816" y1="138.088" x2="211.2" y2="130.6" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="198.531" y1="83.375" x2="225.76" y2="119.68" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="265.28" y1="129.04" x2="246.56" y2="104.08" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="254.963" y1="80.618" x2="263.2" y2="91.6" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="279.008" y1="95.344" x2="271.52" y2="85.36" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line><line x1="288.16" y1="72.88" x2="288.16" y2="72.88" stroke="#286c59" stroke-dasharray="2 5" opacity="0.45"></line></g><g id="index-grid" opacity="1"><rect x="384" y="116" width="52" height="76" rx="0" fill="#faf9f6" stroke="#d9ddd5"></rect><text x="410" y="216" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="0" text-anchor="middle">0</text><rect x="436" y="116" width="52" height="76" rx="0" fill="#faf9f6" stroke="#d9ddd5"></rect><text x="462" y="216" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="0" text-anchor="middle">1</text><rect x="488" y="116" width="52" height="76" rx="0" fill="#faf9f6" stroke="#d9ddd5"></rect><text x="514" y="216" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="0" text-anchor="middle">2</text><rect x="540" y="116" width="52" height="76" rx="0" fill="#e8eee7" stroke="#d9ddd5"></rect><text x="566" y="216" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="0" text-anchor="middle">3</text><rect x="592" y="116" width="52" height="76" rx="0" fill="#faf9f6" stroke="#d9ddd5"></rect><text x="618" y="216" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="0" text-anchor="middle">4</text><rect x="644" y="116" width="52" height="76" rx="0" fill="#faf9f6" stroke="#d9ddd5"></rect><text x="670" y="216" fill="#70766e" font-size="10.5" font-family="JetBrains Mono, monospace" letter-spacing="0" text-anchor="middle">5</text><line x1="384" y1="154" x2="696" y2="154" stroke="#286c59" stroke-width="1"></line></g><line id="original-distance" x1="180" y1="154" x2="265.28" y2="129.04" stroke="#b75430" stroke-width="2" opacity="1"></line><circle id="original-point-0" cx="71.84" cy="235.12" r="3.5" fill="#7f897b"></circle><circle id="original-point-1" cx="80.992" cy="212.656" r="3.5" fill="#7f897b"></circle><circle id="original-point-2" cx="105.037" cy="227.382" r="3.5" fill="#7f897b"></circle><circle id="original-point-3" cx="94.72" cy="178.96" r="3.5" fill="#7f897b"></circle><circle id="original-point-4" cx="161.469" cy="224.625" r="3.5" fill="#7f897b"></circle><circle id="original-point-5" cx="143.184" cy="169.912" r="3.5" fill="#7f897b"></circle><circle id="original-point-6" cx="173.89" cy="180.52" r="3.5" fill="#7f897b"></circle><circle id="original-point-7" cx="180" cy="154" r="3.5" fill="#242924"></circle><circle id="original-point-8" cx="186.11" cy="127.48" r="3.5" fill="#7f897b"></circle><circle id="original-point-9" cx="216.816" cy="138.088" r="3.5" fill="#7f897b"></circle><circle id="original-point-10" cx="198.531" cy="83.375" r="3.5" fill="#7f897b"></circle><circle id="original-point-11" cx="265.28" cy="129.04" r="5" fill="#b75430"></circle><circle id="original-point-12" cx="254.963" cy="80.618" r="3.5" fill="#7f897b"></circle><circle id="original-point-13" cx="279.008" cy="95.344" r="3.5" fill="#7f897b"></circle><circle id="original-point-14" cx="288.16" cy="72.88" r="3.5" fill="#7f897b"></circle><text x="189" y="174" fill="#242924" font-size="14" font-family="Georgia, serif" font-style="italic">q</text><text x="274.28" y="133.04" fill="#242924" font-size="14" font-family="Georgia, serif" font-style="italic">p</text><circle id="moving-point-0" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(404.8 154)" opacity="1"></circle><circle id="moving-point-1" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(425.6 154)" opacity="1"></circle><circle id="moving-point-2" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(436 154)" opacity="1"></circle><circle id="moving-point-3" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(456.8 154)" opacity="1"></circle><circle id="moving-point-4" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(482.8 154)" opacity="1"></circle><circle id="moving-point-5" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(501 154)" opacity="1"></circle><circle id="moving-point-6" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(519.2 154)" opacity="1"></circle><circle id="moving-point-7" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(540 154)" opacity="1"></circle><circle id="moving-point-8" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(560.8 154)" opacity="1"></circle><circle id="moving-point-9" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(579 154)" opacity="1"></circle><circle id="moving-point-10" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(597.2 154)" opacity="1"></circle><circle id="moving-point-11" cx="0" cy="0" r="5" fill="#b75430" stroke="#faf9f6" stroke-width="1" transform="translate(623.2 154)" opacity="1"></circle><circle id="moving-point-12" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(644 154)" opacity="1"></circle><circle id="moving-point-13" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(654.4 154)" opacity="1"></circle><circle id="moving-point-14" cx="0" cy="0" r="3.5" fill="#286c59" stroke="#faf9f6" stroke-width="1" transform="translate(675.2 154)" opacity="1"></circle><g id="index-distance" opacity="1"><line x1="540" y1="85" x2="623.2" y2="85" stroke="#286c59" stroke-width="2"></line><line x1="540" y1="80" x2="540" y2="90" stroke="#286c59"></line><line x1="623.2" y1="80" x2="623.2" y2="90" stroke="#286c59"></line></g><g id="index-point-labels" opacity="1"><text x="540" y="177" fill="#242924" font-size="14" font-family="Georgia, serif" font-style="italic" text-anchor="middle">q</text><text x="623.2" y="177" fill="#242924" font-size="14" font-family="Georgia, serif" font-style="italic" text-anchor="middle">p</text></g><text id="index-distance-note" x="581.6" y="72" fill="#286c59" font-size="21" font-family="Georgia, serif" text-anchor="middle" opacity="1">1.60</text><text id="distance-note" x="180" y="286" fill="#70766e" font-size="13" font-family="Inter, Arial, sans-serif" text-anchor="middle" opacity="1">Original distance  1.71</text><text id="distance-comparison" x="540" y="286" fill="#286c59" font-size="27" font-family="Georgia, serif" text-anchor="middle" opacity="1">1.60 ≤ 1.71</text></g></svg></div>
+<p class="sr-only">An orthonormal PCA projection creates an index; full-space distances still rank candidates.</p>
+<div class="caption"><div id="progress" aria-hidden="true"></div><p id="explanation">Search with projected bounds. Rank neighbors with full-space distances.</p></div>
+<div class="footnote"><p>Illustrative 2D → 1D projection; the benchmark uses 8D → 3D. Pacing is explanatory.</p><a href="https://github.com/AgarwalAarush/FastGraphCompute/blob/ad4392eee16734a1001e82764a13144379d931e9/fastgraphcompute/extensions/binned_select_knn.py#L13-L39" target="_blank" rel="noopener noreferrer">View implementation ↗</a></div>
+</main><script>
 // Source-grounded, deterministic teaching scenes. Coordinates are illustrative.
 const scene = {
-  version: 1,
+  version: 2,
   sourceRevision: 'ad4392eee16734a1001e82764a13144379d931e9',
   sources: {
     pca: 'fastgraphcompute/extensions/binned_select_knn.py#L13-L39',
@@ -42,73 +40,16 @@ const scene = {
     claim: 'Visit each new shell boundary once; stop only after filling K and passing the conservative distance bound.',
     objects: ['query-bin', 'shell-0', 'shell-1', 'shell-2', 'unvisited-bins', 'top-k', 'radius', 'lower-bound'],
     beats: ['Query bin', 'First shell', 'Second shell · stop'],
-    scope: 'One query in a 7 by 7 grid, bin width 1, K=4 including self. Each view is after a complete shell, not a GPU timing or thread-order animation.',
-    omissions: ['Direction constraints', 'Ragged graph offsets', 'Bin traversal order within a shell'],
+    scope: 'One query in a 7 by 7 grid, bin width 1, K=4 including self. The animation follows one query; timing is illustrative, not GPU performance.',
+    omissions: ['Direction constraints', 'Ragged graph offsets', 'Concurrent GPU queries'],
     invariant: 'At stop, all unvisited points are farther than the farthest retained neighbor.',
   },
 };
 
-const palettes = {
-  light: {bg:'#fbfaf7', ink:'#292b29', muted:'#62665f', grid:'#d7dbd3', faint:'#edf0e9', accent:'#aa481f', tint:'#f8e8dc', teal:'#126756', tealTint:'#e2eee8', dot:'#777d73'},
-  dark: {bg:'#202321', ink:'#edf0e9', muted:'#b5bdb2', grid:'#465047', faint:'#2b312c', accent:'#f3ad82', tint:'#493429', teal:'#85d6bc', tealTint:'#293f37', dot:'#a3ad9e'},
-};
-const f = n => Number(n.toFixed(3));
-const txt = (x,y,text,p,extra='') => `<text x="${x}" y="${y}" fill="${p.ink}" font-family="Arial, sans-serif" font-size="14" ${extra}>${text}</text>`;
-const line = (x1,y1,x2,y2,color,extra='') => `<line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}" stroke="${color}" ${extra}/>`;
-const circle = (x,y,r,fill,extra='') => `<circle cx="${f(x)}" cy="${f(y)}" r="${r}" fill="${fill}" ${extra}/>`;
-const svg = (id,description,body,p,width=360,height=300) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="${id}-title"><title id="${id}-title">${description}</title><rect width="${width}" height="${height}" fill="${p.bg}"/>${body}</svg>`;
-
-// Symmetric samples have zero mean and zero cross-covariance in this basis.
-// The direction with greatest variance is therefore exactly the chosen PCA axis.
 const pcaPoints = [
   [-2.6,0],[-2.2,.24],[-2,-.264],[-1.6,.6],[-1.1,-.96/1.1],[-.75,.18],[-.4,-.3375],
   [0,0],[.4,.3375],[.75,-.18],[1.1,.96/1.1],[1.6,-.6],[2,.264],[2.2,-.24],[2.6,0],
 ].map(([u,v],i) => ({id:`point-${i}`,u,v,x:.8*u-.6*v,y:.6*u+.8*v}));
-
-function renderPca(step=2, theme='light') {
-  const p=palettes[theme]; const scale=48; const X=x=>180+x*scale; const Y=y=>149-y*scale;
-  const candidate=pcaPoints[11]; const query=pcaPoints[7];
-  let left = txt(18,26,'Original feature space',p);
-  left += line(30,149,330,149,p.grid)+line(180,35,180,265,p.grid);
-  left += txt(313,170,'x₁',p)+txt(188,48,'x₂',p);
-  if(step>=1) {
-    left += line(X(-2.8*.8),Y(-2.8*.6),X(2.8*.8),Y(2.8*.6),p.teal,'stroke-width="2"');
-    left += txt(249,57,'PC1',p,`style="fill:${p.teal}"`);
-  }
-  if(step===2) {
-    for(const pt of pcaPoints) left += line(X(pt.x),Y(pt.y),X(.8*pt.u),Y(.6*pt.u),p.grid,'stroke-dasharray="3 3"');
-    left += line(X(query.x),Y(query.y),X(candidate.x),Y(candidate.y),p.accent,'stroke-width="2"');
-    left += line(X(0),Y(0),X(.8*candidate.u),Y(.6*candidate.u),p.teal,'stroke-width="3"');
-  }
-  for(const pt of pcaPoints) left+=circle(X(pt.x),Y(pt.y),pt.id===candidate.id?6:4,pt.id===candidate.id?p.accent:p.dot,`id="original-${pt.id}"`);
-  left+=`<path d="M180 142 l7 7 -7 7 -7 -7 Z" fill="${p.teal}"/>`;
-  left+=txt(189,169,'q',p)+txt(X(candidate.x)+10,Y(candidate.y)+4,'p',p);
-  if(step===2) left+=circle(X(.8*candidate.u),Y(.6*candidate.u),4,p.bg,`stroke="${p.teal}" stroke-width="2"`);
-  left+=txt(18,284,step===2?'Full distance q → p = 1.71':'Same points throughout the example',p,`style="fill:${p.muted};font-size:13px"`);
-  let right=txt(18,26,'Compact search index',p);
-  if(step===2) {
-    const B=u=>180+u*50;
-    for(let i=0;i<6;i++) {
-      const x=30+i*50;
-      right+=`<rect x="${x}" y="87" width="50" height="100" fill="${i===3?p.tealTint:p.faint}" stroke="${p.grid}"/>`;
-      right+=txt(x+25,214,String(i),p,'text-anchor="middle"');
-    }
-    right+=line(30,137,330,137,p.teal);
-    pcaPoints.forEach(pt=>{right+=circle(B(pt.u),137,pt.id===candidate.id?6:4,pt.id===candidate.id?p.accent:p.dot,`id="projected-${pt.id}"`);});
-    right+=`<path d="M180 130 l7 7 -7 7 -7 -7 Z" fill="${p.teal}"/>`;
-    right+=txt(180,119,'q',p,'text-anchor="middle"')+txt(B(candidate.u),119,'p',p,'text-anchor="middle"');
-    right+=line(180,62,B(candidate.u),62,p.teal,'stroke-width="2"');
-    right+=line(180,57,180,67,p.teal)+line(B(candidate.u),57,B(candidate.u),67,p.teal);
-    right+=txt(220,51,'1.60',p,'text-anchor="middle"');
-    right+=txt(180,240,'Bin along the retained PCA coordinate',p,'text-anchor="middle" style="font-size:13px"');
-    right+=txt(18,284,'Projected distance 1.60 ≤ full distance 1.71',p,`style="fill:${p.muted};font-size:13px"`);
-  } else {
-    right+=line(42,137,318,137,p.grid,'stroke-dasharray="4 5"');
-    right+=txt(180,120,step===0?'The index has not been built.':'Keep the direction of greatest variance.',p,'text-anchor="middle" style="font-size:13px"');
-    right+=txt(180,165,step===0?'First, find a useful direction in the data.':'Next, project each point onto that axis.',p,'text-anchor="middle" style="font-size:13px"');
-  }
-  return [svg('pca-original','Original points, the principal axis, and original-space distances.',left,p),svg('pca-index','PCA projection places the same points in one-dimensional bins. Their projected distances are lower bounds.',right,p)];
-}
 
 const query = {id:'q',x:3.5,y:3.5};
 const binPoints = [query,
@@ -127,74 +68,239 @@ function binState(step) {
   const radius=filled?distance(best[3]):null;
   return {visited,best,filled,radius,bound:step,stop:filled && step>radius,newBins:step===0?1:8*step,visitedBins:(2*step+1)**2};
 }
-function renderBins(step=2,theme='light') {
-  const p=palettes[theme],state=binState(step),s=38,ox=47,oy=31;
-  const X=x=>ox+x*s,Y=y=>oy+(7-y)*s;
-  let body='';
-  for(let x=0;x<7;x++) for(let y=0;y<7;y++) {
-    const d=Math.max(Math.abs(x-3),Math.abs(y-3));
-    body+=`<rect id="bin-${x}-${y}" x="${X(x)}" y="${Y(y+1)}" width="${s}" height="${s}" fill="${d===step?p.tint:d<step?p.tealTint:p.bg}" stroke="${p.grid}"/>`;
-  }
-  if(state.filled) body+=circle(X(query.x),Y(query.y),f(state.radius*s),'none',`stroke="${p.teal}" stroke-width="2"`);
-  if(state.stop) body+=circle(X(query.x),Y(query.y),step*s,'none',`stroke="${p.accent}" stroke-width="1.5" stroke-dasharray="5 4"`);
-  for(const pt of binPoints) {
-    if(pt.id==='q') continue;
-    const best=state.best.some(b=>b.id===pt.id),visited=shell(pt)<=step;
-    if(best) body+=line(X(query.x),Y(query.y),X(pt.x),Y(pt.y),p.teal,'stroke-width="1.5"');
-    body+=circle(X(pt.x),Y(pt.y),best?5:3.5,best?p.teal:visited?p.dot:p.grid,`id="candidate-${pt.id}"`);
-  }
-  const qx=X(query.x),qy=Y(query.y);
-  body+=`<path d="M${qx} ${qy-7} l7 7 -7 7 -7 -7 Z" fill="${p.accent}"/>`;
-  body+=txt(qx-17,qy+18,'q',p);
-  body+=txt(180,321,state.stop?'24 outer bins remain unvisited':`Only the shell boundary is new: ${state.newBins} ${step===0?'bin':'bins'}`,p,'text-anchor="middle" style="font-size:13px"');
-  return svg('bin-grid',`After shell ${step}: ${state.visitedBins} bins visited, ${state.best.length} of 4 neighbors retained. ${state.stop?'The stopping bound is satisfied.':'Continue searching.'}`,body,p,360,340);
+
+const duration=14000;
+const posterTime=11500;
+const palettes={
+  light:{bg:'#faf9f6',ink:'#242924',muted:'#70766e',line:'#d9ddd5',grid:'#e5e8e1',dot:'#7f897b',accent:'#b75430',tint:'#f2dfd3',teal:'#286c59',wash:'#e8eee7'},
+  dark:{bg:'#20231f',ink:'#f0f2e9',muted:'#aeb7a7',line:'#475043',grid:'#363e32',dot:'#a5b19d',accent:'#e9a481',tint:'#4b3529',teal:'#9bc7ac',wash:'#2e4032'},
+};
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const round=x=>Number(x.toFixed(3));
+// cubic-bezier(.77, 0, .175, 1), shared explanation-motion easing.
+function ease(x) {
+  x=clamp(x); let lo=0,hi=1,t=x;
+  const cubic=(t,a,b)=>3*(1-t)*(1-t)*t*a+3*(1-t)*t*t*b+t*t*t;
+  for(let i=0;i<16;i++){t=(lo+hi)/2;if(cubic(t,.77,.175)<x)lo=t;else hi=t;}
+  return cubic(t,0,1);
+}
+const progress=(t,start,end)=>ease((t-start)/(end-start));
+const escapeText=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+function layout(kind,width=720) {
+  const w=Math.max(280,Math.min(920,width)),narrow=w<560;
+  if(kind==='pca') return {w,h:narrow?568:342,narrow,a:{x:narrow?w/2:w*.25,y:154},b:{x:narrow?w/2:w*.75,y:narrow?418:154},scale:Math.min(52,(narrow?w:w/2)/6.7)};
+  const size=Math.min(narrow?w-42:w*.55-28,322),x=16,y=34;
+  return {w,h:narrow?size+335:408,narrow,size,x,y,cx:x+size/2,cy:y+size/2,s:size/7,rx:narrow?18:w*.60,ry:narrow?size+82:58};
+}
+const cells=Array.from({length:3},(_,d)=>{
+  const row=[];
+  for(let x=0;x<7;x++)for(let y=0;y<7;y++)if(Math.max(Math.abs(x-3),Math.abs(y-3))===d)row.push({x,y,d,id:`cell-${x}-${y}`});
+  return row;
+}).flat();
+// A bin is committed after its inspection interval. The highlighted bin is current.
+function searchState(time) {
+  const completed=time<1000?0:time<2000?1:time<5000?1+Math.floor((time-2000)/375):time<9800?9+Math.floor((time-5000)/300):25;
+  const visited=cells.slice(0,completed);
+  const seen=binPoints.filter(pt=>pt.id==='q'||visited.some(c=>c.x===Math.floor(pt.x)&&c.y===Math.floor(pt.y)));
+  const best=[...seen].sort((a,b)=>distance(a)-distance(b)).slice(0,4);
+  const radius=best.length===4?distance(best[3]):null;
+  const bound=completed>=25?2:completed>=9?1:0;
+  return {completed,visited,best,radius,bound,stop:completed===25&&bound>radius,active:completed<25?cells[completed]:null};
+}
+function stateAt(kind,time) {
+  if(kind==='pca') return {axis:progress(time,1000,2000),project:progress(time,2400,4400),transfer:progress(time,5000,7200),bins:progress(time,6900,7700),compare:progress(time,8000,9000)};
+  return searchState(time);
+}
+function caption(kind,time) {
+  if(kind==='pca') return time<2200?'Find the direction that captures the cloud’s structure.':time<5000?'Project copies of the points onto the PCA axis. Keep the original features.':time<7900?'Use the projected coordinates to place points into spatial bins.':'Search with projected bounds. Rank neighbors with full-space distances.';
+  const s=searchState(time);
+  return s.stop?'The bound exceeds the neighbor radius. The outer 24 bins can be skipped.':s.completed>=9?'The first shell is not enough to stop. Inspect only the next boundary.':s.completed>=1?'Expand through neighboring bins and keep the closest candidates.':'Start with the query’s bin. The query itself occupies the first neighbor slot.';
 }
 
-function render({time=2,theme='light',poster=false}={}) {
-  const step=poster?2:Math.max(0,Math.min(2,Math.round(time)));
-  // Standalone poster shares precisely the geometry used by the live figures.
-  const panels=[...renderPca(step,theme),renderBins(step,theme)];
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="340" viewBox="0 0 1080 340"><rect width="1080" height="340" fill="${palettes[theme].bg}"/>${panels[0].replace('<svg ','<svg x="0" y="0" width="360" height="300" ')}${panels[1].replace('<svg ','<svg x="360" y="0" width="360" height="300" ')}${panels[2].replace('<svg ','<svg x="720" y="0" width="360" height="340" ')}</svg>`;
+// Every animated property belongs to a stable SVG object. The browser updates
+// transforms, opacity and semantic text in place; it never rebuilds the diagram per frame.
+function frame(kind,time,width=720,theme='light') {
+  const p=palettes[theme],l=layout(kind,width),out={};
+  const set=(id,attrs)=>{out[id]=attrs;};
+  const fade=time>13300?1-progress(time,13300,14000):time<400?progress(time,0,400):1;
+  set('scene-content',{opacity:round(fade)});
+  if(kind==='pca') {
+    const s=stateAt(kind,time),a=l.a,b=l.b,k=l.scale;
+    set('principal-axis',{opacity:round(s.axis)});
+    set('axis-label',{opacity:round(s.axis*(1-s.transfer))});
+    // Hide the axis label only while the projected cloud crosses its region.
+    set('x-axis-label',{opacity:round(1-progress(time,4900,5100)+progress(time,7200,7500))});
+    set('index-label',{opacity:round(s.bins)});
+    set('index-point-labels',{opacity:round(progress(time,7300,7800))});
+    set('index-grid',{opacity:round(s.bins)});
+    set('original-distance',{opacity:round(s.compare)});
+    set('distance-note',{opacity:round(s.compare)});
+    set('index-distance',{opacity:round(s.compare)});
+    set('index-distance-note',{opacity:round(s.compare)});
+    set('distance-comparison',{opacity:round(s.compare)});
+    set('projection-lines',{opacity:round(s.project*(1-s.transfer))});
+    for(const pt of pcaPoints) {
+      const sx=a.x+pt.x*k,sy=a.y-pt.y*k;
+      const px=a.x+.8*pt.u*k,py=a.y-.6*pt.u*k;
+      const tx=b.x+pt.u*k,ty=b.y;
+      const x=lerp(lerp(sx,px,s.project),tx,s.transfer),y=lerp(lerp(sy,py,s.project),ty,s.transfer);
+      set(`moving-${pt.id}`,{transform:`translate(${round(x)} ${round(y)})`,opacity:round(progress(time,2200,2550))});
+    }
+  } else {
+    const s=searchState(time),visited=new Set(s.visited.map(c=>c.id)),k=l.s;
+    for(let x=0;x<7;x++)for(let y=0;y<7;y++) {
+      const id=`cell-${x}-${y}`,active=s.active?.id===id;
+      set(id,{fill:visited.has(id)?(s.stop?p.wash:p.tint):p.bg,stroke:active?p.accent:p.grid,'stroke-width':active?2:1});
+    }
+    for(const pt of binPoints) {
+      const best=s.best.some(b=>b.id===pt.id),seen=s.visited.some(c=>c.x===Math.floor(pt.x)&&c.y===Math.floor(pt.y));
+      set(`point-${pt.id}`,{fill:pt.id==='q'?p.accent:best?p.teal:seen?p.dot:p.line});
+      if(pt.id!=='q')set(`neighbor-${pt.id}`,{opacity:best?1:0});
+    }
+    set('radius',{opacity:s.radius===null?0:1,transform:`translate(${round(l.cx)} ${round(l.cy)}) scale(${round((s.radius||1)*k)})`});
+    set('bound',{opacity:round(progress(time,9800,10400)),transform:`translate(${round(l.cx)} ${round(l.cy)}) scale(${round(2*k)})`});
+    set('stop-equation',{opacity:round(progress(time,10400,11000))});
+    set('stop-detail',{opacity:round(progress(time,10400,11000))});
+    set('bins-count',{'text':`${s.completed} / 49 bins inspected`});
+    for(let i=0;i<4;i++) {
+      const pt=s.best[i];
+      set(`slot-id-${i}`,{text:pt?pt.id:'—',fill:pt?p.ink:p.muted});
+      set(`slot-distance-${i}`,{text:pt?distance(pt).toFixed(2):'—',fill:pt?p.ink:p.muted});
+    }
+    set('radius-description',{text:s.radius===null?'Neighbor set still incomplete':`Farthest retained distance: ${s.radius.toFixed(2)}`});
+  }
+  return out;
 }
-const sampleTimes=[0,1,2];
-const posterTime=2;
-const reviewFiles=['scene.mjs','frame.html','review.md'];
+function diagram(kind,width,theme,time) {
+  const p=palettes[theme],l=layout(kind,width),updates=frame(kind,time,width,theme);
+  const tag=(name,id,attrs={},text='')=>{
+    const props={...attrs,...(updates[id]||{})};const copy=props.text??text;delete props.text;
+    return `<${name}${id?` id="${id}"`:''}${Object.entries(props).map(([key,value])=>` ${key}="${escapeText(value)}"`).join('')}>${copy?escapeText(copy):''}</${name}>`;
+  };
+  const text=(id,x,y,value,attrs={})=>tag('text',id,{x:round(x),y:round(y),fill:p.ink,'font-size':14,'font-family':'Inter, Arial, sans-serif',...attrs},value);
+  const line=(id,x1,y1,x2,y2,attrs={})=>tag('line',id,{x1:round(x1),y1:round(y1),x2:round(x2),y2:round(y2),stroke:p.line,...attrs});
+  const dot=(id,x,y,fill,r=4,attrs={})=>tag('circle',id,{cx:round(x),cy:round(y),r,fill,...attrs});
+  const group=(id,children,attrs={})=>`<g id="${id}" ${Object.entries({...attrs,...updates[id]}).map(([k,v])=>`${k}="${escapeText(v)}"`).join(' ')}>${children}</g>`;
+  const label=(id,x,y,value,attrs={})=>text(id,x,y,value,{'font-family':'JetBrains Mono, monospace','font-size':10.5,'letter-spacing':1.2,fill:p.muted,...attrs});
+  let body='';
+  if(kind==='pca') {
+    const {a,b,scale:k}=l;
+    body+=label('features-label',18,24,'ORIGINAL FEATURES');
+    body+=label('index-label',l.narrow?18:l.w*.52,l.narrow?304:24,'PCA SEARCH INDEX');
+    body+=line('',a.x-k*2.9,a.y,a.x+k*2.9,a.y)+line('',a.x,a.y-k*2.35,a.x,a.y+k*2.35);
+    body+=text('x-axis-label',a.x+k*2.8,a.y+20,'x₁',{'font-family':'Georgia, serif','font-size':15,fill:p.muted});
+    body+=text('',a.x+10,a.y-k*2.15,'x₂',{'font-family':'Georgia, serif','font-size':15,fill:p.muted});
+    body+=line('principal-axis',a.x-k*2.8*.8,a.y+k*2.8*.6,a.x+k*2.8*.8,a.y-k*2.8*.6,{stroke:p.teal,'stroke-width':1.5});
+    body+=label('axis-label',a.x+k*.95,a.y-k*1.9,'PC1',{fill:p.teal});
+    let guides='';
+    for(const pt of pcaPoints)guides+=line('',a.x+pt.x*k,a.y-pt.y*k,a.x+.8*pt.u*k,a.y-.6*pt.u*k,{stroke:p.teal,'stroke-dasharray':'2 5',opacity:.45});
+    body+=group('projection-lines',guides);
+    let bins='';
+    for(let i=0;i<6;i++){
+      bins+=tag('rect','',{x:round(b.x+(i-3)*k),y:b.y-38,width:round(k),height:76,rx:0,fill:i===3?p.wash:p.bg,stroke:p.line});
+      bins+=label('',b.x+(i-2.5)*k,b.y+62,String(i),{'text-anchor':'middle','letter-spacing':0});
+    }
+    bins+=line('',b.x-3*k,b.y,b.x+3*k,b.y,{stroke:p.teal,'stroke-width':1});
+    body+=group('index-grid',bins);
+    const candidate=pcaPoints[11];
+    body+=line('original-distance',a.x,a.y,a.x+candidate.x*k,a.y-candidate.y*k,{stroke:p.accent,'stroke-width':2});
+    for(const pt of pcaPoints) body+=dot(`original-${pt.id}`,a.x+pt.x*k,a.y-pt.y*k,pt.id===candidate.id?p.accent:pt.id==='point-7'?p.ink:p.dot,pt.id===candidate.id?5:3.5);
+    body+=text('',a.x+9,a.y+20,'q',{'font-family':'Georgia, serif','font-style':'italic'});
+    body+=text('',a.x+candidate.x*k+9,a.y-candidate.y*k+4,'p',{'font-family':'Georgia, serif','font-style':'italic'});
+    for(const pt of pcaPoints)body+=dot(`moving-${pt.id}`,0,0,pt.id===candidate.id?p.accent:p.teal,pt.id===candidate.id?5:3.5,{stroke:p.bg,'stroke-width':1});
+    body+=group('index-distance',line('',b.x,b.y-69,b.x+1.6*k,b.y-69,{stroke:p.teal,'stroke-width':2})+line('',b.x,b.y-74,b.x,b.y-64,{stroke:p.teal})+line('',b.x+1.6*k,b.y-74,b.x+1.6*k,b.y-64,{stroke:p.teal}));
+    body+=group('index-point-labels',text('',b.x,b.y+23,'q',{'font-family':'Georgia, serif','font-style':'italic','text-anchor':'middle'})+text('',b.x+1.6*k,b.y+23,'p',{'font-family':'Georgia, serif','font-style':'italic','text-anchor':'middle'}));
+    body+=text('index-distance-note',b.x+.8*k,b.y-82,'1.60',{'font-family':'Georgia, serif','font-size':21,'text-anchor':'middle',fill:p.teal});
+    body+=text('distance-note',a.x,a.y+132,'Original distance  1.71',{'text-anchor':'middle',fill:p.muted,'font-size':13});
+    body+=text('distance-comparison',b.x,b.y+132,'1.60 ≤ 1.71',{'text-anchor':'middle','font-family':'Georgia, serif','font-size':27,fill:p.teal});
+  } else {
+    const {s:k,x:ox,y:oy,size,rx,ry}=l;const X=x=>ox+x*k,Y=y=>oy+(7-y)*k;
+    body+=label('',ox,17,'BIN SPACE');
+    for(let x=0;x<7;x++)for(let y=0;y<7;y++) body+=tag('rect',`cell-${x}-${y}`,{x:round(X(x)),y:round(Y(y+1)),width:round(k),height:round(k),fill:p.bg,stroke:p.grid});
+    for(const pt of binPoints)if(pt.id!=='q')body+=line(`neighbor-${pt.id}`,l.cx,l.cy,X(pt.x),Y(pt.y),{stroke:p.teal,'stroke-width':1.6});
+    body+=tag('circle','radius',{cx:0,cy:0,r:1,fill:'none',stroke:p.teal,'stroke-width':1.5,'vector-effect':'non-scaling-stroke'});
+    body+=tag('circle','bound',{cx:0,cy:0,r:1,fill:'none',stroke:p.accent,'stroke-dasharray':'4 4','stroke-width':1.3,'vector-effect':'non-scaling-stroke'});
+    for(const pt of binPoints)body+=dot(`point-${pt.id}`,X(pt.x),Y(pt.y),p.dot,pt.id==='q'?5.5:3.8);
+    body+=text('',l.cx-15,l.cy+20,'q',{'font-family':'Georgia, serif','font-style':'italic'});
+    body+=label('bins-count',ox,oy+size+28,'');
+    body+=label('',rx,ry,'NEAREST SO FAR · K = 4');
+    const slotsWidth=l.narrow?l.w-36:l.w-rx-16,slot=slotsWidth/4;
+    for(let i=0;i<4;i++){
+      body+=line('',rx+i*slot,ry+14,rx+i*slot+slot-8,ry+14);
+      body+=text(`slot-id-${i}`,rx+i*slot+4,ry+43,'',{'font-family':'Georgia, serif','font-style':'italic','font-size':24});
+      body+=text(`slot-distance-${i}`,rx+i*slot+4,ry+67,'',{'font-family':'JetBrains Mono, monospace','font-size':12,fill:p.muted});
+    }
+    body+=text('radius-description',rx,ry+103,'',{'font-size':12,fill:p.muted});
+    body+=group('stop-equation',label('',rx,ry+156,'SAFE TO STOP',{fill:p.teal})+text('',rx,ry+200,'2.00 > 1.10',{'font-family':'Georgia, serif','font-size':l.narrow?34:Math.min(36,(l.w-rx)/7),fill:p.teal}));
+    body+=text('stop-detail',rx,ry+225,'lower bound > neighbor radius',{'font-size':12,fill:p.muted});
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${l.w}" height="${l.h}" viewBox="0 0 ${l.w} ${l.h}" role="img" aria-labelledby="diagram-title"><title id="diagram-title">${escapeText(kind==='pca'?scene.pca.claim:scene.binstepper.claim)}</title><rect width="${l.w}" height="${l.h}" fill="${p.bg}"/>${group('scene-content',body)}</svg>`;
+}
+function renderDiagram(kind,time=posterTime,theme='light',width=720) {return diagram(kind,width,theme,time);}
+function render({time=posterTime,theme='light',poster=false}={}) {return renderDiagram('pca',poster?posterTime:time,theme,720);}
+const sampleTimes=[0,400,1000,1500,2000,2200,2400,3300,4400,5000,6100,6900,7200,7700,8000,8500,9000,9800,10100,10400,10700,11000,12500,13300,13650,13990];
+const reviewFiles=['scene.mjs','frame.html','review.md','../../../scripts/build-fastgraph-diagrams.mjs'];
+
+function createPlayback(reduced=false) {
+  return {
+    time:reduced?posterTime:0,paused:reduced,poster:reduced,visible:false,hidden:false,
+    get playing(){return !this.paused&&this.visible&&!this.hidden;},
+    advance(delta){if(this.playing)this.time=(this.time+Math.max(0,delta))%duration;return this.time;},
+    toggle(){if(this.poster){this.poster=false;this.time=0;this.paused=false;}else this.paused=!this.paused;},
+    reduce(value){if(value){this.time=posterTime;this.paused=true;this.poster=true;}},
+  };
+}
 
 const kind='pca';
-let current=2;
-const explanations = {
-  pca: [
-    'Start with the original feature vectors. The diamond marks query q; the orange point p is one possible neighbor. No dimensions have been removed.',
-    'PCA finds an orthonormal direction along the cloud’s greatest variance. Each point keeps its identity and its original feature vector.',
-    'Project onto that direction to build the bins. The q–p distance shrinks from 1.71 to 1.60, so it is useful as a lower bound. Candidate ranking still uses the original 1.71 distance.'
-  ],
-  binstepper: [
-    'Scan the query’s own bin. There are only two retained points, including q, so the four-neighbor set is not full. The search must continue.',
-    'Visit the eight bins on the next boundary without rescanning the center. Four neighbors are now retained, but the lower bound of 1.00 is below the current radius of 1.10. Keep searching.',
-    'Visit the sixteen bins on the second boundary. The retained neighbors do not change. Now the conservative lower bound of 2.00 exceeds the radius of 1.10, so the remaining 24 bins cannot improve the answer.'
-  ]
-};
-function metrics(step) {
-  const state=binState(step);
-  return `<div class="metrics"><dl><div><dt>New bins in this shell</dt><dd>${state.newBins}</dd></div><div><dt>Retained neighbors · K = 4</dt><dd>${state.best.length} / 4</dd></div><div><dt>Farthest retained distance</dt><dd>${state.filled?state.radius.toFixed(2):'Not full'}</dd></div><div><dt>Unvisited distance ≥</dt><dd>${state.bound.toFixed(2)}</dd></div></dl><p class="decision">${state.stop?'2.00 > 1.10 → stop':state.filled?'1.00 < 1.10 → continue':'Fill the neighbor set → continue'}</p></div>`;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),appearance=matchMedia('(prefers-color-scheme: dark)');
+const playback=createPlayback(reduced.matches);
+const drawing=document.getElementById('drawing'),button=document.getElementById('play'),description=document.getElementById('explanation');
+let width=0,theme='light',nodes=new Map(),raf=null,last=null,printing=false;
+function paint(){
+  const time=printing?posterTime:playback.time;
+  for(const [id,attrs] of Object.entries(frame(kind,time,width,theme))){
+    const node=nodes.get(id);if(!node)continue;
+    for(const [key,value] of Object.entries(attrs)){
+      if(key==='text'){if(node.textContent!==value)node.textContent=value;}
+      else if(node.getAttribute(key)!==String(value))node.setAttribute(key,value);
+    }
+  }
+  const copy=caption(kind,time);if(description.textContent!==copy)description.textContent=copy;
+  document.getElementById('progress').style.transform=`scaleX(${time/duration})`;
 }
-function paint() {
-  const theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
-  document.getElementById('panels').innerHTML=kind==='pca'?renderPca(current,theme).join(''):renderBins(current,theme)+metrics(current);
-  document.getElementById('explanation').textContent=explanations[kind][current];
-  document.querySelectorAll('button[data-step]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.step)===current)));
+function rebuild(){
+  const next=Math.max(280,Math.floor(drawing.getBoundingClientRect().width));
+  width=next;drawing.innerHTML=renderDiagram(kind,playback.time,theme,width);
+  nodes=new Map([...drawing.querySelectorAll('[id]')].map(el=>[el.id,el]));paint();
 }
-document.querySelectorAll('button[data-step]').forEach(button=>button.addEventListener('click',()=>{current=Number(button.dataset.step);paint();}));
-// Same-origin embeds inherit the portfolio's appearance and size to their content.
-// Standalone figures use the system preference; there is no second theme control.
-const media=matchMedia('(prefers-color-scheme: dark)');
-function syncTheme() {
-  let dark=media.matches;
-  try {if(window.parent!==window) dark=window.parent.document.documentElement.classList.contains('dark');} catch {}
-  document.documentElement.dataset.theme=dark?'dark':'light';paint();
+function tick(now){raf=null;if(last!==null)playback.advance(now-last);last=now;paint();if(playback.playing&&!printing)raf=requestAnimationFrame(tick);}
+function reconcile(){
+  const playing=playback.playing&&!printing;
+  button.setAttribute('aria-label',playback.paused?'Play animation':'Pause animation');
+  button.title=playback.paused?'Play animation':'Pause animation';
+  button.innerHTML=playback.paused?'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3L13 8L5 13Z" fill="currentColor"/></svg>':'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h3v10H4zM10 3h3v10h-3z" fill="currentColor"/></svg>';
+  if(!playing){if(raf!==null)cancelAnimationFrame(raf);raf=null;last=null;}
+  else if(raf===null){last=null;raf=requestAnimationFrame(tick);}
+  paint();
 }
-syncTheme();media.addEventListener('change',syncTheme);
-try {if(window.parent!==window) new MutationObserver(syncTheme).observe(window.parent.document.documentElement,{attributes:true,attributeFilter:['class']});} catch {}
-new ResizeObserver(()=>{if(window.frameElement) {window.frameElement.style.minHeight='0px'; window.frameElement.style.height=`${Math.ceil(document.querySelector('main').getBoundingClientRect().height)+2}px`;} }).observe(document.querySelector('main'));
-window.addEventListener('beforeprint',()=>{current=2;paint();});
+button.addEventListener('click',()=>{playback.toggle();reconcile();});
+function syncTheme(){
+  let dark=appearance.matches;
+  try{if(parent!==window)dark=parent.document.documentElement.classList.contains('dark');}catch{}
+  theme=dark?'dark':'light';document.documentElement.dataset.theme=theme;rebuild();
+}
+syncTheme();
+appearance.addEventListener('change',syncTheme);
+reduced.addEventListener('change',event=>{playback.reduce(event.matches);reconcile();});
+try{if(parent!==window)new MutationObserver(syncTheme).observe(parent.document.documentElement,{attributes:true,attributeFilter:['class']});}catch{}
+new IntersectionObserver(entries=>{playback.visible=entries[0].isIntersecting;reconcile();},{threshold:0}).observe(document.querySelector('main'));
+document.addEventListener('visibilitychange',()=>{playback.hidden=document.hidden;reconcile();});playback.hidden=document.hidden;
+new ResizeObserver(()=>{
+  if(Math.abs(drawing.getBoundingClientRect().width-width)>1)rebuild();
+  try{if(frameElement){frameElement.style.minHeight='0px';frameElement.style.height=`${Math.ceil(document.querySelector('main').getBoundingClientRect().height)+2}px`;}}catch{}
+}).observe(document.querySelector('main'));
+window.addEventListener('beforeprint',()=>{printing=true;reconcile();});
+window.addEventListener('afterprint',()=>{printing=false;reconcile();});
+reconcile();
 </script></body></html>

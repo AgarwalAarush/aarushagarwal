@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {pcaPoints,binPoints,binState,distance,shell,renderPca,renderBins} from '../src/content/fastgraph-diagrams/scene.mjs';
+import {pcaPoints,binPoints,binState,distance,shell,renderDiagram,searchState,frame,createPlayback,posterTime,duration,sampleTimes} from '../src/content/fastgraph-diagrams/scene.mjs';
 // The illustrated axis really is the first principal component of these samples.
 const sum = fn => pcaPoints.reduce((s,p)=>s+fn(p),0);
 assert(Math.abs(sum(p=>p.u))<1e-10);
@@ -27,43 +27,38 @@ const end=binState(2);
 assert.deepEqual(end.best.map(p=>p.id),[...binPoints].sort((a,b)=>distance(a)-distance(b)).slice(0,4).map(p=>p.id));
 assert.equal(end.radius.toFixed(2),'1.10');
 assert(binPoints.filter(p=>shell(p)>2).every(p=>distance(p)>=end.bound && distance(p)>end.radius));
-for(const theme of ['light','dark']) for(const step of [0,1,2]) {
-  for(const svg of [...renderPca(step,theme),renderBins(step,theme)]) {
-    assert(!/NaN|undefined/.test(svg));
-    const ids=[...svg.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
-    assert.equal(new Set(ids).size,ids.length);
-  }
+// No premature neighbor selection: compare every partial traversal to brute force
+// restricted to the bins actually visited at that instant (plus self).
+for(let t=0;t<=12000;t+=75){
+ const state=searchState(t);
+ const allowed=binPoints.filter(pt=>pt.id==='q'||state.visited.some(c=>c.x===Math.floor(pt.x)&&c.y===Math.floor(pt.y)));
+ const expected=allowed.sort((a,b)=>distance(a)-distance(b)).slice(0,4);
+ assert.deepEqual(state.best.map(p=>p.id),expected.map(p=>p.id));
+ if(state.stop)assert(state.completed===25&&state.best.length===4&&state.bound>state.radius);
+ else assert(t<9800);
 }
-for(const name of ['pca','binstepper']) {
-  const html=readFileSync(`src/content/fastgraph-diagrams/${name}.html`,'utf8');
-  assert(!/__([A-Z]+)__/.test(html));
-  new Function(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
+for(const kind of ['pca','binstepper'])for(const theme of ['light','dark'])for(const width of [320,534,720])for(const time of sampleTimes){
+ const svg=renderDiagram(kind,time,theme,width);
+ assert(!/NaN|undefined/.test(svg));
+ const ids=[...svg.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+ assert.equal(new Set(ids).size,ids.length);
+ for(const [id,props] of Object.entries(frame(kind,time,width,theme))){
+  assert(ids.includes(id),`Missing animation target ${id}`);
+  if('opacity' in props)assert(props.opacity>=0&&props.opacity<=1);
+ }
 }
-console.log('Passed: PCA covariance and contraction, shell partition, safe stopping, brute-force neighbors, SVG identities, generated JavaScript.');
-// Execute the shipped inline script against a minimal DOM adapter. Exercise real
-// event handlers, state changes and appearance propagation without a browser install.
-const {runInNewContext}=await import('node:vm');
-for(const kind of ['pca','binstepper']) {
-  const html=readFileSync(`src/content/fastgraph-diagrams/${kind}.html`,'utf8');
-  const elements=new Map(['panels','explanation'].map(id=>[id,{innerHTML:'',textContent:''}]));
-  const buttons=[0,1,2].map(step=>({dataset:{step:String(step)},attributes:{},setAttribute(k,v){this.attributes[k]=v;},addEventListener(type,handler){this[type]=handler;}}));
-  let dark=false,themeObserver;
-  const window={parent:{document:{documentElement:{classList:{contains:()=>dark}}}},addEventListener(){}};
-  const document={documentElement:{dataset:{}},getElementById:id=>elements.get(id),querySelectorAll:()=>buttons,querySelector:()=>({getBoundingClientRect:()=>({height:500})})};
-  runInNewContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],{
-    window,document,matchMedia:()=>({matches:false,addEventListener(){}}),
-    MutationObserver:class {constructor(fn){themeObserver=fn;}observe(){}},
-    ResizeObserver:class {observe(){}},
-  });
-  for(const step of [0,1,2,0,2]) {
-    buttons[step].click();
-    assert.equal(buttons.filter(b=>b.attributes['aria-pressed']==='true').length,1);
-    assert.equal(buttons[step].attributes['aria-pressed'],'true');
-    assert(!/undefined|NaN/.test(elements.get('panels').innerHTML));
-    if(kind==='binstepper') assert(elements.get('explanation').textContent.includes(['only two','eight bins','sixteen bins'][step]));
-    else assert(elements.get('explanation').textContent.includes(['Start with','PCA finds','Project onto'][step]));
-  }
-  dark=true;themeObserver();assert.equal(document.documentElement.dataset.theme,'dark');
-  assert(elements.get('panels').innerHTML.includes('#202321'));
+// Pause/offscreen/hidden states keep elapsed time, and reduced motion has a poster.
+const player=createPlayback();player.visible=true;player.advance(3300);player.toggle();player.advance(1000);assert.equal(player.time,3300);
+player.visible=false;player.visible=true;assert(player.paused);player.toggle();player.advance(250);assert.equal(player.time,3550);
+player.hidden=true;player.advance(1000);assert.equal(player.time,3550);player.hidden=false;
+player.visible=false;player.advance(1000);assert.equal(player.time,3550);player.visible=true;
+player.reduce(true);assert.equal(player.time,posterTime);assert(!player.playing);
+player.toggle();assert.equal(player.time,0);assert(player.playing);
+player.advance(duration+230);assert.equal(player.time,230);
+const reduced=createPlayback(true);assert.equal(reduced.time,posterTime);assert(reduced.paused);
+for(const name of ['pca','binstepper']){
+ const html=readFileSync(`src/content/fastgraph-diagrams/${name}.html`,'utf8');
+ assert(!/__([A-Z]+)__/.test(html));assert(!html.includes('data-step'));
+ new Function(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
 }
-console.log('Passed: shipped control handlers, selected states, explanations, repeat navigation and inherited dark appearance.');
+console.log('Passed: PCA math, every partial shell, final neighbors, all animation states/targets, pause/resume, visibility, reduced motion, loop and emitted script syntax.');

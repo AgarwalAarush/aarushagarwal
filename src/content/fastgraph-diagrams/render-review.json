@@ -1,60 +1,65 @@
 {
-  "fingerprint": "6e9b9b8845700d6345286b93c87a273fc89ec5a54b4747305474e7ee4ac817f2",
-  "status": "approved",
-  "reviewMode": "explicit critique; no automatic scientific approval",
-  "fontNote": "Offline frames use IBM Plex Mono fallback plus KaTeX outlines. Browser screenshots establish final DM Sans typography.",
-  "views": [
-    {
-      "theme": "dark",
-      "width": 720
-    },
-    {
-      "theme": "light",
-      "width": 720
-    },
-    {
-      "theme": "dark",
-      "width": 534
-    }
+  "fingerprint": "130ca897f5756bd4ddb80e2103cf01a03d8961462747a350519cae07e943477c",
+  "status": "locally-reviewed",
+  "reviewMode": "Author visual and source review; not independent validation",
+  "files": [
+    "src/content/fastgraph-diagrams/scene.mjs",
+    "src/content/fastgraph-diagrams/frame.html",
+    "src/content/fastgraph-diagrams/review.md",
+    "scripts/build-fastgraph-diagrams.mjs"
+  ],
+  "kinds": [
+    "pca",
+    "binstepper"
   ],
   "times": [
     0,
-    1,
-    2
+    400,
+    1000,
+    1500,
+    2000,
+    2200,
+    2400,
+    3300,
+    4400,
+    5000,
+    6100,
+    6900,
+    7200,
+    7700,
+    8000,
+    8500,
+    9000,
+    9800,
+    10100,
+    10400,
+    10700,
+    11000,
+    12500,
+    13300,
+    13650,
+    13990
   ],
-  "sheets": [
-    "filmstrip-dark-720.png",
-    "filmstrip-light-720.png",
-    "filmstrip-dark-534.png"
+  "views": [
+    "light-720",
+    "dark-720",
+    "light-320",
+    "dark-320"
   ],
-  "issues": [],
-  "semanticStates": [],
-  "review": {
-    "fingerprint": "6e9b9b8845700d6345286b93c87a273fc89ec5a54b4747305474e7ee4ac817f2",
-    "reviewedTimes": [
-      0,
-      1,
-      2
-    ],
-    "reviewedViews": [
-      "dark-720",
-      "light-720",
-      "dark-534"
-    ],
-    "gates": {
-      "source": true,
-      "geometry": true,
-      "visual": true,
-      "temporal": true
-    },
-    "issues": []
+  "frameCount": 208,
+  "gates": {
+    "source": true,
+    "numerical": true,
+    "sampledGeometry": true,
+    "sampledMotion": true,
+    "desktopBrowser": true,
+    "mobileBrowser": false,
+    "osReducedMotionBrowser": false
   },
-  "history": [
-    {
-      "round": 1,
-      "fingerprint": "6e9b9b8845700d6345286b93c87a273fc89ec5a54b4747305474e7ee4ac817f2",
-      "status": "approved",
-      "issues": []
-    }
-  ]
+  "repairs": [
+    "Expanded narrow binstepper height",
+    "Hide x-axis label while projected points cross its region"
+  ],
+  "browserEvidence": "Dia: standalone dark PCA; embedded light PCA and binstepper; PCA pause/resume; binstepper initial and final states",
+  "issues": []
 }

@@ -1,33 +1,29 @@
-# FastGraph diagram review
+# FastGraph animation review
 
-Two discrete, user-controlled teaching figures; there is no autoplay or continuous motion. Read in page order: PCA, then binstepper/stopping bound. Review states 0, 1 and 2 are complete algorithm snapshots, not measured execution time.
+Two 14-second explanatory animations share deterministic scene data, geometry and timing with their static SVG posters. The browser changes stable SVG objects in place. No slide navigation remains.
 
-## Source review
+## Sources and scope
 
-Pinned library revision: ad4392eee16734a1001e82764a13144379d931e9.
+Pinned library revision: ad4392eee16734a1001e82764a13144379d931e9. Source links are recorded in scene.mjs.
 
-- `binned_select_knn.py`: `_compute_pca_projection` selects orthonormal PCA columns; the wrapper builds `bin_coords` while passing original `coords` to the search. The teaching diagram explicitly labels its 2D-to-1D simplification; the implementation uses at least two bin dimensions.
-- `binstepper.h`: `set_d` and `step` enumerate the cube surface and reject invalid global indices. The illustration shows entire completed shells, not within-shell ordering or parallel GPU scheduling.
-- `binned_select_knn_cuda_kernel.cu`: stop only when the neighbor set is full and `(bin_width * distance)^2 > maxdistsq`. Slot zero is self. The example uses K=4 including self and the same conservative bound, not the tighter query-to-cell-boundary distance.
+- PCA uses orthonormal columns for bin coordinates; original coordinates still determine neighbor distances. The 2D-to-1D teaching example is labeled explicitly; production uses at least two bin dimensions and the reported benchmark uses eight input and three bin dimensions.
+- Binstepper visits successive Chebyshev shell boundaries, with x outer/y inner traversal in the 2D illustration. Already inspected inner bins are not revisited. Only one query is shown; concurrent GPU queries and timing are not represented.
+- The stop requires K filled and the conservative shell-distance bound greater than the farthest retained distance. K=4 includes self. Final neighbors match brute force.
 
-## Numerical checks
+## Motion and presentation
 
-`scripts/check-fastgraph-diagrams.mjs` verifies PCA covariance, all-pairs contraction, shell membership and non-overlap, non-premature stopping, and agreement of the final neighbors with brute force. Values are illustrative and do not imply benchmark performance.
+PCA reveals the principal axis, projects copies while preserving the original cloud, transfers those copies into bins, and then compares projected/full distances. Binstepper inspects each boundary cell, updates the retained set, and reveals the stopping comparison after completing the second shell. Final states hold before fading out; the loop resets while invisible, without reversing algorithm execution.
 
-## Render review, round 1
+Barlow Condensed headings, JetBrains Mono annotations and Georgia mathematical values create distinct typographic roles. Warm neutral canvases use rust for the query/search and green for projection/retained neighbors. One native Play/Pause button preserves manual pause. Offscreen/hidden animations suspend; reduced motion and printing show the final poster. Parent theme is inherited. Narrow diagrams stack their geometry.
 
-Inspected original-coordinate, projected-coordinate, and shell scenes at all steps in light/dark raster previews. Found the PCA query label adjacent to a point and unlabeled radius/bound rings. Moved the query label and added explicit ring legend keys. Added a hollow marker at the projection of p. No animated paths or swept collisions apply.
+## Review and repairs
 
-## Presentation constraints
+Rendered 26 moments per scene across light/dark and 320/720px native geometry: 208 frames, including motion starts, midpoints, completed states, final hold and fade/reset. Inspected contact sheets and full-size posters. Increased narrow binstepper height to prevent the stopping explanation clipping. Found an x-axis label crossing moving PCA points and hide that label during transfer, then restore it. Re-rendered the repaired timeline.
 
-Native SVG text uses Arial/Helvetica to match the existing page's system sans. HTML controls and captions reflow; panels stack below 560px. Page theme is inherited from the parent root; a standalone embed follows system appearance. Native buttons provide keyboard activation, focus rings, pressed state, and a polite live description. Figures show the final useful poster on first load and without JavaScript.
+Dia desktop review confirmed actual fonts, standalone dark PCA, embedded light PCA and binstepper, automatic progression, iframe sizing, and PCA pause/resume. The binstepper was observed at its initial and completed stopping states. Mobile geometry was reviewed through native SVG renders; full mobile-browser layout and OS reduced-motion toggling were not exercised.
 
-## Final local review
+## Checks
 
-- Reviewed all three discrete states in both palettes as native 360px panels, plus the harness 720px and 534px contact views. The final query label is clear of the points. Projection foot, grid shells, retained radius, and stopping bound preserve their identities and mathematical meaning.
-- The generic harness assumes a wide frame. Its first render failed when given a two-row composite; the adapter now exports a horizontal review strip. This adapter change does not change the live panels, which reflow in CSS.
-- Build, emitted-script syntax, numerical checks, shipped button handlers, repeated state selection, inherited theme logic, HTTP endpoints, and page embed placement passed. The existing removed headline is absent from the served page.
-- Browser verification is incomplete: Dia repeatedly returned to the user's active window and rejected subsequent actions as a user-driven state change. No alternate browser was launched. Mobile reflow, focus styling, actual iframe sizing, and inherited theme appearance are implemented and code-inspected, but are not claimed as visually verified in Dia.
-- The render harness approves the authored SVG scenes only. It does not establish browser layout acceptance or publication.
+`node scripts/check-fastgraph-diagrams.mjs` verifies PCA covariance and all-pairs contraction, shell membership/non-overlap, every partial search state against visited-point brute force, non-premature stopping, final brute-force neighbors, animation targets and opacity ranges across sampled frames, pause/resume, visibility, reduced motion, looping, and emitted JavaScript syntax. Production build is checked separately.
 
-Regenerate HTML/posters with `node scripts/build-fastgraph-diagrams.mjs`; validate with `node scripts/check-fastgraph-diagrams.mjs`. The page embeds the generated HTML through `/api/fastgraph-diagram?kind=pca` and `?kind=binstepper`. SVG posters live in `public/generated/fastgraph/`.
+Regenerate HTML and SVG posters with `node scripts/build-fastgraph-diagrams.mjs`. HTML is served through `/api/fastgraph-diagram?kind=pca` and `?kind=binstepper`. This is a local author review, not independent scientific validation or deployment acceptance.
