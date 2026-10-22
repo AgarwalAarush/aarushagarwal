@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
-import ProjectGallery from '../../components/ProjectGallery';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -253,13 +252,16 @@ export default function ProjectPage({ project }) {
               <div className="w-full min-w-0 max-w-full flex-1">
                 {/* Project header */}
                 <div className="mb-10">
-                  {(project.image || project.images?.length > 0) && (
-                    <ProjectGallery
-                      key={project.id}
-                      title={project.title}
-                      images={[project.image, ...(project.images || [])]}
-                      className="mb-6 h-[clamp(260px,45vw,480px)] rounded-xl border border-[#dedad2]"
-                    />
+                  {project.image && (
+                    <div className="mb-6 overflow-hidden rounded-lg">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        width={800}
+                        height={400}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
                   )}
                   
                   {project.icon ? (
@@ -409,7 +411,6 @@ export async function getStaticProps({ params }) {
         title: frontmatter.title || 'Untitled Project',
         description: frontmatter.description || 'No description available',
         image: frontmatter.image ? getAssetUrl(frontmatter.image) : null,
-        images: (frontmatter.images || []).map(getAssetUrl),
         icon: frontmatter.icon ? getAssetUrl(frontmatter.icon) : null,
         github: frontmatter.github || null,
         paper: frontmatter.paper || null,
