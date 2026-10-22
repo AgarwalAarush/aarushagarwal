@@ -26,9 +26,15 @@ FastGraph accelerates this step by organizing points into spatial bins and skipp
 
 **Adapt the search to the data.** Binning along a few original coordinates can work well when those axes capture useful structure. When they do not, the search may still have to check many candidates. The PCA extension estimates an orthonormal basis from a sample of points on the GPU, then projects the data into a compact search space. The evaluated HGCAL configuration uses three binning dimensions for eight-dimensional inputs.
 
+```fastgraph-pca-embed
+```
+
 **Keep the distance metric intact.** The projection organizes the search; neighbor distances are calculated using all of the original features. Points are grouped and sorted into bins, and the search traverses expanding shells around each query while maintaining its closest neighbors. Separate graphs are kept apart through row splits, so points from different graphs cannot become neighbors.
 
 **Skip candidates with a valid bound.** An orthonormal projection cannot increase Euclidean distance. This makes the distance to an unvisited projected bin a lower bound on the distance to its points in the original space. Once the bound for every unvisited bin exceeds the farthest selected neighbor’s distance, the search can stop. The pruning rule preserves exact neighbors in exact arithmetic; floating-point behavior was checked against brute-force references across multiple dimensions and neighborhood sizes.
+
+```fastgraph-binstepper-embed
+```
 
 **Specialize the CUDA implementation.** The binning kernels specialize on 2–5 dimensions at compile time, enabling fixed-size storage and loop unrolling. Keeping the binning space small limits grid and traversal costs even when the input has more features. This combines an algorithmic reduction in candidate checks with kernels tailored to the supported search configurations.
 

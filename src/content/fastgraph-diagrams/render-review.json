@@ -1,0 +1,60 @@
+{
+  "fingerprint": "6e9b9b8845700d6345286b93c87a273fc89ec5a54b4747305474e7ee4ac817f2",
+  "status": "approved",
+  "reviewMode": "explicit critique; no automatic scientific approval",
+  "fontNote": "Offline frames use IBM Plex Mono fallback plus KaTeX outlines. Browser screenshots establish final DM Sans typography.",
+  "views": [
+    {
+      "theme": "dark",
+      "width": 720
+    },
+    {
+      "theme": "light",
+      "width": 720
+    },
+    {
+      "theme": "dark",
+      "width": 534
+    }
+  ],
+  "times": [
+    0,
+    1,
+    2
+  ],
+  "sheets": [
+    "filmstrip-dark-720.png",
+    "filmstrip-light-720.png",
+    "filmstrip-dark-534.png"
+  ],
+  "issues": [],
+  "semanticStates": [],
+  "review": {
+    "fingerprint": "6e9b9b8845700d6345286b93c87a273fc89ec5a54b4747305474e7ee4ac817f2",
+    "reviewedTimes": [
+      0,
+      1,
+      2
+    ],
+    "reviewedViews": [
+      "dark-720",
+      "light-720",
+      "dark-534"
+    ],
+    "gates": {
+      "source": true,
+      "geometry": true,
+      "visual": true,
+      "temporal": true
+    },
+    "issues": []
+  },
+  "history": [
+    {
+      "round": 1,
+      "fingerprint": "6e9b9b8845700d6345286b93c87a273fc89ec5a54b4747305474e7ee4ac817f2",
+      "status": "approved",
+      "issues": []
+    }
+  ]
+}

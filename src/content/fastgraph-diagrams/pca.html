@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FastGraph mechanism</title>
+<style>
+:root {color-scheme:light;--bg:#fbfaf7;--ink:#292b29;--muted:#62665f;--line:#d7dbd3;--wash:#edf0e9;--accent:#aa481f;--teal:#126756}
+:root[data-theme=dark] {color-scheme:dark;--bg:#202321;--ink:#edf0e9;--muted:#b5bdb2;--line:#465047;--wash:#2b312c;--accent:#f3ad82;--teal:#85d6bc}
+* {box-sizing:border-box} body {margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 Arial,Helvetica,sans-serif} main {padding:24px;max-width:1000px;margin:auto} h1 {font-size:20px;line-height:1.3;font-weight:500;margin:0 0 8px;letter-spacing:-.025em} p {margin:0} .intro {color:var(--muted);max-width:62ch} .steps {display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 8px} button {font:inherit;font-size:13px;min-height:40px;border:1px solid var(--line);padding:7px 12px;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer} button[aria-pressed=true] {background:var(--ink);color:var(--bg);border-color:var(--ink)} button:hover {border-color:var(--ink)} button:focus-visible,a:focus-visible {outline:2px solid var(--accent);outline-offset:3px} .panels {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:8px} svg {width:100%;height:auto;display:block} .explanation {border-top:1px solid var(--line);padding-top:16px;margin-top:8px;min-height:64px} .scope {color:var(--muted);font-size:12px;margin-top:15px} a {color:inherit;text-underline-offset:3px} .metrics {padding:16px} dl {margin:0} dl div {padding:9px 0;border-bottom:1px solid var(--line)} dt {color:var(--muted);font-size:12px} dd {margin:2px 0 0;font-size:21px;font-variant-numeric:tabular-nums} .decision {color:var(--teal);margin-top:18px;font-size:15px} .legend {display:flex;gap:15px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0} .key {display:inline-block;width:10px;height:10px;margin-right:5px;background:var(--teal);border-radius:50%} .key.shell {background:var(--accent);border-radius:0} .key.wait {background:var(--line)} .key.radius,.key.bound {width:17px;height:0;border-radius:0;background:none;border-top:2px solid var(--teal);vertical-align:middle} .key.bound {border-color:var(--accent);border-top-style:dashed}
+@media(max-width:560px) {main {padding:18px 14px}.panels {grid-template-columns:1fr}.panels svg {max-width:380px;margin:auto}.metrics {padding:0 6px 10px}dl {display:grid;grid-template-columns:1fr 1fr;gap:12px}dd {font-size:19px}.steps {gap:5px}button {padding:7px 9px;font-size:12px}.explanation {min-height:0}}
+@media print {.steps {display:none} main {break-inside:avoid}}
+</style>
+</head>
+<body><main>
+<h1 id="title">PCA: a smaller space to search</h1>
+<p class="intro" id="intro">Organize points around the data’s geometry. Keep the original features for distance calculations.</p>
+<div class="steps" role="group" aria-label="Explore the mechanism"><button type="button" data-step="0" aria-pressed="false">Original features</button><button type="button" data-step="1" aria-pressed="false">Find the PCA axis</button><button type="button" data-step="2" aria-pressed="true">Project into bins</button></div>
+<div id="panels" class="panels"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="pca-original-title"><title id="pca-original-title">Original points, the principal axis, and original-space distances.</title><rect width="360" height="300" fill="#fbfaf7"/><text x="18" y="26" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >Original feature space</text><line x1="30" y1="149" x2="330" y2="149" stroke="#d7dbd3" /><line x1="180" y1="35" x2="180" y2="265" stroke="#d7dbd3" /><text x="313" y="170" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >x₁</text><text x="188" y="48" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >x₂</text><line x1="72.48" y1="229.64" x2="287.52" y2="68.36" stroke="#126756" stroke-width="2"/><text x="249" y="57" fill="#292b29" font-family="Arial, sans-serif" font-size="14" style="fill:#126756">PC1</text><line x1="80.16" y1="223.88" x2="80.16" y2="223.88" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="88.608" y1="203.144" x2="95.52" y2="212.36" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="110.803" y1="216.738" x2="103.2" y2="206.6" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="101.28" y1="172.04" x2="118.56" y2="195.08" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="162.895" y1="214.193" x2="137.76" y2="180.68" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="146.016" y1="163.688" x2="151.2" y2="170.6" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="174.36" y1="173.48" x2="164.64" y2="160.52" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="180" y1="149" x2="180" y2="149" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="185.64" y1="124.52" x2="195.36" y2="137.48" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="213.984" y1="134.312" x2="208.8" y2="127.4" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="197.105" y1="83.807" x2="222.24" y2="117.32" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="258.72" y1="125.96" x2="241.44" y2="102.92" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="249.197" y1="81.262" x2="256.8" y2="91.4" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="271.392" y1="94.856" x2="264.48" y2="85.64" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="279.84" y1="74.12" x2="279.84" y2="74.12" stroke="#d7dbd3" stroke-dasharray="3 3"/><line x1="180" y1="149" x2="258.72" y2="125.96" stroke="#aa481f" stroke-width="2"/><line x1="180" y1="149" x2="241.44" y2="102.92" stroke="#126756" stroke-width="3"/><circle cx="80.16" cy="223.88" r="4" fill="#777d73" id="original-point-0"/><circle cx="88.608" cy="203.144" r="4" fill="#777d73" id="original-point-1"/><circle cx="110.803" cy="216.738" r="4" fill="#777d73" id="original-point-2"/><circle cx="101.28" cy="172.04" r="4" fill="#777d73" id="original-point-3"/><circle cx="162.895" cy="214.193" r="4" fill="#777d73" id="original-point-4"/><circle cx="146.016" cy="163.688" r="4" fill="#777d73" id="original-point-5"/><circle cx="174.36" cy="173.48" r="4" fill="#777d73" id="original-point-6"/><circle cx="180" cy="149" r="4" fill="#777d73" id="original-point-7"/><circle cx="185.64" cy="124.52" r="4" fill="#777d73" id="original-point-8"/><circle cx="213.984" cy="134.312" r="4" fill="#777d73" id="original-point-9"/><circle cx="197.105" cy="83.807" r="4" fill="#777d73" id="original-point-10"/><circle cx="258.72" cy="125.96" r="6" fill="#aa481f" id="original-point-11"/><circle cx="249.197" cy="81.262" r="4" fill="#777d73" id="original-point-12"/><circle cx="271.392" cy="94.856" r="4" fill="#777d73" id="original-point-13"/><circle cx="279.84" cy="74.12" r="4" fill="#777d73" id="original-point-14"/><path d="M180 142 l7 7 -7 7 -7 -7 Z" fill="#126756"/><text x="189" y="169" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >q</text><text x="268.72" y="129.96" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >p</text><circle cx="241.44" cy="102.92" r="4" fill="#fbfaf7" stroke="#126756" stroke-width="2"/><text x="18" y="284" fill="#292b29" font-family="Arial, sans-serif" font-size="14" style="fill:#62665f;font-size:13px">Full distance q → p = 1.71</text></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" role="img" aria-labelledby="pca-index-title"><title id="pca-index-title">PCA projection places the same points in one-dimensional bins. Their projected distances are lower bounds.</title><rect width="360" height="300" fill="#fbfaf7"/><text x="18" y="26" fill="#292b29" font-family="Arial, sans-serif" font-size="14" >Compact search index</text><rect x="30" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="55" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">0</text><rect x="80" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="105" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">1</text><rect x="130" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="155" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">2</text><rect x="180" y="87" width="50" height="100" fill="#e2eee8" stroke="#d7dbd3"/><text x="205" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">3</text><rect x="230" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="255" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">4</text><rect x="280" y="87" width="50" height="100" fill="#edf0e9" stroke="#d7dbd3"/><text x="305" y="214" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">5</text><line x1="30" y1="137" x2="330" y2="137" stroke="#126756" /><circle cx="50" cy="137" r="4" fill="#777d73" id="projected-point-0"/><circle cx="70" cy="137" r="4" fill="#777d73" id="projected-point-1"/><circle cx="80" cy="137" r="4" fill="#777d73" id="projected-point-2"/><circle cx="100" cy="137" r="4" fill="#777d73" id="projected-point-3"/><circle cx="125" cy="137" r="4" fill="#777d73" id="projected-point-4"/><circle cx="142.5" cy="137" r="4" fill="#777d73" id="projected-point-5"/><circle cx="160" cy="137" r="4" fill="#777d73" id="projected-point-6"/><circle cx="180" cy="137" r="4" fill="#777d73" id="projected-point-7"/><circle cx="200" cy="137" r="4" fill="#777d73" id="projected-point-8"/><circle cx="217.5" cy="137" r="4" fill="#777d73" id="projected-point-9"/><circle cx="235" cy="137" r="4" fill="#777d73" id="projected-point-10"/><circle cx="260" cy="137" r="6" fill="#aa481f" id="projected-point-11"/><circle cx="280" cy="137" r="4" fill="#777d73" id="projected-point-12"/><circle cx="290" cy="137" r="4" fill="#777d73" id="projected-point-13"/><circle cx="310" cy="137" r="4" fill="#777d73" id="projected-point-14"/><path d="M180 130 l7 7 -7 7 -7 -7 Z" fill="#126756"/><text x="180" y="119" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">q</text><text x="260" y="119" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">p</text><line x1="180" y1="62" x2="260" y2="62" stroke="#126756" stroke-width="2"/><line x1="180" y1="57" x2="180" y2="67" stroke="#126756" /><line x1="260" y1="57" x2="260" y2="67" stroke="#126756" /><text x="220" y="51" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">1.60</text><text x="180" y="240" fill="#292b29" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" style="font-size:13px">Bin along the retained PCA coordinate</text><text x="18" y="284" fill="#292b29" font-family="Arial, sans-serif" font-size="14" style="fill:#62665f;font-size:13px">Projected distance 1.60 ≤ full distance 1.71</text></svg></div>
+<div id="legend" class="legend"></div>
+<p id="explanation" class="explanation" aria-live="polite">The projected distance is a lower bound. The original features still determine which points are nearest.</p>
+<p class="scope">Illustrative 2D → 1D example. The benchmark uses 8D → 3D. · <a href="https://github.com/AgarwalAarush/FastGraphCompute/blob/ad4392eee16734a1001e82764a13144379d931e9/fastgraphcompute/extensions/binned_select_knn.py#L13-L39" target="_blank" rel="noopener noreferrer">Implementation ↗</a></p>
+</main>
+<script>
+// Source-grounded, deterministic teaching scenes. Coordinates are illustrative.
+const scene = {
+  version: 1,
+  sourceRevision: 'ad4392eee16734a1001e82764a13144379d931e9',
+  sources: {
+    pca: 'fastgraphcompute/extensions/binned_select_knn.py#L13-L39',
+    shells: 'fastgraphcompute/extensions/binstepper.h#L43-L104',
+    stop: 'fastgraphcompute/extensions/binned_select_knn_cuda_kernel.cu#L210-L283',
+  },
+  pca: {
+    claim: 'An orthonormal PCA projection creates an index; full-space distances still rank candidates.',
+    objects: ['original-points', 'query', 'candidate', 'principal-axis', 'projected-points', 'bins', 'full-distance', 'projected-distance'],
+    beats: ['Original features', 'Find the PCA axis', 'Project into bins'],
+    scope: 'Illustrative 2D to 1D projection for readability. The library uses at least two binning dimensions; the page benchmark uses 8D to 3D.',
+    omissions: ['Subsampling', 'FP32 tolerances', 'CUDA execution'],
+    invariant: 'Every projected pairwise distance is at most its full-space distance.',
+  },
+  binstepper: {
+    claim: 'Visit each new shell boundary once; stop only after filling K and passing the conservative distance bound.',
+    objects: ['query-bin', 'shell-0', 'shell-1', 'shell-2', 'unvisited-bins', 'top-k', 'radius', 'lower-bound'],
+    beats: ['Query bin', 'First shell', 'Second shell · stop'],
+    scope: 'One query in a 7 by 7 grid, bin width 1, K=4 including self. Each view is after a complete shell, not a GPU timing or thread-order animation.',
+    omissions: ['Direction constraints', 'Ragged graph offsets', 'Bin traversal order within a shell'],
+    invariant: 'At stop, all unvisited points are farther than the farthest retained neighbor.',
+  },
+};
+
+const palettes = {
+  light: {bg:'#fbfaf7', ink:'#292b29', muted:'#62665f', grid:'#d7dbd3', faint:'#edf0e9', accent:'#aa481f', tint:'#f8e8dc', teal:'#126756', tealTint:'#e2eee8', dot:'#777d73'},
+  dark: {bg:'#202321', ink:'#edf0e9', muted:'#b5bdb2', grid:'#465047', faint:'#2b312c', accent:'#f3ad82', tint:'#493429', teal:'#85d6bc', tealTint:'#293f37', dot:'#a3ad9e'},
+};
+const f = n => Number(n.toFixed(3));
+const txt = (x,y,text,p,extra='') => `<text x="${x}" y="${y}" fill="${p.ink}" font-family="Arial, sans-serif" font-size="14" ${extra}>${text}</text>`;
+const line = (x1,y1,x2,y2,color,extra='') => `<line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}" stroke="${color}" ${extra}/>`;
+const circle = (x,y,r,fill,extra='') => `<circle cx="${f(x)}" cy="${f(y)}" r="${r}" fill="${fill}" ${extra}/>`;
+const svg = (id,description,body,p,width=360,height=300) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="${id}-title"><title id="${id}-title">${description}</title><rect width="${width}" height="${height}" fill="${p.bg}"/>${body}</svg>`;
+
+// Symmetric samples have zero mean and zero cross-covariance in this basis.
+// The direction with greatest variance is therefore exactly the chosen PCA axis.
+const pcaPoints = [
+  [-2.6,0],[-2.2,.24],[-2,-.264],[-1.6,.6],[-1.1,-.96/1.1],[-.75,.18],[-.4,-.3375],
+  [0,0],[.4,.3375],[.75,-.18],[1.1,.96/1.1],[1.6,-.6],[2,.264],[2.2,-.24],[2.6,0],
+].map(([u,v],i) => ({id:`point-${i}`,u,v,x:.8*u-.6*v,y:.6*u+.8*v}));
+
+function renderPca(step=2, theme='light') {
+  const p=palettes[theme]; const scale=48; const X=x=>180+x*scale; const Y=y=>149-y*scale;
+  const candidate=pcaPoints[11]; const query=pcaPoints[7];
+  let left = txt(18,26,'Original feature space',p);
+  left += line(30,149,330,149,p.grid)+line(180,35,180,265,p.grid);
+  left += txt(313,170,'x₁',p)+txt(188,48,'x₂',p);
+  if(step>=1) {
+    left += line(X(-2.8*.8),Y(-2.8*.6),X(2.8*.8),Y(2.8*.6),p.teal,'stroke-width="2"');
+    left += txt(249,57,'PC1',p,`style="fill:${p.teal}"`);
+  }
+  if(step===2) {
+    for(const pt of pcaPoints) left += line(X(pt.x),Y(pt.y),X(.8*pt.u),Y(.6*pt.u),p.grid,'stroke-dasharray="3 3"');
+    left += line(X(query.x),Y(query.y),X(candidate.x),Y(candidate.y),p.accent,'stroke-width="2"');
+    left += line(X(0),Y(0),X(.8*candidate.u),Y(.6*candidate.u),p.teal,'stroke-width="3"');
+  }
+  for(const pt of pcaPoints) left+=circle(X(pt.x),Y(pt.y),pt.id===candidate.id?6:4,pt.id===candidate.id?p.accent:p.dot,`id="original-${pt.id}"`);
+  left+=`<path d="M180 142 l7 7 -7 7 -7 -7 Z" fill="${p.teal}"/>`;
+  left+=txt(189,169,'q',p)+txt(X(candidate.x)+10,Y(candidate.y)+4,'p',p);
+  if(step===2) left+=circle(X(.8*candidate.u),Y(.6*candidate.u),4,p.bg,`stroke="${p.teal}" stroke-width="2"`);
+  left+=txt(18,284,step===2?'Full distance q → p = 1.71':'Same points throughout the example',p,`style="fill:${p.muted};font-size:13px"`);
+  let right=txt(18,26,'Compact search index',p);
+  if(step===2) {
+    const B=u=>180+u*50;
+    for(let i=0;i<6;i++) {
+      const x=30+i*50;
+      right+=`<rect x="${x}" y="87" width="50" height="100" fill="${i===3?p.tealTint:p.faint}" stroke="${p.grid}"/>`;
+      right+=txt(x+25,214,String(i),p,'text-anchor="middle"');
+    }
+    right+=line(30,137,330,137,p.teal);
+    pcaPoints.forEach(pt=>{right+=circle(B(pt.u),137,pt.id===candidate.id?6:4,pt.id===candidate.id?p.accent:p.dot,`id="projected-${pt.id}"`);});
+    right+=`<path d="M180 130 l7 7 -7 7 -7 -7 Z" fill="${p.teal}"/>`;
+    right+=txt(180,119,'q',p,'text-anchor="middle"')+txt(B(candidate.u),119,'p',p,'text-anchor="middle"');
+    right+=line(180,62,B(candidate.u),62,p.teal,'stroke-width="2"');
+    right+=line(180,57,180,67,p.teal)+line(B(candidate.u),57,B(candidate.u),67,p.teal);
+    right+=txt(220,51,'1.60',p,'text-anchor="middle"');
+    right+=txt(180,240,'Bin along the retained PCA coordinate',p,'text-anchor="middle" style="font-size:13px"');
+    right+=txt(18,284,'Projected distance 1.60 ≤ full distance 1.71',p,`style="fill:${p.muted};font-size:13px"`);
+  } else {
+    right+=line(42,137,318,137,p.grid,'stroke-dasharray="4 5"');
+    right+=txt(180,120,step===0?'The index has not been built.':'Keep the direction of greatest variance.',p,'text-anchor="middle" style="font-size:13px"');
+    right+=txt(180,165,step===0?'First, find a useful direction in the data.':'Next, project each point onto that axis.',p,'text-anchor="middle" style="font-size:13px"');
+  }
+  return [svg('pca-original','Original points, the principal axis, and original-space distances.',left,p),svg('pca-index','PCA projection places the same points in one-dimensional bins. Their projected distances are lower bounds.',right,p)];
+}
+
+const query = {id:'q',x:3.5,y:3.5};
+const binPoints = [query,
+  {id:'a',x:3.75,y:3.65},{id:'b',x:4.3,y:3.65},{id:'c',x:3.6,y:4.6},{id:'d',x:2.3,y:3.8},
+  {id:'e',x:4.65,y:2.25},{id:'f',x:2.15,y:2.4},{id:'g',x:5.2,y:3.9},{id:'h',x:1.6,y:4.1},
+  {id:'i',x:2.8,y:5.3},{id:'j',x:4.4,y:1.35},{id:'k',x:5.5,y:5.7},{id:'l',x:.6,y:3.2},
+  {id:'m',x:6.4,y:4.1},{id:'n',x:2.4,y:.5},{id:'o',x:4.3,y:6.4},{id:'p',x:.7,y:.8},
+  {id:'r',x:6.2,y:6.3},{id:'s',x:.8,y:5.2},{id:'t',x:5.9,y:.6},
+];
+const distance = pt => Math.hypot(pt.x-query.x,pt.y-query.y);
+const shell = pt => Math.max(Math.abs(Math.floor(pt.x)-3),Math.abs(Math.floor(pt.y)-3));
+function binState(step) {
+  const visited=binPoints.filter(pt=>shell(pt)<=step);
+  const best=[...visited].sort((a,b)=>distance(a)-distance(b)).slice(0,4);
+  const filled=best.length===4;
+  const radius=filled?distance(best[3]):null;
+  return {visited,best,filled,radius,bound:step,stop:filled && step>radius,newBins:step===0?1:8*step,visitedBins:(2*step+1)**2};
+}
+function renderBins(step=2,theme='light') {
+  const p=palettes[theme],state=binState(step),s=38,ox=47,oy=31;
+  const X=x=>ox+x*s,Y=y=>oy+(7-y)*s;
+  let body='';
+  for(let x=0;x<7;x++) for(let y=0;y<7;y++) {
+    const d=Math.max(Math.abs(x-3),Math.abs(y-3));
+    body+=`<rect id="bin-${x}-${y}" x="${X(x)}" y="${Y(y+1)}" width="${s}" height="${s}" fill="${d===step?p.tint:d<step?p.tealTint:p.bg}" stroke="${p.grid}"/>`;
+  }
+  if(state.filled) body+=circle(X(query.x),Y(query.y),f(state.radius*s),'none',`stroke="${p.teal}" stroke-width="2"`);
+  if(state.stop) body+=circle(X(query.x),Y(query.y),step*s,'none',`stroke="${p.accent}" stroke-width="1.5" stroke-dasharray="5 4"`);
+  for(const pt of binPoints) {
+    if(pt.id==='q') continue;
+    const best=state.best.some(b=>b.id===pt.id),visited=shell(pt)<=step;
+    if(best) body+=line(X(query.x),Y(query.y),X(pt.x),Y(pt.y),p.teal,'stroke-width="1.5"');
+    body+=circle(X(pt.x),Y(pt.y),best?5:3.5,best?p.teal:visited?p.dot:p.grid,`id="candidate-${pt.id}"`);
+  }
+  const qx=X(query.x),qy=Y(query.y);
+  body+=`<path d="M${qx} ${qy-7} l7 7 -7 7 -7 -7 Z" fill="${p.accent}"/>`;
+  body+=txt(qx-17,qy+18,'q',p);
+  body+=txt(180,321,state.stop?'24 outer bins remain unvisited':`Only the shell boundary is new: ${state.newBins} ${step===0?'bin':'bins'}`,p,'text-anchor="middle" style="font-size:13px"');
+  return svg('bin-grid',`After shell ${step}: ${state.visitedBins} bins visited, ${state.best.length} of 4 neighbors retained. ${state.stop?'The stopping bound is satisfied.':'Continue searching.'}`,body,p,360,340);
+}
+
+function render({time=2,theme='light',poster=false}={}) {
+  const step=poster?2:Math.max(0,Math.min(2,Math.round(time)));
+  // Standalone poster shares precisely the geometry used by the live figures.
+  const panels=[...renderPca(step,theme),renderBins(step,theme)];
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="340" viewBox="0 0 1080 340"><rect width="1080" height="340" fill="${palettes[theme].bg}"/>${panels[0].replace('<svg ','<svg x="0" y="0" width="360" height="300" ')}${panels[1].replace('<svg ','<svg x="360" y="0" width="360" height="300" ')}${panels[2].replace('<svg ','<svg x="720" y="0" width="360" height="340" ')}</svg>`;
+}
+const sampleTimes=[0,1,2];
+const posterTime=2;
+const reviewFiles=['scene.mjs','frame.html','review.md'];
+
+const kind='pca';
+let current=2;
+const explanations = {
+  pca: [
+    'Start with the original feature vectors. The diamond marks query q; the orange point p is one possible neighbor. No dimensions have been removed.',
+    'PCA finds an orthonormal direction along the cloud’s greatest variance. Each point keeps its identity and its original feature vector.',
+    'Project onto that direction to build the bins. The q–p distance shrinks from 1.71 to 1.60, so it is useful as a lower bound. Candidate ranking still uses the original 1.71 distance.'
+  ],
+  binstepper: [
+    'Scan the query’s own bin. There are only two retained points, including q, so the four-neighbor set is not full. The search must continue.',
+    'Visit the eight bins on the next boundary without rescanning the center. Four neighbors are now retained, but the lower bound of 1.00 is below the current radius of 1.10. Keep searching.',
+    'Visit the sixteen bins on the second boundary. The retained neighbors do not change. Now the conservative lower bound of 2.00 exceeds the radius of 1.10, so the remaining 24 bins cannot improve the answer.'
+  ]
+};
+function metrics(step) {
+  const state=binState(step);
+  return `<div class="metrics"><dl><div><dt>New bins in this shell</dt><dd>${state.newBins}</dd></div><div><dt>Retained neighbors · K = 4</dt><dd>${state.best.length} / 4</dd></div><div><dt>Farthest retained distance</dt><dd>${state.filled?state.radius.toFixed(2):'Not full'}</dd></div><div><dt>Unvisited distance ≥</dt><dd>${state.bound.toFixed(2)}</dd></div></dl><p class="decision">${state.stop?'2.00 > 1.10 → stop':state.filled?'1.00 < 1.10 → continue':'Fill the neighbor set → continue'}</p></div>`;
+}
+function paint() {
+  const theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
+  document.getElementById('panels').innerHTML=kind==='pca'?renderPca(current,theme).join(''):renderBins(current,theme)+metrics(current);
+  document.getElementById('explanation').textContent=explanations[kind][current];
+  document.querySelectorAll('button[data-step]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.step)===current)));
+}
+document.querySelectorAll('button[data-step]').forEach(button=>button.addEventListener('click',()=>{current=Number(button.dataset.step);paint();}));
+// Same-origin embeds inherit the portfolio's appearance and size to their content.
+// Standalone figures use the system preference; there is no second theme control.
+const media=matchMedia('(prefers-color-scheme: dark)');
+function syncTheme() {
+  let dark=media.matches;
+  try {if(window.parent!==window) dark=window.parent.document.documentElement.classList.contains('dark');} catch {}
+  document.documentElement.dataset.theme=dark?'dark':'light';paint();
+}
+syncTheme();media.addEventListener('change',syncTheme);
+try {if(window.parent!==window) new MutationObserver(syncTheme).observe(window.parent.document.documentElement,{attributes:true,attributeFilter:['class']});} catch {}
+new ResizeObserver(()=>{if(window.frameElement) {window.frameElement.style.minHeight='0px'; window.frameElement.style.height=`${Math.ceil(document.querySelector('main').getBoundingClientRect().height)+2}px`;} }).observe(document.querySelector('main'));
+window.addEventListener('beforeprint',()=>{current=2;paint();});
+</script></body></html>

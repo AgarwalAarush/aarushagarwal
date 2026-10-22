@@ -321,7 +321,7 @@ export default function ProjectPage({ project }) {
                 <article className="prose prose-sm w-full min-w-0 max-w-none markdown-github">
                   <div className="w-full min-w-0 text-black dark:text-gray-300">
                     {(() => {
-                      if (project.id !== 'AutoReflex' && project.id !== 'Abyss') {
+                      if (project.id !== 'AutoReflex' && project.id !== 'Abyss' && project.id !== 'FastGraph') {
                         return (
                           <ReactMarkdown components={components} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
                             {project.content}
@@ -329,9 +329,11 @@ export default function ProjectPage({ project }) {
                         );
                       }
 
-                      const embedMarker = /(\n*```(?:circuit-embed|software-embed|abyss-embed|abyss-dataflow-embed|abyss-infra-embed)\s*```\s*\n*)/;
+                      const embedMarker = /(\n*```(?:fastgraph-pca-embed|fastgraph-binstepper-embed|circuit-embed|software-embed|abyss-embed|abyss-dataflow-embed|abyss-infra-embed)\s*```\s*\n*)/;
                       const segments = project.content.split(embedMarker);
                       const embeds = [
+                        { marker: 'fastgraph-pca-embed', src: '/api/fastgraph-diagram?kind=pca', title: 'Interactive PCA projection and spatial binning', height: '570px' },
+                        { marker: 'fastgraph-binstepper-embed', src: '/api/fastgraph-diagram?kind=binstepper', title: 'Interactive binstepper shell search and stopping bound', height: '610px' },
                         { marker: 'circuit-embed', src: '/api/circuit-diagram', title: 'AutoReflex hardware circuit diagram', height: '560px' },
                         { marker: 'software-embed', src: '/api/software-diagram', title: 'AutoReflex software architecture diagram', height: '420px' },
                         { marker: 'abyss-embed', src: '/api/abyss-diagram', title: 'Abyss system architecture diagram', height: '730px' },
