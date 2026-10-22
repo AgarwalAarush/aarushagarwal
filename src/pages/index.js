@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import Link from "next/link";
+import { Link2 } from "lucide-react";
 import TimelineItem from "../components/TimelineItem";
 import HomepageHero from "../components/home/HomepageHero";
 import ProjectShowcase from "../components/home/ProjectShowcase";
@@ -131,15 +132,22 @@ export default function Home({ projects }) {
             period="Aug 2024 – Oct 2025"
             description={
               <>
-                <div>
-                  <Link href="/projects/FastGraph">FastGraph case study</Link>
-                  <span> · </span>
+                <div className="flex flex-col items-start gap-1">
+                  <Link
+                    href="/projects/FastGraph"
+                    className="inline-flex items-center gap-2 underline decoration-[#d83b2a]/40 focus-visible:outline-offset-4"
+                  >
+                    <Link2 aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                    FastGraph Case Study
+                  </Link>
                   <a
                     href="https://github.com/AgarwalAarush/fastgraph-paper/blob/869f9d41277c75000f51e968ac5abe655a20b9d7/Paper.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 underline decoration-[#d83b2a]/40 focus-visible:outline-offset-4"
                   >
-                    Read the PCA manuscript
+                    <Link2 aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                    FastGraph Paper
                   </a>
                 </div>
                 <p>
