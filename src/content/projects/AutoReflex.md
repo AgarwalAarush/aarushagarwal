@@ -8,6 +8,7 @@ homepage:
   cardImage: "/images/autoreflex/box-demo.jpeg"
   cardImagePosition: "right center"
   cardImages:
+    - "/images/autoreflex/autoreflex-cover.png"
     - "/generated/autoreflex/circuit-diagram.svg"
     - "/generated/autoreflex/software-diagram.svg"
   metric: "< 30 ms"
