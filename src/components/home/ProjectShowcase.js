@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import ProjectGallery from "../ProjectGallery";
 
 function cleanDescription(description = "") {
   return description
@@ -54,7 +55,7 @@ function FeaturedProjectCard({ project, index }) {
   const homepage = project.homepage || {};
   const cardImage = homepage.cardImage || project.image;
   const cardImagePosition = homepage.cardImagePosition || "center";
-  const isVideo = /\.(mp4|webm|ogg)(?:$|\?)/i.test(cardImage || "");
+  const galleryImages = [cardImage, project.image, ...(project.images || [])];
 
   return (
     <motion.article
@@ -62,11 +63,10 @@ function FeaturedProjectCard({ project, index }) {
       whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
       transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       viewport={{ once: true, amount: 0.12 }}
-      className="mb-10 overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#171716] text-[#f0eee9] shadow-[0_24px_70px_-42px_rgba(46,36,28,0.65)] sm:rounded-[1.75rem] lg:mb-14"
+      className="relative mb-10 overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#171716] text-[#f0eee9] shadow-[0_24px_70px_-42px_rgba(46,36,28,0.65)] sm:rounded-[1.75rem] lg:mb-14"
     >
-      <Link
-        href={`/projects/${project.id}`}
-        className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef432f] focus-visible:ring-inset"
+      <div
+        className="group block"
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
         onFocus={() => setActive(true)}
@@ -107,7 +107,6 @@ function FeaturedProjectCard({ project, index }) {
                 initial={false}
                 animate={{
                   color: active && !reducedMotion ? "#ef432f" : "#f0eee9",
-                  x: active && !reducedMotion ? 6 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 150, damping: 20 }}
                 className={`font-display font-medium uppercase leading-[0.75] tracking-[-0.05em] ${
@@ -116,7 +115,12 @@ function FeaturedProjectCard({ project, index }) {
                     : "text-[clamp(4rem,8vw,7.2rem)]"
                 }`}
               >
-                {project.title}
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-[#ef432f]"
+                >
+                  {project.title}
+                </Link>
               </motion.h3>
               <p className="mt-5 max-w-[42rem] text-[13px] leading-[1.65] text-white/62 sm:text-[14px]">
                 {cleanDescription(project.description)}
@@ -129,56 +133,13 @@ function FeaturedProjectCard({ project, index }) {
             />
           </div>
 
-          <div className="relative min-h-[310px] overflow-hidden bg-[#242321] lg:min-h-full">
-            {cardImage ? (
-              <motion.div
-                className="absolute inset-0"
-                initial={false}
-                animate={{
-                  scale: active && !reducedMotion ? 1.065 : 1,
-                  x: active && !reducedMotion ? (reverse ? -12 : 12) : 0,
-                }}
-                transition={{ type: "spring", stiffness: 90, damping: 20 }}
-              >
-                {isVideo ? (
-                  <video
-                    src={cardImage}
-                    aria-label={`${project.title} project demo`}
-                    autoPlay={!reducedMotion}
-                    loop={!reducedMotion}
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="h-full w-full object-cover"
-                    style={{ objectPosition: cardImagePosition }}
-                  />
-                ) : (
-                  <Image
-                    src={cardImage}
-                    alt={`${project.title} project preview`}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                    style={{ objectPosition: cardImagePosition }}
-                  />
-                )}
-              </motion.div>
-            ) : (
-              <div className="absolute inset-0 grid place-items-center font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">
-                Project preview
-              </div>
-            )}
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#171716]/75 via-transparent to-[#171716]/10" />
-            <motion.div
-              aria-hidden="true"
-              className="absolute inset-y-0 w-px bg-[#ef432f]/70"
-              initial={false}
-              animate={{
-                x: active && !reducedMotion ? "72vw" : "14vw",
-                opacity: active || reducedMotion ? 0.8 : 0,
-              }}
-              transition={{ type: "spring", stiffness: 80, damping: 22 }}
+          <div className="relative z-10 min-h-[310px] bg-[#242321] lg:min-h-full">
+            <ProjectGallery
+              title={project.title}
+              images={galleryImages}
+              href={`/projects/${project.id}`}
+              coverPosition={cardImagePosition}
+              className="absolute inset-0"
             />
           </div>
 
@@ -190,7 +151,7 @@ function FeaturedProjectCard({ project, index }) {
           </div>
         </div>
 
-      </Link>
+      </div>
     </motion.article>
   );
 }
