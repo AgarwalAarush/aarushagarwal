@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getActiveSection } from "../../lib/activeSection.mjs";
 import {
   motion,
   useMotionValueEvent,
@@ -50,22 +51,29 @@ export default function SectionNavigator() {
 
     if (!elements.length) return undefined;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      {
-        rootMargin: "-12% 0px -55% 0px",
-        threshold: [0.02, 0.2, 0.45],
-      }
-    );
-
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    let frame = null;
+    const updateActiveSection = () => {
+      frame = null;
+      const positions = elements.map((element) => ({
+        id: element.id,
+        top: element.getBoundingClientRect().top,
+      }));
+      setActiveId(getActiveSection(positions, window.innerHeight));
+    };
+    const scheduleUpdate = () => {
+      if (frame === null) frame = requestAnimationFrame(updateActiveSection);
+    };
+    const resizeObserver = new ResizeObserver(scheduleUpdate);
+    elements.forEach((element) => resizeObserver.observe(element));
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    updateActiveSection();
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      resizeObserver.disconnect();
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -95,7 +103,6 @@ export default function SectionNavigator() {
   }, [scrollCueFadeEnd, scrollY]);
 
   const selectSection = (section) => {
-    setActiveId(section.id);
     scrollToSection(section.id, reducedMotion);
   };
 
