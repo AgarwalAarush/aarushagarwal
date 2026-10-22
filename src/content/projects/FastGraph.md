@@ -1,7 +1,7 @@
 ---
 title: "FastGraph"
 category: "research"
-description: "Exact GPU k-nearest-neighbor graph construction with PCA-subspace pruning. My work spans CUDA kernel specialization, the PCA enhancement, and the paper: up to 41× faster than FAISS-GPU on the evaluated 5M-point, 8D HGCAL-derived workload."
+description: "Exact GPU k-nearest-neighbor graphs with CUDA specialization and PCA-based pruning. Up to 41× faster than exact FAISS-GPU on the evaluated 5M-point, 8D HGCAL-derived workload."
 paper: "https://github.com/AgarwalAarush/fastgraph-paper/blob/869f9d41277c75000f51e968ac5abe655a20b9d7/Paper.pdf"
 github: "https://github.com/AgarwalAarush/FastGraphCompute"
 upstream: "https://github.com/jkiesele/FastGraphCompute"
@@ -16,28 +16,26 @@ technologies:
 
 ### The Result
 
-**About 7.5 seconds instead of 310 seconds** to construct a kNN graph over 5 million detector-derived points, with 8 input features and 40 neighbors, on one NVIDIA A100 80 GB PCIe GPU. The manuscript reports **41.23×** speedup over exact FAISS-GPU `IndexFlatL2` for this workload.
+**7.5 seconds versus 310 seconds** to build a kNN graph over 5 million detector-derived points: 8 features, 40 neighbors, one NVIDIA A100 80 GB PCIe GPU. The manuscript reports a **41.23× speedup** over exact FAISS-GPU `IndexFlatL2` on this workload.
 
-This measures graph construction with inputs already on the GPU. It includes PCA estimation, projection, binning, and search; it is not a training-throughput or end-to-end application speedup.
+Timing covers PCA estimation, projection, binning, and search, with inputs already on the GPU. Data transfer and downstream training are excluded.
 
 ### My Contribution
 
-Jan Kieseler wrote the initial kernels and an early manuscript draft. I built on that foundation: **rewrote selected kernels for compile-time specialization, made targeted kernel optimizations, developed the PCA-subspace enhancement, and rewrote the entire paper from the ground up.** I am the paper’s first author; the original library and the broader research effort are collaborative work.
+I developed the PCA extension, specialized CUDA kernels, and rewrote the paper as first author, building on Jan Kieseler’s original kernels and early manuscript draft.
 
-| Area | My work |
-| --- | --- |
-| CUDA implementation | Reworked selected kernels around static specialization and made targeted performance improvements. The evaluated binning kernels specialize on 2–5 bin dimensions, separately from the full input dimensionality. |
-| PyTorch integration | Worked on C++ operator registration, autograd plumbing, and TorchScript compatibility for the axis-aligned path. The upstream [PyTorch compatibility merge](https://github.com/jkiesele/FastGraphCompute/commit/e159744371356426903b99c57a29cbae6f80de3d) records this work. |
-| PCA enhancement | Developed a data-adaptive binning space that prunes candidates using a compact orthonormal projection while retaining full-dimensional distance evaluation. See the [PCA implementation](https://github.com/AgarwalAarush/FastGraphCompute/blob/ad4392eee16734a1001e82764a13144379d931e9/fastgraphcompute/extensions/binned_select_knn.py). |
-| Paper | Wrote the manuscript anew after Jan’s initial draft, explaining the method, exactness argument, experiments, and limitations. |
+- **CUDA kernels.** Rewrote selected kernels for compile-time specialization and optimized their performance. The binning kernels specialize on 2–5 dimensions, independently of the full input dimension.
+- **PCA pruning.** Developed a compact, data-adaptive search space that reduces candidate checks while keeping distance calculations in the original space. [Implementation](https://github.com/AgarwalAarush/FastGraphCompute/blob/ad4392eee16734a1001e82764a13144379d931e9/fastgraphcompute/extensions/binned_select_knn.py).
+- **PyTorch integration.** Worked on C++ operator registration, autograd, and TorchScript support for the axis-aligned path. [Upstream merge](https://github.com/jkiesele/FastGraphCompute/commit/e159744371356426903b99c57a29cbae6f80de3d).
+- **Paper.** Rewrote the manuscript from the ground up: the method, exactness argument, experiments, and limitations. [Manuscript history](https://github.com/AgarwalAarush/fastgraph-paper/commits/main/).
 
-The [original library](https://github.com/jkiesele/FastGraphCompute), [my fork](https://github.com/AgarwalAarush/FastGraphCompute), and [manuscript history](https://github.com/AgarwalAarush/fastgraph-paper/commits/main/) provide complementary views of the work. The later PCA manuscript and release extend the [November 2025 arXiv version](https://arxiv.org/abs/2511.10442); its older benchmark claims should not be substituted for the PCA results here.
+The results below come from the later PCA manuscript and release, which extend the [November 2025 arXiv paper](https://arxiv.org/abs/2511.10442).
 
 ### The Problem
 
-Dynamic graph networks such as GravNet rebuild neighborhoods from point features during a forward pass. Exact brute-force kNN evaluates every candidate pair, which becomes expensive as point counts grow. Spatial binning can eliminate much of that work, but its effectiveness depends on the geometry of the input.
+Dynamic graph networks such as GravNet rebuild neighborhoods during each forward pass. Exact brute-force kNN checks every candidate pair, making large graphs expensive. Spatial binning skips distant candidates, but its effectiveness depends on the input geometry.
 
-The existing axis-aligned approach bins a few input coordinates. My PCA enhancement changes **which coordinate subspace organizes the search**. The final neighbors are still selected using the original features and distance metric.
+The original approach bins a few input coordinates. PCA instead chooses a **data-adaptive subspace for the search**, while selecting neighbors with the original features and distance metric.
 
 ### How It Works
 
@@ -46,7 +44,7 @@ The existing axis-aligned approach bins a few input coordinates. My PCA enhancem
 3. **Search expanding shells.** For each point, traverse nearby bins and maintain the best neighbors. Evaluate every candidate’s squared distance in the full input space.
 4. **Stop with a bound.** Once the lower bound for every unvisited bin exceeds the current farthest selected neighbor’s distance, stop searching.
 
-Compile-time specialization keeps the small set of binning dimensions explicit to the compiler, enabling fixed-size storage and loop unrolling. Increasing bin dimensions also increases the grid and traversal cost, so using every input dimension for binning would defeat the purpose.
+Specializing on a small set of binning dimensions enables fixed-size storage and loop unrolling. More binning dimensions increase grid size and traversal cost; the index stays compact even when the input has more features.
 
 ### Why PCA Preserves Exactness
 
@@ -54,7 +52,7 @@ An orthonormal projection cannot increase Euclidean distance:
 
 `distance(project(x), project(y)) ≤ distance(x, y)`
 
-Consequently, a lower bound on distance to an unvisited projected bin is also a valid lower bound in the original space. If that bound is already larger than the current K-th neighbor distance, none of its points can improve the answer. Keeping full-dimensional candidate distances **and** using this conservative stopping rule preserves exact neighbors in exact arithmetic.
+A distance lower bound for an unvisited projected bin therefore also holds in the original space. Once it exceeds the current K-th neighbor distance, that bin cannot improve the answer. This stopping rule, combined with **full-dimensional distance calculations**, preserves exact neighbors in exact arithmetic.
 
 FP32 arithmetic needs separate validation. The manuscript reports PCA-path comparisons with an element-wise brute-force reference on seeded inputs with 4, 5, 8, and 10 dimensions, neighborhood sizes 16, 40, and 128, and up to 8,000 points. It checks valid, unique, segment-local indices and sorted distance multisets within stated tolerances. Those tests cover the exercised configurations; tied distances need not produce identical neighbor indices.
 
@@ -73,13 +71,13 @@ Autograd propagates through selected distances and input coordinates. Discrete n
 | Included | PCA fit and projection, index/bin construction, and search |
 | Excluded | Data loading and host-to-device transfer; downstream message passing and training |
 
-| Method | Graph construction time, rounded | Reported speedup of FastGraph |
+| Method | Time (rounded) | FastGraph speedup |
 | --- | ---: | ---: |
 | FastGraph with PCA | 7.5 s | 1× |
 | FAISS-GPU IndexFlatL2, exact | 310 s | 41.23× |
 | cuVS brute force, exact | 146 s | 19.41× |
 
-Ratios use the underlying medians, not the rounded times displayed above. Across the HGCAL dimension sweep from 2 to 10 at 5 million points and 40 neighbors, the reported geometric-mean speedup is 10.4× over FAISS-GPU.
+Speedups compare FastGraph with each baseline using unrounded medians. Across 2–10 dimensions at 5 million points and 40 neighbors, the reported geometric-mean speedup over FAISS-GPU is 10.4×.
 
 ![Graph construction times across 2–10 input dimensions for 5 million HGCAL-derived points and 40 neighbors. FastGraph is fastest among the tested exact baselines; approximate GGNN is faster at low dimensions.](/generated/fastgraph/dimensional-scaling.png "Figure from the PCA manuscript. Lower is better; the vertical axis is logarithmic. Approximate-backend timing is not a matched-recall comparison.")
 
@@ -123,7 +121,7 @@ torch.testing.assert_close(
 print("PCA kNN matches the brute-force distance reference.")
 ```
 
-**Reproduction boundary:** this is a small correctness check, not a reproduction of the 41× timing. The [manuscript’s reproduction guide](https://github.com/AgarwalAarush/fastgraph-paper/blob/869f9d41277c75000f51e968ac5abe655a20b9d7/REPRODUCIBILITY.md) identifies the canonical timing CSVs and plotting scripts, but their separate benchmark repository currently requires access. The HGCAL input also requires approved CMS access. The public paper, figure, and library are available for inspection; a complete public rerun of the headline experiment is not currently available.
+**What you can reproduce:** the code above checks correctness on synthetic data. Reproducing the 41× timing requires access to the separate benchmark repository and approved CMS access to the HGCAL input. The [reproduction guide](https://github.com/AgarwalAarush/fastgraph-paper/blob/869f9d41277c75000f51e968ac5abe655a20b9d7/REPRODUCIBILITY.md) identifies the timing CSVs and plotting scripts. The paper, figure, and library are public; a complete public rerun of the headline experiment is not yet available.
 
 ### Limitations and Lessons
 
@@ -133,4 +131,4 @@ print("PCA kNN matches the brute-force distance reference.")
 - **PCA has a cost.** Its fit and projection may be unattractive for small graphs. The three-dimensional binning default is tuned to the evaluated workload and should be revalidated elsewhere.
 - **Integration has boundaries.** The implementation targets one GPU. The PCA wrapper uses eager mode; the axis-aligned path supports TorchScript. Atomic gradient accumulation is not guaranteed to be bitwise deterministic.
 
-The central lesson was to separate the **space used to organize a search** from the **space used to measure distance**. A compact, data-adaptive index can make an exact search much cheaper when its pruning bounds remain valid—and the benchmark needs to show where that advantage ends.
+The key insight: **organize the search in a compact space; measure distance in the original space.** Valid pruning bounds preserve exactness. The benchmarks show when that separation pays off—and when it does not.
