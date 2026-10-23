@@ -15,10 +15,6 @@ const socialLinks = [
     href: "/documents/Resume%20-%20Aarush%20Agarwal.pdf",
   },
   {
-    label: "FastGraph Case Study",
-    href: "/projects/FastGraph",
-  },
-  {
     label: "GitHub",
     href: "https://github.com/agarwalaarush",
   },
