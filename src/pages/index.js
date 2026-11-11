@@ -191,11 +191,33 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
-                  <span>Search Relevance:</span> Building ranking systems for
-                  Shopify&apos;s commerce-search stack, including fine-tuning and
-                  distilling Liquid AI LFM2.5 re-rankers for low-latency
-                  inference on custom Triton serving infrastructure. Reduced p99
-                  inference latency by 5% (20 ms → 19 ms).
+                  <span>LLM Serving:</span> Optimized TurboMind inference for a
+                  16-layer Qwen3.5 query-rewriting model using CUDA graphs with
+                  programmatic dependent launch, custom INT8 decode kernels, and
+                  calibrated FP8 prefill. Reduced benchmark latency by 17–23% at
+                  p50 and 14–23% at p99 versus the starting Qwen engine across
+                  600K requests with zero failures on production B200 hardware,
+                  with negligible quality change (term F1 Δ −0.0005). Beat
+                  production LFM2 at both p50 and p99 at every tested load for
+                  no-profile requests, which account for 97% of traffic. These
+                  results are benchmarked; deployment is pending.
+                </p>
+                <p>
+                  <span>Training &amp; Compression:</span> Fine-tuned three open
+                  models on 7.1M query-rewriting examples, then compressed
+                  Qwen3-0.6B from 28 to 18 layers and its vocabulary from 152K to
+                  65K tokens. Recovered quality through knowledge distillation,
+                  achieving near-production term F1 (0.706 versus 0.708).
+                  Accelerated distributed training steps by 3.2× with packed,
+                  token-balanced batches, and retrained the separate 16-layer
+                  Qwen3.5 model on the same dataset.
+                </p>
+                <p>
+                  <span>Self-Healing Search:</span> Built a feedback system that
+                  samples production search queries, identifies losing rewrites
+                  against reference judgments, and uses those failure cases for
+                  targeted direct preference optimization (DPO) of the
+                  query-rewriting model.
                 </p>
                 <p>
                   <span>Merchant-Aware Ranking:</span> Designed and implemented
@@ -203,17 +225,6 @@ export default function Home({ projects }) {
                   merchant-intent queries. Improved a core merchant-search
                   relevance metric by 10% by helping the ranker surface a
                   merchant&apos;s first-party catalog ahead of third-party resellers.
-                </p>
-                <p>
-                  <span>Win/Loss Analysis:</span> Identified data and supervision
-                  mismatches by comparing production re-ranker wins and losses
-                  against LLM reference judgments, establishing the need for new
-                  training data.
-                </p>
-                <p>
-                  <span>Query Rewriting:</span> Developing a unified
-                  Storefront/Shop/Catalog query-rewriting model (+0.5 NDCG) and
-                  improving non-English rewrites.
                 </p>
               </>
             }
