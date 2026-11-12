@@ -194,19 +194,20 @@ export default function Home({ projects }) {
                   <span>Training &amp; Compression:</span> Fine-tuned
                   Qwen3.5-0.8B for query rewriting, then compressed it through
                   structured layer pruning (24 → 16 layers) and reverse-BPE
-                  vocabulary reduction (248K → 65K tokens). Restored production
-                  quality through knowledge distillation.
+                  vocabulary reduction (248K → 65K tokens). Matched production
+                  term F1 through knowledge distillation.
                 </p>
                 <p>
                   <span>LLM Serving:</span> Optimized TurboMind serving for the
                   compressed Qwen3.5 model with CUDA graphs, custom
-                  INT8 decode kernels, and FP8 prefill. Cut benchmark latency
-                  17–23% at p50 and 14–23% at p99 versus the starting Qwen engine
-                  on B200 hardware, outperforming production LFM2 at both
-                  percentiles across every tested load.
+                  INT8 decode kernels, and FP8 prefill. Cut benchmark latency by
+                  approximately 20% versus Shopify&apos;s existing internal
+                  query-optimization engines on B200 hardware, matching or
+                  beating production LFM2 latency across percentiles and
+                  evaluated query categories.
                 </p>
                 <p>
-                  <span>Self-Healing Search:</span> Built a feedback system that
+                  <span>Feedback-Driven Training:</span> Built a feedback system that
                   samples production search queries, identifies losing rewrites
                   against reference judgments, and uses those failure cases for
                   targeted direct preference optimization (DPO) of the
@@ -215,7 +216,7 @@ export default function Home({ projects }) {
                 <p>
                   <span>Merchant-Aware Ranking:</span> Designed and implemented
                   an auxiliary merchant-aware training objective for
-                  merchant-intent queries. Improved a core merchant-search
+                  merchant-intent queries. Improved Shopify&apos;s Merchant Plus
                   relevance metric by 10% by helping the ranker surface a
                   merchant&apos;s first-party catalog ahead of third-party resellers.
                 </p>
