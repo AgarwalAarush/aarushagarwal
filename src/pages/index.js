@@ -191,20 +191,20 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
-                  <span>LLM Serving:</span> Optimized TurboMind serving for a
-                  16-layer Qwen3.5 query-rewriting model with CUDA graphs, custom
+                  <span>Training &amp; Compression:</span> Fine-tuned
+                  Qwen3.5-0.8B for query rewriting, then compressed it through
+                  structured layer pruning (24 → 16 layers) and reverse-BPE
+                  vocabulary reduction (248K → 65K tokens). Restored production
+                  quality through knowledge distillation.
+                </p>
+                <p>
+                  <span>LLM Serving:</span> Optimized TurboMind serving for the
+                  compressed Qwen3.5 model with CUDA graphs, custom
                   INT8 decode kernels, and FP8 prefill. Cut benchmark latency
                   17–23% at p50 and 14–23% at p99 versus the starting Qwen engine
                   on B200 hardware, outperforming production LFM2 at both
                   percentiles across every tested load for no-profile traffic
                   (97% of requests).
-                </p>
-                <p>
-                  <span>Training &amp; Compression:</span> Fine-tuned three open
-                  models on 7.1M query-rewriting examples, then compressed
-                  Qwen3-0.6B from 28 to 18 layers and its vocabulary from 152K to
-                  65K tokens. Restored near-production quality through knowledge
-                  distillation.
                 </p>
                 <p>
                   <span>Self-Healing Search:</span> Built a feedback system that
