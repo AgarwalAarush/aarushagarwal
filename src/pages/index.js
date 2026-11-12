@@ -198,6 +198,13 @@ export default function Home({ projects }) {
                   merchant&apos;s first-party catalog ahead of third-party resellers.
                 </p>
                 <p>
+                  <span>Feedback-Driven Training:</span> Built a feedback system that
+                  samples production search queries, identifies losing rewrites
+                  against reference judgments, and uses those failure cases for
+                  targeted direct preference optimization (DPO) of the
+                  query-rewriting model.
+                </p>
+                <p>
                   <span>Training &amp; Compression:</span> Fine-tuned
                   Qwen3.5-0.8B for query rewriting, then compressed it through
                   structured layer pruning (24 → 16 layers) and reverse-BPE
@@ -212,13 +219,6 @@ export default function Home({ projects }) {
                   query-optimization engines on B200 hardware, matching or
                   beating production LFM2 latency across percentiles and
                   evaluated query categories.
-                </p>
-                <p>
-                  <span>Feedback-Driven Training:</span> Built a feedback system that
-                  samples production search queries, identifies losing rewrites
-                  against reference judgments, and uses those failure cases for
-                  targeted direct preference optimization (DPO) of the
-                  query-rewriting model.
                 </p>
               </>
             }
