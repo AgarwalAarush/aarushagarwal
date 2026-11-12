@@ -191,6 +191,13 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
+                  <span>Merchant-Aware Ranking:</span> Designed and implemented
+                  an auxiliary merchant-aware training objective for
+                  merchant-intent queries. Improved Shopify&apos;s Merchant Plus
+                  relevance metric by 10% by helping the ranker surface a
+                  merchant&apos;s first-party catalog ahead of third-party resellers.
+                </p>
+                <p>
                   <span>Training &amp; Compression:</span> Fine-tuned
                   Qwen3.5-0.8B for query rewriting, then compressed it through
                   structured layer pruning (24 → 16 layers) and reverse-BPE
@@ -212,13 +219,6 @@ export default function Home({ projects }) {
                   against reference judgments, and uses those failure cases for
                   targeted direct preference optimization (DPO) of the
                   query-rewriting model.
-                </p>
-                <p>
-                  <span>Merchant-Aware Ranking:</span> Designed and implemented
-                  an auxiliary merchant-aware training objective for
-                  merchant-intent queries. Improved Shopify&apos;s Merchant Plus
-                  relevance metric by 10% by helping the ranker surface a
-                  merchant&apos;s first-party catalog ahead of third-party resellers.
                 </p>
               </>
             }
