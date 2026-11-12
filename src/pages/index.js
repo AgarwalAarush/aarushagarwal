@@ -203,8 +203,7 @@ export default function Home({ projects }) {
                   INT8 decode kernels, and FP8 prefill. Cut benchmark latency
                   17–23% at p50 and 14–23% at p99 versus the starting Qwen engine
                   on B200 hardware, outperforming production LFM2 at both
-                  percentiles across every tested load for no-profile traffic
-                  (97% of requests).
+                  percentiles across every tested load for 97% of requests.
                 </p>
                 <p>
                   <span>Self-Healing Search:</span> Built a feedback system that
