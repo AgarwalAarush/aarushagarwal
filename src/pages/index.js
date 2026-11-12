@@ -191,26 +191,20 @@ export default function Home({ projects }) {
             description={
               <>
                 <p>
-                  <span>LLM Serving:</span> Optimized TurboMind inference for a
-                  16-layer Qwen3.5 query-rewriting model using CUDA graphs with
-                  programmatic dependent launch, custom INT8 decode kernels, and
-                  calibrated FP8 prefill. Reduced benchmark latency by 17–23% at
-                  p50 and 14–23% at p99 versus the starting Qwen engine across
-                  600K requests with zero failures on production B200 hardware,
-                  with negligible quality change (term F1 Δ −0.0005). Beat
-                  production LFM2 at both p50 and p99 at every tested load for
-                  no-profile requests, which account for 97% of traffic. These
-                  results are benchmarked; deployment is pending.
+                  <span>LLM Serving:</span> Optimized TurboMind serving for a
+                  16-layer Qwen3.5 query-rewriting model with CUDA graphs, custom
+                  INT8 decode kernels, and FP8 prefill. Cut benchmark latency
+                  17–23% at p50 and 14–23% at p99 versus the starting Qwen engine
+                  on B200 hardware, outperforming production LFM2 at both
+                  percentiles across every tested load for no-profile traffic
+                  (97% of requests).
                 </p>
                 <p>
                   <span>Training &amp; Compression:</span> Fine-tuned three open
                   models on 7.1M query-rewriting examples, then compressed
                   Qwen3-0.6B from 28 to 18 layers and its vocabulary from 152K to
-                  65K tokens. Recovered quality through knowledge distillation,
-                  achieving near-production term F1 (0.706 versus 0.708).
-                  Accelerated distributed training steps by 3.2× with packed,
-                  token-balanced batches, and retrained the separate 16-layer
-                  Qwen3.5 model on the same dataset.
+                  65K tokens. Restored near-production quality through knowledge
+                  distillation.
                 </p>
                 <p>
                   <span>Self-Healing Search:</span> Built a feedback system that
