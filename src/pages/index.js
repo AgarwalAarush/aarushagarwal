@@ -212,7 +212,7 @@ export default function Home({ projects }) {
                   term F1 through knowledge distillation.
                 </p>
                 <p>
-                  <span>LLM Serving:</span> Optimized TurboMind serving for the
+                  <span>Serving Optimization:</span> Optimized TurboMind serving for the
                   compressed Qwen3.5 model with CUDA graphs, custom
                   INT8 decode kernels, and FP8 prefill. Cut benchmark latency by
                   approximately 20% versus Shopify&apos;s existing internal
