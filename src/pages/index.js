@@ -179,9 +179,32 @@ export default function Home({ projects }) {
             number="02"
             eyebrow="Industry / Practice"
             title="Experience"
-            description="Machine-learning engineering and investment work across commerce, fraud, search, and early-stage technology."
+            description="Machine-learning engineering, open-source ML systems, and investment work across commerce, fraud, search, and early-stage technology."
           />
 
+          <TimelineItem
+            icon={getAssetUrl("/images/sglang.svg")}
+            iconAlt="SGLang"
+            company="SGLang & FlashInfer"
+            role="Open-Source ML Systems Contributions"
+            period="November 2026 – Present"
+            description={
+              <>
+                <p>
+                  Improved SGLang&apos;s FP8 GEMM autotuning by correcting L2 cache
+                  contamination and latency measurement errors; achieved 7.7%
+                  lower kernel latency for the selected configuration in
+                  controlled RTX 4090 benchmarks.
+                </p>
+                <p>
+                  Developed a fix for FlashInfer&apos;s Gated DeltaNet (GDN) prefill
+                  memory corruption under CUDA MPS, correcting tensor-map
+                  workspace sizing and validating correctness across reduced
+                  SM allocations.
+                </p>
+              </>
+            }
+          />
           <TimelineItem
             icon="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg"
             iconAlt="Shopify"
