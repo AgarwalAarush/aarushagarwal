@@ -197,10 +197,20 @@ export default function Home({ projects }) {
                   controlled RTX 4090 benchmarks.
                 </p>
                 <p>
-                  Developed a fix for FlashInfer&apos;s Gated DeltaNet (GDN) prefill
-                  memory corruption under CUDA MPS, correcting tensor-map
-                  workspace sizing and validating correctness across reduced
-                  SM allocations.
+                  Traced GPU memory corruption in FlashInfer&apos;s Gated DeltaNet
+                  (GDN) prefill to incorrect workspace sizing under CUDA MPS and
+                  built a fix compatible with CUDA graph capture. Implemented a
+                  cached device-level probe and validated on NVIDIA H100 and
+                  Blackwell GPUs. Blackwell tests at 25%, 50%, and 100% MPS thread
+                  shares matched reference outputs with zero workspace overflows.
+                  {" "}
+                  <a
+                    href="https://github.com/flashinfer-ai/flashinfer/pull/9499"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    PR #9499 (open)
+                  </a>.
                 </p>
               </>
             }
