@@ -186,23 +186,41 @@ export default function Home({ projects }) {
             icon={getAssetUrl("/images/sglang.svg")}
             iconAlt="SGLang"
             company="SGLang & FlashInfer"
-            role="Open-Source ML Systems Contributions"
+            role="Open-Source ML Systems Contributor"
             period="November 2026 – Present"
             description={
               <>
                 <p>
-                  Improved SGLang&apos;s FP8 GEMM autotuning by correcting L2 cache
-                  contamination and latency measurement errors; achieved 7.7%
-                  lower kernel latency for the selected configuration in
-                  controlled RTX 4090 benchmarks.
+                  <span>FP8 GEMM Autotuning:</span> Corrected L2 cache contamination
+                  and latency measurement errors in SGLang&apos;s block-wise tuner.
+                  Separated cache eviction from kernel timing so configurations
+                  are ranked on comparable cold-cache measurements; the selected
+                  configuration achieved 7.7% lower kernel latency in controlled
+                  RTX 4090 benchmarks.
                 </p>
                 <p>
-                  Traced GPU memory corruption in FlashInfer&apos;s Gated DeltaNet
-                  (GDN) prefill to incorrect workspace sizing under CUDA MPS and
-                  built a fix compatible with CUDA graph capture. Implemented a
-                  cached device-level probe and validated on NVIDIA H100 and
-                  Blackwell GPUs. Blackwell tests at 25%, 50%, and 100% MPS thread
-                  shares matched reference outputs with zero workspace overflows.
+                  <span>GPU Memory Safety:</span> Traced FlashInfer&apos;s Gated
+                  DeltaNet (GDN) prefill memory corruption under CUDA MPS to
+                  reduced visible SM counts that could undersize tensor-map
+                  workspaces. Built a cached device-level SM-ID probe compatible
+                  with CUDA graph capture. Validated on NVIDIA H100 and Blackwell
+                  GPUs; Blackwell tests at 25%, 50%, and 100% MPS thread shares
+                  matched reference outputs with zero workspace overflows.
+                </p>
+                <p>
+                  <span>Persistent Kernel Caching:</span> Implemented CuTe-DSL disk
+                  caching for FlashInfer&apos;s MXFP8 GEMM runners, reusing compiled
+                  kernels across processes. Added architecture-specific cache
+                  keys, source invalidation, and recompilation on cache failures.
+                  On a tested RTX PRO 6000 Blackwell warp split-K workload,
+                  reduced first-call time from 0.33 s to 0.04 s with
+                  bitwise-identical outputs. SM120 validation passed 515 tests
+                  with both cold and warm caches.
+                </p>
+                <p>
+                  <span>MoE Tuner Reliability:</span> Fixed nullable quantization
+                  metadata handling in SGLang&apos;s Triton MoE tuner, preserving
+                  channel, tensor, block, and grouped configuration semantics.
                 </p>
               </>
             }
