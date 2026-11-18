@@ -259,13 +259,16 @@ export default function Home({ projects }) {
                   term F1 through knowledge distillation.
                 </p>
                 <p>
-                  <span>Serving Optimization:</span> Optimized TurboMind serving for the
-                  compressed Qwen3.5 model with CUDA graphs, custom
-                  INT8 decode kernels, and FP8 prefill. Cut benchmark latency by
-                  approximately 20% versus Shopify&apos;s existing internal
-                  query-optimization engines on B200 hardware, matching or
-                  beating production LFM2 latency across percentiles and
-                  evaluated query categories.
+                  <span>Serving Optimization:</span> Optimized TurboMind serving
+                  for the compressed Qwen3.5-0.8B query-rewriting model with CUDA
+                  Graphs, programmatic dependent launch (PDL), bandwidth-optimized
+                  GEMV kernels, and graph warm-up. Reduced{" "}
+                  <strong className="font-semibold text-[#22211f]">
+                    p50 latency by 17–23% and p99 latency by 14–23%
+                  </strong>{" "}
+                  versus Shopify&apos;s existing internal query-optimization
+                  engines on NVIDIA B200 hardware, with a term-F1 change of just
+                  −0.0005.
                 </p>
               </>
             }
