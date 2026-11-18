@@ -110,8 +110,12 @@ yarn-error.log*
 # vercel
 .vercel
 
-# Static assets — served from Vercel Blob, not in repo
+# Static assets — generally served from Vercel Blob
 /public/*
+# The public resume URL serves this bundled file and updates on deployment.
+!/public/documents/
+/public/documents/*
+!/public/documents/Resume - Aarush Agarwal.pdf
 !/public/metadata/
 !/public/metadata/**
 !/public/fonts/
