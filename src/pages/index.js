@@ -239,36 +239,35 @@ export default function Home({ projects }) {
               <>
                 <p>
                   <span>Merchant-Aware Ranking:</span> Designed and implemented
-                  an auxiliary merchant-aware training objective for
-                  merchant-intent queries. Improved Shopify&apos;s Merchant Plus
-                  relevance metric by 10% by helping the ranker surface a
-                  merchant&apos;s first-party catalog ahead of third-party resellers.
-                </p>
-                <p>
-                  <span>Feedback-Driven Training:</span> Built a feedback system that
-                  samples production search queries, identifies losing rewrites
-                  against reference judgments, and uses those failure cases for
-                  targeted direct preference optimization (DPO) of the
-                  query-rewriting model.
-                </p>
-                <p>
-                  <span>Training &amp; Compression:</span> Fine-tuned
-                  Qwen3.5-0.8B for query rewriting, then compressed it through
-                  structured layer pruning (24 → 16 layers) and reverse-BPE
-                  vocabulary reduction (248K → 65K tokens). Matched production
-                  term F1 through knowledge distillation.
-                </p>
-                <p>
-                  <span>Serving Optimization:</span> Optimized TurboMind serving
-                  for the compressed Qwen3.5-0.8B query-rewriting model with CUDA
-                  Graphs, programmatic dependent launch (PDL), bandwidth-optimized
-                  GEMV kernels, and graph warm-up. Reduced{" "}
+                  a reusable auxiliary-loss framework for Shopify&apos;s search
+                  reranker. Used it to develop a merchant-aware training objective
+                  for merchant-intent queries, improving Shopify&apos;s Merchant
+                  Plus relevance metric by{" "}
                   <strong className="font-semibold text-[#22211f]">
-                    p50 latency by 17–23% and p99 latency by 14–23%
+                    11 percentage points
+                  </strong>
+                  . The framework enabled future work on incorporating signals
+                  such as user engagement and high-quality clicks.
+                </p>
+                <p>
+                  <span>Query Rewriting &amp; Inference:</span> Pruned and
+                  distilled Qwen3.5 for query rewriting, matching the search
+                  relevance of Shopify&apos;s production model and serving faster
+                  across nearly every tested load and latency percentile on
+                  production NVIDIA B200 MIG slices. Cut{" "}
+                  <strong className="font-semibold text-[#22211f]">
+                    p50 latency by 23% against Shopify&apos;s tuned in-house
+                    inference stack
                   </strong>{" "}
-                  versus Shopify&apos;s existing internal query-optimization
-                  engines on NVIDIA B200 hardware, with a term-F1 change of just
-                  −0.0005.
+                  by optimizing TurboMind with CUDA Graphs, programmatic
+                  dependent launch (PDL), custom INT8 decode kernels, and FP8
+                  prefill.
+                </p>
+                <p>
+                  <span>Feedback-Driven Training:</span> Built a pipeline that
+                  mines failed query rewrites from production and turns verified
+                  failures into preference pairs for targeted direct preference
+                  optimization (DPO).
                 </p>
               </>
             }
